@@ -1,0 +1,1 @@
+# BCSH2-SemestralniPrace
