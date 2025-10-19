@@ -1,13 +1,17 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\jakub\\Desktop\\Main Folder\\UPCE\\5. semestr\\Programov\u00E1n\u00ED v .NET a C# II\\BCSH2-SemestralniPrace\\SemestralniPrace\\",
+  "WorkspaceRootPath": "C:\\Users\\ondra\\OneDrive\\Plocha\\BCSH2-SemestralniPrace\\SemestralniPrace\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{D9960DFF-1C05-4116-9536-571ECD870BAB}|SemestralniPrace\\SemestralniPrace.csproj|c:\\users\\jakub\\desktop\\main folder\\upce\\5. semestr\\programov\u00E1n\u00ED v .net a c# ii\\bcsh2-semestralniprace\\semestralniprace\\semestralniprace\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "AbsoluteMoniker": "D:0:0:{322474FC-3324-4DFF-BABC-CB64740C0697}|DatabaseAccess\\DatabaseAccess.csproj|c:\\users\\ondra\\onedrive\\plocha\\bcsh2-semestralniprace\\semestralniprace\\databaseaccess\\class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{322474FC-3324-4DFF-BABC-CB64740C0697}|DatabaseAccess\\DatabaseAccess.csproj|solutionrelative:databaseaccess\\class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D9960DFF-1C05-4116-9536-571ECD870BAB}|SemestralniPrace\\SemestralniPrace.csproj|c:\\users\\ondra\\onedrive\\plocha\\bcsh2-semestralniprace\\semestralniprace\\semestralniprace\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{D9960DFF-1C05-4116-9536-571ECD870BAB}|SemestralniPrace\\SemestralniPrace.csproj|solutionrelative:semestralniprace\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{D9960DFF-1C05-4116-9536-571ECD870BAB}|SemestralniPrace\\SemestralniPrace.csproj|c:\\users\\jakub\\desktop\\main folder\\upce\\5. semestr\\programov\u00E1n\u00ED v .net a c# ii\\bcsh2-semestralniprace\\semestralniprace\\semestralniprace\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{D9960DFF-1C05-4116-9536-571ECD870BAB}|SemestralniPrace\\SemestralniPrace.csproj|C:\\Users\\ondra\\OneDrive\\Plocha\\BCSH2-SemestralniPrace\\SemestralniPrace\\semestralniprace\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{D9960DFF-1C05-4116-9536-571ECD870BAB}|SemestralniPrace\\SemestralniPrace.csproj|solutionrelative:semestralniprace\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -18,23 +22,28 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 0,
           "Children": [
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:128:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
-            },
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "Class1.cs",
+              "DocumentMoniker": "C:\\Users\\ondra\\OneDrive\\Plocha\\BCSH2-SemestralniPrace\\SemestralniPrace\\DatabaseAccess\\Class1.cs",
+              "RelativeDocumentMoniker": "DatabaseAccess\\Class1.cs",
+              "ToolTip": "C:\\Users\\ondra\\OneDrive\\Plocha\\BCSH2-SemestralniPrace\\SemestralniPrace\\DatabaseAccess\\Class1.cs",
+              "RelativeToolTip": "DatabaseAccess\\Class1.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-18T17:34:05.754Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "MainWindow.xaml",
-              "DocumentMoniker": "C:\\Users\\jakub\\Desktop\\Main Folder\\UPCE\\5. semestr\\Programov\u00E1n\u00ED v .NET a C# II\\BCSH2-SemestralniPrace\\SemestralniPrace\\SemestralniPrace\\MainWindow.xaml",
+              "DocumentMoniker": "C:\\Users\\ondra\\OneDrive\\Plocha\\BCSH2-SemestralniPrace\\SemestralniPrace\\SemestralniPrace\\MainWindow.xaml",
               "RelativeDocumentMoniker": "SemestralniPrace\\MainWindow.xaml",
-              "ToolTip": "C:\\Users\\jakub\\Desktop\\Main Folder\\UPCE\\5. semestr\\Programov\u00E1n\u00ED v .NET a C# II\\BCSH2-SemestralniPrace\\SemestralniPrace\\SemestralniPrace\\MainWindow.xaml",
+              "ToolTip": "C:\\Users\\ondra\\OneDrive\\Plocha\\BCSH2-SemestralniPrace\\SemestralniPrace\\SemestralniPrace\\MainWindow.xaml",
               "RelativeToolTip": "SemestralniPrace\\MainWindow.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
               "WhenOpened": "2025-09-29T08:27:23.503Z",
@@ -42,16 +51,15 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "MainWindow.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\jakub\\Desktop\\Main Folder\\UPCE\\5. semestr\\Programov\u00E1n\u00ED v .NET a C# II\\BCSH2-SemestralniPrace\\SemestralniPrace\\SemestralniPrace\\MainWindow.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\ondra\\OneDrive\\Plocha\\BCSH2-SemestralniPrace\\SemestralniPrace\\SemestralniPrace\\MainWindow.xaml.cs",
               "RelativeDocumentMoniker": "SemestralniPrace\\MainWindow.xaml.cs",
-              "ToolTip": "C:\\Users\\jakub\\Desktop\\Main Folder\\UPCE\\5. semestr\\Programov\u00E1n\u00ED v .NET a C# II\\BCSH2-SemestralniPrace\\SemestralniPrace\\SemestralniPrace\\MainWindow.xaml.cs",
+              "ToolTip": "C:\\Users\\ondra\\OneDrive\\Plocha\\BCSH2-SemestralniPrace\\SemestralniPrace\\SemestralniPrace\\MainWindow.xaml.cs",
               "RelativeToolTip": "SemestralniPrace\\MainWindow.xaml.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-29T08:27:20.663Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-29T08:27:20.663Z"
             }
           ]
         }
