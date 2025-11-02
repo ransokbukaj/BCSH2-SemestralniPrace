@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace Entities.Account
 {
-    internal class User
+    public class User
     {
         public int Id { get; set; }
         public string Username { get; set; }
-        public string Password { get; set; } // Hash
+        public string PasswordHash { get; set; }
 
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -22,6 +22,5 @@ namespace Entities.Account
 
         public Role Role { get; set; }
         public List<LogHistory> UserHistory { get; set; }
-
     }
 }

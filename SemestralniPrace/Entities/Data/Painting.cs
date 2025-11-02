@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace Entities.Data
 {
-    internal class Painting : ArtPiece
+    public class Painting : ArtPiece
     {
         public Foundation Base { get; set; }
         public Technique Technique { get; set; }
-
     }
 }

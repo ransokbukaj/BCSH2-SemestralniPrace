@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 
 namespace Entities.Account
 {
-    internal class Role
+    // Možná předělat na Enum
+
+    public class Role
     {
         public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-
     }
 }

@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 
 namespace Entities.Data
 {
-    internal class VisitType
+    // Možná předělat na Enum
+
+    public class VisitType
     {
         public int Id { get; set; }
         public string Name { get; set; }
         public decimal Price { get; set; }
-
     }
 }

@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace Entities.Data
 {
-    internal class Material
+    // Možná předělat na Enum
+
+    public class Material
     {
         public int Id { get; set; }
         public string Name { get; set; }
-
-
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Entities.Data
 {
-    internal abstract class ArtPiece
+    public abstract class ArtPiece
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -17,7 +17,5 @@ namespace Entities.Data
 
         public List<Artist> Creators { get; set; }
         public Sale? Sale { get; set; }
-
-
     }
 }

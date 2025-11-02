@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Entities.Account
 {
-    internal class LogHistory
+    public class LogHistory
     {
         public int Id { get; set; }
         public string TableName { get; set; }

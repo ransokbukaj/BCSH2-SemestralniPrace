@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Entities.Data
 {
-    internal class EducationProgram
+    public class EducationProgram
     {
         public int Id { get; set; }
         public string Name { get; set; }

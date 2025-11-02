@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Entities.Data
 {
-    internal class Artist
+    public class Artist
     {
         public int Id { get; set; }
         public string FirstName { get; set; }
@@ -14,7 +14,5 @@ namespace Entities.Data
         public DateOnly DateOfBirth { get; set; }
         public DateOnly DateOfDeath { get; set; }
         public string Description { get; set; }
-
-
     }
 }

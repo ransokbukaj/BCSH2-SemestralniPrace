@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Entities.Data
 {
-    internal class Post
+    public class Post
     {
         public int Id { get; set; }
         public string City { get; set; }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Entities.Data
 {
-    internal class Exhibition
+    public class Exhibition
     {
         public int Id { get; set; }
         public string Name { get; set; }

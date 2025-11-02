@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace Entities.Data
 {
-    internal class Foundation
+    // Možná předělat na Enum
+
+    public class Foundation
     {
         public int Id { get; set; }
         public string Name { get; set; }
-
     }
 }

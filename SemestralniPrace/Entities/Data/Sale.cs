@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Entities.Data
 {
-    internal class Sale
+    public class Sale
     {
         public int Id { get; set; }
         public decimal Price { get; set; }
@@ -14,8 +14,7 @@ namespace Entities.Data
         public string CardNumber { get; set; }
         public string AccountNumber { get; set; }
 
-        public TypeOfPayment TypeOfPayment { get; set; }
+        public PaymentMethod TypeOfPayment { get; set; }
         public List<ArtPiece> ArtPieces { get; set; }
-
     }
 }

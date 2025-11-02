@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Entities.Data
 {
-    internal class Adress
+    public class Adress
     {
         public int Id { get; set; }
         public string Street { get; set; }
@@ -15,6 +15,5 @@ namespace Entities.Data
 
         public List<Buyer> Buyers { get; set; }
         public Post Post { get; set; }
-
     }
 }
