@@ -4,18 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Entities
+namespace Entities.Data
 {
-    internal class Buyer
+    internal class Artist
     {
         public int Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public string PhoneNumber { get; set; }
-        public string Email { get; set; }
+        public DateOnly DateOfBirth { get; set; }
+        public DateOnly DateOfDeath { get; set; }
+        public string Description { get; set; }
 
-        public List<Sale> BoughtArtPieces { get; set; }
-        public Adress Adress { get; set; }
 
     }
 }

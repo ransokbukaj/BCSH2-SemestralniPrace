@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Entities
+namespace Entities.Data
 {
-    internal class EducationProgram
+    internal class Exhibition
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -14,6 +14,7 @@ namespace Entities
         public DateOnly To { get; set; }
         public string Description { get; set; }
 
-        public List<Exhibition> Exhibitions { get; set; }
+        public List<ArtPiece> ArtPieces { get; set; }
+        public List<Visit> Visits { get; set; }
     }
 }

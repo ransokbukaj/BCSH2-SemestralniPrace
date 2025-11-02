@@ -3,6 +3,18 @@
   "WorkspaceRootPath": "C:\\Users\\ondra\\OneDrive\\Plocha\\BCSH2-SemestralniPrace\\SemestralniPrace\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{80D8C08C-FCC8-415C-ABA2-6239A9D47831}|Entities\\Entities.csproj|c:\\users\\ondra\\onedrive\\plocha\\bcsh2-semestralniprace\\semestralniprace\\entities\\account\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{80D8C08C-FCC8-415C-ABA2-6239A9D47831}|Entities\\Entities.csproj|solutionrelative:entities\\account\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{80D8C08C-FCC8-415C-ABA2-6239A9D47831}|Entities\\Entities.csproj|c:\\users\\ondra\\onedrive\\plocha\\bcsh2-semestralniprace\\semestralniprace\\entities\\account\\loghistory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{80D8C08C-FCC8-415C-ABA2-6239A9D47831}|Entities\\Entities.csproj|solutionrelative:entities\\account\\loghistory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{80D8C08C-FCC8-415C-ABA2-6239A9D47831}|Entities\\Entities.csproj|c:\\users\\ondra\\onedrive\\plocha\\bcsh2-semestralniprace\\semestralniprace\\entities\\account\\role.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{80D8C08C-FCC8-415C-ABA2-6239A9D47831}|Entities\\Entities.csproj|solutionrelative:entities\\account\\role.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{322474FC-3324-4DFF-BABC-CB64740C0697}|DatabaseAccess\\DatabaseAccess.csproj|c:\\users\\ondra\\onedrive\\plocha\\bcsh2-semestralniprace\\semestralniprace\\databaseaccess\\loaddata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{322474FC-3324-4DFF-BABC-CB64740C0697}|DatabaseAccess\\DatabaseAccess.csproj|solutionrelative:databaseaccess\\loaddata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -19,68 +31,68 @@
       "RelativeMoniker": "D:0:0:{322474FC-3324-4DFF-BABC-CB64740C0697}|DatabaseAccess\\DatabaseAccess.csproj|solutionrelative:databaseaccess\\interface\\isavedata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{80D8C08C-FCC8-415C-ABA2-6239A9D47831}|Entities\\Entities.csproj|c:\\users\\ondra\\onedrive\\plocha\\bcsh2-semestralniprace\\semestralniprace\\entities\\post.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{80D8C08C-FCC8-415C-ABA2-6239A9D47831}|Entities\\Entities.csproj|solutionrelative:entities\\post.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{80D8C08C-FCC8-415C-ABA2-6239A9D47831}|Entities\\Entities.csproj|c:\\users\\ondra\\onedrive\\plocha\\bcsh2-semestralniprace\\semestralniprace\\entities\\data\\post.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{80D8C08C-FCC8-415C-ABA2-6239A9D47831}|Entities\\Entities.csproj|solutionrelative:entities\\data\\post.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{80D8C08C-FCC8-415C-ABA2-6239A9D47831}|Entities\\Entities.csproj|c:\\users\\ondra\\onedrive\\plocha\\bcsh2-semestralniprace\\semestralniprace\\entities\\adress.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{80D8C08C-FCC8-415C-ABA2-6239A9D47831}|Entities\\Entities.csproj|solutionrelative:entities\\adress.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{80D8C08C-FCC8-415C-ABA2-6239A9D47831}|Entities\\Entities.csproj|c:\\users\\ondra\\onedrive\\plocha\\bcsh2-semestralniprace\\semestralniprace\\entities\\data\\adress.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{80D8C08C-FCC8-415C-ABA2-6239A9D47831}|Entities\\Entities.csproj|solutionrelative:entities\\data\\adress.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{80D8C08C-FCC8-415C-ABA2-6239A9D47831}|Entities\\Entities.csproj|c:\\users\\ondra\\onedrive\\plocha\\bcsh2-semestralniprace\\semestralniprace\\entities\\buyer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{80D8C08C-FCC8-415C-ABA2-6239A9D47831}|Entities\\Entities.csproj|solutionrelative:entities\\buyer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{80D8C08C-FCC8-415C-ABA2-6239A9D47831}|Entities\\Entities.csproj|c:\\users\\ondra\\onedrive\\plocha\\bcsh2-semestralniprace\\semestralniprace\\entities\\data\\buyer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{80D8C08C-FCC8-415C-ABA2-6239A9D47831}|Entities\\Entities.csproj|solutionrelative:entities\\data\\buyer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{80D8C08C-FCC8-415C-ABA2-6239A9D47831}|Entities\\Entities.csproj|c:\\users\\ondra\\onedrive\\plocha\\bcsh2-semestralniprace\\semestralniprace\\entities\\sale.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{80D8C08C-FCC8-415C-ABA2-6239A9D47831}|Entities\\Entities.csproj|solutionrelative:entities\\sale.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{80D8C08C-FCC8-415C-ABA2-6239A9D47831}|Entities\\Entities.csproj|c:\\users\\ondra\\onedrive\\plocha\\bcsh2-semestralniprace\\semestralniprace\\entities\\data\\sale.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{80D8C08C-FCC8-415C-ABA2-6239A9D47831}|Entities\\Entities.csproj|solutionrelative:entities\\data\\sale.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{80D8C08C-FCC8-415C-ABA2-6239A9D47831}|Entities\\Entities.csproj|c:\\users\\ondra\\onedrive\\plocha\\bcsh2-semestralniprace\\semestralniprace\\entities\\artpiece.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{80D8C08C-FCC8-415C-ABA2-6239A9D47831}|Entities\\Entities.csproj|solutionrelative:entities\\artpiece.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{80D8C08C-FCC8-415C-ABA2-6239A9D47831}|Entities\\Entities.csproj|c:\\users\\ondra\\onedrive\\plocha\\bcsh2-semestralniprace\\semestralniprace\\entities\\data\\artpiece.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{80D8C08C-FCC8-415C-ABA2-6239A9D47831}|Entities\\Entities.csproj|solutionrelative:entities\\data\\artpiece.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{80D8C08C-FCC8-415C-ABA2-6239A9D47831}|Entities\\Entities.csproj|c:\\users\\ondra\\onedrive\\plocha\\bcsh2-semestralniprace\\semestralniprace\\entities\\painting.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{80D8C08C-FCC8-415C-ABA2-6239A9D47831}|Entities\\Entities.csproj|solutionrelative:entities\\painting.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{80D8C08C-FCC8-415C-ABA2-6239A9D47831}|Entities\\Entities.csproj|c:\\users\\ondra\\onedrive\\plocha\\bcsh2-semestralniprace\\semestralniprace\\entities\\data\\painting.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{80D8C08C-FCC8-415C-ABA2-6239A9D47831}|Entities\\Entities.csproj|solutionrelative:entities\\data\\painting.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{80D8C08C-FCC8-415C-ABA2-6239A9D47831}|Entities\\Entities.csproj|c:\\users\\ondra\\onedrive\\plocha\\bcsh2-semestralniprace\\semestralniprace\\entities\\sculpture.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{80D8C08C-FCC8-415C-ABA2-6239A9D47831}|Entities\\Entities.csproj|solutionrelative:entities\\sculpture.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{80D8C08C-FCC8-415C-ABA2-6239A9D47831}|Entities\\Entities.csproj|c:\\users\\ondra\\onedrive\\plocha\\bcsh2-semestralniprace\\semestralniprace\\entities\\data\\sculpture.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{80D8C08C-FCC8-415C-ABA2-6239A9D47831}|Entities\\Entities.csproj|solutionrelative:entities\\data\\sculpture.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{80D8C08C-FCC8-415C-ABA2-6239A9D47831}|Entities\\Entities.csproj|c:\\users\\ondra\\onedrive\\plocha\\bcsh2-semestralniprace\\semestralniprace\\entities\\exhibition.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{80D8C08C-FCC8-415C-ABA2-6239A9D47831}|Entities\\Entities.csproj|solutionrelative:entities\\exhibition.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{80D8C08C-FCC8-415C-ABA2-6239A9D47831}|Entities\\Entities.csproj|c:\\users\\ondra\\onedrive\\plocha\\bcsh2-semestralniprace\\semestralniprace\\entities\\data\\exhibition.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{80D8C08C-FCC8-415C-ABA2-6239A9D47831}|Entities\\Entities.csproj|solutionrelative:entities\\data\\exhibition.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{80D8C08C-FCC8-415C-ABA2-6239A9D47831}|Entities\\Entities.csproj|c:\\users\\ondra\\onedrive\\plocha\\bcsh2-semestralniprace\\semestralniprace\\entities\\educationprogram.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{80D8C08C-FCC8-415C-ABA2-6239A9D47831}|Entities\\Entities.csproj|solutionrelative:entities\\educationprogram.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{80D8C08C-FCC8-415C-ABA2-6239A9D47831}|Entities\\Entities.csproj|c:\\users\\ondra\\onedrive\\plocha\\bcsh2-semestralniprace\\semestralniprace\\entities\\data\\educationprogram.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{80D8C08C-FCC8-415C-ABA2-6239A9D47831}|Entities\\Entities.csproj|solutionrelative:entities\\data\\educationprogram.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{80D8C08C-FCC8-415C-ABA2-6239A9D47831}|Entities\\Entities.csproj|c:\\users\\ondra\\onedrive\\plocha\\bcsh2-semestralniprace\\semestralniprace\\entities\\typeofpayment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{80D8C08C-FCC8-415C-ABA2-6239A9D47831}|Entities\\Entities.csproj|solutionrelative:entities\\typeofpayment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{80D8C08C-FCC8-415C-ABA2-6239A9D47831}|Entities\\Entities.csproj|c:\\users\\ondra\\onedrive\\plocha\\bcsh2-semestralniprace\\semestralniprace\\entities\\data\\typeofpayment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{80D8C08C-FCC8-415C-ABA2-6239A9D47831}|Entities\\Entities.csproj|solutionrelative:entities\\data\\typeofpayment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{80D8C08C-FCC8-415C-ABA2-6239A9D47831}|Entities\\Entities.csproj|c:\\users\\ondra\\onedrive\\plocha\\bcsh2-semestralniprace\\semestralniprace\\entities\\visittype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{80D8C08C-FCC8-415C-ABA2-6239A9D47831}|Entities\\Entities.csproj|solutionrelative:entities\\visittype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{80D8C08C-FCC8-415C-ABA2-6239A9D47831}|Entities\\Entities.csproj|c:\\users\\ondra\\onedrive\\plocha\\bcsh2-semestralniprace\\semestralniprace\\entities\\data\\visittype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{80D8C08C-FCC8-415C-ABA2-6239A9D47831}|Entities\\Entities.csproj|solutionrelative:entities\\data\\visittype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{80D8C08C-FCC8-415C-ABA2-6239A9D47831}|Entities\\Entities.csproj|c:\\users\\ondra\\onedrive\\plocha\\bcsh2-semestralniprace\\semestralniprace\\entities\\visit.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{80D8C08C-FCC8-415C-ABA2-6239A9D47831}|Entities\\Entities.csproj|solutionrelative:entities\\visit.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{80D8C08C-FCC8-415C-ABA2-6239A9D47831}|Entities\\Entities.csproj|c:\\users\\ondra\\onedrive\\plocha\\bcsh2-semestralniprace\\semestralniprace\\entities\\data\\visit.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{80D8C08C-FCC8-415C-ABA2-6239A9D47831}|Entities\\Entities.csproj|solutionrelative:entities\\data\\visit.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{80D8C08C-FCC8-415C-ABA2-6239A9D47831}|Entities\\Entities.csproj|c:\\users\\ondra\\onedrive\\plocha\\bcsh2-semestralniprace\\semestralniprace\\entities\\technique.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{80D8C08C-FCC8-415C-ABA2-6239A9D47831}|Entities\\Entities.csproj|solutionrelative:entities\\technique.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{80D8C08C-FCC8-415C-ABA2-6239A9D47831}|Entities\\Entities.csproj|c:\\users\\ondra\\onedrive\\plocha\\bcsh2-semestralniprace\\semestralniprace\\entities\\data\\technique.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{80D8C08C-FCC8-415C-ABA2-6239A9D47831}|Entities\\Entities.csproj|solutionrelative:entities\\data\\technique.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{80D8C08C-FCC8-415C-ABA2-6239A9D47831}|Entities\\Entities.csproj|c:\\users\\ondra\\onedrive\\plocha\\bcsh2-semestralniprace\\semestralniprace\\entities\\foundation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{80D8C08C-FCC8-415C-ABA2-6239A9D47831}|Entities\\Entities.csproj|solutionrelative:entities\\foundation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{80D8C08C-FCC8-415C-ABA2-6239A9D47831}|Entities\\Entities.csproj|c:\\users\\ondra\\onedrive\\plocha\\bcsh2-semestralniprace\\semestralniprace\\entities\\data\\foundation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{80D8C08C-FCC8-415C-ABA2-6239A9D47831}|Entities\\Entities.csproj|solutionrelative:entities\\data\\foundation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{80D8C08C-FCC8-415C-ABA2-6239A9D47831}|Entities\\Entities.csproj|c:\\users\\ondra\\onedrive\\plocha\\bcsh2-semestralniprace\\semestralniprace\\entities\\material.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{80D8C08C-FCC8-415C-ABA2-6239A9D47831}|Entities\\Entities.csproj|solutionrelative:entities\\material.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{80D8C08C-FCC8-415C-ABA2-6239A9D47831}|Entities\\Entities.csproj|c:\\users\\ondra\\onedrive\\plocha\\bcsh2-semestralniprace\\semestralniprace\\entities\\data\\material.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{80D8C08C-FCC8-415C-ABA2-6239A9D47831}|Entities\\Entities.csproj|solutionrelative:entities\\data\\material.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{80D8C08C-FCC8-415C-ABA2-6239A9D47831}|Entities\\Entities.csproj|c:\\users\\ondra\\onedrive\\plocha\\bcsh2-semestralniprace\\semestralniprace\\entities\\artist.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{80D8C08C-FCC8-415C-ABA2-6239A9D47831}|Entities\\Entities.csproj|solutionrelative:entities\\artist.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{80D8C08C-FCC8-415C-ABA2-6239A9D47831}|Entities\\Entities.csproj|c:\\users\\ondra\\onedrive\\plocha\\bcsh2-semestralniprace\\semestralniprace\\entities\\data\\artist.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{80D8C08C-FCC8-415C-ABA2-6239A9D47831}|Entities\\Entities.csproj|solutionrelative:entities\\data\\artist.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -90,11 +102,50 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Document",
               "DocumentIndex": 1,
+              "Title": "LogHistory.cs",
+              "DocumentMoniker": "C:\\Users\\ondra\\OneDrive\\Plocha\\BCSH2-SemestralniPrace\\SemestralniPrace\\Entities\\Account\\LogHistory.cs",
+              "RelativeDocumentMoniker": "Entities\\Account\\LogHistory.cs",
+              "ToolTip": "C:\\Users\\ondra\\OneDrive\\Plocha\\BCSH2-SemestralniPrace\\SemestralniPrace\\Entities\\Account\\LogHistory.cs",
+              "RelativeToolTip": "Entities\\Account\\LogHistory.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-02T15:41:59.338Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Role.cs",
+              "DocumentMoniker": "C:\\Users\\ondra\\OneDrive\\Plocha\\BCSH2-SemestralniPrace\\SemestralniPrace\\Entities\\Account\\Role.cs",
+              "RelativeDocumentMoniker": "Entities\\Account\\Role.cs",
+              "ToolTip": "C:\\Users\\ondra\\OneDrive\\Plocha\\BCSH2-SemestralniPrace\\SemestralniPrace\\Entities\\Account\\Role.cs",
+              "RelativeToolTip": "Entities\\Account\\Role.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAALAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-02T15:40:44.57Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "User.cs",
+              "DocumentMoniker": "C:\\Users\\ondra\\OneDrive\\Plocha\\BCSH2-SemestralniPrace\\SemestralniPrace\\Entities\\Account\\User.cs",
+              "RelativeDocumentMoniker": "Entities\\Account\\User.cs",
+              "ToolTip": "C:\\Users\\ondra\\OneDrive\\Plocha\\BCSH2-SemestralniPrace\\SemestralniPrace\\Entities\\Account\\User.cs",
+              "RelativeToolTip": "Entities\\Account\\User.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAjAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-02T15:38:37.102Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\ondra\\OneDrive\\Plocha\\BCSH2-SemestralniPrace\\SemestralniPrace\\TestApp\\Program.cs",
               "RelativeDocumentMoniker": "TestApp\\Program.cs",
@@ -107,20 +158,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 3,
               "Title": "LoadData.cs",
               "DocumentMoniker": "C:\\Users\\ondra\\OneDrive\\Plocha\\BCSH2-SemestralniPrace\\SemestralniPrace\\DatabaseAccess\\LoadData.cs",
               "RelativeDocumentMoniker": "DatabaseAccess\\LoadData.cs",
               "ToolTip": "C:\\Users\\ondra\\OneDrive\\Plocha\\BCSH2-SemestralniPrace\\SemestralniPrace\\DatabaseAccess\\LoadData.cs",
               "RelativeToolTip": "DatabaseAccess\\LoadData.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAkAAAABAAAAAAAAAA==",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAABkAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-11-01T15:00:07.507Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 6,
               "Title": "ISaveData.cs",
               "DocumentMoniker": "C:\\Users\\ondra\\OneDrive\\Plocha\\BCSH2-SemestralniPrace\\SemestralniPrace\\DatabaseAccess\\Interface\\ISaveData.cs",
               "RelativeDocumentMoniker": "DatabaseAccess\\Interface\\ISaveData.cs",
@@ -133,7 +184,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 5,
               "Title": "ILoadData.cs",
               "DocumentMoniker": "C:\\Users\\ondra\\OneDrive\\Plocha\\BCSH2-SemestralniPrace\\SemestralniPrace\\DatabaseAccess\\Interface\\ILoadData.cs",
               "RelativeDocumentMoniker": "DatabaseAccess\\Interface\\ILoadData.cs",
@@ -146,12 +197,12 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 15,
               "Title": "EducationProgram.cs",
-              "DocumentMoniker": "C:\\Users\\ondra\\OneDrive\\Plocha\\BCSH2-SemestralniPrace\\SemestralniPrace\\Entities\\EducationProgram.cs",
-              "RelativeDocumentMoniker": "Entities\\EducationProgram.cs",
-              "ToolTip": "C:\\Users\\ondra\\OneDrive\\Plocha\\BCSH2-SemestralniPrace\\SemestralniPrace\\Entities\\EducationProgram.cs",
-              "RelativeToolTip": "Entities\\EducationProgram.cs",
+              "DocumentMoniker": "C:\\Users\\ondra\\OneDrive\\Plocha\\BCSH2-SemestralniPrace\\SemestralniPrace\\Entities\\Data\\EducationProgram.cs",
+              "RelativeDocumentMoniker": "Entities\\Data\\EducationProgram.cs",
+              "ToolTip": "C:\\Users\\ondra\\OneDrive\\Plocha\\BCSH2-SemestralniPrace\\SemestralniPrace\\Entities\\Data\\EducationProgram.cs",
+              "RelativeToolTip": "Entities\\Data\\EducationProgram.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAA5AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-11-01T14:18:35.707Z",
@@ -159,12 +210,12 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 7,
               "Title": "Post.cs",
-              "DocumentMoniker": "C:\\Users\\ondra\\OneDrive\\Plocha\\BCSH2-SemestralniPrace\\SemestralniPrace\\Entities\\Post.cs",
-              "RelativeDocumentMoniker": "Entities\\Post.cs",
-              "ToolTip": "C:\\Users\\ondra\\OneDrive\\Plocha\\BCSH2-SemestralniPrace\\SemestralniPrace\\Entities\\Post.cs",
-              "RelativeToolTip": "Entities\\Post.cs",
+              "DocumentMoniker": "C:\\Users\\ondra\\OneDrive\\Plocha\\BCSH2-SemestralniPrace\\SemestralniPrace\\Entities\\Data\\Post.cs",
+              "RelativeDocumentMoniker": "Entities\\Data\\Post.cs",
+              "ToolTip": "C:\\Users\\ondra\\OneDrive\\Plocha\\BCSH2-SemestralniPrace\\SemestralniPrace\\Entities\\Data\\Post.cs",
+              "RelativeToolTip": "Entities\\Data\\Post.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAnAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-11-01T14:16:46.473Z",
@@ -172,12 +223,12 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 8,
               "Title": "Adress.cs",
-              "DocumentMoniker": "C:\\Users\\ondra\\OneDrive\\Plocha\\BCSH2-SemestralniPrace\\SemestralniPrace\\Entities\\Adress.cs",
-              "RelativeDocumentMoniker": "Entities\\Adress.cs",
-              "ToolTip": "C:\\Users\\ondra\\OneDrive\\Plocha\\BCSH2-SemestralniPrace\\SemestralniPrace\\Entities\\Adress.cs",
-              "RelativeToolTip": "Entities\\Adress.cs",
+              "DocumentMoniker": "C:\\Users\\ondra\\OneDrive\\Plocha\\BCSH2-SemestralniPrace\\SemestralniPrace\\Entities\\Data\\Adress.cs",
+              "RelativeDocumentMoniker": "Entities\\Data\\Adress.cs",
+              "ToolTip": "C:\\Users\\ondra\\OneDrive\\Plocha\\BCSH2-SemestralniPrace\\SemestralniPrace\\Entities\\Data\\Adress.cs",
+              "RelativeToolTip": "Entities\\Data\\Adress.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-11-01T14:15:12.539Z",
@@ -185,12 +236,12 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 16,
               "Title": "TypeOfPayment.cs",
-              "DocumentMoniker": "C:\\Users\\ondra\\OneDrive\\Plocha\\BCSH2-SemestralniPrace\\SemestralniPrace\\Entities\\TypeOfPayment.cs",
-              "RelativeDocumentMoniker": "Entities\\TypeOfPayment.cs",
-              "ToolTip": "C:\\Users\\ondra\\OneDrive\\Plocha\\BCSH2-SemestralniPrace\\SemestralniPrace\\Entities\\TypeOfPayment.cs",
-              "RelativeToolTip": "Entities\\TypeOfPayment.cs",
+              "DocumentMoniker": "C:\\Users\\ondra\\OneDrive\\Plocha\\BCSH2-SemestralniPrace\\SemestralniPrace\\Entities\\Data\\TypeOfPayment.cs",
+              "RelativeDocumentMoniker": "Entities\\Data\\TypeOfPayment.cs",
+              "ToolTip": "C:\\Users\\ondra\\OneDrive\\Plocha\\BCSH2-SemestralniPrace\\SemestralniPrace\\Entities\\Data\\TypeOfPayment.cs",
+              "RelativeToolTip": "Entities\\Data\\TypeOfPayment.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAgAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-11-01T14:14:28.872Z",
@@ -198,25 +249,25 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 9,
               "Title": "Buyer.cs",
-              "DocumentMoniker": "C:\\Users\\ondra\\OneDrive\\Plocha\\BCSH2-SemestralniPrace\\SemestralniPrace\\Entities\\Buyer.cs",
-              "RelativeDocumentMoniker": "Entities\\Buyer.cs",
-              "ToolTip": "C:\\Users\\ondra\\OneDrive\\Plocha\\BCSH2-SemestralniPrace\\SemestralniPrace\\Entities\\Buyer.cs",
-              "RelativeToolTip": "Entities\\Buyer.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAABIAAAAAAAAAAAAAAA==",
+              "DocumentMoniker": "C:\\Users\\ondra\\OneDrive\\Plocha\\BCSH2-SemestralniPrace\\SemestralniPrace\\Entities\\Data\\Buyer.cs",
+              "RelativeDocumentMoniker": "Entities\\Data\\Buyer.cs",
+              "ToolTip": "C:\\Users\\ondra\\OneDrive\\Plocha\\BCSH2-SemestralniPrace\\SemestralniPrace\\Entities\\Data\\Buyer.cs",
+              "RelativeToolTip": "Entities\\Data\\Buyer.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAIBJwBIAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-11-01T14:13:20.892Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 10,
               "Title": "Sale.cs",
-              "DocumentMoniker": "C:\\Users\\ondra\\OneDrive\\Plocha\\BCSH2-SemestralniPrace\\SemestralniPrace\\Entities\\Sale.cs",
-              "RelativeDocumentMoniker": "Entities\\Sale.cs",
-              "ToolTip": "C:\\Users\\ondra\\OneDrive\\Plocha\\BCSH2-SemestralniPrace\\SemestralniPrace\\Entities\\Sale.cs",
-              "RelativeToolTip": "Entities\\Sale.cs",
+              "DocumentMoniker": "C:\\Users\\ondra\\OneDrive\\Plocha\\BCSH2-SemestralniPrace\\SemestralniPrace\\Entities\\Data\\Sale.cs",
+              "RelativeDocumentMoniker": "Entities\\Data\\Sale.cs",
+              "ToolTip": "C:\\Users\\ondra\\OneDrive\\Plocha\\BCSH2-SemestralniPrace\\SemestralniPrace\\Entities\\Data\\Sale.cs",
+              "RelativeToolTip": "Entities\\Data\\Sale.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAA1AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-11-01T14:12:22.761Z",
@@ -224,12 +275,12 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 17,
               "Title": "VisitType.cs",
-              "DocumentMoniker": "C:\\Users\\ondra\\OneDrive\\Plocha\\BCSH2-SemestralniPrace\\SemestralniPrace\\Entities\\VisitType.cs",
-              "RelativeDocumentMoniker": "Entities\\VisitType.cs",
-              "ToolTip": "C:\\Users\\ondra\\OneDrive\\Plocha\\BCSH2-SemestralniPrace\\SemestralniPrace\\Entities\\VisitType.cs",
-              "RelativeToolTip": "Entities\\VisitType.cs",
+              "DocumentMoniker": "C:\\Users\\ondra\\OneDrive\\Plocha\\BCSH2-SemestralniPrace\\SemestralniPrace\\Entities\\Data\\VisitType.cs",
+              "RelativeDocumentMoniker": "Entities\\Data\\VisitType.cs",
+              "ToolTip": "C:\\Users\\ondra\\OneDrive\\Plocha\\BCSH2-SemestralniPrace\\SemestralniPrace\\Entities\\Data\\VisitType.cs",
+              "RelativeToolTip": "Entities\\Data\\VisitType.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAoAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-11-01T14:11:10.828Z",
@@ -237,12 +288,12 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 18,
               "Title": "Visit.cs",
-              "DocumentMoniker": "C:\\Users\\ondra\\OneDrive\\Plocha\\BCSH2-SemestralniPrace\\SemestralniPrace\\Entities\\Visit.cs",
-              "RelativeDocumentMoniker": "Entities\\Visit.cs",
-              "ToolTip": "C:\\Users\\ondra\\OneDrive\\Plocha\\BCSH2-SemestralniPrace\\SemestralniPrace\\Entities\\Visit.cs",
-              "RelativeToolTip": "Entities\\Visit.cs",
+              "DocumentMoniker": "C:\\Users\\ondra\\OneDrive\\Plocha\\BCSH2-SemestralniPrace\\SemestralniPrace\\Entities\\Data\\Visit.cs",
+              "RelativeDocumentMoniker": "Entities\\Data\\Visit.cs",
+              "ToolTip": "C:\\Users\\ondra\\OneDrive\\Plocha\\BCSH2-SemestralniPrace\\SemestralniPrace\\Entities\\Data\\Visit.cs",
+              "RelativeToolTip": "Entities\\Data\\Visit.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-11-01T14:10:29.142Z",
@@ -250,12 +301,12 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 14,
               "Title": "Exhibition.cs",
-              "DocumentMoniker": "C:\\Users\\ondra\\OneDrive\\Plocha\\BCSH2-SemestralniPrace\\SemestralniPrace\\Entities\\Exhibition.cs",
-              "RelativeDocumentMoniker": "Entities\\Exhibition.cs",
-              "ToolTip": "C:\\Users\\ondra\\OneDrive\\Plocha\\BCSH2-SemestralniPrace\\SemestralniPrace\\Entities\\Exhibition.cs",
-              "RelativeToolTip": "Entities\\Exhibition.cs",
+              "DocumentMoniker": "C:\\Users\\ondra\\OneDrive\\Plocha\\BCSH2-SemestralniPrace\\SemestralniPrace\\Entities\\Data\\Exhibition.cs",
+              "RelativeDocumentMoniker": "Entities\\Data\\Exhibition.cs",
+              "ToolTip": "C:\\Users\\ondra\\OneDrive\\Plocha\\BCSH2-SemestralniPrace\\SemestralniPrace\\Entities\\Data\\Exhibition.cs",
+              "RelativeToolTip": "Entities\\Data\\Exhibition.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAhAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-11-01T14:09:13.301Z",
@@ -263,12 +314,12 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 19,
               "Title": "Technique.cs",
-              "DocumentMoniker": "C:\\Users\\ondra\\OneDrive\\Plocha\\BCSH2-SemestralniPrace\\SemestralniPrace\\Entities\\Technique.cs",
-              "RelativeDocumentMoniker": "Entities\\Technique.cs",
-              "ToolTip": "C:\\Users\\ondra\\OneDrive\\Plocha\\BCSH2-SemestralniPrace\\SemestralniPrace\\Entities\\Technique.cs",
-              "RelativeToolTip": "Entities\\Technique.cs",
+              "DocumentMoniker": "C:\\Users\\ondra\\OneDrive\\Plocha\\BCSH2-SemestralniPrace\\SemestralniPrace\\Entities\\Data\\Technique.cs",
+              "RelativeDocumentMoniker": "Entities\\Data\\Technique.cs",
+              "ToolTip": "C:\\Users\\ondra\\OneDrive\\Plocha\\BCSH2-SemestralniPrace\\SemestralniPrace\\Entities\\Data\\Technique.cs",
+              "RelativeToolTip": "Entities\\Data\\Technique.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAoAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-11-01T14:08:50.757Z",
@@ -276,12 +327,12 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 20,
               "Title": "Foundation.cs",
-              "DocumentMoniker": "C:\\Users\\ondra\\OneDrive\\Plocha\\BCSH2-SemestralniPrace\\SemestralniPrace\\Entities\\Foundation.cs",
-              "RelativeDocumentMoniker": "Entities\\Foundation.cs",
-              "ToolTip": "C:\\Users\\ondra\\OneDrive\\Plocha\\BCSH2-SemestralniPrace\\SemestralniPrace\\Entities\\Foundation.cs",
-              "RelativeToolTip": "Entities\\Foundation.cs",
+              "DocumentMoniker": "C:\\Users\\ondra\\OneDrive\\Plocha\\BCSH2-SemestralniPrace\\SemestralniPrace\\Entities\\Data\\Foundation.cs",
+              "RelativeDocumentMoniker": "Entities\\Data\\Foundation.cs",
+              "ToolTip": "C:\\Users\\ondra\\OneDrive\\Plocha\\BCSH2-SemestralniPrace\\SemestralniPrace\\Entities\\Data\\Foundation.cs",
+              "RelativeToolTip": "Entities\\Data\\Foundation.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-11-01T14:08:25.718Z",
@@ -289,12 +340,12 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 21,
               "Title": "Material.cs",
-              "DocumentMoniker": "C:\\Users\\ondra\\OneDrive\\Plocha\\BCSH2-SemestralniPrace\\SemestralniPrace\\Entities\\Material.cs",
-              "RelativeDocumentMoniker": "Entities\\Material.cs",
-              "ToolTip": "C:\\Users\\ondra\\OneDrive\\Plocha\\BCSH2-SemestralniPrace\\SemestralniPrace\\Entities\\Material.cs",
-              "RelativeToolTip": "Entities\\Material.cs",
+              "DocumentMoniker": "C:\\Users\\ondra\\OneDrive\\Plocha\\BCSH2-SemestralniPrace\\SemestralniPrace\\Entities\\Data\\Material.cs",
+              "RelativeDocumentMoniker": "Entities\\Data\\Material.cs",
+              "ToolTip": "C:\\Users\\ondra\\OneDrive\\Plocha\\BCSH2-SemestralniPrace\\SemestralniPrace\\Entities\\Data\\Material.cs",
+              "RelativeToolTip": "Entities\\Data\\Material.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-11-01T14:06:59.759Z",
@@ -302,12 +353,12 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 12,
               "Title": "Painting.cs",
-              "DocumentMoniker": "C:\\Users\\ondra\\OneDrive\\Plocha\\BCSH2-SemestralniPrace\\SemestralniPrace\\Entities\\Painting.cs",
-              "RelativeDocumentMoniker": "Entities\\Painting.cs",
-              "ToolTip": "C:\\Users\\ondra\\OneDrive\\Plocha\\BCSH2-SemestralniPrace\\SemestralniPrace\\Entities\\Painting.cs",
-              "RelativeToolTip": "Entities\\Painting.cs",
+              "DocumentMoniker": "C:\\Users\\ondra\\OneDrive\\Plocha\\BCSH2-SemestralniPrace\\SemestralniPrace\\Entities\\Data\\Painting.cs",
+              "RelativeDocumentMoniker": "Entities\\Data\\Painting.cs",
+              "ToolTip": "C:\\Users\\ondra\\OneDrive\\Plocha\\BCSH2-SemestralniPrace\\SemestralniPrace\\Entities\\Data\\Painting.cs",
+              "RelativeToolTip": "Entities\\Data\\Painting.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-11-01T14:06:40.75Z",
@@ -315,12 +366,12 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 13,
               "Title": "Sculpture.cs",
-              "DocumentMoniker": "C:\\Users\\ondra\\OneDrive\\Plocha\\BCSH2-SemestralniPrace\\SemestralniPrace\\Entities\\Sculpture.cs",
-              "RelativeDocumentMoniker": "Entities\\Sculpture.cs",
-              "ToolTip": "C:\\Users\\ondra\\OneDrive\\Plocha\\BCSH2-SemestralniPrace\\SemestralniPrace\\Entities\\Sculpture.cs",
-              "RelativeToolTip": "Entities\\Sculpture.cs",
+              "DocumentMoniker": "C:\\Users\\ondra\\OneDrive\\Plocha\\BCSH2-SemestralniPrace\\SemestralniPrace\\Entities\\Data\\Sculpture.cs",
+              "RelativeDocumentMoniker": "Entities\\Data\\Sculpture.cs",
+              "ToolTip": "C:\\Users\\ondra\\OneDrive\\Plocha\\BCSH2-SemestralniPrace\\SemestralniPrace\\Entities\\Data\\Sculpture.cs",
+              "RelativeToolTip": "Entities\\Data\\Sculpture.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-11-01T14:05:59.144Z",
@@ -328,26 +379,26 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 11,
               "Title": "ArtPiece.cs",
-              "DocumentMoniker": "C:\\Users\\ondra\\OneDrive\\Plocha\\BCSH2-SemestralniPrace\\SemestralniPrace\\Entities\\ArtPiece.cs",
-              "RelativeDocumentMoniker": "Entities\\ArtPiece.cs",
-              "ToolTip": "C:\\Users\\ondra\\OneDrive\\Plocha\\BCSH2-SemestralniPrace\\SemestralniPrace\\Entities\\ArtPiece.cs",
-              "RelativeToolTip": "Entities\\ArtPiece.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAABIAAAAnAAAAAAAAAA==",
+              "DocumentMoniker": "C:\\Users\\ondra\\OneDrive\\Plocha\\BCSH2-SemestralniPrace\\SemestralniPrace\\Entities\\Data\\ArtPiece.cs",
+              "RelativeDocumentMoniker": "Entities\\Data\\ArtPiece.cs",
+              "ToolTip": "C:\\Users\\ondra\\OneDrive\\Plocha\\BCSH2-SemestralniPrace\\SemestralniPrace\\Entities\\Data\\ArtPiece.cs",
+              "RelativeToolTip": "Entities\\Data\\ArtPiece.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAIBJwBIAAAAnAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-11-01T14:04:07.763Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 22,
               "Title": "Artist.cs",
-              "DocumentMoniker": "C:\\Users\\ondra\\OneDrive\\Plocha\\BCSH2-SemestralniPrace\\SemestralniPrace\\Entities\\Artist.cs",
-              "RelativeDocumentMoniker": "Entities\\Artist.cs",
-              "ToolTip": "C:\\Users\\ondra\\OneDrive\\Plocha\\BCSH2-SemestralniPrace\\SemestralniPrace\\Entities\\Artist.cs",
-              "RelativeToolTip": "Entities\\Artist.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAoAAAAVAAAAAAAAAA==",
+              "DocumentMoniker": "C:\\Users\\ondra\\OneDrive\\Plocha\\BCSH2-SemestralniPrace\\SemestralniPrace\\Entities\\Data\\Artist.cs",
+              "RelativeDocumentMoniker": "Entities\\Data\\Artist.cs",
+              "ToolTip": "C:\\Users\\ondra\\OneDrive\\Plocha\\BCSH2-SemestralniPrace\\SemestralniPrace\\Entities\\Data\\Artist.cs",
+              "RelativeToolTip": "Entities\\Data\\Artist.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAIBJwAoAAAAVAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-11-01T14:02:31.417Z",
               "EditorCaption": ""

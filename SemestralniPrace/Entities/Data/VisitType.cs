@@ -4,13 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Entities
+namespace Entities.Data
 {
-    // Možná předělat na Enum
-    internal class TypeOfPayment
+    internal class VisitType
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public decimal Price { get; set; }
 
     }
 }

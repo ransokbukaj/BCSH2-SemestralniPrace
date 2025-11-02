@@ -4,13 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Entities
+namespace Entities.Data
 {
-    internal class Material
+    internal class Foundation
     {
         public int Id { get; set; }
         public string Name { get; set; }
-
 
     }
 }
