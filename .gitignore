@@ -418,3 +418,4 @@ FodyWeavers.xsd
 *.msp
 /SemestralniPrace/SemestralniPrace/obj
 /SemestralniPrace/.vs
+SemestralniPrace/DatabaseAccess/DatabaseLoginInfo.txt
