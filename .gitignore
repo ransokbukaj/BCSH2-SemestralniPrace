@@ -416,6 +416,9 @@ FodyWeavers.xsd
 *.msix
 *.msm
 *.msp
+/SemestralniPrace/DatabaseAccess/obj
+/SemestralniPrace/Entities/obj
 /SemestralniPrace/SemestralniPrace/obj
+/SemestralniPrace/TestApp/obj
 /SemestralniPrace/.vs
 SemestralniPrace/DatabaseAccess/DatabaseLoginInfo.txt
