@@ -16,10 +16,11 @@ namespace DatabaseAccess
 
         private static string connection = $"User Id={userID};Password={password};{dataSource}";
         
-        public static void Accsess()
+        public static void Accsess(OracleConnection conn )
         {
 
-            using (OracleConnection conn = new OracleConnection(connection))
+            //using (OracleConnection conn = new OracleConnection(connection))
+            using (conn)
             {
                 conn.Open();
                 Console.WriteLine("Připojeno k databázi!");
