@@ -10,6 +10,10 @@ namespace Entities.Account
     {
         public int Id { get; set; }
         public string Username { get; set; }
+        /// <summary>
+        /// Použít pouze při registraci!!!
+        /// </summary>
+        public string Password { get; set; }
         public string PasswordHash { get; set; }
 
         public string FirstName { get; set; }

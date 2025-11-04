@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DatabaseAccess.Interface
 {
-    public interface ILoadData
+    internal interface ILoadData
     {
        
     }

@@ -6,6 +6,9 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SemestralniPrace_GUI", "SemestralniPrace\SemestralniPrace_GUI.csproj", "{D9960DFF-1C05-4116-9536-571ECD870BAB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatabaseAccess", "DatabaseAccess\DatabaseAccess.csproj", "{322474FC-3324-4DFF-BABC-CB64740C0697}"
+	ProjectSection(ProjectDependencies) = postProject
+		{80D8C08C-FCC8-415C-ABA2-6239A9D47831} = {80D8C08C-FCC8-415C-ABA2-6239A9D47831}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entities", "Entities\Entities.csproj", "{80D8C08C-FCC8-415C-ABA2-6239A9D47831}"
 EndProject

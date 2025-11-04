@@ -29,9 +29,7 @@ namespace DatabaseAccess
 
                     //Pokusný příkaz
                     cmd.CommandText = "SELECT employee_id,first_name,last_name FROM new_emps";
-                    
-                    
-                    
+                                        
                     //cmd.Parameters.Add(new OracleParameter("dept", 10));
 
                     using (OracleDataReader reader = cmd.ExecuteReader())

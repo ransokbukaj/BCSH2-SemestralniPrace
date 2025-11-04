@@ -421,4 +421,4 @@ FodyWeavers.xsd
 /SemestralniPrace/SemestralniPrace/obj
 /SemestralniPrace/TestApp/obj
 /SemestralniPrace/.vs
-SemestralniPrace/DatabaseAccess/DatabaseAccessConfig.txt
+SemestralniPrace/DatabaseAccess/DatabaseConnectionConfig.txt
