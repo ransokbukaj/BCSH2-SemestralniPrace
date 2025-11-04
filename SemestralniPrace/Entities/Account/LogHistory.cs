@@ -15,5 +15,6 @@ namespace Entities.Account
         public DateOnly DateOfChange { get; set; }
         public string OldValues { get; set; }
         public string NewValues { get; set; }
+        public int EditedRowId { get; set; }
     }
 }

@@ -13,16 +13,13 @@ namespace DatabaseAccess
         private static string userID = "";
         private static string password = "";
         private static string dataSource = "Data Source=(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=fei-sql3.upceucebny.cz)(PORT=1521)) (CONNECT_DATA=(SID=BDAS)));";
-
-        private static string connection = $"User Id={userID};Password={password};{dataSource}";
+        private static string connectionString = $"User Id={userID};Password={password};{dataSource}";
         
-        public static void Accsess(OracleConnection conn )
+        public static void Accsess(OracleConnection conn)
         {
-
-            //using (OracleConnection conn = new OracleConnection(connection))
+            //using (OracleConnection connection = new OracleConnection(connectionString))
             using (conn)
             {
-                conn.Open();
                 Console.WriteLine("Připojeno k databázi!");
 
                 using (OracleCommand cmd = conn.CreateCommand())

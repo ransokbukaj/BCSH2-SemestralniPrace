@@ -30,7 +30,20 @@ namespace DatabaseAccess
 
         public static OracleConnection GetConnection()
         {
-            return new OracleConnection(_connectionString);
+            OracleConnection connection = new OracleConnection(_connectionString);
+            connection.Open();
+
+            if (UserManager.CurrentUser != null)
+            {
+                using (var cmd = connection.CreateCommand())
+                {
+                    cmd.CommandText = "BEGIN DBMS_SESSION.SET_IDENTIFIER(:id); END;";
+                    cmd.Parameters.Add(new OracleParameter("id", UserManager.CurrentUser.Id));
+                    cmd.ExecuteNonQuery();
+                }
+            }
+
+            return connection;
         }
     }
 }
