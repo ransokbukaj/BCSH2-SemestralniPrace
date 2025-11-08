@@ -31,6 +31,12 @@ namespace GUI.ViewModels
                 case "P1":
                     CurrentViewModel = new P1ViewModel();
                     break;
+                case "P2":
+                    CurrentViewModel = new P2ViewModel();
+                    break;
+                case "P3":
+                    CurrentViewModel = new P3ViewModel();
+                    break;
                 // případně další stránky…
                 default:
                     break;

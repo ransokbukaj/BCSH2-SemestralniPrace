@@ -9,7 +9,7 @@
         Height="600" 
         Width="920"
         
-       
+        
         Background="Transparent"
        
         
@@ -38,10 +38,10 @@
                 <Button Content="Home" Command="{Binding UpdateViewCommand}" CommandParameter="Home" />
 
                 <Button Content="P.1" Command="{Binding UpdateViewCommand}" CommandParameter="P1" />
-                
-                
-                <Button Content="P.2" />
-                <Button Content="P.3" />
+
+
+                <Button Content="P.2" Command="{Binding UpdateViewCommand}" CommandParameter="P2"/>
+                <Button Content="P.3" Command="{Binding UpdateViewCommand}" CommandParameter="P3"/>
                 
                 
             </StackPanel>

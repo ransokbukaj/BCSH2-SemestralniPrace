@@ -18,6 +18,14 @@
             <views:P1View/>
         </DataTemplate>
 
+        <DataTemplate DataType="{x:Type TypeName=viewModels:P2ViewModel}">
+            <views:P2View/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type TypeName=viewModels:P3ViewModel}">
+            <views:P3View/>
+        </DataTemplate>
+
 
     </Application.Resources>
 </Application>
