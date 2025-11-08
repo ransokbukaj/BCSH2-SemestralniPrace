@@ -5,8 +5,36 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SemestralniPrace" xmlns:views="clr-namespace:SemestralniPrace.Views"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        <views:FirstPage/>
-    </Grid>
+        
+        Title="MainWindow" 
+        Height="600" 
+        Width="920"
+        
+       
+        ResizeMode="NoResize"
+        Background="Transparent"
+       
+        
+        >
+
+    
+    
+    <Border Background="#272537">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="75"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <views:FirstPage Grid.Column="1" Grid.Row="1"/>
+            
+            
+
+        </Grid>
+    </Border>
 </Window>
