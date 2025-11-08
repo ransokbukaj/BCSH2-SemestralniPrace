@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace SemestralniPrace.Views
+namespace GUI.Views
 {
     /// <summary>
-    /// Interaction logic for FirstPage.xaml
+    /// Interaction logic for HomeView.xaml
     /// </summary>
-    public partial class FirstPage : UserControl
+    public partial class HomeView : UserControl
     {
-        public FirstPage()
+        public HomeView()
         {
             InitializeComponent();
         }

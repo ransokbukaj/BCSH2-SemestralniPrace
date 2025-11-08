@@ -1,4 +1,5 @@
-﻿using System;
+using GUI.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,7 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace SemestralniPrace
+namespace GUI
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -23,6 +24,9 @@ namespace SemestralniPrace
         public MainWindow()
         {
             InitializeComponent();
+            DataContext = new MainViewModel();
+            var vm = new MainViewModel();
+            vm.UpdateViewCommand.Execute("Home");
         }
     }
 }
