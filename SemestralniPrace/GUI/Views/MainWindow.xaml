@@ -35,13 +35,15 @@
             </Grid>
 
             <StackPanel Orientation="Vertical">
+                <Button Content="{Binding LogButtonText}" Command="{Binding UpdateLogCommand}" />
+                
                 <Button Content="Home" Command="{Binding UpdateViewCommand}" CommandParameter="Home" />
 
-                <Button Content="P.1" Command="{Binding UpdateViewCommand}" CommandParameter="P1" />
+                <Button Content="P.1" Command="{Binding UpdateViewCommand}" CommandParameter="P1" Visibility="{Binding IsLogged, Converter={StaticResource BoolToVisibilityConverter}}"/>
 
 
-                <Button Content="P.2" Command="{Binding UpdateViewCommand}" CommandParameter="P2"/>
-                <Button Content="P.3" Command="{Binding UpdateViewCommand}" CommandParameter="P3"/>
+                <Button Content="P.2" Command="{Binding UpdateViewCommand}" CommandParameter="P2" Visibility="{Binding IsLogged, Converter={StaticResource BoolToVisibilityConverter}}"/>
+                <Button Content="P.3" Command="{Binding UpdateViewCommand}" CommandParameter="P3" Visibility="{Binding IsLogged, Converter={StaticResource BoolToVisibilityConverter}}"/>
                 
                 
             </StackPanel>

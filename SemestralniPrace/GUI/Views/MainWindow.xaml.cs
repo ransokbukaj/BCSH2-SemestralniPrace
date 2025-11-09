@@ -25,8 +25,7 @@ namespace GUI
         {
             InitializeComponent();
             DataContext = new MainViewModel();
-            var vm = new MainViewModel();
-            vm.UpdateViewCommand.Execute("Home");
+            
         }
     }
 }

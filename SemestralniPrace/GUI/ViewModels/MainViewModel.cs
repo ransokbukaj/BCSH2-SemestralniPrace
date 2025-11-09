@@ -13,12 +13,34 @@ namespace GUI.ViewModels
         [ObservableProperty]
         private ObservableObject currentViewModel;
 
+        [ObservableProperty]
+        private bool isLogged;
+
+        [ObservableProperty]
+        private string logButtonText;
 
         public MainViewModel()
         {
             currentViewModel = new HomeViewModel();
+            isLogged = false;
+            logButtonText = "Log in";
         }
 
+        [RelayCommand]
+        public void UpdateLog()
+        {
+            if (IsLogged)
+            {
+                CurrentViewModel = new HomeViewModel();
+                LogButtonText = "Log in";
+            }
+            else
+            {
+                LogButtonText = "Log out";
+            }
+
+                IsLogged = !IsLogged;
+        }
 
         [RelayCommand]
         public void UpdateView(object parameter)
