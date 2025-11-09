@@ -11,6 +11,6 @@
     
     
     <Grid>
-        <Label FontSize="35" HorizontalAlignment="Center" Content="Pokus pro Home View"/>
+        <Label FontSize="35" HorizontalAlignment="Center" Content="Home View"/>
     </Grid>
 </UserControl>

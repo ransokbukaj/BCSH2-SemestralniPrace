@@ -39,10 +39,14 @@
                 
                 <Button Content="Home" Command="{Binding UpdateViewCommand}" CommandParameter="Home" />
 
-                <Button Content="P.1" Command="{Binding UpdateViewCommand}" CommandParameter="P1" Visibility="{Binding IsLogged, Converter={StaticResource BoolToVisibilityConverter}}"/>
-
-
-                <Button Content="P.2" Command="{Binding UpdateViewCommand}" CommandParameter="P2" Visibility="{Binding IsLogged, Converter={StaticResource BoolToVisibilityConverter}}"/>
+                <Button Content="Výstavy" Command="{Binding UpdateViewCommand}" CommandParameter="P1" />
+                <Button Content="Vzdělávací programy" Command="{Binding UpdateViewCommand}" CommandParameter="P2"/>
+                
+                
+                <Button Content="P.3" Command="{Binding UpdateViewCommand}" CommandParameter="P3" Visibility="{Binding IsLogged, Converter={StaticResource BoolToVisibilityConverter}}"/>
+                <Button Content="P.3" Command="{Binding UpdateViewCommand}" CommandParameter="P3" Visibility="{Binding IsLogged, Converter={StaticResource BoolToVisibilityConverter}}"/>
+                <Button Content="P.3" Command="{Binding UpdateViewCommand}" CommandParameter="P3" Visibility="{Binding IsLogged, Converter={StaticResource BoolToVisibilityConverter}}"/>
+                <Button Content="P.3" Command="{Binding UpdateViewCommand}" CommandParameter="P3" Visibility="{Binding IsLogged, Converter={StaticResource BoolToVisibilityConverter}}"/>
                 <Button Content="P.3" Command="{Binding UpdateViewCommand}" CommandParameter="P3" Visibility="{Binding IsLogged, Converter={StaticResource BoolToVisibilityConverter}}"/>
                 
                 

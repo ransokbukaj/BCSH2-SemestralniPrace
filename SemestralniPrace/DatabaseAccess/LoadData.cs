@@ -1,4 +1,5 @@
 using DatabaseAccess.Interface;
+using Entities.Data;
 using Oracle.ManagedDataAccess.Client;
 using System;
 using System.Collections.Generic;
@@ -42,6 +43,86 @@ namespace DatabaseAccess
                     }
                 }
             }
+        }
+
+        public List<Adress> LoadAdresses()
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Artist> LoadArtists()
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<ArtPiece> LoadArtPieces()
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Buyer> LoadBuyers()
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<EducationProgram> LoadEducationPrograms()
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Exhibition> LoadExhibitions()
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Foundation> LoadFoundations()
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Material> LoadMaterials()
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Painting> LoadPaintings()
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<PaymentMethod> LoadPaymentMethods()
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Post> LoadPosts()
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Sale> LoadSales()
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Sculpture> LoadSculptures()
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Technique> LoadTechniques()
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Visit> LoadVisits()
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<VisitType> LoadVisitTypes()
+        {
+            throw new NotImplementedException();
         }
     }
 }
