@@ -1,0 +1,21 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="UZIVATEL_ROLE" directorySegmentName="seg_0" id="0C17289C-24B2-B37B-60C9-142DE083C6C0">
+<createdBy>jakub</createdBy>
+<createdTime>2025-11-02 08:51:30 UTC</createdTime>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<engineerTo>
+<item key="553B4005-5906-3AC4-6EA3-A2DB96671797" value="true"/>
+</engineerTo>
+<sourcePk>4D2359D4-E5B9-5827-05F9-0AE895F1BCC4</sourcePk>
+<identifying>false</identifying>
+<nameOnSource>určuje oprávnění</nameOnSource>
+<nameOnTarget>má</nameOnTarget>
+<optionalSource>true</optionalSource>
+<optionalTarget>false</optionalTarget>
+<sourceCardinality>1</sourceCardinality>
+<sourceEntity>975BD410-5027-9638-EC6A-7A062A5F3D08</sourceEntity>
+<targetCardinalityString>*</targetCardinalityString>
+<targetEntity>B5F9A6A2-8E47-2209-E5DB-79C4AD3E5503</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</Relation>

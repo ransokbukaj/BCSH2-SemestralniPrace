@@ -1,0 +1,189 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="B5F9A6A2-8E47-2209-E5DB-79C4AD3E5503" name="UZIVATEL">
+<createdBy>jakub</createdBy>
+<createdTime>2025-11-02 08:37:00 UTC</createdTime>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<engineerTo>
+<item key="553B4005-5906-3AC4-6EA3-A2DB96671797" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="idUzivatel" id="5068006A-45B9-1198-89B0-9B7F2938EF0F">
+<createdBy>jakub</createdBy>
+<createdTime>2025-11-02 08:37:07 UTC</createdTime>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<engineerTo>
+<item key="553B4005-5906-3AC4-6EA3-A2DB96671797" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="uzivatelskeJmeno" id="DE0F19BC-1F58-DEEA-FC84-CC8DD95471FE">
+<createdBy>jakub</createdBy>
+<createdTime>2025-11-02 08:39:07 UTC</createdTime>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<engineerTo>
+<item key="553B4005-5906-3AC4-6EA3-A2DB96671797" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<ownDataTypeParameters>50,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="hesloHash" id="BE09A24C-821B-CD91-B24E-45576BA27E72">
+<createdBy>jakub</createdBy>
+<createdTime>2025-11-02 08:41:23 UTC</createdTime>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<engineerTo>
+<item key="553B4005-5906-3AC4-6EA3-A2DB96671797" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>255</dataTypeSize>
+<ownDataTypeParameters>255,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="jmeno" id="8273E503-861F-5938-4455-1D5BEAE6792B">
+<createdBy>jakub</createdBy>
+<createdTime>2025-11-02 08:43:20 UTC</createdTime>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<engineerTo>
+<item key="553B4005-5906-3AC4-6EA3-A2DB96671797" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>100</dataTypeSize>
+<ownDataTypeParameters>100,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="prijmeni" id="A132F2FC-40A3-F512-322F-608479B4B35B">
+<createdBy>jakub</createdBy>
+<createdTime>2025-11-02 08:43:33 UTC</createdTime>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<engineerTo>
+<item key="553B4005-5906-3AC4-6EA3-A2DB96671797" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>100</dataTypeSize>
+<ownDataTypeParameters>100,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="email" id="8B9CC2B7-4820-1B79-6CEF-243A7FBD2971">
+<createdBy>jakub</createdBy>
+<createdTime>2025-11-02 08:43:52 UTC</createdTime>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<engineerTo>
+<item key="553B4005-5906-3AC4-6EA3-A2DB96671797" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>250</dataTypeSize>
+<ownDataTypeParameters>250,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="telefoniCislo" id="F7AA2168-E9DE-AF1A-8953-3A884D299115">
+<createdBy>jakub</createdBy>
+<createdTime>2025-11-02 08:47:28 UTC</createdTime>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<engineerTo>
+<item key="553B4005-5906-3AC4-6EA3-A2DB96671797" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20</dataTypeSize>
+<ownDataTypeParameters>20,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="datumRegistrace" id="72226F26-9402-F6CE-3B53-5B56D232B7FF">
+<createdBy>jakub</createdBy>
+<createdTime>2025-11-02 08:48:04 UTC</createdTime>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<engineerTo>
+<item key="553B4005-5906-3AC4-6EA3-A2DB96671797" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT008</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="datumPoslednihoPrihlaseni" id="93AEE0FC-278E-339B-487B-34B9F5DF60CE">
+<createdBy>jakub</createdBy>
+<createdTime>2025-11-02 08:49:17 UTC</createdTime>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<engineerTo>
+<item key="553B4005-5906-3AC4-6EA3-A2DB96671797" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT008</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="datumPosledniZmeni" id="00B7C042-BD13-F82E-70A4-35699C0F5289">
+<createdBy>jakub</createdBy>
+<createdTime>2025-11-02 08:49:18 UTC</createdTime>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<engineerTo>
+<item key="553B4005-5906-3AC4-6EA3-A2DB96671797" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT008</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="idRole" id="AD8D4DBA-5198-142D-C5F1-07594B94C397">
+<createdBy>jakub</createdBy>
+<createdTime>2025-11-02 08:51:30 UTC</createdTime>
+<generatorID>0C17289C-24B2-B37B-60C9-142DE083C6C0</generatorID>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<engineerTo>
+<item key="553B4005-5906-3AC4-6EA3-A2DB96671797" value="true"/>
+</engineerTo>
+<referedAttribute>D19FE7B5-F88E-306D-D62C-F56CB08057E2</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="67313429-C2A2-B0DB-2750-7E5E9EA5A144" name="Uzivatel PK">
+<createdBy>jakub</createdBy>
+<createdTime>2025-11-02 08:37:59 UTC</createdTime>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<engineerTo>
+<item key="553B4005-5906-3AC4-6EA3-A2DB96671797" value="true"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>5068006A-45B9-1198-89B0-9B7F2938EF0F</attributeRef>
+</usedAttributes>
+</identifier>
+<identifier id="1E4C2695-4CB0-A97A-4805-A7DE3E3E0CD3" name="uzivatelskeJmeno_un">
+<createdBy>jakub</createdBy>
+<createdTime>2025-11-02 08:39:51 UTC</createdTime>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<engineerTo>
+<item key="553B4005-5906-3AC4-6EA3-A2DB96671797" value="true"/>
+</engineerTo>
+<newElementsIDs>DE0F19BC-1F58-DEEA-FC84-CC8DD95471FE</newElementsIDs>
+<usedAttributes>
+<attributeRef>DE0F19BC-1F58-DEEA-FC84-CC8DD95471FE</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

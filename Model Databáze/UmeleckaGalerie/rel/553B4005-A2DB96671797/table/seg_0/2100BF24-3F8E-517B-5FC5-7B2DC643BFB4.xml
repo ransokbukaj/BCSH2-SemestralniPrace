@@ -1,0 +1,103 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="2100BF24-3F8E-517B-5FC5-7B2DC643BFB4" name="ADRESY">
+<createdBy>jakub</createdBy>
+<createdTime>2024-12-04 14:47:31 UTC</createdTime>
+<generatorID>251F8D47-7BBB-1B00-3147-72DECAD8C83B</generatorID>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<ordsAlias>adresa</ordsAlias>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="idAdresa" id="3B0C173B-F5C9-840E-DDD6-71A70F27A627">
+<createdBy>jakub</createdBy>
+<createdTime>2024-12-04 14:47:31 UTC</createdTime>
+<generatorID>87EBD1EA-0AED-BD93-F2A6-3876E3EC4B72</generatorID>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementColumn>true</autoIncrementColumn>
+<identityColumn>true</identityColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="ulice" id="762F4532-FB24-7E20-B3A4-803CD223FE37">
+<createdBy>jakub</createdBy>
+<createdTime>2024-12-04 14:47:31 UTC</createdTime>
+<generatorID>7F80EC31-A059-9E04-CCBF-CAA1104147E9</generatorID>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<ownDataTypeParameters>50,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="cisloPopisne" id="D6FB4C08-1447-2CC1-703C-5A722824CFCB">
+<createdBy>jakub</createdBy>
+<createdTime>2024-12-04 14:47:31 UTC</createdTime>
+<generatorID>CD455A65-0813-FDB8-D5F6-24F4E68C5A59</generatorID>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>5</dataTypeSize>
+<ownDataTypeParameters>5,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="cisloOrientacni" id="D6F079C0-070E-3512-1941-357A24E99778">
+<createdBy>jakub</createdBy>
+<createdTime>2024-12-04 14:47:31 UTC</createdTime>
+<generatorID>9EAAA362-7E91-5A5D-2E2A-2DFD4E6C5AA2</generatorID>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>5</dataTypeSize>
+<ownDataTypeParameters>5,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="idPosta" id="772EDA4A-E45D-F65F-606C-831F0A74BB7E">
+<createdBy>jakub</createdBy>
+<createdTime>2024-12-04 14:47:31 UTC</createdTime>
+<generatorID>95969C30-45FE-B666-E3BB-8DEE8560DCD6</generatorID>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="F0F12B35-ECE1-C271-CE9A-D52334222E3D" referredColumn="E0FC6625-65CF-ACD5-B89A-9075E7BF1B40"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="CED456B7-B720-5622-6042-7B97682A1478" name="ADRESA_PK">
+<createdBy>jakub</createdBy>
+<createdTime>2024-12-04 14:47:31 UTC</createdTime>
+<generatorID>4DF37CA4-E32E-12AC-8DCD-7A4BA293C979</generatorID>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="3B0C173B-F5C9-840E-DDD6-71A70F27A627"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="C7A8D7D8-7B46-2081-4BDC-F41675A9C160" name="ADRESY_POSTY_FK">
+<createdBy>jakub</createdBy>
+<createdTime>2024-12-04 14:47:32 UTC</createdTime>
+<generatorID>05898461-5DB0-EB87-ACD6-68DF95F55628</generatorID>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="772EDA4A-E45D-F65F-606C-831F0A74BB7E"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

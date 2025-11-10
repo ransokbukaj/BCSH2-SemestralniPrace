@@ -1,0 +1,86 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="534E72C5-79F8-7880-D81F-B53CCA19B14F" name="NAVSTEVA">
+<createdBy>jakub</createdBy>
+<createdTime>2024-12-02 10:47:42 UTC</createdTime>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<engineerTo>
+<item key="553B4005-5906-3AC4-6EA3-A2DB96671797" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="idNavsteva" id="A643012C-B0A6-3F4D-4339-C6AE387A2100">
+<createdBy>jakub</createdBy>
+<createdTime>2024-12-02 11:48:21 UTC</createdTime>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<engineerTo>
+<item key="553B4005-5906-3AC4-6EA3-A2DB96671797" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="datumNavstevy" id="F6E28BF8-56DE-EE85-0ECB-496B00EE935F">
+<createdBy>jakub</createdBy>
+<createdTime>2024-12-02 10:50:14 UTC</createdTime>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<engineerTo>
+<item key="553B4005-5906-3AC4-6EA3-A2DB96671797" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="idDruhNavstevy" id="5F01D0B1-D436-18FC-3D1C-87112A83FF12">
+<createdBy>jakub</createdBy>
+<createdTime>2024-12-02 14:15:13 UTC</createdTime>
+<generatorID>BA18B1D7-C468-AA9A-3D47-0B20159AD43B</generatorID>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<engineerTo>
+<item key="553B4005-5906-3AC4-6EA3-A2DB96671797" value="true"/>
+</engineerTo>
+<referedAttribute>8A3B6F7C-E95E-ED28-732C-DA950D674083</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="idVystava" id="74B734C7-E2AA-5E3B-D05A-A84E392EC66C">
+<createdBy>jakub</createdBy>
+<createdTime>2024-12-04 14:03:16 UTC</createdTime>
+<generatorID>DD539DA9-682C-8403-0E08-5B39AB8281C9</generatorID>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<engineerTo>
+<item key="553B4005-5906-3AC4-6EA3-A2DB96671797" value="true"/>
+</engineerTo>
+<referedAttribute>2A768FD9-0F38-194E-DE10-BC3EB70619B1</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="DF10D314-B17A-275B-B463-9FAFE8F2D0A6" name="NAVSTEVNIK PK">
+<createdBy>jakub</createdBy>
+<createdTime>2024-12-02 11:48:32 UTC</createdTime>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<shouldEngineer>false</shouldEngineer>
+<engineerTo>
+<item key="553B4005-5906-3AC4-6EA3-A2DB96671797" value="false"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>A643012C-B0A6-3F4D-4339-C6AE387A2100</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

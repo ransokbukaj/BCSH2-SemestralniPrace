@@ -1,0 +1,108 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="E0913A48-0DC1-2324-3818-E74181A437B6" name="PRILOHA">
+<createdBy>jakub</createdBy>
+<createdTime>2025-11-10 08:09:55 UTC</createdTime>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<engineerTo>
+<item key="553B4005-5906-3AC4-6EA3-A2DB96671797" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="idPriloha" id="7EA82DAF-A835-2CF4-EBB5-4C965A2CB2CC">
+<createdBy>jakub</createdBy>
+<createdTime>2025-11-10 08:10:32 UTC</createdTime>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<engineerTo>
+<item key="553B4005-5906-3AC4-6EA3-A2DB96671797" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="soubor" id="B0A6044C-D9B7-D222-62E8-82511DC8C6CD">
+<createdBy>jakub</createdBy>
+<createdTime>2025-11-10 08:14:25 UTC</createdTime>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<engineerTo>
+<item key="553B4005-5906-3AC4-6EA3-A2DB96671797" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT029</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="typSouboru" id="304DD279-3C6B-FD3E-5B85-F4C17377AC45">
+<createdBy>jakub</createdBy>
+<createdTime>2025-11-10 08:11:47 UTC</createdTime>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<engineerTo>
+<item key="553B4005-5906-3AC4-6EA3-A2DB96671797" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>10</dataTypeSize>
+<ownDataTypeParameters>10,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="nazevSouboru" id="2EA62A3D-7DE2-0199-5010-A33C1CB0EE28">
+<createdBy>jakub</createdBy>
+<createdTime>2025-11-10 08:10:55 UTC</createdTime>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<engineerTo>
+<item key="553B4005-5906-3AC4-6EA3-A2DB96671797" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>250</dataTypeSize>
+<ownDataTypeParameters>250,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="nazevTabulky" id="58833690-CC68-6752-D4DB-DA6C6E32627C">
+<createdBy>jakub</createdBy>
+<createdTime>2025-11-10 08:13:08 UTC</createdTime>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<engineerTo>
+<item key="553B4005-5906-3AC4-6EA3-A2DB96671797" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<ownDataTypeParameters>50,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="idRadkuTabulky" id="5DD8B438-AB21-C7D5-4273-7E6FB630CC25">
+<createdBy>jakub</createdBy>
+<createdTime>2025-11-10 08:13:51 UTC</createdTime>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<engineerTo>
+<item key="553B4005-5906-3AC4-6EA3-A2DB96671797" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="CCE5659C-07D5-E88D-733C-87D9AEE45889" name="PRILOHA PK">
+<createdBy>jakub</createdBy>
+<createdTime>2025-11-10 08:10:35 UTC</createdTime>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<engineerTo>
+<item key="553B4005-5906-3AC4-6EA3-A2DB96671797" value="true"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>7EA82DAF-A835-2CF4-EBB5-4C965A2CB2CC</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

@@ -16,19 +16,19 @@ namespace DatabaseAccess
             CurrentUser = null;
         }
 
-        public static void LogIn(string username, string password)
+        public static bool Register()
         {
+            return true;
+        }
 
+        public static bool LogIn(string username, string password)
+        {
+            return true;
         }
 
         public static void LogOut()
         {
             CurrentUser = null;
-        }
-
-        public static void Register()
-        {
-
         }
     }
 }

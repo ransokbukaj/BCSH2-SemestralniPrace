@@ -1,0 +1,75 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="8759EED5-9D9A-40ED-735D-3A0C122CD69E" name="POSTY">
+<createdBy>jakub</createdBy>
+<createdTime>2024-12-04 14:47:31 UTC</createdTime>
+<generatorID>A688DF87-EC8E-BB33-B8C6-49EAD4D17870</generatorID>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<ordsAlias>posta</ordsAlias>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="idPosta" id="E0FC6625-65CF-ACD5-B89A-9075E7BF1B40">
+<createdBy>jakub</createdBy>
+<createdTime>2024-12-04 14:47:31 UTC</createdTime>
+<generatorID>CB127DCB-5684-1580-B737-B1623BA50906</generatorID>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementColumn>true</autoIncrementColumn>
+<identityColumn>true</identityColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="obec" id="0596EE3F-352A-97EB-FC02-DEA078680202">
+<createdBy>jakub</createdBy>
+<createdTime>2024-12-04 14:47:31 UTC</createdTime>
+<generatorID>C242001F-401A-B59C-4963-35B928D08D19</generatorID>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<ownDataTypeParameters>50,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="psc" id="C92C4FD1-85B2-44E8-D4E2-A18591C3BD19">
+<createdBy>jakub</createdBy>
+<createdTime>2024-12-04 14:47:31 UTC</createdTime>
+<generatorID>9C4BCA96-3CDD-39A3-A5A9-D736A1A569EC</generatorID>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>5</dataTypeSize>
+<ownDataTypeParameters>5,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="DFD92209-B10B-F20A-4E5D-1FFAE855C6FC" name="POSTA_PK">
+<createdBy>jakub</createdBy>
+<createdTime>2024-12-04 14:47:31 UTC</createdTime>
+<generatorID>6CE4689D-5981-24FA-5F56-43B527CCC16C</generatorID>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="E0FC6625-65CF-ACD5-B89A-9075E7BF1B40"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="BB6944F7-E991-FD44-3385-36C68F69D420" name="POSTY_psc_UN">
+<createdBy>jakub</createdBy>
+<createdTime>2024-12-09 11:17:58 UTC</createdTime>
+<generatorID>60A0F9C6-5AB9-17E1-940A-F007039A2188</generatorID>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<indexState>Unique Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="C92C4FD1-85B2-44E8-D4E2-A18591C3BD19"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

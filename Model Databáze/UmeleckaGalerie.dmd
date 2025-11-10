@@ -1,0 +1,8 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<OSDM_Design class="oracle.dbtools.crest.model.design.Design" name="UmeleckaGalerie" id="B169984E-BE65-137D-64A7-7C3F8DDB0E86" version="3.5">
+<createdBy>jakub</createdBy>
+<createdTime>2024-12-02 10:03:37 UTC</createdTime>
+<ownerDesignName>Logical</ownerDesignName>
+<capitalNames>false</capitalNames>
+<designId>B169984E-BE65-137D-64A7-7C3F8DDB0E86</designId>
+</OSDM_Design>

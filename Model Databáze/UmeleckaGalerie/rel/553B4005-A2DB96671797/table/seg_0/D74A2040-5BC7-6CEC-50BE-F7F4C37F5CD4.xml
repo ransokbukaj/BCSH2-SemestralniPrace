@@ -1,0 +1,99 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="D74A2040-5BC7-6CEC-50BE-F7F4C37F5CD4" name="UMELCI">
+<createdBy>jakub</createdBy>
+<createdTime>2024-12-04 14:47:32 UTC</createdTime>
+<generatorID>FCDF3E00-6202-1E34-A439-706E6C9D9D55</generatorID>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<ordsAlias>umelec</ordsAlias>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="idUmelec" id="848B85BC-852A-7C50-6AC1-DFE1E8D1090D">
+<createdBy>jakub</createdBy>
+<createdTime>2024-12-04 14:47:32 UTC</createdTime>
+<generatorID>6B892CE6-4685-355B-0113-E521C09D72E4</generatorID>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementColumn>true</autoIncrementColumn>
+<identityColumn>true</identityColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="jmeno" id="755E8F58-9D02-090F-2F57-ABC376191F2C">
+<createdBy>jakub</createdBy>
+<createdTime>2024-12-04 14:47:32 UTC</createdTime>
+<generatorID>26D8DBA0-930F-0B7C-0282-701C99C352E0</generatorID>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<ownDataTypeParameters>50,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="prijmeni" id="2B074FE1-88D3-4B0D-4171-13D2472D8982">
+<createdBy>jakub</createdBy>
+<createdTime>2024-12-04 14:47:32 UTC</createdTime>
+<generatorID>3A91CCF0-60D3-FFA6-E1D3-330879DCEA7F</generatorID>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<ownDataTypeParameters>50,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="datumNarozeni" id="E6898FEF-DC85-8D69-23D9-2A078563F98A">
+<createdBy>jakub</createdBy>
+<createdTime>2024-12-04 14:47:32 UTC</createdTime>
+<generatorID>6AEA8577-10EA-446C-FEA8-D5CD2124C636</generatorID>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="datumUmrti" id="4F4CDD3B-DE56-D490-5CF9-CD46EDD47FFC">
+<createdBy>jakub</createdBy>
+<createdTime>2024-12-04 14:47:32 UTC</createdTime>
+<generatorID>2DB4C2E6-35C1-7D72-BD28-0E53AD53C4AA</generatorID>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="popis" id="34B16468-5E6F-6B51-B19E-FB0829B189A4">
+<createdBy>jakub</createdBy>
+<createdTime>2024-12-04 14:47:32 UTC</createdTime>
+<generatorID>BC7C3C82-971F-0349-7FC1-3EEDA860303D</generatorID>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT040</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="1215A41C-3114-0729-AF2C-116BE9C9D70F" name="UMELEC_PK">
+<createdBy>jakub</createdBy>
+<createdTime>2024-12-04 14:47:32 UTC</createdTime>
+<generatorID>AE050168-67F6-DAD8-0FC7-CD15D9055E35</generatorID>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="848B85BC-852A-7C50-6AC1-DFE1E8D1090D"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

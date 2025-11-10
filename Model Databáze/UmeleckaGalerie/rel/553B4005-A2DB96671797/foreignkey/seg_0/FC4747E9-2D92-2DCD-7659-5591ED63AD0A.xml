@@ -1,0 +1,17 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="FC4747E9-2D92-2DCD-7659-5591ED63AD0A" containerWithKeyObject="EEA6FE89-A24F-0A7A-A057-D66473BF3164" localFKIndex="F08825F8-C9B3-E712-137A-F5DCADABBA2C" name="UMELECKA_DILA_VYSTAVY_FK">
+<createdBy>jakub</createdBy>
+<createdTime>2024-12-04 14:47:32 UTC</createdTime>
+<generatorID>26DCA9BC-5839-3C8E-EAB0-6D5AAC14D912</generatorID>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<referredTableLongName>VYSTAVY</referredTableLongName>
+<deleteRule>NO ACTION</deleteRule>
+<referredTableID>84E60E60-0F3B-D7CB-B6B9-CC033A27111A</referredTableID>
+<keyObject>D332B891-82DC-5EE5-204C-7A2922AD5B1B</keyObject>
+<referredKeyID>D332B891-82DC-5EE5-204C-7A2922AD5B1B</referredKeyID>
+<mandatory>false</mandatory>
+<refColNames>idVystava</refColNames>
+<transferable>true</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>

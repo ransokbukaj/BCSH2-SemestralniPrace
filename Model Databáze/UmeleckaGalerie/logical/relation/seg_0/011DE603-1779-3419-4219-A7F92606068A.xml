@@ -1,0 +1,21 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="TECHNIKA_OBRAZ" directorySegmentName="seg_0" id="011DE603-1779-3419-4219-A7F92606068A">
+<createdBy>jakub</createdBy>
+<createdTime>2024-12-04 14:34:19 UTC</createdTime>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<engineerTo>
+<item key="553B4005-5906-3AC4-6EA3-A2DB96671797" value="true"/>
+</engineerTo>
+<sourcePk>CAA4C6AA-7F87-DC36-31A7-0E6354E4099F</sourcePk>
+<identifying>false</identifying>
+<nameOnSource>je použit na</nameOnSource>
+<nameOnTarget>je tvořen</nameOnTarget>
+<optionalSource>true</optionalSource>
+<optionalTarget>false</optionalTarget>
+<sourceCardinality>1</sourceCardinality>
+<sourceEntity>6710249F-A082-FFF9-572A-1DD5B35ED4A3</sourceEntity>
+<targetCardinalityString>*</targetCardinalityString>
+<targetEntity>196017B7-9352-F2F1-4C6F-674802A516BB</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</Relation>

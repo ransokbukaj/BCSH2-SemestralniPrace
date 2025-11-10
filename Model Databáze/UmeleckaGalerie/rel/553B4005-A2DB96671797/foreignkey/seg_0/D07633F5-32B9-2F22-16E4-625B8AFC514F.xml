@@ -1,0 +1,17 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="D07633F5-32B9-2F22-16E4-625B8AFC514F" containerWithKeyObject="DF41AAB9-21C7-1341-CABB-21D71892D0FE" localFKIndex="E1FBC6F9-EE3D-952A-BF27-B922B2D42D5C" name="NAVSTEVY_DRUHY_NAVSTEVY_FK">
+<createdBy>jakub</createdBy>
+<createdTime>2024-12-04 14:47:32 UTC</createdTime>
+<generatorID>BA18B1D7-C468-AA9A-3D47-0B20159AD43B</generatorID>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<referredTableLongName>DRUHY_NAVSTEV</referredTableLongName>
+<deleteRule>NO ACTION</deleteRule>
+<referredTableID>C11250AC-96B7-884E-EA60-D232611ED003</referredTableID>
+<keyObject>07846E9F-0B31-FD47-9E87-C6160B76ECD6</keyObject>
+<referredKeyID>07846E9F-0B31-FD47-9E87-C6160B76ECD6</referredKeyID>
+<mandatory>true</mandatory>
+<refColNames>idDruhNavstevy</refColNames>
+<transferable>true</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>

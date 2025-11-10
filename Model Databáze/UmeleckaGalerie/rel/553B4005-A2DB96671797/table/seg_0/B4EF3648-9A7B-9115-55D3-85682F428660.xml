@@ -1,0 +1,85 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="B4EF3648-9A7B-9115-55D3-85682F428660" name="VZDELAVACI_PROGRAMY">
+<createdBy>jakub</createdBy>
+<createdTime>2024-12-04 14:47:32 UTC</createdTime>
+<generatorID>75110E37-A09F-AB9B-5DE3-ACCA67561D19</generatorID>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<ordsAlias>vzdelavaci_program</ordsAlias>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="idVzdelavaciProgram" id="93C148AF-B90C-A7A1-A574-DAD5521ACEE0">
+<createdBy>jakub</createdBy>
+<createdTime>2024-12-04 14:47:32 UTC</createdTime>
+<generatorID>CE1A9B8C-2760-7E25-0F49-D34CFE0520C1</generatorID>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementColumn>true</autoIncrementColumn>
+<identityColumn>true</identityColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="nazev" id="A2E62C48-5956-7BAE-69F6-0AEA2446425B">
+<createdBy>jakub</createdBy>
+<createdTime>2024-12-04 14:47:32 UTC</createdTime>
+<generatorID>EBAD58A7-E1EF-7372-833C-278D67607CF3</generatorID>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<ownDataTypeParameters>50,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="datumOd" id="0EB61534-27CB-ECA2-35A9-69F62930CE10">
+<createdBy>jakub</createdBy>
+<createdTime>2024-12-04 14:47:32 UTC</createdTime>
+<generatorID>61C0EFF8-2F41-569E-3BAC-C767FE7EC68A</generatorID>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="datumDo" id="67CF3C4E-BE43-C920-F0FE-53AD103969E3">
+<createdBy>jakub</createdBy>
+<createdTime>2024-12-04 14:47:32 UTC</createdTime>
+<generatorID>FFF623E8-D991-0D50-1A43-07AB85FD11F8</generatorID>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="popis" id="E8CEEBE1-5945-280D-F15D-69B10E4F4ECF">
+<createdBy>jakub</createdBy>
+<createdTime>2024-12-04 14:47:32 UTC</createdTime>
+<generatorID>11C123C1-C87E-8814-A72E-59816849D7A5</generatorID>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT028</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="B047D6BB-1326-867C-EC3C-9C9C3AED8BAA" name="VZDELAVACI_PROGRAM_PK">
+<createdBy>jakub</createdBy>
+<createdTime>2024-12-04 14:47:32 UTC</createdTime>
+<generatorID>94CF77A9-6D0C-201E-58A6-113289C63BA7</generatorID>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="93C148AF-B90C-A7A1-A574-DAD5521ACEE0"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

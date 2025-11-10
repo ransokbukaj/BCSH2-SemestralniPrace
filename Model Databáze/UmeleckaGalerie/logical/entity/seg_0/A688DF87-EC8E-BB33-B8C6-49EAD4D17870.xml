@@ -1,0 +1,84 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="A688DF87-EC8E-BB33-B8C6-49EAD4D17870" name="POSTA">
+<createdBy>jakub</createdBy>
+<createdTime>2024-12-02 11:36:32 UTC</createdTime>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<engineerTo>
+<item key="553B4005-5906-3AC4-6EA3-A2DB96671797" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="idPosta" id="CB127DCB-5684-1580-B737-B1623BA50906">
+<createdBy>jakub</createdBy>
+<createdTime>2024-12-02 11:47:40 UTC</createdTime>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<engineerTo>
+<item key="553B4005-5906-3AC4-6EA3-A2DB96671797" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="obec" id="C242001F-401A-B59C-4963-35B928D08D19">
+<createdBy>jakub</createdBy>
+<createdTime>2024-12-02 11:36:39 UTC</createdTime>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<engineerTo>
+<item key="553B4005-5906-3AC4-6EA3-A2DB96671797" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<ownDataTypeParameters>50,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="psc" id="9C4BCA96-3CDD-39A3-A5A9-D736A1A569EC">
+<createdBy>jakub</createdBy>
+<createdTime>2024-12-02 11:36:50 UTC</createdTime>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<engineerTo>
+<item key="553B4005-5906-3AC4-6EA3-A2DB96671797" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>5</dataTypeSize>
+<ownDataTypeParameters>5,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="6CE4689D-5981-24FA-5F56-43B527CCC16C" name="POSTA PK">
+<createdBy>jakub</createdBy>
+<createdTime>2024-12-02 11:47:50 UTC</createdTime>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<shouldEngineer>false</shouldEngineer>
+<engineerTo>
+<item key="553B4005-5906-3AC4-6EA3-A2DB96671797" value="false"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>CB127DCB-5684-1580-B737-B1623BA50906</attributeRef>
+</usedAttributes>
+</identifier>
+<identifier id="60A0F9C6-5AB9-17E1-940A-F007039A2188" name="psc_un">
+<createdBy>jakub</createdBy>
+<createdTime>2024-12-09 10:45:51 UTC</createdTime>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<engineerTo>
+<item key="553B4005-5906-3AC4-6EA3-A2DB96671797" value="true"/>
+</engineerTo>
+<newElementsIDs>9C4BCA96-3CDD-39A3-A5A9-D736A1A569EC</newElementsIDs>
+<usedAttributes>
+<attributeRef>9C4BCA96-3CDD-39A3-A5A9-D736A1A569EC</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

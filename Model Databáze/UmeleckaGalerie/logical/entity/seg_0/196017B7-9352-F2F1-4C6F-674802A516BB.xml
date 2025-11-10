@@ -1,0 +1,48 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="196017B7-9352-F2F1-4C6F-674802A516BB" name="OBRAZ">
+<createdBy>jakub</createdBy>
+<createdTime>2024-12-02 10:24:25 UTC</createdTime>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<engineerTo>
+<item key="553B4005-5906-3AC4-6EA3-A2DB96671797" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<hierarchicalParent>BFAFAA1B-045B-069E-FD48-837A9CE47918</hierarchicalParent>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="idPodklad" id="1A44C319-1A69-60AD-0196-D734C9ED5B70">
+<createdBy>jakub</createdBy>
+<createdTime>2024-12-04 13:39:10 UTC</createdTime>
+<generatorID>3EDCC338-BE8E-7946-AA4D-AFEB88C03930</generatorID>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<engineerTo>
+<item key="553B4005-5906-3AC4-6EA3-A2DB96671797" value="true"/>
+</engineerTo>
+<referedAttribute>DB3622F3-0356-113C-62EC-FCD4F431F9E0</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="idTechnika" id="06AF940F-3416-CB4C-0BF9-E6A4D4CD3A7B">
+<createdBy>jakub</createdBy>
+<createdTime>2024-12-04 14:34:19 UTC</createdTime>
+<generatorID>011DE603-1779-3419-4219-A7F92606068A</generatorID>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<engineerTo>
+<item key="553B4005-5906-3AC4-6EA3-A2DB96671797" value="true"/>
+</engineerTo>
+<referedAttribute>C94BBEC1-4F95-BCBF-8E64-C0AC822793A5</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+</Entity>

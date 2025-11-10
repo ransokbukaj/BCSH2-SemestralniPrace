@@ -1,0 +1,21 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="MATERIAL_SOCHA" directorySegmentName="seg_0" id="4561B1D8-6FDE-7B56-DC85-F37748335884">
+<createdBy>jakub</createdBy>
+<createdTime>2024-12-04 13:37:40 UTC</createdTime>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<engineerTo>
+<item key="553B4005-5906-3AC4-6EA3-A2DB96671797" value="true"/>
+</engineerTo>
+<sourcePk>C787209D-F243-704C-01EF-67952ECC4C9E</sourcePk>
+<identifying>false</identifying>
+<nameOnSource>je použit na</nameOnSource>
+<nameOnTarget>je vyrobena z</nameOnTarget>
+<optionalSource>true</optionalSource>
+<optionalTarget>false</optionalTarget>
+<sourceCardinality>1</sourceCardinality>
+<sourceEntity>C753713C-B37E-035A-BDAC-96DFB784071A</sourceEntity>
+<targetCardinalityString>*</targetCardinalityString>
+<targetEntity>F11C99CA-9B99-ACF3-EE06-9ED91BA9D84B</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</Relation>

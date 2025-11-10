@@ -1,0 +1,21 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="POSTA_ADRESA" directorySegmentName="seg_0" id="05898461-5DB0-EB87-ACD6-68DF95F55628">
+<createdBy>jakub</createdBy>
+<createdTime>2024-12-02 11:43:06 UTC</createdTime>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<engineerTo>
+<item key="553B4005-5906-3AC4-6EA3-A2DB96671797" value="true"/>
+</engineerTo>
+<sourcePk>6CE4689D-5981-24FA-5F56-43B527CCC16C</sourcePk>
+<identifying>false</identifying>
+<nameOnSource>obsahuje</nameOnSource>
+<nameOnTarget>spadá pod</nameOnTarget>
+<optionalSource>true</optionalSource>
+<optionalTarget>false</optionalTarget>
+<sourceCardinality>1</sourceCardinality>
+<sourceEntity>A688DF87-EC8E-BB33-B8C6-49EAD4D17870</sourceEntity>
+<targetCardinalityString>*</targetCardinalityString>
+<targetEntity>251F8D47-7BBB-1B00-3147-72DECAD8C83B</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</Relation>

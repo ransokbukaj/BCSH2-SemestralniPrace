@@ -1,0 +1,76 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="AAAC69D6-C332-D5A3-B11F-EB5B5B8EAFD4" name="UMELCI_UMELECKA_DILA">
+<createdBy>jakub</createdBy>
+<createdTime>2024-12-04 14:47:32 UTC</createdTime>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<ordsAlias>umelec_umelecke_dilo</ordsAlias>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="idUmeleckeDilo" id="4F8D5E67-752E-0F13-DC90-C06BA4604598">
+<createdBy>jakub</createdBy>
+<createdTime>2024-12-04 14:47:32 UTC</createdTime>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="5327450F-97F7-42A5-51AD-3A0C2D0F44D8" referredColumn="845FBCCA-48B8-1F59-C96B-0DDE50AB0DB7"/>
+</associations>
+</Column>
+<Column name="idUmelec" id="CA1F411C-4464-1507-2E14-12D131E38EBD">
+<createdBy>jakub</createdBy>
+<createdTime>2024-12-04 14:47:32 UTC</createdTime>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="8BECBE5B-C03C-C912-BF42-634DFA79DFF6" referredColumn="848B85BC-852A-7C50-6AC1-DFE1E8D1090D"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="88952DB8-3BF8-329E-C672-B309448C049D" name="UMELEC_UMELECKE_DILO_PK">
+<createdBy>jakub</createdBy>
+<createdTime>2024-12-04 14:47:32 UTC</createdTime>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="4F8D5E67-752E-0F13-DC90-C06BA4604598"/>
+<colUsage columnID="CA1F411C-4464-1507-2E14-12D131E38EBD"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="CA4751DE-B503-20E9-884A-F0E7B2312985" name="UMELECKE_DILO_FK">
+<createdBy>jakub</createdBy>
+<createdTime>2024-12-04 14:47:32 UTC</createdTime>
+<generatorID>8051FD80-A1CF-5E87-F35A-066BE52FD14C</generatorID>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="4F8D5E67-752E-0F13-DC90-C06BA4604598"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="9704855E-DF66-0D56-CFA5-2C76DFF516CC" name="UMELEC_FK">
+<createdBy>jakub</createdBy>
+<createdTime>2024-12-04 14:47:32 UTC</createdTime>
+<generatorID>8051FD80-A1CF-5E87-F35A-066BE52FD14C</generatorID>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="CA1F411C-4464-1507-2E14-12D131E38EBD"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

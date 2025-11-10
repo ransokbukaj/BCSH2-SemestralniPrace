@@ -1,0 +1,21 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="PODLAD_OBRAZ" directorySegmentName="seg_0" id="3EDCC338-BE8E-7946-AA4D-AFEB88C03930">
+<createdBy>jakub</createdBy>
+<createdTime>2024-12-04 13:39:10 UTC</createdTime>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<engineerTo>
+<item key="553B4005-5906-3AC4-6EA3-A2DB96671797" value="true"/>
+</engineerTo>
+<sourcePk>1CDD727D-94DC-6483-2A08-C0B51909CC9E</sourcePk>
+<identifying>false</identifying>
+<nameOnSource>je použit pro</nameOnSource>
+<nameOnTarget>je na</nameOnTarget>
+<optionalSource>true</optionalSource>
+<optionalTarget>false</optionalTarget>
+<sourceCardinality>1</sourceCardinality>
+<sourceEntity>9E4733F9-D6F9-95A8-B3E0-AA1F041BC94F</sourceEntity>
+<targetCardinalityString>*</targetCardinalityString>
+<targetEntity>196017B7-9352-F2F1-4C6F-674802A516BB</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</Relation>

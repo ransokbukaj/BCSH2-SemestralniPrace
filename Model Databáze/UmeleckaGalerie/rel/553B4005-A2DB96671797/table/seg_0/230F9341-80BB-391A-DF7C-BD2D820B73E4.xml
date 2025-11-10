@@ -1,0 +1,63 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="230F9341-80BB-391A-DF7C-BD2D820B73E4" name="MATERIALY">
+<createdBy>jakub</createdBy>
+<createdTime>2024-12-04 14:47:31 UTC</createdTime>
+<generatorID>C753713C-B37E-035A-BDAC-96DFB784071A</generatorID>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<ordsAlias>material</ordsAlias>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="idMaterial" id="529E4A70-0075-B63A-68CC-77FA4969EA90">
+<createdBy>jakub</createdBy>
+<createdTime>2024-12-04 14:47:31 UTC</createdTime>
+<generatorID>555E1DF5-7202-7AC1-408B-019D95583C55</generatorID>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementColumn>true</autoIncrementColumn>
+<identityColumn>true</identityColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="nazev" id="44FADCB8-4A77-CC26-9C73-266162E5615A">
+<createdBy>jakub</createdBy>
+<createdTime>2024-12-04 14:47:31 UTC</createdTime>
+<generatorID>EA0456D9-4D02-3432-6C5C-D2477D34A4A2</generatorID>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<ownDataTypeParameters>50,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="B6B4BB41-E896-CFB4-B9DD-DE7FFF8ADC39" name="MATERIAL_PK">
+<createdBy>jakub</createdBy>
+<createdTime>2024-12-04 14:47:31 UTC</createdTime>
+<generatorID>C787209D-F243-704C-01EF-67952ECC4C9E</generatorID>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="529E4A70-0075-B63A-68CC-77FA4969EA90"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="AA7BE0D3-FAA6-8FB3-8627-620C1D467453" name="MATERIALY_nazev_UN">
+<createdBy>jakub</createdBy>
+<createdTime>2024-12-09 11:17:58 UTC</createdTime>
+<generatorID>DA532470-D2A2-201D-0845-A16280513BD2</generatorID>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<indexState>Unique Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="44FADCB8-4A77-CC26-9C73-266162E5615A"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

@@ -1,0 +1,102 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="B483758C-09BF-F0F0-335A-E5B51A4EEAC1" name="SOCHY">
+<createdBy>jakub</createdBy>
+<createdTime>2024-12-04 14:47:32 UTC</createdTime>
+<generatorID>F11C99CA-9B99-ACF3-EE06-9ED91BA9D84B</generatorID>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<ordsAlias>socha</ordsAlias>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="idUmeleckeDilo" id="05F88422-E5BE-2F6A-A45A-A83CE8B44082">
+<createdBy>jakub</createdBy>
+<createdTime>2024-12-04 14:47:32 UTC</createdTime>
+<generatorID>F9528FAE-9409-F0AF-6764-8D8207633E26</generatorID>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="C910DCBF-FC1E-03AC-69C3-9427E351246D" referredColumn="845FBCCA-48B8-1F59-C96B-0DDE50AB0DB7"/>
+</associations>
+</Column>
+<Column name="hloubka" id="1C31AEA3-031F-BF1F-DBBA-FFA9F1A88E35">
+<createdBy>jakub</createdBy>
+<createdTime>2024-12-04 14:47:32 UTC</createdTime>
+<generatorID>F12AC068-6A10-30E3-5BF0-59C35403E05C</generatorID>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="hmotnost" id="9D2D76F6-76B1-EDE3-0577-E78362BF445C">
+<createdBy>jakub</createdBy>
+<createdTime>2024-12-04 14:47:32 UTC</createdTime>
+<generatorID>C46E27AF-64B7-9875-6E64-D77916984655</generatorID>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT026</logicalDatatype>
+<dataTypePrecision>8</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<ownDataTypeParameters>,8,2</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="idMaterial" id="91AE2090-1B19-F589-31B5-FB70A65FDA17">
+<createdBy>jakub</createdBy>
+<createdTime>2024-12-04 14:47:32 UTC</createdTime>
+<generatorID>A7B05B07-6E8D-0C53-8100-D3A8ACBF7E5B</generatorID>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="580B60D3-BDA0-D805-5E54-1884B9D5BC57" referredColumn="529E4A70-0075-B63A-68CC-77FA4969EA90"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="AC9F7051-9CDF-C461-B149-EEBA7BAAEFF7" name="SOCHA_PK">
+<createdBy>jakub</createdBy>
+<createdTime>2024-12-04 14:47:32 UTC</createdTime>
+<generatorID>F9664456-95FC-21CA-18EE-5897F968AA5E</generatorID>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="05F88422-E5BE-2F6A-A45A-A83CE8B44082"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="E271DA77-4DD7-B06B-1BBD-77892480CDD8" name="SOCHA_UMELECKE_DILO_FK">
+<createdBy>jakub</createdBy>
+<createdTime>2024-12-04 14:47:32 UTC</createdTime>
+<generatorID>8592D3B0-2DB5-3893-1B12-ADA040F5A749</generatorID>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="05F88422-E5BE-2F6A-A45A-A83CE8B44082"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="ADDFFCDE-91FF-23E6-42F6-2B63EFD7A35C" name="SOCHY_MATERIALY_FK">
+<createdBy>jakub</createdBy>
+<createdTime>2024-12-04 14:47:32 UTC</createdTime>
+<generatorID>4561B1D8-6FDE-7B56-DC85-F37748335884</generatorID>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="91AE2090-1B19-F589-31B5-FB70A65FDA17"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

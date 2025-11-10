@@ -1,0 +1,19 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="B97211C3-CD69-3652-A0F3-C6B941A4DF9A" containerWithKeyObject="F5320687-B0E2-BFFB-C8E4-54D2FCE766C9" localFKIndex="4C8C5C62-4658-D77C-DCB5-9F95E7C5704F" name="OBRAZ_UMELECKE_DILO_FK">
+<createdBy>jakub</createdBy>
+<createdTime>2024-12-04 14:47:32 UTC</createdTime>
+<generatorID>69D74594-26A5-CEB1-41DD-D72D8AD88B7E</generatorID>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<referredTableLongName>UMELECKA_DILA</referredTableLongName>
+<arc>999BC69A-3C59-5860-A74F-92D229CC9B33</arc>
+<deleteRule>NO ACTION</deleteRule>
+<referredTableID>EEA6FE89-A24F-0A7A-A057-D66473BF3164</referredTableID>
+<keyObject>0D984327-113C-4AEB-6FD7-FC646B106A6B</keyObject>
+<referredKeyID>0D984327-113C-4AEB-6FD7-FC646B106A6B</referredKeyID>
+<mandatory>true</mandatory>
+<refColNames>idUmeleckeDilo</refColNames>
+<transferable>true</transferable>
+<rely>false</rely>
+<discriminatorValue>O</discriminatorValue>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>

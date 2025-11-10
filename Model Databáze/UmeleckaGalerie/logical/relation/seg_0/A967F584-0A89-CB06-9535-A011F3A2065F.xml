@@ -1,0 +1,21 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="UMELECKE_DILO_PRODEJ" directorySegmentName="seg_0" id="A967F584-0A89-CB06-9535-A011F3A2065F">
+<createdBy>jakub</createdBy>
+<createdTime>2024-12-02 10:45:00 UTC</createdTime>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<engineerTo>
+<item key="553B4005-5906-3AC4-6EA3-A2DB96671797" value="true"/>
+</engineerTo>
+<sourcePk>822F868E-2420-3AEE-31E4-5A749A3EACAD</sourcePk>
+<identifying>false</identifying>
+<nameOnSource>obsahuje</nameOnSource>
+<nameOnTarget>je součástí</nameOnTarget>
+<optionalSource>false</optionalSource>
+<optionalTarget>true</optionalTarget>
+<sourceCardinality>1</sourceCardinality>
+<sourceEntity>66D74A33-3F29-CDCE-7D60-7FA12E885B57</sourceEntity>
+<targetCardinalityString>*</targetCardinalityString>
+<targetEntity>BFAFAA1B-045B-069E-FD48-837A9CE47918</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</Relation>

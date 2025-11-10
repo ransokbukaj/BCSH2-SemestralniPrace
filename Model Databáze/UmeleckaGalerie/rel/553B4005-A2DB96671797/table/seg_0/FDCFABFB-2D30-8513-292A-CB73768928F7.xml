@@ -1,0 +1,98 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="FDCFABFB-2D30-8513-292A-CB73768928F7" name="PRILOHY">
+<createdBy>jakub</createdBy>
+<createdTime>2025-11-10 08:20:41 UTC</createdTime>
+<generatorID>E0913A48-0DC1-2324-3818-E74181A437B6</generatorID>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<ordsAlias>priloha</ordsAlias>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="idPriloha" id="0540DF5A-3BBD-97FB-1B4E-C8B2B2E21FE2">
+<createdBy>jakub</createdBy>
+<createdTime>2025-11-10 08:20:41 UTC</createdTime>
+<generatorID>7EA82DAF-A835-2CF4-EBB5-4C965A2CB2CC</generatorID>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementColumn>true</autoIncrementColumn>
+<identityColumn>true</identityColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="soubor" id="651CE24F-63C4-B763-6075-5716DF110691">
+<createdBy>jakub</createdBy>
+<createdTime>2025-11-10 08:20:41 UTC</createdTime>
+<generatorID>B0A6044C-D9B7-D222-62E8-82511DC8C6CD</generatorID>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT029</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="typSouboru" id="FE870066-ABC2-C34F-E82B-57BA8A189AD6">
+<createdBy>jakub</createdBy>
+<createdTime>2025-11-10 08:20:41 UTC</createdTime>
+<generatorID>304DD279-3C6B-FD3E-5B85-F4C17377AC45</generatorID>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>10</dataTypeSize>
+<ownDataTypeParameters>10,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="nazevSouboru" id="D879B7D1-5BC3-61CD-E1FF-189D64AE31BF">
+<createdBy>jakub</createdBy>
+<createdTime>2025-11-10 08:20:41 UTC</createdTime>
+<generatorID>2EA62A3D-7DE2-0199-5010-A33C1CB0EE28</generatorID>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>250</dataTypeSize>
+<ownDataTypeParameters>250,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="nazevTabulky" id="8837B7E5-1E6C-F75E-56E7-94A936C91781">
+<createdBy>jakub</createdBy>
+<createdTime>2025-11-10 08:20:41 UTC</createdTime>
+<generatorID>58833690-CC68-6752-D4DB-DA6C6E32627C</generatorID>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<ownDataTypeParameters>50,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="idRadkuTabulky" id="6CECB36C-84D8-19D9-5E01-0A6D1CC2C3FA">
+<createdBy>jakub</createdBy>
+<createdTime>2025-11-10 08:20:41 UTC</createdTime>
+<generatorID>5DD8B438-AB21-C7D5-4273-7E6FB630CC25</generatorID>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="9C9A05DF-9A31-B2B8-D1A8-F4AEB10DC4BA" name="PRILOHA_PK">
+<createdBy>jakub</createdBy>
+<createdTime>2025-11-10 08:20:41 UTC</createdTime>
+<generatorID>CCE5659C-07D5-E88D-733C-87D9AEE45889</generatorID>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="0540DF5A-3BBD-97FB-1B4E-C8B2B2E21FE2"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

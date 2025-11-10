@@ -1,0 +1,103 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="DF41AAB9-21C7-1341-CABB-21D71892D0FE" name="NAVSTEVY">
+<createdBy>jakub</createdBy>
+<createdTime>2024-12-04 14:47:31 UTC</createdTime>
+<generatorID>534E72C5-79F8-7880-D81F-B53CCA19B14F</generatorID>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<ordsAlias>navsteva</ordsAlias>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="idNavsteva" id="BD75BE87-B973-9458-DA80-44E44169B92F">
+<createdBy>jakub</createdBy>
+<createdTime>2024-12-04 14:47:31 UTC</createdTime>
+<generatorID>A643012C-B0A6-3F4D-4339-C6AE387A2100</generatorID>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementColumn>true</autoIncrementColumn>
+<identityColumn>true</identityColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="datumNavstevy" id="AE3E75AF-30A7-802A-1A9A-CEDC9DD281DB">
+<createdBy>jakub</createdBy>
+<createdTime>2024-12-04 14:47:31 UTC</createdTime>
+<generatorID>F6E28BF8-56DE-EE85-0ECB-496B00EE935F</generatorID>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="idDruhNavstevy" id="4299837F-E318-070E-7BEC-CCFFFB7571EF">
+<createdBy>jakub</createdBy>
+<createdTime>2024-12-04 14:47:31 UTC</createdTime>
+<generatorID>5F01D0B1-D436-18FC-3D1C-87112A83FF12</generatorID>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="D07633F5-32B9-2F22-16E4-625B8AFC514F" referredColumn="858C0353-CD84-5994-06C6-697F3C31F585"/>
+</associations>
+</Column>
+<Column name="idVystava" id="3CC15636-45F1-452E-5AB8-818D8857B73A">
+<createdBy>jakub</createdBy>
+<createdTime>2024-12-04 14:47:31 UTC</createdTime>
+<generatorID>74B734C7-E2AA-5E3B-D05A-A84E392EC66C</generatorID>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="1DAF64A2-B9EA-9B2B-F05E-536909B1F9A1" referredColumn="47845512-CC60-21FC-A56F-16B18593BA29"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="BC9BD520-F228-1222-A548-CDD507F098A3" name="NAVSTEVA_PK">
+<createdBy>jakub</createdBy>
+<createdTime>2024-12-04 14:47:31 UTC</createdTime>
+<generatorID>DF10D314-B17A-275B-B463-9FAFE8F2D0A6</generatorID>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="BD75BE87-B973-9458-DA80-44E44169B92F"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="D5D4C2DC-82B0-6E31-B965-8B349854CFF0" name="NAVSTEVY_VYSTAVY_FK">
+<createdBy>jakub</createdBy>
+<createdTime>2024-12-04 14:47:32 UTC</createdTime>
+<generatorID>DD539DA9-682C-8403-0E08-5B39AB8281C9</generatorID>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="3CC15636-45F1-452E-5AB8-818D8857B73A"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="E1FBC6F9-EE3D-952A-BF27-B922B2D42D5C" name="NAVSTEVY_DRUHY_NAVSTEVY_FK">
+<createdBy>jakub</createdBy>
+<createdTime>2024-12-04 14:47:32 UTC</createdTime>
+<generatorID>BA18B1D7-C468-AA9A-3D47-0B20159AD43B</generatorID>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="4299837F-E318-070E-7BEC-CCFFFB7571EF"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

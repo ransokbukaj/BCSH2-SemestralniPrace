@@ -1,0 +1,186 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="6AABB554-0CD3-F51D-9EA2-A7668DC87CB4" name="UZIVATELE">
+<createdBy>jakub</createdBy>
+<createdTime>2025-11-02 09:09:54 UTC</createdTime>
+<generatorID>B5F9A6A2-8E47-2209-E5DB-79C4AD3E5503</generatorID>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<ordsAlias>uzivatel</ordsAlias>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="idUzivatel" id="B6FCFE96-A546-81C8-82FD-0E1AFE47322E">
+<createdBy>jakub</createdBy>
+<createdTime>2025-11-02 09:09:54 UTC</createdTime>
+<generatorID>5068006A-45B9-1198-89B0-9B7F2938EF0F</generatorID>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementColumn>true</autoIncrementColumn>
+<identityColumn>true</identityColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="uzivatelskeJmeno" id="BCA040B2-397B-14C9-E4A5-451B461446E3">
+<createdBy>jakub</createdBy>
+<createdTime>2025-11-02 09:09:54 UTC</createdTime>
+<generatorID>DE0F19BC-1F58-DEEA-FC84-CC8DD95471FE</generatorID>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<ownDataTypeParameters>50,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="hesloHash" id="225B23C7-9798-478E-6C4C-1487371F3281">
+<createdBy>jakub</createdBy>
+<createdTime>2025-11-02 09:09:54 UTC</createdTime>
+<generatorID>BE09A24C-821B-CD91-B24E-45576BA27E72</generatorID>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>255</dataTypeSize>
+<ownDataTypeParameters>255,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="jmeno" id="52A6A969-51C6-13D2-896E-965022C49E06">
+<createdBy>jakub</createdBy>
+<createdTime>2025-11-02 09:09:54 UTC</createdTime>
+<generatorID>8273E503-861F-5938-4455-1D5BEAE6792B</generatorID>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>100</dataTypeSize>
+<ownDataTypeParameters>100,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="prijmeni" id="9140D1B8-69AC-44BE-F16E-F11B11E3FB1F">
+<createdBy>jakub</createdBy>
+<createdTime>2025-11-02 09:09:54 UTC</createdTime>
+<generatorID>A132F2FC-40A3-F512-322F-608479B4B35B</generatorID>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>100</dataTypeSize>
+<ownDataTypeParameters>100,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="email" id="01ED4B88-59A0-CDF3-3079-31770373071B">
+<createdBy>jakub</createdBy>
+<createdTime>2025-11-02 09:09:54 UTC</createdTime>
+<generatorID>8B9CC2B7-4820-1B79-6CEF-243A7FBD2971</generatorID>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>250</dataTypeSize>
+<ownDataTypeParameters>250,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="telefoniCislo" id="D4008236-E7A5-2928-74A5-185C54A18F36">
+<createdBy>jakub</createdBy>
+<createdTime>2025-11-02 09:09:54 UTC</createdTime>
+<generatorID>F7AA2168-E9DE-AF1A-8953-3A884D299115</generatorID>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20</dataTypeSize>
+<ownDataTypeParameters>20,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="datumRegistrace" id="4E946578-0B4B-A84D-1504-BFEC643A27F6">
+<createdBy>jakub</createdBy>
+<createdTime>2025-11-02 09:09:54 UTC</createdTime>
+<generatorID>72226F26-9402-F6CE-3B53-5B56D232B7FF</generatorID>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT008</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="datumPoslednihoPrihlaseni" id="930BD7B9-0D56-4AEB-5D86-CA15F875AF68">
+<createdBy>jakub</createdBy>
+<createdTime>2025-11-02 09:09:54 UTC</createdTime>
+<generatorID>93AEE0FC-278E-339B-487B-34B9F5DF60CE</generatorID>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT008</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="datumPosledniZmeni" id="EAB666B1-E53D-4410-CE15-CCFCCFEFFF35">
+<createdBy>jakub</createdBy>
+<createdTime>2025-11-02 09:09:54 UTC</createdTime>
+<generatorID>00B7C042-BD13-F82E-70A4-35699C0F5289</generatorID>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT008</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="idRole" id="B873288A-4856-4AE6-AAA5-1A2DE97BE9B2">
+<createdBy>jakub</createdBy>
+<createdTime>2025-11-02 09:09:54 UTC</createdTime>
+<generatorID>AD8D4DBA-5198-142D-C5F1-07594B94C397</generatorID>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="6B520AAA-6A8F-FE78-55D6-179E395B620D" referredColumn="D95953E9-0923-220D-1979-D94B0E06A484"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="93758F2A-0543-13CF-98A0-692039B260E6" name="UZIVATELE_PK">
+<createdBy>jakub</createdBy>
+<createdTime>2025-11-02 09:09:54 UTC</createdTime>
+<generatorID>67313429-C2A2-B0DB-2750-7E5E9EA5A144</generatorID>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="B6FCFE96-A546-81C8-82FD-0E1AFE47322E"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="263C02B6-DAED-DB41-DE87-8AAD2FB5319D" name="UZIVATELE_uzivatelskeJmeno_UN">
+<createdBy>jakub</createdBy>
+<createdTime>2025-11-02 09:09:54 UTC</createdTime>
+<generatorID>1E4C2695-4CB0-A97A-4805-A7DE3E3E0CD3</generatorID>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<indexState>Unique Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="BCA040B2-397B-14C9-E4A5-451B461446E3"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="513D681F-4FDB-0FEE-7C27-816CD6E7A6C4" name="UZIVATELE_ROLE_FK">
+<createdBy>jakub</createdBy>
+<createdTime>2025-11-02 09:09:54 UTC</createdTime>
+<generatorID>0C17289C-24B2-B37B-60C9-142DE083C6C0</generatorID>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="B873288A-4856-4AE6-AAA5-1A2DE97BE9B2"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

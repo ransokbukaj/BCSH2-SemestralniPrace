@@ -1,0 +1,17 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="B7F94966-BFE6-B154-170A-1389C2B29EE8" containerWithKeyObject="F5320687-B0E2-BFFB-C8E4-54D2FCE766C9" localFKIndex="51A77FD2-E81E-97DD-C8A3-618F572B369C" name="OBRAZY_TECHNIKY_FK">
+<createdBy>jakub</createdBy>
+<createdTime>2024-12-04 14:47:32 UTC</createdTime>
+<generatorID>011DE603-1779-3419-4219-A7F92606068A</generatorID>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<referredTableLongName>TECHNIKY</referredTableLongName>
+<deleteRule>NO ACTION</deleteRule>
+<referredTableID>797E7F3C-5F70-0743-F07F-81613B213540</referredTableID>
+<keyObject>0EEE4ED6-F678-722A-E13B-47C337468D2C</keyObject>
+<referredKeyID>0EEE4ED6-F678-722A-E13B-47C337468D2C</referredKeyID>
+<mandatory>true</mandatory>
+<refColNames>idTechnika</refColNames>
+<transferable>true</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>

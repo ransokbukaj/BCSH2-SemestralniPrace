@@ -1,0 +1,104 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="F5320687-B0E2-BFFB-C8E4-54D2FCE766C9" name="OBRAZY">
+<createdBy>jakub</createdBy>
+<createdTime>2024-12-04 14:47:32 UTC</createdTime>
+<generatorID>196017B7-9352-F2F1-4C6F-674802A516BB</generatorID>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<ordsAlias>obraz</ordsAlias>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="idUmeleckeDilo" id="BCBF8072-5328-96D3-25E4-C3F8CF12D814">
+<createdBy>jakub</createdBy>
+<createdTime>2024-12-04 14:47:32 UTC</createdTime>
+<generatorID>F9528FAE-9409-F0AF-6764-8D8207633E26</generatorID>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="B97211C3-CD69-3652-A0F3-C6B941A4DF9A" referredColumn="845FBCCA-48B8-1F59-C96B-0DDE50AB0DB7"/>
+</associations>
+</Column>
+<Column name="idPodklad" id="BC0F5203-F17E-6616-9A90-65F5F8B292F1">
+<createdBy>jakub</createdBy>
+<createdTime>2024-12-04 14:47:32 UTC</createdTime>
+<generatorID>1A44C319-1A69-60AD-0196-D734C9ED5B70</generatorID>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="ABF67CEE-4DCD-D622-BF6C-E60F0B07088F" referredColumn="875C6592-0254-5DBB-2DD3-C8ADDF779CA7"/>
+</associations>
+</Column>
+<Column name="idTechnika" id="F26AB4DF-D1CE-3CB9-A849-1EB49F0079F3">
+<createdBy>jakub</createdBy>
+<createdTime>2024-12-04 14:47:32 UTC</createdTime>
+<generatorID>06AF940F-3416-CB4C-0BF9-E6A4D4CD3A7B</generatorID>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="B7F94966-BFE6-B154-170A-1389C2B29EE8" referredColumn="42420AF4-91AE-DE6F-0D6B-69EEC490CEE6"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="8941B24A-852F-2775-B76C-3CAB9F69F692" name="OBRAZ_PK">
+<createdBy>jakub</createdBy>
+<createdTime>2024-12-04 14:47:32 UTC</createdTime>
+<generatorID>F9664456-95FC-21CA-18EE-5897F968AA5E</generatorID>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="BCBF8072-5328-96D3-25E4-C3F8CF12D814"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="4C8C5C62-4658-D77C-DCB5-9F95E7C5704F" name="OBRAZ_UMELECKE_DILO_FK">
+<createdBy>jakub</createdBy>
+<createdTime>2024-12-04 14:47:32 UTC</createdTime>
+<generatorID>69D74594-26A5-CEB1-41DD-D72D8AD88B7E</generatorID>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="BCBF8072-5328-96D3-25E4-C3F8CF12D814"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="F52BBF26-50A2-23B2-2799-BFA61853B9A8" name="OBRAZY_PODKLADY_FK">
+<createdBy>jakub</createdBy>
+<createdTime>2024-12-04 14:47:32 UTC</createdTime>
+<generatorID>3EDCC338-BE8E-7946-AA4D-AFEB88C03930</generatorID>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="BC0F5203-F17E-6616-9A90-65F5F8B292F1"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="51A77FD2-E81E-97DD-C8A3-618F572B369C" name="OBRAZY_TECHNIKY_FK">
+<createdBy>jakub</createdBy>
+<createdTime>2024-12-04 14:47:32 UTC</createdTime>
+<generatorID>011DE603-1779-3419-4219-A7F92606068A</generatorID>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="F26AB4DF-D1CE-3CB9-A849-1EB49F0079F3"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

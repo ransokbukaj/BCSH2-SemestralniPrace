@@ -1,0 +1,61 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="3B297D10-8D75-7D96-AF68-07CA860575A8" name="ROLE">
+<createdBy>jakub</createdBy>
+<createdTime>2025-11-02 09:09:54 UTC</createdTime>
+<generatorID>975BD410-5027-9638-EC6A-7A062A5F3D08</generatorID>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="idRole" id="D95953E9-0923-220D-1979-D94B0E06A484">
+<createdBy>jakub</createdBy>
+<createdTime>2025-11-02 09:09:54 UTC</createdTime>
+<generatorID>D19FE7B5-F88E-306D-D62C-F56CB08057E2</generatorID>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementColumn>true</autoIncrementColumn>
+<identityColumn>true</identityColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="nazev" id="9BF46061-ADAC-CCF1-F81A-F7D4FCE8B60F">
+<createdBy>jakub</createdBy>
+<createdTime>2025-11-02 09:09:54 UTC</createdTime>
+<generatorID>AC78064D-FCE7-02C3-5968-4852D35CBEA5</generatorID>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<ownDataTypeParameters>50,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="F489D1F7-764E-E641-3DA9-FC0E0DFCF81B" name="ROLE_PK">
+<createdBy>jakub</createdBy>
+<createdTime>2025-11-02 09:09:54 UTC</createdTime>
+<generatorID>4D2359D4-E5B9-5827-05F9-0AE895F1BCC4</generatorID>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="D95953E9-0923-220D-1979-D94B0E06A484"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="CDF8380A-9C01-4607-C028-EE222443745C" name="ROLE_nazev_UN">
+<createdBy>jakub</createdBy>
+<createdTime>2025-11-07 14:55:02 UTC</createdTime>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<indexState>Unique Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="9BF46061-ADAC-CCF1-F81A-F7D4FCE8B60F"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

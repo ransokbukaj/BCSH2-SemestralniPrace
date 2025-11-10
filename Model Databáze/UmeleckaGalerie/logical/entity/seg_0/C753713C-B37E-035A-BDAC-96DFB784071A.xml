@@ -1,0 +1,71 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="C753713C-B37E-035A-BDAC-96DFB784071A" name="MATERIAL">
+<createdBy>jakub</createdBy>
+<createdTime>2024-12-04 13:36:47 UTC</createdTime>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<engineerTo>
+<item key="553B4005-5906-3AC4-6EA3-A2DB96671797" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="idMaterial" id="555E1DF5-7202-7AC1-408B-019D95583C55">
+<createdBy>jakub</createdBy>
+<createdTime>2024-12-04 13:36:55 UTC</createdTime>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<engineerTo>
+<item key="553B4005-5906-3AC4-6EA3-A2DB96671797" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="nazev" id="EA0456D9-4D02-3432-6C5C-D2477D34A4A2">
+<createdBy>jakub</createdBy>
+<createdTime>2024-12-04 13:37:07 UTC</createdTime>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<engineerTo>
+<item key="553B4005-5906-3AC4-6EA3-A2DB96671797" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<ownDataTypeParameters>50,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="C787209D-F243-704C-01EF-67952ECC4C9E" name="MATERIAL PK">
+<createdBy>jakub</createdBy>
+<createdTime>2024-12-04 13:38:54 UTC</createdTime>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<shouldEngineer>false</shouldEngineer>
+<engineerTo>
+<item key="553B4005-5906-3AC4-6EA3-A2DB96671797" value="false"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>555E1DF5-7202-7AC1-408B-019D95583C55</attributeRef>
+</usedAttributes>
+</identifier>
+<identifier id="DA532470-D2A2-201D-0845-A16280513BD2" name="nazev_un">
+<createdBy>jakub</createdBy>
+<createdTime>2024-12-09 10:45:03 UTC</createdTime>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<engineerTo>
+<item key="553B4005-5906-3AC4-6EA3-A2DB96671797" value="true"/>
+</engineerTo>
+<newElementsIDs>EA0456D9-4D02-3432-6C5C-D2477D34A4A2</newElementsIDs>
+<usedAttributes>
+<attributeRef>EA0456D9-4D02-3432-6C5C-D2477D34A4A2</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

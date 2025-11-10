@@ -1,0 +1,17 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="5327450F-97F7-42A5-51AD-3A0C2D0F44D8" containerWithKeyObject="AAAC69D6-C332-D5A3-B11F-EB5B5B8EAFD4" localFKIndex="CA4751DE-B503-20E9-884A-F0E7B2312985" name="UMELECKE_DILO_FK">
+<createdBy>jakub</createdBy>
+<createdTime>2024-12-04 14:47:32 UTC</createdTime>
+<generatorID>8051FD80-A1CF-5E87-F35A-066BE52FD14C</generatorID>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<referredTableLongName>UMELECKA_DILA</referredTableLongName>
+<deleteRule>NO ACTION</deleteRule>
+<referredTableID>EEA6FE89-A24F-0A7A-A057-D66473BF3164</referredTableID>
+<keyObject>0D984327-113C-4AEB-6FD7-FC646B106A6B</keyObject>
+<referredKeyID>0D984327-113C-4AEB-6FD7-FC646B106A6B</referredKeyID>
+<mandatory>true</mandatory>
+<refColNames>idUmeleckeDilo</refColNames>
+<transferable>true</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>

@@ -1,0 +1,21 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="Relation_15" directorySegmentName="seg_0" id="3711AD19-835B-C27C-902B-85D73C20BD7E">
+<createdBy>jakub</createdBy>
+<createdTime>2024-12-09 11:15:57 UTC</createdTime>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<engineerTo>
+<item key="553B4005-5906-3AC4-6EA3-A2DB96671797" value="true"/>
+</engineerTo>
+<sourcePk>4DF37CA4-E32E-12AC-8DCD-7A4BA293C979</sourcePk>
+<identifying>false</identifying>
+<nameOnSource>náleží</nameOnSource>
+<nameOnTarget>žije na</nameOnTarget>
+<optionalSource>true</optionalSource>
+<optionalTarget>false</optionalTarget>
+<sourceCardinality>1</sourceCardinality>
+<sourceEntity>251F8D47-7BBB-1B00-3147-72DECAD8C83B</sourceEntity>
+<targetCardinalityString>*</targetCardinalityString>
+<targetEntity>F3220B5A-AB12-7AD8-4C1C-1DB142B19585</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</Relation>

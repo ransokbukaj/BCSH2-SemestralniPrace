@@ -1,0 +1,63 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="7C186F31-FED1-7A7B-EFA7-69BAE6EE5DDF" name="DRUHY_PLATEB">
+<createdBy>jakub</createdBy>
+<createdTime>2024-12-04 14:47:31 UTC</createdTime>
+<generatorID>BA41AD0F-30DE-4270-5BD9-7C302D6B4DD7</generatorID>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<ordsAlias>druh_platby</ordsAlias>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="idDruhPlatby" id="8A18F4DF-F5E8-B8C9-70C3-C8929AB2028C">
+<createdBy>jakub</createdBy>
+<createdTime>2024-12-04 14:47:31 UTC</createdTime>
+<generatorID>E2D0D3DF-1D5C-55E1-D86F-C8B43523A869</generatorID>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementColumn>true</autoIncrementColumn>
+<identityColumn>true</identityColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="nazev" id="8CF2172A-9BAD-DA60-DA4D-6CF2FA02C861">
+<createdBy>jakub</createdBy>
+<createdTime>2024-12-04 14:47:31 UTC</createdTime>
+<generatorID>EBB96077-A193-53DC-F196-63881D3A9509</generatorID>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>250</dataTypeSize>
+<ownDataTypeParameters>250,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="AB44B39A-5F5D-AAD1-01BE-8994C83FA10F" name="DRUH_PLATBY_PK">
+<createdBy>jakub</createdBy>
+<createdTime>2024-12-04 14:47:31 UTC</createdTime>
+<generatorID>F2982766-4D72-D44A-9684-9FAA261EA002</generatorID>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="8A18F4DF-F5E8-B8C9-70C3-C8929AB2028C"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="38AE23B3-02F8-1DA3-E537-8CA9BE839B41" name="DRUHY_PLATBY_nazev_UN">
+<createdBy>jakub</createdBy>
+<createdTime>2024-12-09 11:17:58 UTC</createdTime>
+<generatorID>00E2C4E4-8252-6AA4-96A3-9D913763FB1A</generatorID>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<indexState>Unique Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="8CF2172A-9BAD-DA60-DA4D-6CF2FA02C861"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

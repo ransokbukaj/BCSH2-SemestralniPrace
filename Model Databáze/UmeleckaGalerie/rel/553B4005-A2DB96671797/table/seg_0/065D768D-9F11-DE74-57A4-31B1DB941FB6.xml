@@ -1,0 +1,159 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="065D768D-9F11-DE74-57A4-31B1DB941FB6" name="ZAZNAMY_HISTORIE">
+<createdBy>jakub</createdBy>
+<createdTime>2025-11-02 09:09:54 UTC</createdTime>
+<generatorID>CE6378C6-0D1D-5750-CCF6-41B3D368AAF5</generatorID>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<ordsAlias>zaznam_historie</ordsAlias>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="idZaznamHistorie" id="95808927-3CFE-CB6C-693C-3E3B2F5558E1">
+<createdBy>jakub</createdBy>
+<createdTime>2025-11-02 09:09:54 UTC</createdTime>
+<generatorID>14A493F3-51EF-3DB8-9F6F-503DECEEB77B</generatorID>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementColumn>true</autoIncrementColumn>
+<identityColumn>true</identityColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="datumZmeny" id="961F7383-B59B-7DFE-472E-28D6CB6E3E4D">
+<createdBy>jakub</createdBy>
+<createdTime>2025-11-02 09:09:54 UTC</createdTime>
+<generatorID>B88B03B0-7EB0-554E-DB8D-11163A12E50E</generatorID>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT008</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="popisZmeny" id="D75B2DC3-251D-5998-0C02-E926FBCBF77A">
+<createdBy>jakub</createdBy>
+<createdTime>2025-11-02 09:09:54 UTC</createdTime>
+<generatorID>BC8FD0A3-1EEA-C68B-2919-8E4A0CC5C0C8</generatorID>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>500</dataTypeSize>
+<ownDataTypeParameters>500,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="druhOperace" id="8F6FB582-A3D6-8F8C-3FC7-553F6E575FD5">
+<createdBy>jakub</createdBy>
+<createdTime>2025-11-02 09:09:54 UTC</createdTime>
+<generatorID>22997B83-40F4-89A1-908D-6E186B99B7E4</generatorID>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>10</dataTypeSize>
+<ownDataTypeParameters>10,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="stareHodnoty" id="80B44937-735E-3063-F88F-ED09BDC1C0D0">
+<createdBy>jakub</createdBy>
+<createdTime>2025-11-02 09:09:54 UTC</createdTime>
+<generatorID>4BAAB4F2-4273-2222-2457-8F891403C5FD</generatorID>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT028</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="noveHodnoty" id="D831F07D-73CF-21CE-A19C-F0F1E8144D29">
+<createdBy>jakub</createdBy>
+<createdTime>2025-11-02 09:09:54 UTC</createdTime>
+<generatorID>3ABC9FCB-CA27-A844-58A0-3B1F2C17F93F</generatorID>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT028</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="nazevTabulky" id="F3DB1F41-8276-901A-013C-F07CCFE65755">
+<createdBy>jakub</createdBy>
+<createdTime>2025-11-02 09:34:59 UTC</createdTime>
+<generatorID>75C7BFCC-3BFD-72FF-0A10-722F1CFE3715</generatorID>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<ownDataTypeParameters>50,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="idRadkuTabulky" id="D495539D-40D1-CEA7-C260-1BB7DC7A6276">
+<createdBy>jakub</createdBy>
+<createdTime>2025-11-10 08:20:41 UTC</createdTime>
+<generatorID>5EEA8AB0-E2F6-BE81-7C5D-D2854F39EF73</generatorID>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="idZmenenohoRadku" id="1B449FBA-1690-3D47-B2E8-5853AE752F41">
+<createdBy>jakub</createdBy>
+<createdTime>2025-11-04 09:34:42 UTC</createdTime>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="idUzivatel" id="6D5CE901-2EAA-56A3-4F93-8BDF0CE04214">
+<createdBy>jakub</createdBy>
+<createdTime>2025-11-02 09:09:54 UTC</createdTime>
+<generatorID>C35A4764-C09D-82D9-C78C-E3EE6F753207</generatorID>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="8342DE6D-DFA8-E6F7-2BCB-B575C7F68436" referredColumn="B6FCFE96-A546-81C8-82FD-0E1AFE47322E"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="D8EF71F4-060A-7995-765D-625A66EE2422" name="ZAZNAM_HISTORIE_PK">
+<createdBy>jakub</createdBy>
+<createdTime>2025-11-02 09:09:54 UTC</createdTime>
+<generatorID>E00195ED-2F2E-C88F-4887-15E1A67F043A</generatorID>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="95808927-3CFE-CB6C-693C-3E3B2F5558E1"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="477B8F3F-48C1-53F0-3D0C-DF057F65D1F4" name="ZAZNAMY_HISTORIE_UZIVATELE_FK">
+<createdBy>jakub</createdBy>
+<createdTime>2025-11-02 09:09:54 UTC</createdTime>
+<generatorID>8A3F06E3-ACB8-9480-C86C-D9A3B9358364</generatorID>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="6D5CE901-2EAA-56A3-4F93-8BDF0CE04214"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

@@ -1,0 +1,86 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="3DD47D52-35E7-3A52-56B8-AE3D0672428C" name="DRUH_NAVSTEVY">
+<createdBy>jakub</createdBy>
+<createdTime>2024-12-02 14:13:18 UTC</createdTime>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<engineerTo>
+<item key="553B4005-5906-3AC4-6EA3-A2DB96671797" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="idDruhNavstevy" id="8A3B6F7C-E95E-ED28-732C-DA950D674083">
+<createdBy>jakub</createdBy>
+<createdTime>2024-12-02 14:14:12 UTC</createdTime>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<engineerTo>
+<item key="553B4005-5906-3AC4-6EA3-A2DB96671797" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="nazev" id="6450846A-C631-14F4-2227-2C3086BCF007">
+<createdBy>jakub</createdBy>
+<createdTime>2024-12-02 14:16:21 UTC</createdTime>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<engineerTo>
+<item key="553B4005-5906-3AC4-6EA3-A2DB96671797" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>30</dataTypeSize>
+<ownDataTypeParameters>30,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="cena" id="96B47FB3-7152-2E4D-FB12-B0EAD2703B41">
+<createdBy>jakub</createdBy>
+<createdTime>2024-12-04 13:29:41 UTC</createdTime>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<engineerTo>
+<item key="553B4005-5906-3AC4-6EA3-A2DB96671797" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT026</logicalDatatype>
+<dataTypePrecision>6</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<ownDataTypeParameters>,6,2</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="25F9167B-6D50-4A13-921F-940345B6917A" name="DRUH PK">
+<createdBy>jakub</createdBy>
+<createdTime>2024-12-02 14:14:35 UTC</createdTime>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<shouldEngineer>false</shouldEngineer>
+<engineerTo>
+<item key="553B4005-5906-3AC4-6EA3-A2DB96671797" value="false"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>8A3B6F7C-E95E-ED28-732C-DA950D674083</attributeRef>
+</usedAttributes>
+</identifier>
+<identifier id="A948BBE0-78C2-868C-36DA-A9A4EE22CC41" name="nazev_un">
+<createdBy>jakub</createdBy>
+<createdTime>2024-12-02 14:16:57 UTC</createdTime>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<shouldEngineer>false</shouldEngineer>
+<engineerTo>
+<item key="553B4005-5906-3AC4-6EA3-A2DB96671797" value="false"/>
+</engineerTo>
+<newElementsIDs>6450846A-C631-14F4-2227-2C3086BCF007</newElementsIDs>
+<usedAttributes>
+<attributeRef>6450846A-C631-14F4-2227-2C3086BCF007</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>
