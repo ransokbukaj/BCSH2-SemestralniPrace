@@ -26,6 +26,18 @@
             <views:P3View/>
         </DataTemplate>
 
+        <DataTemplate DataType="{x:Type TypeName=viewModels:P4ViewModel}">
+            <views:P4View/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type TypeName=viewModels:P5ViewModel}">
+            <views:P5View/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type TypeName=viewModels:P6ViewModel}">
+            <views:P6View/>
+        </DataTemplate>
+
         <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter" />
 
     </Application.Resources>

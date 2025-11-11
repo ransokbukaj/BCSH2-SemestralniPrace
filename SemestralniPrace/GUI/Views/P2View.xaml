@@ -9,6 +9,6 @@
              Background="Blue"
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <Label FontSize="35" Foreground="White" HorizontalAlignment="Center" Content="Pokus pro P2" />
+        <Label FontSize="35" Foreground="White" HorizontalAlignment="Center" Content="Vzdělávací programy" />
     </Grid>
 </UserControl>

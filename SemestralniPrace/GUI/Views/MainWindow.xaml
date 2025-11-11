@@ -44,10 +44,10 @@
                 
                 
                 <Button Content="P.3" Command="{Binding UpdateViewCommand}" CommandParameter="P3" Visibility="{Binding IsLogged, Converter={StaticResource BoolToVisibilityConverter}}"/>
-                <Button Content="P.3" Command="{Binding UpdateViewCommand}" CommandParameter="P3" Visibility="{Binding IsLogged, Converter={StaticResource BoolToVisibilityConverter}}"/>
-                <Button Content="P.3" Command="{Binding UpdateViewCommand}" CommandParameter="P3" Visibility="{Binding IsLogged, Converter={StaticResource BoolToVisibilityConverter}}"/>
-                <Button Content="P.3" Command="{Binding UpdateViewCommand}" CommandParameter="P3" Visibility="{Binding IsLogged, Converter={StaticResource BoolToVisibilityConverter}}"/>
-                <Button Content="P.3" Command="{Binding UpdateViewCommand}" CommandParameter="P3" Visibility="{Binding IsLogged, Converter={StaticResource BoolToVisibilityConverter}}"/>
+                <Button Content="P.4" Command="{Binding UpdateViewCommand}" CommandParameter="P4" Visibility="{Binding IsLogged, Converter={StaticResource BoolToVisibilityConverter}}"/>
+                <Button Content="P.5" Command="{Binding UpdateViewCommand}" CommandParameter="P5" Visibility="{Binding IsLogged, Converter={StaticResource BoolToVisibilityConverter}}"/>
+                <Button Content="P.6" Command="{Binding UpdateViewCommand}" CommandParameter="P6" Visibility="{Binding IsLogged, Converter={StaticResource BoolToVisibilityConverter}}"/>
+               
                 
                 
             </StackPanel>
