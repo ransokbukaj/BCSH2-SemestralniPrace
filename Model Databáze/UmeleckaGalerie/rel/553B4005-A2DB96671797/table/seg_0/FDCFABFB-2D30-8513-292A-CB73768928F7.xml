@@ -57,28 +57,20 @@
 <ownDataTypeParameters>250,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
-<Column name="nazevTabulky" id="8837B7E5-1E6C-F75E-56E7-94A936C91781">
+<Column name="idUmeleckeDilo" id="2652CD6B-F256-A3C5-DCDA-C814C33849F6">
 <createdBy>jakub</createdBy>
-<createdTime>2025-11-10 08:20:41 UTC</createdTime>
-<generatorID>58833690-CC68-6752-D4DB-DA6C6E32627C</generatorID>
-<ownerDesignName>UmeleckaGalerie</ownerDesignName>
-<useDomainConstraints>false</useDomainConstraints>
-<use>1</use>
-<logicalDatatype>LOGDT024</logicalDatatype>
-<dataTypeSize>50</dataTypeSize>
-<ownDataTypeParameters>50,,</ownDataTypeParameters>
-<autoIncrementCycle>false</autoIncrementCycle>
-</Column>
-<Column name="idRadkuTabulky" id="6CECB36C-84D8-19D9-5E01-0A6D1CC2C3FA">
-<createdBy>jakub</createdBy>
-<createdTime>2025-11-10 08:20:41 UTC</createdTime>
-<generatorID>5DD8B438-AB21-C7D5-4273-7E6FB630CC25</generatorID>
+<createdTime>2025-11-11 07:55:02 UTC</createdTime>
+<generatorID>FC298830-6C8A-2468-4E79-08995B98E796</generatorID>
 <ownerDesignName>UmeleckaGalerie</ownerDesignName>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT011</logicalDatatype>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
 <autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="D27E4535-6B00-5BDB-BDD5-B71E890DCE68" referredColumn="845FBCCA-48B8-1F59-C96B-0DDE50AB0DB7"/>
+</associations>
 </Column>
 </columns>
 <indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
@@ -92,6 +84,17 @@
 <isSurrogateKey>false</isSurrogateKey>
 <indexColumnUsage>
 <colUsage columnID="0540DF5A-3BBD-97FB-1B4E-C8B2B2E21FE2"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="F8A5ABA4-079F-92CD-D57C-547CABA2EC4B" name="PRILOHA_UMELECKE_DILO_FK">
+<createdBy>jakub</createdBy>
+<createdTime>2025-11-11 07:55:02 UTC</createdTime>
+<generatorID>6B38903B-AB9D-AE4F-3EB2-BF33855006B7</generatorID>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="2652CD6B-F256-A3C5-DCDA-C814C33849F6"/>
 </indexColumnUsage>
 </ind_PK_UK>
 </indexes>

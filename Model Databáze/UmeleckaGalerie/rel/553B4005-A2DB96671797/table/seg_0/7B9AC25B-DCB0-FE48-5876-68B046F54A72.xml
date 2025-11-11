@@ -48,7 +48,7 @@
 <colUsage columnID="875C6592-0254-5DBB-2DD3-C8ADDF779CA7"/>
 </indexColumnUsage>
 </ind_PK_UK>
-<ind_PK_UK id="F4172D58-8249-31BC-9A14-3A44CE9602C3" name="PODKLADY_nazev_UN">
+<ind_PK_UK id="F4172D58-8249-31BC-9A14-3A44CE9602C3" name="PODKLAD_nazev_UN">
 <createdBy>jakub</createdBy>
 <createdTime>2024-12-09 11:17:58 UTC</createdTime>
 <generatorID>4EDC01BF-9211-F569-C2CD-E936E8177FC1</generatorID>

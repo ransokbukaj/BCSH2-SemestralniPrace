@@ -78,7 +78,7 @@
 <colUsage columnID="BCBF8072-5328-96D3-25E4-C3F8CF12D814"/>
 </indexColumnUsage>
 </ind_PK_UK>
-<ind_PK_UK id="F52BBF26-50A2-23B2-2799-BFA61853B9A8" name="OBRAZY_PODKLADY_FK">
+<ind_PK_UK id="F52BBF26-50A2-23B2-2799-BFA61853B9A8" name="OBRAZ_PODKLAD_FK">
 <createdBy>jakub</createdBy>
 <createdTime>2024-12-04 14:47:32 UTC</createdTime>
 <generatorID>3EDCC338-BE8E-7946-AA4D-AFEB88C03930</generatorID>
@@ -89,7 +89,7 @@
 <colUsage columnID="BC0F5203-F17E-6616-9A90-65F5F8B292F1"/>
 </indexColumnUsage>
 </ind_PK_UK>
-<ind_PK_UK id="51A77FD2-E81E-97DD-C8A3-618F572B369C" name="OBRAZY_TECHNIKY_FK">
+<ind_PK_UK id="51A77FD2-E81E-97DD-C8A3-618F572B369C" name="OBRAZ_TECHNIKA_FK">
 <createdBy>jakub</createdBy>
 <createdTime>2024-12-04 14:47:32 UTC</createdTime>
 <generatorID>011DE603-1779-3419-4219-A7F92606068A</generatorID>

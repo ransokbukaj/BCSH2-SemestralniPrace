@@ -48,7 +48,7 @@
 <colUsage columnID="8A18F4DF-F5E8-B8C9-70C3-C8929AB2028C"/>
 </indexColumnUsage>
 </ind_PK_UK>
-<ind_PK_UK id="38AE23B3-02F8-1DA3-E537-8CA9BE839B41" name="DRUHY_PLATBY_nazev_UN">
+<ind_PK_UK id="38AE23B3-02F8-1DA3-E537-8CA9BE839B41" name="DRUH_PLATBY_nazev_UN">
 <createdBy>jakub</createdBy>
 <createdTime>2024-12-09 11:17:58 UTC</createdTime>
 <generatorID>00E2C4E4-8252-6AA4-96A3-9D913763FB1A</generatorID>

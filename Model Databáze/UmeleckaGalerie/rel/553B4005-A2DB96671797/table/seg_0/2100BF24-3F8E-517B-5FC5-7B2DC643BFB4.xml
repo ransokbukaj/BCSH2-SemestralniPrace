@@ -88,7 +88,7 @@
 <colUsage columnID="3B0C173B-F5C9-840E-DDD6-71A70F27A627"/>
 </indexColumnUsage>
 </ind_PK_UK>
-<ind_PK_UK id="C7A8D7D8-7B46-2081-4BDC-F41675A9C160" name="ADRESY_POSTY_FK">
+<ind_PK_UK id="C7A8D7D8-7B46-2081-4BDC-F41675A9C160" name="ADRESA_POSTA_FK">
 <createdBy>jakub</createdBy>
 <createdTime>2024-12-04 14:47:32 UTC</createdTime>
 <generatorID>05898461-5DB0-EB87-ACD6-68DF95F55628</generatorID>

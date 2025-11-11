@@ -128,7 +128,7 @@
 </Column>
 </columns>
 <indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
-<ind_PK_UK id="0D984327-113C-4AEB-6FD7-FC646B106A6B" name="UMELECKA_DILA_PK">
+<ind_PK_UK id="0D984327-113C-4AEB-6FD7-FC646B106A6B" name="UMELECKE_DILO_PK">
 <createdBy>jakub</createdBy>
 <createdTime>2024-12-04 14:47:32 UTC</createdTime>
 <generatorID>F9664456-95FC-21CA-18EE-5897F968AA5E</generatorID>
@@ -140,7 +140,7 @@
 <colUsage columnID="845FBCCA-48B8-1F59-C96B-0DDE50AB0DB7"/>
 </indexColumnUsage>
 </ind_PK_UK>
-<ind_PK_UK id="429CD004-430D-F51B-2660-EF781229584D" name="UMELECKA_DILA_PRODEJE_FK">
+<ind_PK_UK id="429CD004-430D-F51B-2660-EF781229584D" name="UMELECKE_DILO_PRODEJE_FK">
 <createdBy>jakub</createdBy>
 <createdTime>2024-12-04 14:47:32 UTC</createdTime>
 <generatorID>A967F584-0A89-CB06-9535-A011F3A2065F</generatorID>
@@ -151,7 +151,7 @@
 <colUsage columnID="360643D7-A9B5-6685-5F92-A0CDF283A7EE"/>
 </indexColumnUsage>
 </ind_PK_UK>
-<ind_PK_UK id="F08825F8-C9B3-E712-137A-F5DCADABBA2C" name="UMELECKA_DILA_VYSTAVY_FK">
+<ind_PK_UK id="F08825F8-C9B3-E712-137A-F5DCADABBA2C" name="UMELECKE_DILO_VYSTAVA_FK">
 <createdBy>jakub</createdBy>
 <createdTime>2024-12-04 14:47:32 UTC</createdTime>
 <generatorID>26DCA9BC-5839-3C8E-EAB0-6D5AAC14D912</generatorID>

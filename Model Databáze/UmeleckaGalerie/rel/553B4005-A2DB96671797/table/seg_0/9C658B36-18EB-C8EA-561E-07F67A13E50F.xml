@@ -9,18 +9,18 @@
 <existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
 <parsed>true</parsed>
 <columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
-<Column name="idKupec" id="2442F442-A8B8-72FB-F8EA-69C4E5C586C6">
+<Column name="idKupec" id="CE3E1F4B-204A-6727-94CE-56419E3762DD">
 <createdBy>jakub</createdBy>
-<createdTime>2024-12-09 11:17:58 UTC</createdTime>
+<createdTime>2025-11-10 08:20:41 UTC</createdTime>
+<generatorID>4D9D8FA0-40D6-741F-4EEB-9F356A1CE350</generatorID>
 <ownerDesignName>UmeleckaGalerie</ownerDesignName>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
-<logicalDatatype>LOGDT019</logicalDatatype>
+<logicalDatatype>LOGDT011</logicalDatatype>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementColumn>true</autoIncrementColumn>
 <identityColumn>true</identityColumn>
 <autoIncrementCycle>false</autoIncrementCycle>
-<isSurrogateColumn>true</isSurrogateColumn>
 </Column>
 <Column name="jmeno" id="BA153DF4-1DC8-66FA-EC51-E6CCF4362C37">
 <createdBy>jakub</createdBy>
@@ -71,7 +71,7 @@
 <ownDataTypeParameters>100,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
-<Column name="ADRESY_idAdresa" id="70180A12-036F-4519-1F38-542535CB2C9D">
+<Column name="idAdresa" id="70180A12-036F-4519-1F38-542535CB2C9D">
 <createdBy>jakub</createdBy>
 <createdTime>2024-12-09 11:17:58 UTC</createdTime>
 <generatorID>21F12BF6-1871-54C5-2F98-A2314637A43D</generatorID>
@@ -86,41 +86,21 @@
 <colAssociation fkAssociation="B578AA80-1959-2926-A064-7C945C86FEC4" referredColumn="3B0C173B-F5C9-840E-DDD6-71A70F27A627"/>
 </associations>
 </Column>
-<Column name="idKupec" id="CE3E1F4B-204A-6727-94CE-56419E3762DD">
-<createdBy>jakub</createdBy>
-<createdTime>2025-11-10 08:20:41 UTC</createdTime>
-<generatorID>4D9D8FA0-40D6-741F-4EEB-9F356A1CE350</generatorID>
-<ownerDesignName>UmeleckaGalerie</ownerDesignName>
-<useDomainConstraints>false</useDomainConstraints>
-<use>1</use>
-<logicalDatatype>LOGDT011</logicalDatatype>
-<ownDataTypeParameters>,,</ownDataTypeParameters>
-<autoIncrementCycle>false</autoIncrementCycle>
-</Column>
 </columns>
 <indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
-<ind_PK_UK id="EDF196F5-165C-57E3-C611-E2583E4FAB2A" name="KUPEC_PK">
-<createdBy>jakub</createdBy>
-<createdTime>2024-12-09 11:17:58 UTC</createdTime>
-<ownerDesignName>UmeleckaGalerie</ownerDesignName>
-<pk>true</pk>
-<indexState>Primary Constraint</indexState>
-<indexColumnUsage>
-<colUsage columnID="2442F442-A8B8-72FB-F8EA-69C4E5C586C6"/>
-</indexColumnUsage>
-</ind_PK_UK>
-<ind_PK_UK id="79F5DBEE-4891-0342-0812-4B28527861D4" name="KUPEC_idKupec_UN">
+<ind_PK_UK id="79F5DBEE-4891-0342-0812-4B28527861D4" name="KUPEC_PK">
 <createdBy>jakub</createdBy>
 <createdTime>2025-11-10 08:20:41 UTC</createdTime>
 <generatorID>A4ACCB7A-24D6-12BE-A362-A1BF486D3567</generatorID>
 <ownerDesignName>UmeleckaGalerie</ownerDesignName>
-<indexState>Unique Constraint</indexState>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
 <isSurrogateKey>false</isSurrogateKey>
 <indexColumnUsage>
 <colUsage columnID="CE3E1F4B-204A-6727-94CE-56419E3762DD"/>
 </indexColumnUsage>
 </ind_PK_UK>
-<ind_PK_UK id="F37ABAD4-3EB8-2DE4-0596-7F79F1DF7EE9" name="KUPCI_ADRESY_FK">
+<ind_PK_UK id="F37ABAD4-3EB8-2DE4-0596-7F79F1DF7EE9" name="KUPEC_ADRESA_FK">
 <createdBy>jakub</createdBy>
 <createdTime>2024-12-09 11:17:58 UTC</createdTime>
 <generatorID>3711AD19-835B-C27C-902B-85D73C20BD7E</generatorID>

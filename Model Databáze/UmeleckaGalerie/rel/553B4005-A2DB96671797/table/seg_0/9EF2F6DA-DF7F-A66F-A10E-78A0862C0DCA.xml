@@ -72,17 +72,6 @@
 <ownDataTypeParameters>16,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
-<Column name="idKupec" id="1A16B316-38AD-8C21-5767-5345482364EC">
-<createdBy>jakub</createdBy>
-<createdTime>2024-12-09 11:17:58 UTC</createdTime>
-<ownerDesignName>UmeleckaGalerie</ownerDesignName>
-<useDomainConstraints>false</useDomainConstraints>
-<use>1</use>
-<logicalDatatype>LOGDT019</logicalDatatype>
-<ownDataTypeParameters>,,</ownDataTypeParameters>
-<previousColumn>false</previousColumn>
-<autoIncrementCycle>false</autoIncrementCycle>
-</Column>
 <Column name="idDruhPlatby" id="FBE1632E-ACB5-95E1-66F1-EDC0EED2DA7C">
 <createdBy>jakub</createdBy>
 <createdTime>2024-12-09 11:17:58 UTC</createdTime>
@@ -98,20 +87,16 @@
 <colAssociation fkAssociation="35D8F542-3AC6-4F76-9DC5-3C7B217E9710" referredColumn="8A18F4DF-F5E8-B8C9-70C3-C8929AB2028C"/>
 </associations>
 </Column>
-<Column name="idKupec" id="3E732077-DE13-C75C-131A-EF63C3029546">
+<Column name="idKupec" id="E91FC2AC-587D-FBDA-4E4A-DBEB87F716C8">
 <createdBy>jakub</createdBy>
-<createdTime>2025-11-10 08:20:41 UTC</createdTime>
-<generatorID>12A9469D-FD12-E1B4-9132-BA3397518B68</generatorID>
+<createdTime>2025-11-11 08:06:55 UTC</createdTime>
 <ownerDesignName>UmeleckaGalerie</ownerDesignName>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
-<logicalDatatype>LOGDT019</logicalDatatype>
+<logicalDatatype>LOGDT011</logicalDatatype>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <previousColumn>false</previousColumn>
 <autoIncrementCycle>false</autoIncrementCycle>
-<associations>
-<colAssociation fkAssociation="EFCBBD8E-DDAA-1A9C-F071-6DFFCCBFF4AF" referredColumn="2442F442-A8B8-72FB-F8EA-69C4E5C586C6"/>
-</associations>
 </Column>
 </columns>
 <indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
@@ -127,7 +112,7 @@
 <colUsage columnID="19CA665D-AC56-8768-9EBB-8FC9D2D8DF91"/>
 </indexColumnUsage>
 </ind_PK_UK>
-<ind_PK_UK id="C8741956-2C52-5F6F-18D0-9B5C8CE74FBE" name="PRODEJE_DRUHY_PLATBY_FK">
+<ind_PK_UK id="C8741956-2C52-5F6F-18D0-9B5C8CE74FBE" name="PRODEJE_DRUH_PLATBY_FK">
 <createdBy>jakub</createdBy>
 <createdTime>2024-12-09 11:17:58 UTC</createdTime>
 <generatorID>0AC5E782-01CB-E324-C969-D3A636E393F1</generatorID>
@@ -136,17 +121,6 @@
 <isSurrogateKey>false</isSurrogateKey>
 <indexColumnUsage>
 <colUsage columnID="FBE1632E-ACB5-95E1-66F1-EDC0EED2DA7C"/>
-</indexColumnUsage>
-</ind_PK_UK>
-<ind_PK_UK id="1B860491-F016-3A54-493F-D6DCB539DD1E" name="PRODEJE_KUPCI_FK">
-<createdBy>jakub</createdBy>
-<createdTime>2024-12-09 11:17:58 UTC</createdTime>
-<generatorID>7A56F2FE-75A0-5BA3-8D87-B412620DEADA</generatorID>
-<ownerDesignName>UmeleckaGalerie</ownerDesignName>
-<indexState>Foreign Key</indexState>
-<isSurrogateKey>false</isSurrogateKey>
-<indexColumnUsage>
-<colUsage columnID="3E732077-DE13-C75C-131A-EF63C3029546"/>
 </indexColumnUsage>
 </ind_PK_UK>
 </indexes>

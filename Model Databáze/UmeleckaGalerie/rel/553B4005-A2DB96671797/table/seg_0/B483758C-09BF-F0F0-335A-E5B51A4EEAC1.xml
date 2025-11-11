@@ -87,7 +87,7 @@
 <colUsage columnID="05F88422-E5BE-2F6A-A45A-A83CE8B44082"/>
 </indexColumnUsage>
 </ind_PK_UK>
-<ind_PK_UK id="ADDFFCDE-91FF-23E6-42F6-2B63EFD7A35C" name="SOCHY_MATERIALY_FK">
+<ind_PK_UK id="ADDFFCDE-91FF-23E6-42F6-2B63EFD7A35C" name="SOCHA_MATERIAL_FK">
 <createdBy>jakub</createdBy>
 <createdTime>2024-12-04 14:47:32 UTC</createdTime>
 <generatorID>4561B1D8-6FDE-7B56-DC85-F37748335884</generatorID>

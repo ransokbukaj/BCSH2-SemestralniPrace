@@ -65,26 +65,15 @@
 <dataTypeSize>250</dataTypeSize>
 <ownDataTypeParameters>250,,</ownDataTypeParameters>
 </Attribute>
-<Attribute name="nazevTabulky" id="58833690-CC68-6752-D4DB-DA6C6E32627C">
+<Attribute name="idUmeleckeDilo" id="FC298830-6C8A-2468-4E79-08995B98E796">
 <createdBy>jakub</createdBy>
-<createdTime>2025-11-10 08:13:08 UTC</createdTime>
+<createdTime>2025-11-11 07:51:49 UTC</createdTime>
+<generatorID>6B38903B-AB9D-AE4F-3EB2-BF33855006B7</generatorID>
 <ownerDesignName>UmeleckaGalerie</ownerDesignName>
 <engineerTo>
 <item key="553B4005-5906-3AC4-6EA3-A2DB96671797" value="true"/>
 </engineerTo>
-<useDomainConstraints>false</useDomainConstraints>
-<use>1</use>
-<logicalDatatype>LOGDT024</logicalDatatype>
-<dataTypeSize>50</dataTypeSize>
-<ownDataTypeParameters>50,,</ownDataTypeParameters>
-</Attribute>
-<Attribute name="idRadkuTabulky" id="5DD8B438-AB21-C7D5-4273-7E6FB630CC25">
-<createdBy>jakub</createdBy>
-<createdTime>2025-11-10 08:13:51 UTC</createdTime>
-<ownerDesignName>UmeleckaGalerie</ownerDesignName>
-<engineerTo>
-<item key="553B4005-5906-3AC4-6EA3-A2DB96671797" value="true"/>
-</engineerTo>
+<referedAttribute>F9528FAE-9409-F0AF-6764-8D8207633E26</referedAttribute>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT011</logicalDatatype>
