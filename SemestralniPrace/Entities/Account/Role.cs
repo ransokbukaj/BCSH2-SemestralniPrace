@@ -6,11 +6,9 @@ using System.Threading.Tasks;
 
 namespace Entities.Account
 {
-    // Možná předělat na Enum
-
-    public class Role
+    public enum Role
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
+        Admin = 1,
+        Standard = 2
     }
 }

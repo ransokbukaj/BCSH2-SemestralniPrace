@@ -23,12 +23,84 @@ namespace DatabaseAccess
 
         public static bool LogIn(string username, string password)
         {
-            return true;
+            using (var connection = ConnectionManager.GetConnection())
+            {
+                string query = @"
+                    SELECT
+                        iduzivatel, uzivatelskejmeno, heslohash, jmeno, prijmeni, idrole 
+                    FROM
+                        uzivatele 
+                    WHERE
+                        uzivatelskejmeno = :username";
+
+                using (var command = connection.CreateCommand())
+                {
+                    var param = command.CreateParameter();
+                    param.ParameterName = ":username";
+                    param.Value = username;
+
+                    command.CommandText = query;                    
+                    command.Parameters.Add(param);
+
+                    using (var reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            string storedHash = reader["heslohash"].ToString();
+
+                            if (VerifyPassword(password, storedHash))
+                            {
+                                CurrentUser = new User
+                                {
+                                    Id = Convert.ToInt32(reader["iduzivatel"]),
+                                    Username = reader["uzivatelskejmeno"].ToString(),
+                                    FirstName = reader["jmeno"].ToString(),
+                                    LastName = reader["prijmeni"].ToString(),
+                                    Role = (Role)Convert.ToInt32(reader["idrole"])
+                                };
+                                UpdateLastLoginDate(connection, CurrentUser.Id);
+                                return true;
+                            }
+                        }
+                    }
+                }
+
+                return false;
+            }
         }
 
         public static void LogOut()
         {
             CurrentUser = null;
+        }
+
+        private static bool VerifyPassword(string password, string storedHash)
+        {
+            if (string.IsNullOrEmpty(password) || string.IsNullOrEmpty(storedHash))
+            {
+                return false;
+            }
+            return BCrypt.Net.BCrypt.Verify(password, storedHash);
+        }
+
+        private static void UpdateLastLoginDate(System.Data.IDbConnection connection, int userId)
+        {
+            string query = @"
+                UPDATE uzivatele
+                SET datumposlednihoprihlaseni = SYSDATE 
+                WHERE iduzivatel = :userId";
+
+            using (var command = connection.CreateCommand())
+            {
+                var param = command.CreateParameter();
+                param.ParameterName = ":userId";
+                param.Value = userId;
+
+                command.CommandText = query;
+                command.Parameters.Add(param);
+
+                command.ExecuteNonQuery();
+            }
         }
     }
 }

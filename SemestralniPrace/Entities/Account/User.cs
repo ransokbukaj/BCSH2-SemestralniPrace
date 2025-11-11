@@ -19,10 +19,10 @@ namespace Entities.Account
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
-        public string Telephone { get; set; }
-        public DateOnly RegisterDate { get; set; }
-        public DateOnly LastLogin { get; set; }
-        public DateOnly LastChange { get; set; }
+        public string PhoneNumber { get; set; }
+        public DateTime RegisterDate { get; set; }
+        public DateTime? LastLogin { get; set; }
+        public DateTime? LastChange { get; set; }
 
         public Role Role { get; set; }
         public List<LogHistory> UserHistory { get; set; }
