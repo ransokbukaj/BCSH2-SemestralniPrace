@@ -1,4 +1,5 @@
 using Entities.Account;
+using Oracle.ManagedDataAccess.Client;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -50,27 +51,31 @@ namespace DatabaseAccess
 
                             if (VerifyPassword(password, storedHash))
                             {
+                                int userId = Convert.ToInt32(reader["iduzivatel"]);
+
                                 CurrentUser = new User
                                 {
-                                    Id = Convert.ToInt32(reader["iduzivatel"]),
+                                    Id = userId,
                                     Username = reader["uzivatelskejmeno"].ToString(),
                                     FirstName = reader["jmeno"].ToString(),
                                     LastName = reader["prijmeni"].ToString(),
                                     Role = (Role)Convert.ToInt32(reader["idrole"])
                                 };
-                                UpdateLastLoginDate(connection, CurrentUser.Id);
+
+                                SetDatabaseSessionIdentifier(connection, userId);
+                                UpdateLastLoginDate(connection, userId);
                                 return true;
                             }
                         }
                     }
                 }
-
                 return false;
             }
         }
 
         public static void LogOut()
         {
+            ClearDatabaseSessionIdentifier(ConnectionManager.Connection);
             CurrentUser = null;
         }
 
@@ -88,6 +93,39 @@ namespace DatabaseAccess
             return BCrypt.Net.BCrypt.Verify(password, storedHash);
         }
 
+        private static void SetDatabaseSessionIdentifier(System.Data.IDbConnection connection, int userId)
+        {
+            string query = @"
+                BEGIN
+                    DBMS_SESSION.SET_IDENTIFIER(:userId);
+                END;";
+
+            using (var command = connection.CreateCommand())
+            {
+                var param = command.CreateParameter();
+                param.ParameterName = ":userId";
+                param.Value = userId.ToString();
+
+                command.CommandText = query;
+                command.Parameters.Add(param);
+                command.ExecuteNonQuery();
+            }
+        }
+
+        private static void ClearDatabaseSessionIdentifier(System.Data.IDbConnection connection)
+        {
+            string query = @"
+                BEGIN
+                    DBMS_SESSION.CLEAR_IDENTIFIER();
+                END;";
+
+            using (var command = connection.CreateCommand())
+            {
+                command.CommandText = query;
+                command.ExecuteNonQuery();
+            }
+        }
+
         private static void UpdateLastLoginDate(System.Data.IDbConnection connection, int userId)
         {
             string query = @"
@@ -103,7 +141,6 @@ namespace DatabaseAccess
 
                 command.CommandText = query;
                 command.Parameters.Add(param);
-
                 command.ExecuteNonQuery();
             }
         }
