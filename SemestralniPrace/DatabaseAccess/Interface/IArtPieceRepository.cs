@@ -1,14 +1,12 @@
-﻿using DatabaseAccess.Interface;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DatabaseAccess
+namespace DatabaseAccess.Interface
 {
-    public class SaveData : ISaveData
+    internal interface IArtPieceRepository
     {
-
     }
 }
