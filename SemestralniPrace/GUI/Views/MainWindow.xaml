@@ -3,56 +3,34 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-        mc:Ignorable="d"
-        
+        mc:Ignorable="d"        
         Title="MainWindow" 
         Height="600" 
-        Width="920"
-        
-        
-        Background="Transparent"
-       
-        
-        >
-
-
-
+        Width="920"       
+        Background="Transparent">
     <Border Background="#272537">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="200"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-
             <Grid Grid.Column="1">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="25"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-
                 <ContentControl Grid.Row="1" Content="{Binding CurrentViewModel}"/>
-
             </Grid>
-
             <StackPanel Orientation="Vertical">
-                <Button Content="{Binding LogButtonText}" Command="{Binding UpdateLogCommand}" />
-                
+                <Button Content="{Binding LogButtonText}" Command="{Binding UpdateLogCommand}" />                
                 <Button Content="Home" Command="{Binding UpdateViewCommand}" CommandParameter="Home" />
-
                 <Button Content="Výstavy" Command="{Binding UpdateViewCommand}" CommandParameter="P1" />
-                <Button Content="Vzdělávací programy" Command="{Binding UpdateViewCommand}" CommandParameter="P2"/>
-                
-                
+                <Button Content="Vzdělávací programy" Command="{Binding UpdateViewCommand}" CommandParameter="P2"/>              
                 <Button Content="P.3" Command="{Binding UpdateViewCommand}" CommandParameter="P3" Visibility="{Binding IsLogged, Converter={StaticResource BoolToVisibilityConverter}}"/>
                 <Button Content="P.4" Command="{Binding UpdateViewCommand}" CommandParameter="P4" Visibility="{Binding IsLogged, Converter={StaticResource BoolToVisibilityConverter}}"/>
                 <Button Content="P.5" Command="{Binding UpdateViewCommand}" CommandParameter="P5" Visibility="{Binding IsLogged, Converter={StaticResource BoolToVisibilityConverter}}"/>
                 <Button Content="P.6" Command="{Binding UpdateViewCommand}" CommandParameter="P6" Visibility="{Binding IsLogged, Converter={StaticResource BoolToVisibilityConverter}}"/>
-               
-                
-                
             </StackPanel>
-
-
         </Grid>
     </Border>
 </Window>
