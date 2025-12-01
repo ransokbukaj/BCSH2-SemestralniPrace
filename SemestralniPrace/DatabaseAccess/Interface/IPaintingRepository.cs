@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace DatabaseAccess.Interface
 {
-    internal interface IArtistRepository
+    internal interface IPaintingRepository
     {
-        List<Artist> GetList();
+        List<Painting> GetList();
 
-        bool SaveItem(Artist item);
+        bool SaveItem(Painting item);
 
         bool DeleteItem(int itemId);
     }

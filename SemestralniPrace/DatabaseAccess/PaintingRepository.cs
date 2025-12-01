@@ -8,19 +8,19 @@ using Entities.Data;
 
 namespace DatabaseAccess
 {
-    public class BuyerRepository : IBuyerRepository
+    public class PaintingRepository : IPaintingRepository
     {
         public bool DeleteItem(int itemId)
         {
             throw new NotImplementedException();
         }
 
-        public List<Buyer> GetList()
+        public List<Painting> GetList()
         {
             throw new NotImplementedException();
         }
 
-        public bool SaveItem(Buyer item)
+        public bool SaveItem(Painting item)
         {
             throw new NotImplementedException();
         }

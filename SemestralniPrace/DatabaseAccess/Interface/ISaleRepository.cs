@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Entities.Data;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,5 +9,10 @@ namespace DatabaseAccess.Interface
 {
     internal interface ISaleRepository
     {
+        List<Sale> GetList();
+
+        bool SaveItem(Sale item);
+
+        bool DeleteItem(int itemId);
     }
 }
