@@ -23,7 +23,7 @@ namespace DatabaseAccess
 
         public static bool LogIn(string username, string password)
         {
-            using (var connection = ConnectionManager.GetConnection())
+            using (var connection = ConnectionManager.Connection)
             {
                 string query = @"
                     SELECT
