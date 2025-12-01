@@ -16,7 +16,7 @@ namespace DatabaseAccess
             CurrentUser = null;
         }
 
-        public static bool Register()
+        public static bool Register(string username, string password, string firstName, string Lastname, string email, string phoneNumber)
         {
             return true;
         }
@@ -39,7 +39,7 @@ namespace DatabaseAccess
                     param.ParameterName = ":username";
                     param.Value = username;
 
-                    command.CommandText = query;                    
+                    command.CommandText = query;
                     command.Parameters.Add(param);
 
                     using (var reader = command.ExecuteReader())
@@ -72,6 +72,11 @@ namespace DatabaseAccess
         public static void LogOut()
         {
             CurrentUser = null;
+        }
+
+        public static string HashPassword(string password)
+        {
+            return BCrypt.Net.BCrypt.HashPassword(password, 12);
         }
 
         private static bool VerifyPassword(string password, string storedHash)
