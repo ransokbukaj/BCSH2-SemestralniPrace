@@ -25,6 +25,6 @@ namespace Entities.Account
         public DateTime? LastChange { get; set; }
 
         public Role Role { get; set; }
-        public List<LogHistory> UserHistory { get; set; }
+        public List<HistoryLog> UserHistory { get; set; }
     }
 }

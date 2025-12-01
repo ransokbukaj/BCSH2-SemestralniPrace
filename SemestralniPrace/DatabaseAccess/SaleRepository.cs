@@ -10,17 +10,25 @@ namespace DatabaseAccess
 {
     public class SaleRepository : ISaleRepository
     {
-        public bool DeleteItem(int itemId)
-        {
-            throw new NotImplementedException();
-        }
-
         public List<Sale> GetList()
         {
             throw new NotImplementedException();
         }
 
         public bool SaveItem(Sale item)
+        {
+            if (item.Id == 0)
+            {
+                // insert
+            }
+            else
+            {
+                // update
+            }
+            throw new NotImplementedException();
+        }
+
+        public bool DeleteItem(int itemId)
         {
             throw new NotImplementedException();
         }

@@ -10,17 +10,25 @@ namespace DatabaseAccess
 {
     public class ArtistRepository : IArtistRepository
     {
-        public bool DeleteItem(int itemId)
-        {
-            throw new NotImplementedException();
-        }
-
         public List<Artist> GetList()
         {
             throw new NotImplementedException();
         }
 
         public bool SaveItem(Artist item)
+        {
+            if (item.Id == 0)
+            {
+                // insert
+            }
+            else
+            {
+                // update
+            }
+            throw new NotImplementedException();
+        }
+
+        public bool DeleteItem(int itemId)
         {
             throw new NotImplementedException();
         }

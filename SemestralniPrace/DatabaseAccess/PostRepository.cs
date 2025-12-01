@@ -10,17 +10,25 @@ namespace DatabaseAccess
 {
     public class PostRepository : IPostRepository
     {
-        public bool DeleteItem(int itemId)
-        {
-            throw new NotImplementedException();
-        }
-
         public List<Post> GetList()
         {
             throw new NotImplementedException();
         }
 
         public bool SaveItem(Post item)
+        {
+            if (item.Id == 0)
+            {
+                // insert
+            }
+            else
+            {
+                // update
+            }
+            throw new NotImplementedException();
+        }
+
+        public bool DeleteItem(int itemId)
         {
             throw new NotImplementedException();
         }

@@ -10,17 +10,25 @@ namespace DatabaseAccess
 {
     public class ExhibitionRepository : IExhibitionRepository
     {
-        public bool DeleteItem(int itemId)
-        {
-            throw new NotImplementedException();
-        }
-
         public List<Exhibition> GetList()
         {
             throw new NotImplementedException();
         }
 
         public bool SaveItem(Exhibition item)
+        {
+            if (item.Id == 0)
+            {
+                // insert
+            }
+            else
+            {
+                // update
+            }
+            throw new NotImplementedException();
+        }
+
+        public bool DeleteItem(int itemId)
         {
             throw new NotImplementedException();
         }

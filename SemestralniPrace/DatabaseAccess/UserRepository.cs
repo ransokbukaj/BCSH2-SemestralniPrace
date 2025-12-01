@@ -4,18 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DatabaseAccess.Interface;
-using Entities.Data;
+using Entities.Account;
 
 namespace DatabaseAccess
 {
-    public class VisitRepository : IVisitRepository
+    public class UserRepository : IUserRepository
     {
-        public List<Visit> GetList()
+        public List<User> GetList()
         {
             throw new NotImplementedException();
         }
 
-        public bool SaveItem(Visit item)
+        public bool SaveItem(User item)
         {
             if (item.Id == 0)
             {
