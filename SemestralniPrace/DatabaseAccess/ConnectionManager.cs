@@ -10,6 +10,7 @@ namespace DatabaseAccess
     public static class ConnectionManager
     {
         private static string _connectionString;
+        public static OracleConnection Connection { get; private set; }
 
         static ConnectionManager()
         {
@@ -26,24 +27,19 @@ namespace DatabaseAccess
             string dataSource = "(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=fei-sql3.upceucebny.cz)(PORT=1521)) (CONNECT_DATA=(SID=BDAS)));";
 
             _connectionString = $"User Id={user};Password={password};Data Source={dataSource}";
+
+            Connection = new OracleConnection(_connectionString);
+            Connection.Open();
         }
 
-        public static OracleConnection GetConnection()
+        public static void CloseConnection()
         {
-            OracleConnection connection = new OracleConnection(_connectionString);
-            connection.Open();
-
-            if (UserManager.CurrentUser != null)
+            if (Connection != null)
             {
-                using (var cmd = connection.CreateCommand())
-                {
-                    cmd.CommandText = "BEGIN DBMS_SESSION.SET_IDENTIFIER(:id); END;";
-                    cmd.Parameters.Add(new OracleParameter("id", UserManager.CurrentUser.Id));
-                    cmd.ExecuteNonQuery();
-                }
+                Connection.Close();
+                Connection.Dispose();
+                Connection = null;
             }
-
-            return connection;
         }
     }
 }
