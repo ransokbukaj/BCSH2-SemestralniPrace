@@ -39,7 +39,7 @@ namespace GUI.ViewModels
                 LogButtonText = "Log out";
             }
 
-                IsLogged = !IsLogged;
+            IsLogged = !IsLogged;
         }
 
         [RelayCommand]
@@ -59,17 +59,32 @@ namespace GUI.ViewModels
                 case "Artist":
                     CurrentViewModel = new ArtistViewModel();
                     break;
-                case "P4":
+                case "Painting":
                     CurrentViewModel = new PaintingViewModel();
                     break;
-                case "P5":
+                case "Sculpture":
                     CurrentViewModel = new SculptureViewModel();
                     break;
-                case "P6":
+                case "Visit":
                     CurrentViewModel = new VisitViewModel();
                     break;
-                // případně další stránky…
-                default:
+                case "Sale":
+                    CurrentViewModel = new SaleViewModel();
+                    break;
+                case "Buyer":
+                    CurrentViewModel = new BuyerViewModel();
+                    break;
+                case "Address":
+                    CurrentViewModel = new AddressViewModel();
+                    break;
+                case "Post":
+                    CurrentViewModel = new PostViewModel();
+                    break;
+                case "User":
+                    CurrentViewModel = new UserViewModel();
+                    break;
+                case "HistoryLog":
+                    CurrentViewModel = new HistoryLogViewModel();
                     break;
             }
         }

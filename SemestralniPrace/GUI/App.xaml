@@ -26,6 +26,10 @@
             <views:ExhibitionView/>
         </DataTemplate>
 
+        <DataTemplate DataType="{x:Type TypeName=viewModels:HistoryLogViewModel}">
+            <views:HistoryLogView/>
+        </DataTemplate>
+
         <DataTemplate DataType="{x:Type TypeName=viewModels:HomeViewModel}">
             <views:HomeView/>
         </DataTemplate>
@@ -44,6 +48,10 @@
 
         <DataTemplate DataType="{x:Type TypeName=viewModels:SculptureViewModel}">
             <views:SculptureView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type TypeName=viewModels:UserViewModel}">
+            <views:UserView/>
         </DataTemplate>
 
         <DataTemplate DataType="{x:Type TypeName=viewModels:VisitViewModel}">

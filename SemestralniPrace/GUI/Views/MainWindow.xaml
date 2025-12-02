@@ -22,14 +22,20 @@
                 <ContentControl Grid.Row="1" Content="{Binding CurrentViewModel}"/>
             </Grid>
             <StackPanel Orientation="Vertical">
-                <Button Content="{Binding LogButtonText}" Command="{Binding UpdateLogCommand}" />                
+                <Button Content="{Binding LogButtonText}" Command="{Binding UpdateLogCommand}" />
                 <Button Content="Home" Command="{Binding UpdateViewCommand}" CommandParameter="Home" />
                 <Button Content="Výstavy" Command="{Binding UpdateViewCommand}" CommandParameter="Exhibition" />
                 <Button Content="Vzdělávací programy" Command="{Binding UpdateViewCommand}" CommandParameter="EducationProgram"/>
                 <Button Content="Umělci" Command="{Binding UpdateViewCommand}" CommandParameter="Artist" Visibility="{Binding IsLogged, Converter={StaticResource BoolToVisibilityConverter}}"/>
-                <Button Content="P.4" Command="{Binding UpdateViewCommand}" CommandParameter="P4" Visibility="{Binding IsLogged, Converter={StaticResource BoolToVisibilityConverter}}"/>
-                <Button Content="P.5" Command="{Binding UpdateViewCommand}" CommandParameter="P5" Visibility="{Binding IsLogged, Converter={StaticResource BoolToVisibilityConverter}}"/>
-                <Button Content="P.6" Command="{Binding UpdateViewCommand}" CommandParameter="P6" Visibility="{Binding IsLogged, Converter={StaticResource BoolToVisibilityConverter}}"/>
+                <Button Content="Obrazy" Command="{Binding UpdateViewCommand}" CommandParameter="Painting" Visibility="{Binding IsLogged, Converter={StaticResource BoolToVisibilityConverter}}"/>
+                <Button Content="Sochy" Command="{Binding UpdateViewCommand}" CommandParameter="Sculpture" Visibility="{Binding IsLogged, Converter={StaticResource BoolToVisibilityConverter}}"/>
+                <Button Content="Návštěvy" Command="{Binding UpdateViewCommand}" CommandParameter="Visit" Visibility="{Binding IsLogged, Converter={StaticResource BoolToVisibilityConverter}}"/>
+                <Button Content="Prodeje" Command="{Binding UpdateViewCommand}" CommandParameter="Sale" Visibility="{Binding IsLogged, Converter={StaticResource BoolToVisibilityConverter}}"/>
+                <Button Content="Kupci" Command="{Binding UpdateViewCommand}" CommandParameter="Buyer" Visibility="{Binding IsLogged, Converter={StaticResource BoolToVisibilityConverter}}"/>
+                <Button Content="Adresy" Command="{Binding UpdateViewCommand}" CommandParameter="Address" Visibility="{Binding IsLogged, Converter={StaticResource BoolToVisibilityConverter}}"/>
+                <Button Content="Pošty" Command="{Binding UpdateViewCommand}" CommandParameter="Post" Visibility="{Binding IsLogged, Converter={StaticResource BoolToVisibilityConverter}}"/>
+                <Button Content="Uživatelé" Command="{Binding UpdateViewCommand}" CommandParameter="User" Visibility="{Binding IsLogged, Converter={StaticResource BoolToVisibilityConverter}}"/>
+                <Button Content="Záznamy historie" Command="{Binding UpdateViewCommand}" CommandParameter="HistoryLog" Visibility="{Binding IsLogged, Converter={StaticResource BoolToVisibilityConverter}}"/>
             </StackPanel>
         </Grid>
     </Border>
