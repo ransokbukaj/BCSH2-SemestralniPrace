@@ -11,8 +11,8 @@ namespace DatabaseAccess.Interface
     {
         List<Buyer> GetList();
 
-        bool SaveItem(Buyer item);
+        void SaveItem(Buyer buyer);
 
-        bool DeleteItem(int itemId);
+        void DeleteItem(int id);
     }
 }

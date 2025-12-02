@@ -8,16 +8,16 @@ using Entities.Data;
 
 namespace DatabaseAccess
 {
-    public class SculptureRepository : ISculptureRepository
+    public class AddressRepository : IAddressRepository
     {
-        public List<Sculpture> GetList()
+        public List<Address> GetList()
         {
             throw new NotImplementedException();
         }
 
-        public void SaveItem(Sculpture sculpture)
+        public void SaveItem(Address address)
         {
-            if (sculpture.Id == 0)
+            if (address.Id == 0)
             {
                 // insert
             }

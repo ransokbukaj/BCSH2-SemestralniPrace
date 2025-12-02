@@ -1,4 +1,4 @@
-<UserControl x:Class="GUI.Views.P5View"
+<UserControl x:Class="GUI.Views.VisitView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 

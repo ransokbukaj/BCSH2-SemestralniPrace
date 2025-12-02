@@ -11,8 +11,10 @@ namespace DatabaseAccess.Interface
     {
         List<User> GetList();
 
-        bool SaveItem(User item);
+        void SaveItem(User user);
 
-        bool DeleteItem(int itemId);
+        void DeleteItem(int id);
+
+        void ChangePassword(int id, string newPassword);
     }
 }

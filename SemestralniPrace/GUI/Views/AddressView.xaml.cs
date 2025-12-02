@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace GUI.Views
 {
     /// <summary>
-    /// Interaction logic for P3View.xaml
+    /// Interaction logic for AddressView.xaml
     /// </summary>
-    public partial class P3View : UserControl
+    public partial class AddressView : UserControl
     {
-        public P3View()
+        public AddressView()
         {
             InitializeComponent();
         }

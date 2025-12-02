@@ -15,6 +15,6 @@ namespace Entities.Data
         public string Email { get; set; }
 
         public List<Sale> BoughtArtPieces { get; set; }
-        public Adress Adress { get; set; }
+        public Address Adress { get; set; }
     }
 }

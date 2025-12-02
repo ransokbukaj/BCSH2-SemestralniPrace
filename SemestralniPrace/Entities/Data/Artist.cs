@@ -11,8 +11,8 @@ namespace Entities.Data
         public int Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public DateOnly DateOfBirth { get; set; }
-        public DateOnly DateOfDeath { get; set; }
+        public DateTime DateOfBirth { get; set; }
+        public DateTime DateOfDeath { get; set; }
         public string Description { get; set; }
     }
 }

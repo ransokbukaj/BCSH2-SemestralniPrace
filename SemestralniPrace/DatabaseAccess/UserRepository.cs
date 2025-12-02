@@ -15,9 +15,9 @@ namespace DatabaseAccess
             throw new NotImplementedException();
         }
 
-        public bool SaveItem(User item)
+        public void SaveItem(User user)
         {
-            if (item.Id == 0)
+            if (user.Id == 0)
             {
                 // insert
             }
@@ -28,7 +28,12 @@ namespace DatabaseAccess
             throw new NotImplementedException();
         }
 
-        public bool DeleteItem(int itemId)
+        public void DeleteItem(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UpdatePassword(int id, string newPassword)
         {
             throw new NotImplementedException();
         }

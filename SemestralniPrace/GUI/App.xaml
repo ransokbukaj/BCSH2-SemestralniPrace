@@ -6,34 +6,50 @@
              xmlns:views="clr-namespace:GUI.Views"
              StartupUri="Views/MainWindow.xaml">
     <Application.Resources>
+        <DataTemplate DataType="{x:Type TypeName=viewModels:AddressViewModel}">
+            <views:AddressView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type TypeName=viewModels:ArtistViewModel}">
+            <views:ArtistView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type TypeName=viewModels:BuyerViewModel}">
+            <views:BuyerView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type TypeName=viewModels:EducationProgramViewModel}">
+            <views:EducationProgramView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type TypeName=viewModels:ExhibitionViewModel}">
+            <views:ExhibitionView/>
+        </DataTemplate>
+
         <DataTemplate DataType="{x:Type TypeName=viewModels:HomeViewModel}">
             <views:HomeView/>
         </DataTemplate>
 
-        <DataTemplate DataType="{x:Type TypeName=viewModels:P1ViewModel}">
-            <views:P1View/>
+        <DataTemplate DataType="{x:Type TypeName=viewModels:PaintingViewModel}">
+            <views:PaintingView/>
         </DataTemplate>
 
-        <DataTemplate DataType="{x:Type TypeName=viewModels:P2ViewModel}">
-            <views:P2View/>
+        <DataTemplate DataType="{x:Type TypeName=viewModels:PostViewModel}">
+            <views:PostView/>
         </DataTemplate>
 
-        <DataTemplate DataType="{x:Type TypeName=viewModels:P3ViewModel}">
-            <views:P3View/>
+        <DataTemplate DataType="{x:Type TypeName=viewModels:SaleViewModel}">
+            <views:SaleView/>
         </DataTemplate>
 
-        <DataTemplate DataType="{x:Type TypeName=viewModels:P4ViewModel}">
-            <views:P4View/>
+        <DataTemplate DataType="{x:Type TypeName=viewModels:SculptureViewModel}">
+            <views:SculptureView/>
         </DataTemplate>
 
-        <DataTemplate DataType="{x:Type TypeName=viewModels:P5ViewModel}">
-            <views:P5View/>
+        <DataTemplate DataType="{x:Type TypeName=viewModels:VisitViewModel}">
+            <views:VisitView/>
         </DataTemplate>
-
-        <DataTemplate DataType="{x:Type TypeName=viewModels:P6ViewModel}">
-            <views:P6View/>
-        </DataTemplate>
-
+        
         <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter" />
     </Application.Resources>
 </Application>

@@ -15,9 +15,9 @@ namespace DatabaseAccess
             throw new NotImplementedException();
         }
 
-        public bool SaveItem(Visit item)
+        public void SaveItem(Visit visit)
         {
-            if (item.Id == 0)
+            if (visit.Id == 0)
             {
                 // insert
             }
@@ -28,7 +28,7 @@ namespace DatabaseAccess
             throw new NotImplementedException();
         }
 
-        public bool DeleteItem(int itemId)
+        public void DeleteItem(int id)
         {
             throw new NotImplementedException();
         }

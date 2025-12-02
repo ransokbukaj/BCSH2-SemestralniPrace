@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace GUI.ViewModels
 {
-    public class P2ViewModel : ObservableObject
+    public class ArtistViewModel : ObservableObject
     {
 
     }

@@ -11,8 +11,8 @@ namespace DatabaseAccess.Interface
     {
         List<EducationProgram> GetList();
 
-        bool SaveItem(EducationProgram item);
+        void SaveItem(EducationProgram educationProgram);
 
-        bool DeleteItem(int itemId);
+        void DeleteItem(int id);
     }
 }

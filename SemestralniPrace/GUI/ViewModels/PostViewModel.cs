@@ -7,7 +7,8 @@ using System.Threading.Tasks;
 
 namespace GUI.ViewModels
 {
-    class P4ViewModel: ObservableObject
+    class PostViewModel : ObservableObject
     {
+
     }
 }

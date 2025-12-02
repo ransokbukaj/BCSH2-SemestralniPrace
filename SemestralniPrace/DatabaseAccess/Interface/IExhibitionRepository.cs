@@ -11,8 +11,8 @@ namespace DatabaseAccess.Interface
     {
         List<Exhibition> GetList();
 
-        bool SaveItem(Exhibition item);
+        void SaveItem(Exhibition exhibition);
 
-        bool DeleteItem(int itemId);
+        void DeleteItem(int id);
     }
 }

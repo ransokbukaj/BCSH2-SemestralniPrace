@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace GUI.Views
 {
     /// <summary>
-    /// Interaction logic for P6View.xaml
+    /// Interaction logic for ExhibitionView.xaml
     /// </summary>
-    public partial class P6View : UserControl
+    public partial class ExhibitionView : UserControl
     {
-        public P6View()
+        public ExhibitionView()
         {
             InitializeComponent();
         }

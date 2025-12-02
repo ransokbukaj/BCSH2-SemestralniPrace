@@ -10,7 +10,7 @@ namespace Entities.Data
     {
         public int Id { get; set; }
         public decimal Price { get; set; }
-        public DateOnly DateOfSale { get; set; }
+        public DateTime DateOfSale { get; set; }
         public string CardNumber { get; set; }
         public string AccountNumber { get; set; }
 

@@ -50,23 +50,23 @@ namespace GUI.ViewModels
                 case "Home":
                     CurrentViewModel = new HomeViewModel();
                     break;
-                case "P1":
-                    CurrentViewModel = new P1ViewModel();
+                case "Exhibition":
+                    CurrentViewModel = new ExhibitionViewModel();
                     break;
-                case "P2":
-                    CurrentViewModel = new P2ViewModel();
+                case "EducationProgram":
+                    CurrentViewModel = new EducationProgramViewModel();
                     break;
-                case "P3":
-                    CurrentViewModel = new P3ViewModel();
+                case "Artist":
+                    CurrentViewModel = new ArtistViewModel();
                     break;
                 case "P4":
-                    CurrentViewModel = new P4ViewModel();
+                    CurrentViewModel = new PaintingViewModel();
                     break;
                 case "P5":
-                    CurrentViewModel = new P5ViewModel();
+                    CurrentViewModel = new SculptureViewModel();
                     break;
                 case "P6":
-                    CurrentViewModel = new P6ViewModel();
+                    CurrentViewModel = new VisitViewModel();
                     break;
                 // případně další stránky…
                 default:

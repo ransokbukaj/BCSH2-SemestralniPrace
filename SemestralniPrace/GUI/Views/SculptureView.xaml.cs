@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace GUI.Views
 {
     /// <summary>
-    /// Interaction logic for P4View.xaml
+    /// Interaction logic for SculptureView.xaml
     /// </summary>
-    public partial class P4View : UserControl
+    public partial class SculptureView : UserControl
     {
-        public P4View()
+        public SculptureView()
         {
             InitializeComponent();
         }

@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace GUI.Views
 {
     /// <summary>
-    /// Interaction logic for P2View.xaml
+    /// Interaction logic for EducationProgramView.xaml
     /// </summary>
-    public partial class P2View : UserControl
+    public partial class EducationProgramView : UserControl
     {
-        public P2View()
+        public EducationProgramView()
         {
             InitializeComponent();
         }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace GUI.ViewModels
 {
-    public class P3ViewModel : ObservableObject
+    public class ExhibitionViewModel : ObservableObject
     {
 
     }
