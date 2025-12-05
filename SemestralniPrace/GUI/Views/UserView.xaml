@@ -1,13 +1,90 @@
 <UserControl x:Class="GUI.Views.UserView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:GUI.Views"
-             mc:Ignorable="d"             
-             Background="DarkGoldenrod"
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-        <Label FontSize="35" Foreground="White" HorizontalAlignment="Center" Content="Pokus pro P5" />
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d"
+              Background="White"
+             d:DesignHeight="450" d:DesignWidth="1000">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="3*"/>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Grid.Row="0" Grid.ColumnSpan="2"
+                   Text="Uživatelé"
+                   FontSize="24"
+                   FontWeight="Bold"
+                   Margin="0,0,0,10"/>
+
+        <DataGrid Grid.Row="1" Grid.Column="0"
+                  ItemsSource="{Binding Users}"
+                  SelectedItem="{Binding SelectedUser, Mode=TwoWay}"
+                  AutoGenerateColumns="False"
+                  IsReadOnly="True"
+                  Margin="0,0,10,0">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="Auto"/>
+                <DataGridTextColumn Header="Uživatelské jméno" Binding="{Binding Username}" Width="*"/>
+                <DataGridTextColumn Header="Jméno" Binding="{Binding FirstName}" Width="*"/>
+                <DataGridTextColumn Header="Příjmení" Binding="{Binding LastName}" Width="*"/>
+                <DataGridTextColumn Header="Email" Binding="{Binding Email}" Width="*"/>
+                <DataGridTextColumn Header="Telefon" Binding="{Binding PhoneNumber}" Width="*"/>
+                <DataGridTextColumn Header="Role" Binding="{Binding Role}" Width="*"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <ScrollViewer Grid.Row="1" Grid.Column="1" Margin="10,0,0,0" VerticalScrollBarVisibility="Auto">
+            <StackPanel>
+                <TextBlock Text="Detail uživatele" FontSize="18" FontWeight="Bold" Margin="0,0,0,10"/>
+
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                    <TextBlock Text="ID:" Width="160"/>
+                    <TextBlock Text="{Binding SelectedUser.Id}"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                    <TextBlock Text="Uživatelské jméno:" Width="160"/>
+                    <TextBox Text="{Binding SelectedUser.Username, UpdateSourceTrigger=PropertyChanged}" Width="200"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                    <TextBlock Text="Jméno:" Width="160"/>
+                    <TextBox Text="{Binding SelectedUser.FirstName, UpdateSourceTrigger=PropertyChanged}" Width="200"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                    <TextBlock Text="Příjmení:" Width="160"/>
+                    <TextBox Text="{Binding SelectedUser.LastName, UpdateSourceTrigger=PropertyChanged}" Width="200"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                    <TextBlock Text="Email:" Width="160"/>
+                    <TextBox Text="{Binding SelectedUser.Email, UpdateSourceTrigger=PropertyChanged}" Width="200"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                    <TextBlock Text="Telefon:" Width="160"/>
+                    <TextBox Text="{Binding SelectedUser.PhoneNumber, UpdateSourceTrigger=PropertyChanged}" Width="200"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="0,10,0,5">
+                    <TextBlock Text="Role:" Width="160"/>
+                    <TextBox Text="{Binding SelectedUser.Role}" Width="200"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,15,0,0">
+                    <Button Content="Načíst" Command="{Binding LoadCommand}" Margin="0,0,10,0" Width="80"/>
+                    <Button Content="Nový" Command="{Binding NewCommand}" Margin="0,0,10,0" Width="80"/>
+                    <Button Content="Uložit" Command="{Binding SaveCommand}" Margin="0,0,10,0" Width="80"/>
+                    <Button Content="Smazat" Command="{Binding DeleteCommand}" Width="80"/>
+                </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
     </Grid>
 </UserControl>

@@ -1,14 +1,79 @@
 <UserControl x:Class="GUI.Views.SaleView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:GUI.Views"
-             mc:Ignorable="d" 
-             
-             Background="DarkGoldenrod"
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-        <Label FontSize="35" Foreground="White" HorizontalAlignment="Center" Content="Pokus pro P5" />
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d"
+              Background="White"
+             d:DesignHeight="450" d:DesignWidth="900">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="3*"/>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Grid.Row="0" Grid.ColumnSpan="2"
+                   Text="Prodeje"
+                   FontSize="24"
+                   FontWeight="Bold"
+                   Margin="0,0,0,10"/>
+
+        <DataGrid Grid.Row="1" Grid.Column="0"
+                  ItemsSource="{Binding Sales}"
+                  SelectedItem="{Binding SelectedSale, Mode=TwoWay}"
+                  AutoGenerateColumns="False"
+                  IsReadOnly="True"
+                  Margin="0,0,10,0">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="Auto"/>
+                <DataGridTextColumn Header="Cena" Binding="{Binding Price}" Width="*"/>
+                <DataGridTextColumn Header="Datum prodeje" Binding="{Binding DateOfSale, StringFormat=\{0:d\}}" Width="*"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <StackPanel Grid.Row="1" Grid.Column="1" Margin="10,0,0,0">
+            <TextBlock Text="Detail prodeje" FontSize="18" FontWeight="Bold" Margin="0,0,0,10"/>
+
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                <TextBlock Text="ID:" Width="140"/>
+                <TextBlock Text="{Binding SelectedSale.Id}"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                <TextBlock Text="Cena:" Width="140"/>
+                <TextBox Text="{Binding SelectedSale.Price, UpdateSourceTrigger=PropertyChanged}" Width="100"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                <TextBlock Text="Datum prodeje:" Width="140"/>
+                <DatePicker SelectedDate="{Binding SelectedSale.DateOfSale, UpdateSourceTrigger=PropertyChanged}" Width="200"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                <TextBlock Text="Číslo karty:" Width="140"/>
+                <TextBox Text="{Binding SelectedSale.CardNumber, UpdateSourceTrigger=PropertyChanged}" Width="200"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                <TextBlock Text="Číslo účtu:" Width="140"/>
+                <TextBox Text="{Binding SelectedSale.AccountNumber, UpdateSourceTrigger=PropertyChanged}" Width="200"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Margin="0,10,0,5">
+                <TextBlock Text="Typ platby:" Width="140"/>
+                <TextBox Text="{Binding SelectedSale.TypeOfPayment.Name}" Width="200"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,15,0,0">
+                <Button Content="Načíst" Command="{Binding LoadCommand}" Margin="0,0,10,0" Width="80"/>
+                <Button Content="Nový" Command="{Binding NewCommand}" Margin="0,0,10,0" Width="80"/>
+                <Button Content="Uložit" Command="{Binding SaveCommand}" Margin="0,0,10,0" Width="80"/>
+                <Button Content="Smazat" Command="{Binding DeleteCommand}" Width="80"/>
+            </StackPanel>
+        </StackPanel>
     </Grid>
 </UserControl>

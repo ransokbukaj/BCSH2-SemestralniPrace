@@ -1,13 +1,95 @@
 <UserControl x:Class="GUI.Views.PaintingView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:GUI.Views"
-             mc:Ignorable="d"             
-             Background="DarkKhaki"
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-        <Label FontSize="35" Foreground="White" HorizontalAlignment="Center" Content="Pokus pro P4" />
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d"
+              Background="White"
+             d:DesignHeight="450" d:DesignWidth="900">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="3*"/>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Grid.Row="0" Grid.ColumnSpan="2"
+                   Text="Obrazy"
+                   FontSize="24"
+                   FontWeight="Bold"
+                   Margin="0,0,0,10"/>
+
+        <DataGrid Grid.Row="1" Grid.Column="0"
+                  ItemsSource="{Binding Paintings}"
+                  SelectedItem="{Binding SelectedPainting, Mode=TwoWay}"
+                  AutoGenerateColumns="False"
+                  IsReadOnly="True"
+                  Margin="0,0,10,0">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="Auto"/>
+                <DataGridTextColumn Header="Název" Binding="{Binding Name}" Width="*"/>
+                <DataGridTextColumn Header="Vydáno" Binding="{Binding PublishedDate, StringFormat=\{0:d\}}" Width="*"/>
+                <DataGridTextColumn Header="Výška" Binding="{Binding Height}" Width="*"/>
+                <DataGridTextColumn Header="Šířka" Binding="{Binding Width}" Width="*"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <ScrollViewer Grid.Row="1" Grid.Column="1" Margin="10,0,0,0" VerticalScrollBarVisibility="Auto">
+            <StackPanel>
+                <TextBlock Text="Detail obrazu" FontSize="18" FontWeight="Bold" Margin="0,0,0,10"/>
+
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                    <TextBlock Text="ID:" Width="140"/>
+                    <TextBlock Text="{Binding SelectedPainting.Id}"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                    <TextBlock Text="Název:" Width="140"/>
+                    <TextBox Text="{Binding SelectedPainting.Name, UpdateSourceTrigger=PropertyChanged}" Width="250"/>
+                </StackPanel>
+
+                <TextBlock Text="Popis:" Margin="0,5,0,5"/>
+                <TextBox Text="{Binding SelectedPainting.Description, UpdateSourceTrigger=PropertyChanged}"
+                         AcceptsReturn="True"
+                         TextWrapping="Wrap"
+                         Height="80"
+                         VerticalScrollBarVisibility="Auto"/>
+
+                <StackPanel Orientation="Horizontal" Margin="0,5,0,5">
+                    <TextBlock Text="Datum vzniku:" Width="140"/>
+                    <DatePicker SelectedDate="{Binding SelectedPainting.PublishedDate, UpdateSourceTrigger=PropertyChanged}" Width="200"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                    <TextBlock Text="Výška (cm):" Width="140"/>
+                    <TextBox Text="{Binding SelectedPainting.Height, UpdateSourceTrigger=PropertyChanged}" Width="80"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                    <TextBlock Text="Šířka (cm):" Width="140"/>
+                    <TextBox Text="{Binding SelectedPainting.Width, UpdateSourceTrigger=PropertyChanged}" Width="80"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="0,10,0,5">
+                    <TextBlock Text="Podklad:" Width="140"/>
+                    <TextBox Text="{Binding SelectedPainting.Base.Name}" Width="200"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                    <TextBlock Text="Technika:" Width="140"/>
+                    <TextBox Text="{Binding SelectedPainting.Technique.Name}" Width="200"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,15,0,0">
+                    <Button Content="Načíst" Command="{Binding LoadCommand}" Margin="0,0,10,0" Width="80"/>
+                    <Button Content="Nový" Command="{Binding NewCommand}" Margin="0,0,10,0" Width="80"/>
+                    <Button Content="Uložit" Command="{Binding SaveCommand}" Margin="0,0,10,0" Width="80"/>
+                    <Button Content="Smazat" Command="{Binding DeleteCommand}" Width="80"/>
+                </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
     </Grid>
 </UserControl>

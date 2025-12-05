@@ -1,13 +1,38 @@
 <UserControl x:Class="GUI.Views.HistoryLogView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:GUI.Views"
-             mc:Ignorable="d"             
-             Background="DarkGoldenrod"
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-        <Label FontSize="35" Foreground="White" HorizontalAlignment="Center" Content="Pokus pro P5" />
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d"
+              Background="White"
+             d:DesignHeight="450" d:DesignWidth="1000">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0"
+                   Text="Záznamy historie"
+                   FontSize="24"
+                   FontWeight="Bold"
+                   Margin="0,0,0,10"/>
+
+        <DataGrid Grid.Row="1"
+                  ItemsSource="{Binding HistoryLogs}"
+                  SelectedItem="{Binding SelectedHistoryLog, Mode=TwoWay}"
+                  AutoGenerateColumns="False"
+                  IsReadOnly="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="Auto"/>
+                <DataGridTextColumn Header="Tabulka" Binding="{Binding TableName}" Width="*"/>
+                <DataGridTextColumn Header="Operace" Binding="{Binding TypeOfOperation}" Width="*"/>
+                <DataGridTextColumn Header="Datum změny" Binding="{Binding DateOfChange}" Width="*"/>
+                <DataGridTextColumn Header="Editovaný ID" Binding="{Binding EditedRowId}" Width="*"/>
+                <DataGridTextColumn Header="Původní hodnoty" Binding="{Binding OldValues}" Width="2*"/>
+                <DataGridTextColumn Header="Nové hodnoty" Binding="{Binding NewValues}" Width="2*"/>
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </UserControl>
+
