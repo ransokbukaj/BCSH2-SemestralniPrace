@@ -1,5 +1,4 @@
 using Entities;
-using Entities.Data;
 using Oracle.ManagedDataAccess.Client;
 using System;
 using System.Collections.Generic;
@@ -60,7 +59,7 @@ namespace DatabaseAccess
                                     Username = reader["uzivatelskejmeno"].ToString(),
                                     FirstName = reader["jmeno"].ToString(),
                                     LastName = reader["prijmeni"].ToString(),
-                                    Role = (Role)Convert.ToInt32(reader["idrole"])
+                                    //Role = (Role)Convert.ToInt32(reader["idrole"])
                                 };
 
                                 SetDatabaseSessionIdentifier(connection, userId);
