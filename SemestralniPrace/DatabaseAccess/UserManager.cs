@@ -28,11 +28,19 @@ namespace DatabaseAccess
             {
                 string query = @"
                     SELECT
-                        iduzivatel, uzivatelskejmeno, heslohash, jmeno, prijmeni, idrole 
+                        u.iduzivatel, 
+                        u.uzivatelskejmeno, 
+                        u.heslohash, 
+                        u.jmeno, 
+                        u.prijmeni, 
+                        u.idrole,
+                        r.nazev as nazevrole
                     FROM
-                        uzivatele 
+                        uzivatele u
+                        INNER JOIN role r
+                        ON u.idrole = r.idrole
                     WHERE
-                        uzivatelskejmeno = :username";
+                        u.uzivatelskejmeno = :username";
 
                 using (var command = connection.CreateCommand())
                 {
@@ -52,6 +60,7 @@ namespace DatabaseAccess
                             if (VerifyPassword(password, storedHash))
                             {
                                 int userId = Convert.ToInt32(reader["iduzivatel"]);
+                                int roleId = Convert.ToInt32(reader["idrole"]);
 
                                 CurrentUser = new User
                                 {
@@ -59,7 +68,11 @@ namespace DatabaseAccess
                                     Username = reader["uzivatelskejmeno"].ToString(),
                                     FirstName = reader["jmeno"].ToString(),
                                     LastName = reader["prijmeni"].ToString(),
-                                    //Role = (Role)Convert.ToInt32(reader["idrole"])
+                                    Role = new Counter
+                                    {
+                                        Id = roleId,
+                                        Name = reader["nazevrole"].ToString()
+                                    }
                                 };
 
                                 SetDatabaseSessionIdentifier(connection, userId);
