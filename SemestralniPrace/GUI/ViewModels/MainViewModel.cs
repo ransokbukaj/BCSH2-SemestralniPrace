@@ -88,6 +88,5 @@ namespace GUI.ViewModels
                     break;
             }
         }
-
     }
 }

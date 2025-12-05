@@ -8,6 +8,12 @@ namespace Entities
 {
     public class Attachment
     {
+        public int IdPriloha { get; set; }
 
+        public byte[] Soubor { get; set; }
+
+        public string TypSouboru { get; set; }
+
+        public string NazevSouboru { get; set; }
     }
 }

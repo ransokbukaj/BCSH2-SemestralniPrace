@@ -1,4 +1,3 @@
-using Entities.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,7 +24,7 @@ namespace Entities
         public DateTime? LastLogin { get; set; }
         public DateTime? LastChange { get; set; }
 
-        public Role Role { get; set; }
+        public Counter Role { get; set; }
         public List<HistoryLog> UserHistory { get; set; }
     }
 }

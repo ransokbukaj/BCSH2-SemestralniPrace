@@ -1,4 +1,3 @@
-using Entities.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +14,7 @@ namespace Entities
         public string CardNumber { get; set; }
         public string AccountNumber { get; set; }
 
-        public PaymentMethod TypeOfPayment { get; set; }
+        public Counter TypeOfPayment { get; set; }
         public List<ArtPiece> ArtPieces { get; set; }
     }
 }

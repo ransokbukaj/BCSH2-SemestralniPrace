@@ -1,4 +1,3 @@
-using Entities.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +11,6 @@ namespace Entities
         public double Depth { get; set; }
         public double Weight { get; set; }
 
-        public Material Material { get; set; }
+        public Counter Material { get; set; }
     }
 }

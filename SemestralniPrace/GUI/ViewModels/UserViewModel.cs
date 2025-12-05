@@ -1,11 +1,7 @@
 using CommunityToolkit.Mvvm.ComponentModel;
-
 using CommunityToolkit.Mvvm.Input;
 using DatabaseAccess;
-using Entities.Account;
-
-using DatabaseAccess;
-
+using Entities;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -15,7 +11,6 @@ using System.Threading.Tasks;
 
 namespace GUI.ViewModels
 {
-
     public partial class UserViewModel : ObservableObject
     {
         private readonly UserRepository repository = new UserRepository();
@@ -62,11 +57,5 @@ namespace GUI.ViewModels
             repository.DeleteItem(SelectedUser.Id);
             Load();
         }
-
-    public class UserViewModel : ObservableObject
-    {
-        private UserRepository userRepository;
-        private CounterRepository counterRepository;
-
     }
 }

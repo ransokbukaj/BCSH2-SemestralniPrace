@@ -1,11 +1,7 @@
 using CommunityToolkit.Mvvm.ComponentModel;
-
 using CommunityToolkit.Mvvm.Input;
 using DatabaseAccess;
-using Entities.Data;
-
-using DatabaseAccess;
-
+using Entities;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -62,8 +58,5 @@ namespace GUI.ViewModels
             repository.DeleteItem(SelectedExhibition.Id);
             Load();
         }
-
-        private ExhibitionRepository exhibitionRepository;
-
     }
 }

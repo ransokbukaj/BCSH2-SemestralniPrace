@@ -1,11 +1,7 @@
 using CommunityToolkit.Mvvm.ComponentModel;
-
 using CommunityToolkit.Mvvm.Input;
 using DatabaseAccess;
-using Entities.Account;
-
-using DatabaseAccess;
-
+using Entities;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -15,7 +11,6 @@ using System.Threading.Tasks;
 
 namespace GUI.ViewModels
 {
-
     public partial class HistoryLogViewModel : ObservableObject
     {
         private readonly HistoryLogRepository repository = new HistoryLogRepository();
@@ -36,10 +31,5 @@ namespace GUI.ViewModels
         {
             HistoryLogs = new ObservableCollection<HistoryLog>(repository.GetList());
         }
-
-    public class HistoryLogViewModel : ObservableObject
-    {
-        private HistoryLogRepository historyLogRepository;
-
     }
 }

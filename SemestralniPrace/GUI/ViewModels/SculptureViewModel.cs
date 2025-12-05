@@ -1,11 +1,7 @@
 using CommunityToolkit.Mvvm.ComponentModel;
-
 using CommunityToolkit.Mvvm.Input;
 using DatabaseAccess;
-using Entities.Data;
-
-using DatabaseAccess;
-
+using Entities;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -15,7 +11,6 @@ using System.Threading.Tasks;
 
 namespace GUI.ViewModels
 {
-
     public partial class SculptureViewModel : ObservableObject
     {
         private readonly SculptureRepository repository = new SculptureRepository();
@@ -62,11 +57,5 @@ namespace GUI.ViewModels
             repository.DeleteItem(SelectedSculpture.Id);
             Load();
         }
-
-    public class SculptureViewModel : ObservableObject
-    {
-        private SculptureRepository sculptureRepository;
-        private CounterRepository counterRepository;
-
     }
 }

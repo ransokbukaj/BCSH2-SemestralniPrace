@@ -1,10 +1,7 @@
 using CommunityToolkit.Mvvm.ComponentModel;
-
 using CommunityToolkit.Mvvm.Input;
 using DatabaseAccess;
-using Entities.Data;
-
-using DatabaseAccess;
+using Entities;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -14,7 +11,6 @@ using System.Threading.Tasks;
 
 namespace GUI.ViewModels
 {
-
     public partial class BuyerViewModel : ObservableObject
     {
         private readonly BuyerRepository repository = new BuyerRepository();
@@ -62,10 +58,5 @@ namespace GUI.ViewModels
             repository.DeleteItem(SelectedBuyer.Id);
             Load();
         }
-
-    public class BuyerViewModel : ObservableObject
-    {
-        private BuyerRepository buyerRepository;
-
     }
 }
