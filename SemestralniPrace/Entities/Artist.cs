@@ -4,17 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Entities.Data
+namespace Entities
 {
-    public class Buyer
+    public class Artist
     {
         public int Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public string PhoneNumber { get; set; }
-        public string Email { get; set; }
-
-        public List<Sale> BoughtArtPieces { get; set; }
-        public Address Adress { get; set; }
+        public DateTime DateOfBirth { get; set; }
+        public DateTime DateOfDeath { get; set; }
+        public string Description { get; set; }
     }
 }

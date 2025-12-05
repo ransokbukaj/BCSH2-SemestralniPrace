@@ -1,10 +1,11 @@
+using Entities.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Entities.Data
+namespace Entities
 {
     public class Painting : ArtPiece
     {

@@ -4,14 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Entities.Data
+namespace Entities
 {
-    // Možná předělat na Enum
-
-    public class VisitType
+    public class VisitType : Counter
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
         public decimal Price { get; set; }
     }
 }

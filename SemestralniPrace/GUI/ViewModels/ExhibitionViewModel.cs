@@ -1,4 +1,5 @@
 using CommunityToolkit.Mvvm.ComponentModel;
+using DatabaseAccess;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,6 @@ namespace GUI.ViewModels
 {
     public class ExhibitionViewModel : ObservableObject
     {
-
+        private ExhibitionRepository exhibitionRepository;
     }
 }

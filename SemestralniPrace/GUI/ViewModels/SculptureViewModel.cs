@@ -1,4 +1,5 @@
 using CommunityToolkit.Mvvm.ComponentModel;
+using DatabaseAccess;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,8 +8,9 @@ using System.Threading.Tasks;
 
 namespace GUI.ViewModels
 {
-    class SculptureViewModel : ObservableObject
+    public class SculptureViewModel : ObservableObject
     {
-
+        private SculptureRepository sculptureRepository;
+        private CounterRepository counterRepository;
     }
 }
