@@ -16,7 +16,7 @@
             </Grid.ColumnDefinitions>
             <Grid Grid.Column="1">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="25"/>
+                    <!--<RowDefinition Height="25"/>-->
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <ContentControl Grid.Row="1" Content="{Binding CurrentViewModel}"/>

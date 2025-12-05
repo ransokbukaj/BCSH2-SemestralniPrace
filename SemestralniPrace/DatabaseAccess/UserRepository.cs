@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -34,6 +34,11 @@ namespace DatabaseAccess
         }
 
         public void UpdatePassword(int id, string newPassword)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void ChangePassword(int id, string newPassword)
         {
             throw new NotImplementedException();
         }
