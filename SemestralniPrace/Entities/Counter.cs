@@ -1,14 +1,14 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Entities.Data
+namespace Entities
 {
-    public class Visit
+    public class Counter
     {
         public int Id { get; set; }
-        public DateTime DateOfVisit { get; set; }
+        public string Name { get; set; }
     }
 }

@@ -4,13 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Entities.Data
+namespace Entities
 {
-    // Možná předělat na Enum
-
-    public class Technique
+    public class Visit
     {
         public int Id { get; set; }
-        public string Name { get; set; }
+        public DateTime DateOfVisit { get; set; }
     }
 }

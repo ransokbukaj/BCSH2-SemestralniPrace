@@ -1,7 +1,10 @@
 using CommunityToolkit.Mvvm.ComponentModel;
+
 using CommunityToolkit.Mvvm.Input;
 using DatabaseAccess;
 using Entities.Data;
+
+using DatabaseAccess;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -57,5 +60,10 @@ namespace GUI.ViewModels
             repository.DeleteItem(SelectedAddress.Id);
             Load();
         }
+
+    public class AddressViewModel : ObservableObject
+    {
+        private AddressRepository addressRepository;
+
     }
 }

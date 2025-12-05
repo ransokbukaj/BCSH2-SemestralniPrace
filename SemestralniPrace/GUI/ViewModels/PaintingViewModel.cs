@@ -1,7 +1,11 @@
 using CommunityToolkit.Mvvm.ComponentModel;
+
 using CommunityToolkit.Mvvm.Input;
 using DatabaseAccess;
 using Entities.Data;
+
+using DatabaseAccess;
+
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -11,6 +15,7 @@ using System.Threading.Tasks;
 
 namespace GUI.ViewModels
 {
+
     public partial class PaintingViewModel : ObservableObject
     {
         private readonly PaintingRepository repository = new PaintingRepository();
@@ -57,5 +62,11 @@ namespace GUI.ViewModels
             repository.DeleteItem(SelectedPainting.Id);
             Load();
         }
+
+    public class PaintingViewModel : ObservableObject
+    {
+        private PaintingRepository paintingRepository;
+        private CounterRepository counterRepository;
+
     }
 }

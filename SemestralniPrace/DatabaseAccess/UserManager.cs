@@ -1,4 +1,5 @@
-using Entities.Account;
+using Entities;
+using Entities.Data;
 using Oracle.ManagedDataAccess.Client;
 using System;
 using System.Collections.Generic;

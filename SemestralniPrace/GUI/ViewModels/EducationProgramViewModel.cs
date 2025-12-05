@@ -1,7 +1,11 @@
 using CommunityToolkit.Mvvm.ComponentModel;
+
 using CommunityToolkit.Mvvm.Input;
 using DatabaseAccess;
 using Entities.Data;
+
+using DatabaseAccess;
+
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -13,6 +17,7 @@ namespace GUI.ViewModels
 {
     public partial class EducationProgramViewModel : ObservableObject
     {
+
         private readonly EducationProgramRepository repository = new EducationProgramRepository();
 
         [ObservableProperty]
@@ -57,5 +62,8 @@ namespace GUI.ViewModels
             repository.DeleteItem(SelectedEducationProgram.Id);
             Load();
         }
+
+        private EducationProgramRepository educationProgramRepository;
+
     }
 }

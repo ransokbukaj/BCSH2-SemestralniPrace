@@ -1,7 +1,11 @@
 using CommunityToolkit.Mvvm.ComponentModel;
+
 using CommunityToolkit.Mvvm.Input;
 using DatabaseAccess;
 using Entities.Data;
+
+using DatabaseAccess;
+
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -15,6 +19,7 @@ namespace GUI.ViewModels
 {
     public partial class ArtistViewModel : ObservableObject
     {
+
         private readonly ArtistRepository repository = new ArtistRepository();
 
         [ObservableProperty]
@@ -60,6 +65,9 @@ namespace GUI.ViewModels
             repository.DeleteItem(SelectedArtist.Id);
             Load();
         }
+
+        private ArtistRepository artistRepository;
+
     }
 
 

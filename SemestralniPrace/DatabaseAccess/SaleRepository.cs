@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DatabaseAccess.Interface;
-using Entities.Data;
+using Entities;
 
 namespace DatabaseAccess
 {

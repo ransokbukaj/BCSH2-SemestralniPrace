@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Entities.Data
+namespace Entities
 {
     public abstract class ArtPiece
     {
@@ -16,6 +16,7 @@ namespace Entities.Data
         public double Width { get; set; }
 
         public List<Artist> Creators { get; set; }
+        public List<Attachment> Attachments { get; set; }
         public Sale? Sale { get; set; }
     }
 }

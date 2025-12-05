@@ -1,7 +1,11 @@
 using CommunityToolkit.Mvvm.ComponentModel;
+
 using CommunityToolkit.Mvvm.Input;
 using DatabaseAccess;
 using Entities.Data;
+
+using DatabaseAccess;
+
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -11,6 +15,7 @@ using System.Threading.Tasks;
 
 namespace GUI.ViewModels
 {
+
     public partial class PostViewModel : ObservableObject
     {
         private readonly PostRepository repository = new PostRepository();
@@ -57,5 +62,10 @@ namespace GUI.ViewModels
             repository.DeleteItem(SelectedPost.Id);
             Load();
         }
+
+    public class PostViewModel : ObservableObject
+    {
+        private PostRepository postRepository;
+
     }
 }
