@@ -1,5 +1,6 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using GUI.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,13 +34,23 @@ namespace GUI.ViewModels
             {
                 CurrentViewModel = new HomeViewModel();
                 LogButtonText = "Log in";
+                IsLogged = false;
             }
             else
             {
-                LogButtonText = "Log out";
+                var vm = new LoginViewModel();
+                var dialog = new LoginWindow(vm);
+
+                bool log = (bool)dialog.ShowDialog();
+                if (log)
+                {
+                    LogButtonText = "Log out";
+                    IsLogged = true;
+                }
+
             }
 
-            IsLogged = !IsLogged;
+
         }
 
         [RelayCommand]
