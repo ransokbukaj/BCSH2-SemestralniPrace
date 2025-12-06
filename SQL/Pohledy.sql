@@ -107,3 +107,22 @@ FROM kupci k
     INNER JOIN adresy a ON k.idadresa = a.idadresa
     INNER JOIN posty p ON a.idposta = p.idposta
 ORDER BY k.prijmeni, k.jmeno;
+
+CREATE OR REPLACE VIEW v_prodeje AS
+SELECT 
+    p.idprodej AS id,
+    p.cena AS cena,
+    p.datumprodeje AS datum_prodeje,
+    p.cislokarty AS cislo_karty,
+    p.cislouctu AS cislo_uctu,
+    p.iddruhplatby AS id_druh_platby,
+    dp.nazev AS nazev_druhu_platby,
+    p.idkupec AS id_kupec,
+    k.jmeno AS kupec_jmeno,
+    k.prijmeni AS kupec_prijmeni,
+    k.email AS kupec_email,
+    k.telefonicislo AS kupec_telefon
+FROM prodeje p
+    INNER JOIN druhy_plateb dp ON p.iddruhplatby = dp.iddruhplatby
+    INNER JOIN kupci k ON p.idkupec = k.idkupec
+ORDER BY p.datumprodeje DESC;
