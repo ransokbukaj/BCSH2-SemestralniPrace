@@ -1,4 +1,5 @@
-﻿using System;
+using GUI.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,9 +20,17 @@ namespace GUI.Views
     /// </summary>
     public partial class LoginWindow : Window
     {
-        public LoginWindow()
+        public LoginWindow(LoginViewModel vm)
         {
             InitializeComponent();
+            DataContext = vm;
+            vm.RequestClose += Vm_RequestClose;
+        }
+
+        private void Vm_RequestClose(bool? result)
+        {
+            DialogResult = result;
+            Close();
         }
     }
 }

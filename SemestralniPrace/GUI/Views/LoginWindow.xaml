@@ -12,7 +12,6 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="100"/>
             <ColumnDefinition Width="*"/>
@@ -23,22 +22,22 @@
                    Text="Uživatel:"
                    VerticalAlignment="Center"
                    Margin="0,0,5,5"/>
-        <TextBox x:Name="UserNameTextBox"
-                 Grid.Row="0" Grid.Column="1"
+        <TextBox Grid.Row="0" Grid.Column="1"
+                 Text="{Binding UserName, UpdateSourceTrigger=PropertyChanged}"
                  Margin="0,0,0,5"/>
 
-        <!-- Heslo -->
+        <!-- Heslo (pro jednoduchost TextBox; PasswordBox by chtěl extra behavior) -->
         <TextBlock Grid.Row="1" Grid.Column="0"
                    Text="Heslo:"
                    VerticalAlignment="Center"
                    Margin="0,0,5,5"/>
-        <PasswordBox x:Name="PasswordBox"
-                     Grid.Row="1" Grid.Column="1"
-                     Margin="0,0,0,5"/>
+        <TextBox Grid.Row="1" Grid.Column="1"
+                 Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}"
+                 Margin="0,0,0,5"/>
 
         <!-- Chybová hláška -->
-        <TextBlock x:Name="ErrorTextBlock"
-                   Grid.Row="2" Grid.ColumnSpan="2"
+        <TextBlock Grid.Row="2" Grid.ColumnSpan="2"
+                   Text="{Binding ErrorMessage}"
                    Foreground="Red"
                    Margin="0,5,0,5"/>
 
@@ -51,11 +50,11 @@
                     Width="80"
                     Margin="0,0,10,0"
                     IsDefault="True"
-                    Click="LoginButton_Click"/>
+                    Command="{Binding LoginCommand}"/>
             <Button Content="Zrušit"
                     Width="80"
                     IsCancel="True"
-                    Click="CancelButton_Click"/>
+                    Command="{Binding CancelCommand}"/>
         </StackPanel>
     </Grid>
 </Window>
