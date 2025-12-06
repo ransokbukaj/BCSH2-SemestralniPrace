@@ -88,3 +88,22 @@ FROM navstevy n
     INNER JOIN druhy_navstev dn ON n.iddruhnavstevy = dn.iddruhnavstevy
     INNER JOIN vystavy v ON n.idvystava = v.idvystava
 ORDER BY n.datumnavstevy DESC;
+
+CREATE OR REPLACE VIEW v_kupci AS
+SELECT 
+    k.idkupec AS id,
+    k.jmeno AS jmeno,
+    k.prijmeni AS prijmeni,
+    k.telefonicislo AS telefonni_cislo,
+    k.email AS email,
+    k.idadresa AS id_adresa,
+    a.ulice AS ulice,
+    a.cislopopisne AS cislo_popisne,
+    a.cisloorientacni AS cislo_orientacni,
+    a.idposta AS id_posta,
+    p.obec AS obec,
+    p.psc AS psc
+FROM kupci k
+    INNER JOIN adresy a ON k.idadresa = a.idadresa
+    INNER JOIN posty p ON a.idposta = p.idposta
+ORDER BY k.prijmeni, k.jmeno;

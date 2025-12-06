@@ -178,6 +178,7 @@ END p_delete_adresa;
 /
 
 
+
 CREATE OR REPLACE PROCEDURE p_save_posta(
     p_idposta IN posty.idposta%TYPE,
     p_obec IN posty.obec%TYPE,
@@ -233,6 +234,7 @@ BEGIN
     WHERE idposta = p_idposta;    
 END p_delete_posta;
 /
+
 
 
 CREATE OR REPLACE PROCEDURE p_save_navsteva(
@@ -293,4 +295,94 @@ BEGIN
     DELETE FROM navstevy
     WHERE idnavsteva = p_idnavsteva;    
 END p_delete_navsteva;
+/
+
+
+
+CREATE OR REPLACE PROCEDURE p_save_kupec(
+    p_idkupec IN kupci.idkupec%TYPE,
+    p_jmeno IN kupci.jmeno%TYPE,
+    p_prijmeni IN kupci.prijmeni%TYPE,
+    p_telefonicislo IN kupci.telefonicislo%TYPE,
+    p_email IN kupci.email%TYPE,
+    p_idadresa IN kupci.idadresa%TYPE
+) AS
+    v_count NUMBER;
+    v_adresa_count NUMBER;
+BEGIN
+    -- Kontrola existence adresy
+    SELECT COUNT(*) INTO v_adresa_count
+    FROM adresy
+    WHERE idadresa = p_idadresa;
+    
+    IF v_adresa_count = 0 THEN
+        RAISE_APPLICATION_ERROR(-20007, 'Adresa s ID ' || p_idadresa || ' neexistuje.');
+    END IF;
+    
+    -- Kontrola, zda kupec s daným ID existuje
+    IF p_idkupec IS NOT NULL AND p_idkupec > 0 THEN
+        SELECT COUNT(*) INTO v_count
+        FROM kupci
+        WHERE idkupec = p_idkupec;
+        
+        IF v_count > 0 THEN
+            -- UPDATE - kupec existuje
+            UPDATE kupci
+            SET jmeno = p_jmeno,
+                prijmeni = p_prijmeni,
+                telefonicislo = p_telefonicislo,
+                email = p_email,
+                idadresa = p_idadresa
+            WHERE idkupec = p_idkupec;
+        ELSE
+            -- ID bylo zadáno, ale záznam neexistuje
+            RAISE_APPLICATION_ERROR(-20008, 'Kupec s ID ' || p_idkupec || ' neexistuje.');
+        END IF;
+    ELSE
+        -- INSERT - vytvoření nového kupce
+        INSERT INTO kupci (
+            jmeno,
+            prijmeni,
+            telefonicislo,
+            email,
+            idadresa
+        ) VALUES (
+            p_jmeno,
+            p_prijmeni,
+            p_telefonicislo,
+            p_email,
+            p_idadresa
+        );
+    END IF;
+END p_save_kupec;
+/
+
+CREATE OR REPLACE PROCEDURE p_delete_kupec(
+    p_idkupec IN kupci.idkupec%TYPE
+) AS
+    v_count NUMBER;
+    v_prodeje_count NUMBER;
+BEGIN
+    -- Kontrola, zda kupec s daným ID existuje
+    SELECT COUNT(*) INTO v_count
+    FROM kupci
+    WHERE idkupec = p_idkupec;
+    
+    IF v_count = 0 THEN
+        RAISE_APPLICATION_ERROR(-20009, 'Kupec s ID ' || p_idkupec || ' neexistuje.');
+    END IF;
+    
+    -- Kontrola, zda kupec nemá nějaké prodeje
+    SELECT COUNT(*) INTO v_prodeje_count
+    FROM prodeje
+    WHERE idkupec = p_idkupec;
+    
+    IF v_prodeje_count > 0 THEN
+        RAISE_APPLICATION_ERROR(-20010, 'Nelze smazat kupce, který má existující prodeje.');
+    END IF;
+    
+    -- Odstranění kupce
+    DELETE FROM kupci
+    WHERE idkupec = p_idkupec;    
+END p_delete_kupec;
 /
