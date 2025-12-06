@@ -15,6 +15,7 @@ namespace Entities
         public string AccountNumber { get; set; }
 
         public Counter TypeOfPayment { get; set; }
+        public Buyer Buyer { get; set; }
         public List<ArtPiece> ArtPieces { get; set; }
     }
 }

@@ -10,5 +10,7 @@ namespace Entities
     {
         public int Id { get; set; }
         public DateTime DateOfVisit { get; set; }
+        public VisitType VisitType { get; set; }
+        public Exhibition Exhibition { get; set; }
     }
 }
