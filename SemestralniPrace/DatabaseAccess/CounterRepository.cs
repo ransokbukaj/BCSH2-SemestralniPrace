@@ -12,32 +12,147 @@ namespace DatabaseAccess
     {
         public List<Counter> GetFoundations()
         {
-            throw new NotImplementedException();
+            var list = new List<Counter>();
+            using (var connection = ConnectionManager.Connection)
+            {
+                using (var command = connection.CreateCommand())
+                {
+                    command.CommandText = "SELECT id, nazev FROM v_podklady";
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            list.Add(new Counter
+                            {
+                                Id = Convert.ToInt32(reader["id"]),
+                                Name = reader["nazev"].ToString()
+                            });
+                        }
+                    }
+                }
+            }
+            return list;
         }
 
         public List<Counter> GetMaterials()
         {
-            throw new NotImplementedException();
+            var list = new List<Counter>();
+            using (var connection = ConnectionManager.Connection)
+            {
+                using (var command = connection.CreateCommand())
+                {
+                    command.CommandText = "SELECT id, nazev FROM v_materialy";
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            list.Add(new Counter
+                            {
+                                Id = Convert.ToInt32(reader["id"]),
+                                Name = reader["nazev"].ToString()
+                            });
+                        }
+                    }
+                }
+            }
+            return list;
         }
 
         public List<Counter> GetPaymentMethods()
         {
-            throw new NotImplementedException();
+            var list = new List<Counter>();
+            using (var connection = ConnectionManager.Connection)
+            {
+                using (var command = connection.CreateCommand())
+                {
+                    command.CommandText = "SELECT id, nazev FROM v_druhy_plateb";
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            list.Add(new Counter
+                            {
+                                Id = Convert.ToInt32(reader["id"]),
+                                Name = reader["nazev"].ToString()
+                            });
+                        }
+                    }
+                }
+            }
+            return list;
         }
 
         public List<Counter> GetRoles()
         {
-            throw new NotImplementedException();
+            var list = new List<Counter>();
+            using (var connection = ConnectionManager.Connection)
+            {
+                using (var command = connection.CreateCommand())
+                {
+                    command.CommandText = "SELECT id, nazev FROM v_role";
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            list.Add(new Counter
+                            {
+                                Id = Convert.ToInt32(reader["id"]),
+                                Name = reader["nazev"].ToString()
+                            });
+                        }
+                    }
+                }
+            }
+            return list;
         }
 
         public List<Counter> GetTechniques()
         {
-            throw new NotImplementedException();
+            var list = new List<Counter>();
+            using (var connection = ConnectionManager.Connection)
+            {
+                using (var command = connection.CreateCommand())
+                {
+                    command.CommandText = "SELECT id, nazev FROM v_techniky";
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            list.Add(new Counter
+                            {
+                                Id = Convert.ToInt32(reader["id"]),
+                                Name = reader["nazev"].ToString()
+                            });
+                        }
+                    }
+                }
+            }
+            return list;
         }
 
         public List<VisitType> GetVisitTypes()
         {
-            throw new NotImplementedException();
+            var list = new List<VisitType>();
+            using (var connection = ConnectionManager.Connection)
+            {
+                using (var command = connection.CreateCommand())
+                {
+                    command.CommandText = "SELECT id, nazev, cena FROM v_druhy_navstev";
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            list.Add(new VisitType
+                            {
+                                Id = Convert.ToInt32(reader["id"]),
+                                Name = reader["nazev"].ToString(),
+                                Price = Convert.ToDecimal(reader["cena"])
+                            });
+                        }
+                    }
+                }
+            }
+            return list;
         }
     }
 }
