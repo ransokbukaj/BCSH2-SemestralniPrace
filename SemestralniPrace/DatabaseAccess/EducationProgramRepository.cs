@@ -17,14 +17,6 @@ namespace DatabaseAccess
 
         public void SaveItem(EducationProgram sducationProgram)
         {
-            if (sducationProgram.Id == 0)
-            {
-                // insert
-            }
-            else
-            {
-                // update
-            }
             throw new NotImplementedException();
         }
 

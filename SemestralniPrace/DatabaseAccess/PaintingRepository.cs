@@ -17,14 +17,6 @@ namespace DatabaseAccess
 
         public void SaveItem(Painting painting)
         {
-            if (painting.Id == 0)
-            {
-                // insert
-            }
-            else
-            {
-                // update
-            }
             throw new NotImplementedException();
         }
 

@@ -17,14 +17,6 @@ namespace DatabaseAccess
 
         public void SaveItem(Post post)
         {
-            if (post.Id == 0)
-            {
-                // insert
-            }
-            else
-            {
-                // update
-            }
             throw new NotImplementedException();
         }
 

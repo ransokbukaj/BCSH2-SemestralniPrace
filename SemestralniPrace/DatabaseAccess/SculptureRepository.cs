@@ -17,14 +17,6 @@ namespace DatabaseAccess
 
         public void SaveItem(Sculpture sculpture)
         {
-            if (sculpture.Id == 0)
-            {
-                // insert
-            }
-            else
-            {
-                // update
-            }
             throw new NotImplementedException();
         }
 

@@ -32,14 +32,6 @@ namespace DatabaseAccess
 
         public void SaveItem(Artist artist)
         {
-            if (artist.Id == 0)
-            {
-                // insert
-            }
-            else
-            {
-                // update
-            }
             throw new NotImplementedException();
         }
 

@@ -17,14 +17,6 @@ namespace DatabaseAccess
 
         public void SaveItem(Buyer buyer)
         {
-            if (buyer.Id == 0)
-            {
-                // insert
-            }
-            else
-            {
-                // update
-            }
             throw new NotImplementedException();
         }
 

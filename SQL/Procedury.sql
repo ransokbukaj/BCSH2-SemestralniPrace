@@ -111,3 +111,48 @@ BEGIN
 END;
 /
 
+-------------------------------------------------------------------------------
+
+CREATE OR REPLACE PROCEDURE p_save_adresa(
+    p_idadresa IN OUT adresy.idadresa%TYPE,
+    p_ulice IN adresy.ulice%TYPE,
+    p_cislopopisne IN adresy.cislopopisne%TYPE,
+    p_cisloorientacni IN adresy.cisloorientacni%TYPE,
+    p_idposta IN adresy.idposta%TYPE
+) AS
+    v_count NUMBER;
+BEGIN
+    -- Kontrola, zda adresa s daným ID existuje
+    IF p_idadresa IS NOT NULL AND p_idadresa > 0 THEN
+        SELECT COUNT(*) INTO v_count
+        FROM adresy
+        WHERE idadresa = p_idadresa;
+        
+        IF v_count > 0 THEN
+            -- UPDATE - adresa existuje
+            UPDATE adresy
+            SET ulice = p_ulice,
+                cislopopisne = p_cislopopisne,
+                cisloorientacni = p_cisloorientacni,
+                idposta = p_idposta
+            WHERE idadresa = p_idadresa;
+        ELSE
+            -- ID bylo zadáno, ale záznam neexistuje
+            RAISE_APPLICATION_ERROR(-20001, 'Adresa s ID ' || p_idadresa || ' neexistuje.');
+        END IF;
+    ELSE
+        -- INSERT - vytvoření nové adresy
+        INSERT INTO adresy (
+            ulice,
+            cislopopisne,
+            cisloorientacni,
+            idposta
+        ) VALUES (
+            p_ulice,
+            p_cislopopisne,
+            p_cisloorientacni,
+            p_idposta
+        ) RETURNING idadresa INTO p_idadresa;
+    END IF;
+END p_save_adresa;
+/
