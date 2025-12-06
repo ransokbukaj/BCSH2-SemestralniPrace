@@ -176,3 +176,60 @@ BEGIN
     WHERE idadresa = p_idadresa;    
 END p_delete_adresa;
 /
+
+
+CREATE OR REPLACE PROCEDURE p_save_posta(
+    p_idposta IN posty.idposta%TYPE,
+    p_obec IN posty.obec%TYPE,
+    p_psc IN posty.psc%TYPE
+) AS
+    v_count NUMBER;
+BEGIN
+    -- Kontrola, zda pošta s daným ID existuje
+    IF p_idposta IS NOT NULL AND p_idposta > 0 THEN
+        SELECT COUNT(*) INTO v_count
+        FROM posty
+        WHERE idposta = p_idposta;
+        
+        IF v_count > 0 THEN
+            -- UPDATE - pošta existuje
+            UPDATE posty
+            SET obec = p_obec,
+                psc = p_psc
+            WHERE idposta = p_idposta;
+        ELSE
+            -- ID bylo zadáno, ale záznam neexistuje
+            RAISE_APPLICATION_ERROR(-20003, 'Pošta s ID ' || p_idposta || ' neexistuje.');
+        END IF;
+    ELSE
+        -- INSERT - vytvoření nové pošty
+        INSERT INTO posty (
+            obec,
+            psc
+        ) VALUES (
+            p_obec,
+            p_psc
+        );
+    END IF;
+END p_save_posta;
+/
+
+CREATE OR REPLACE PROCEDURE p_delete_posta(
+    p_idposta IN posty.idposta%TYPE
+) AS
+    v_count NUMBER;
+BEGIN
+    -- Kontrola, zda pošta s daným ID existuje
+    SELECT COUNT(*) INTO v_count
+    FROM posty
+    WHERE idposta = p_idposta;
+    
+    IF v_count = 0 THEN
+        RAISE_APPLICATION_ERROR(-20004, 'Pošta s ID ' || p_idposta || ' neexistuje.');
+    END IF;
+    
+    -- Odstranění pošty
+    DELETE FROM posty
+    WHERE idposta = p_idposta;    
+END p_delete_posta;
+/

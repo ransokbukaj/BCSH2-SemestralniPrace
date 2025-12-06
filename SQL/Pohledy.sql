@@ -66,3 +66,11 @@ SELECT
 FROM adresy a
 INNER JOIN posty p ON a.idposta = p.idposta
 ORDER BY a.idadresa;
+
+CREATE OR REPLACE VIEW v_posty AS
+SELECT 
+    p.idposta AS id,
+    p.obec AS obec,
+    p.psc AS psc
+FROM posty p
+ORDER BY p.obec;

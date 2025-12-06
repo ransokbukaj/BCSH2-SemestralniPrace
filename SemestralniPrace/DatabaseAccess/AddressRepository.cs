@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using DatabaseAccess.Interface;
 using Entities;
 using Oracle.ManagedDataAccess.Client;
-using Oracle.ManagedDataAccess.Types;
 
 namespace DatabaseAccess
 {
