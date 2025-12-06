@@ -162,7 +162,7 @@ CREATE OR REPLACE PROCEDURE p_delete_adresa(
 ) AS
     v_count NUMBER;
 BEGIN
-    -- Kontrola, zda adresa existuje
+    -- Kontrola, zda adresa s daným ID existuje
     SELECT COUNT(*) INTO v_count
     FROM adresy
     WHERE idadresa = p_idadresa;
