@@ -14,7 +14,44 @@ namespace DatabaseAccess
     {
         public List<Address> GetList()
         {
-            throw new NotImplementedException();
+            var list = new List<Address>();
+            using (var connection = ConnectionManager.Connection)
+            {
+                using (var command = connection.CreateCommand())
+                {
+                    command.CommandText = @"
+                        SELECT 
+                            id,
+                            ulice,
+                            cislo_popisne,
+                            cislo_orientacni,
+                            id_posta,
+                            obec,
+                            psc
+                        FROM v_adresy";
+
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            list.Add(new Address
+                            {
+                                Id = Convert.ToInt32(reader["id"]),
+                                Street = reader["ulice"].ToString(),
+                                HouseNumber = reader["cislo_popisne"].ToString(),
+                                StreetNumber = reader["cislo_orientacni"] == DBNull.Value ? null : reader["cislo_orientacni"].ToString(),
+                                Post = new Post
+                                {
+                                    Id = Convert.ToInt32(reader["id_posta"]),
+                                    City = reader["obec"].ToString(),
+                                    PSC = reader["psc"].ToString()
+                                }
+                            });
+                        }
+                    }
+                }
+            }
+            return list;
         }
 
         public void SaveItem(Address address)

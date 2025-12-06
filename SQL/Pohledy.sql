@@ -51,3 +51,18 @@ FROM navstevy n
     JOIN druhy_navstev dn ON dn.iddruhnavstevy = n.iddruhnavstevy
     JOIN vystavy v ON v.idvystava = n.idvystava
 GROUP BY v.nazev, n.datumnavstevy, dn.nazev;
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+CREATE OR REPLACE VIEW v_adresy AS
+SELECT 
+    a.idadresa AS id,
+    a.ulice AS ulice,
+    a.cislopopisne AS cislo_popisne,
+    a.cisloorientacni AS cislo_orientacni,
+    a.idposta AS id_posta,
+    p.obec AS obec,
+    p.psc AS psc
+FROM adresy a
+INNER JOIN posty p ON a.idposta = p.idposta
+ORDER BY a.idadresa;
