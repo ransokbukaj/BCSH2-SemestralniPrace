@@ -74,3 +74,17 @@ SELECT
     p.psc AS psc
 FROM posty p
 ORDER BY p.obec;
+
+CREATE OR REPLACE VIEW v_navstevy AS
+SELECT 
+    n.idnavsteva AS id,
+    n.datumnavstevy AS datum_navstevy,
+    n.iddruhnavstevy AS id_druh_navstevy,
+    dn.nazev AS nazev_druhu_navstevy,
+    dn.cena AS cena,
+    n.idvystava AS id_vystava,
+    v.nazev AS nazev_vystavy
+FROM navstevy n
+    INNER JOIN druhy_navstev dn ON n.iddruhnavstevy = dn.iddruhnavstevy
+    INNER JOIN vystavy v ON n.idvystava = v.idvystava
+ORDER BY n.datumnavstevy DESC;

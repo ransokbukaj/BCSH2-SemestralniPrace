@@ -233,3 +233,64 @@ BEGIN
     WHERE idposta = p_idposta;    
 END p_delete_posta;
 /
+
+
+CREATE OR REPLACE PROCEDURE p_save_navsteva(
+    p_idnavsteva IN navstevy.idnavsteva%TYPE,
+    p_datumnavstevy IN navstevy.datumnavstevy%TYPE,
+    p_iddruhnavstevy IN navstevy.iddruhnavstevy%TYPE,
+    p_idvystava IN navstevy.idvystava%TYPE
+) AS
+    v_count NUMBER;
+BEGIN
+    -- Kontrola, zda návštěva s daným ID existuje
+    IF p_idnavsteva IS NOT NULL AND p_idnavsteva > 0 THEN
+        SELECT COUNT(*) INTO v_count
+        FROM navstevy
+        WHERE idnavsteva = p_idnavsteva;
+        
+        IF v_count > 0 THEN
+            -- UPDATE - návštěva existuje
+            UPDATE navstevy
+            SET datumnavstevy = p_datumnavstevy,
+                iddruhnavstevy = p_iddruhnavstevy,
+                idvystava = p_idvystava
+            WHERE idnavsteva = p_idnavsteva;
+        ELSE
+            -- ID bylo zadáno, ale záznam neexistuje
+            RAISE_APPLICATION_ERROR(-20005, 'Návštěva s ID ' || p_idnavsteva || ' neexistuje.');
+        END IF;
+    ELSE
+        -- INSERT - vytvoření nové návštěvy
+        INSERT INTO navstevy (
+            datumnavstevy,
+            iddruhnavstevy,
+            idvystava
+        ) VALUES (
+            p_datumnavstevy,
+            p_iddruhnavstevy,
+            p_idvystava
+        );
+    END IF;
+END p_save_navsteva;
+/
+
+CREATE OR REPLACE PROCEDURE p_delete_navsteva(
+    p_idnavsteva IN navstevy.idnavsteva%TYPE
+) AS
+    v_count NUMBER;
+BEGIN
+    -- Kontrola, zda návštěva s daným ID existuje
+    SELECT COUNT(*) INTO v_count
+    FROM navstevy
+    WHERE idnavsteva = p_idnavsteva;
+    
+    IF v_count = 0 THEN
+        RAISE_APPLICATION_ERROR(-20006, 'Návštěva s ID ' || p_idnavsteva || ' neexistuje.');
+    END IF;
+    
+    -- Odstranění návštěvy
+    DELETE FROM navstevy
+    WHERE idnavsteva = p_idnavsteva;    
+END p_delete_navsteva;
+/
