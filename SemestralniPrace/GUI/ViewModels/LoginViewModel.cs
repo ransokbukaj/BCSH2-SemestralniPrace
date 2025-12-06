@@ -41,6 +41,7 @@ namespace GUI.ViewModels
                 return;
             }
 
+            //Pro otestování zakomentovano -- stačí něco vyplněné pro přihlášení
             //if (!UserManager.LogIn(UserName,Password))
             //{
             //    ErrorMessage = "Neplatné uživatelské jméno nebo heslo.";

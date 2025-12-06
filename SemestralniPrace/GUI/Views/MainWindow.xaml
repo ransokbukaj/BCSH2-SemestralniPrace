@@ -8,7 +8,9 @@
         Height="600" 
         Width="920"       
         Background="Transparent">
-    <Border Background="#272537">
+
+    <!--"Background= #272537"-->
+    <Border Background="Snow">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="200"/>
