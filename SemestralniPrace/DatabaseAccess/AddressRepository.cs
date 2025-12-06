@@ -30,7 +30,7 @@ namespace DatabaseAccess
                     {
                         ParameterName = "p_idadresa",
                         OracleDbType = OracleDbType.Int32,
-                        Direction = System.Data.ParameterDirection.InputOutput,
+                        Direction = System.Data.ParameterDirection.Input,
                         Value = address.Id == 0 ? (object)DBNull.Value : address.Id
                     };
                     command.Parameters.Add(paramId);
@@ -93,7 +93,40 @@ namespace DatabaseAccess
 
         public void DeleteItem(int id)
         {
-            throw new NotImplementedException();
+            using (var connection = ConnectionManager.Connection)
+            {
+                using (var command = connection.CreateCommand())
+                {
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+                    command.CommandText = "p_delete_adresa";
+
+                    var paramId = new OracleParameter
+                    {
+                        ParameterName = "p_idadresa",
+                        OracleDbType = OracleDbType.Int32,
+                        Direction = System.Data.ParameterDirection.Input,
+                        Value = id
+                    };
+                    command.Parameters.Add(paramId);
+
+                    // Provedení procedury
+                    command.ExecuteNonQuery();
+
+                    // Commit transakce
+                    using (var transaction = connection.BeginTransaction())
+                    {
+                        try
+                        {
+                            transaction.Commit();
+                        }
+                        catch
+                        {
+                            transaction.Rollback();
+                            throw;
+                        }
+                    }
+                }
+            }
         }
     }
 }

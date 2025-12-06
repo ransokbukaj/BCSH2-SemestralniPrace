@@ -111,10 +111,10 @@ BEGIN
 END;
 /
 
--------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------------------------
 
 CREATE OR REPLACE PROCEDURE p_save_adresa(
-    p_idadresa IN OUT adresy.idadresa%TYPE,
+    p_idadresa IN adresy.idadresa%TYPE,
     p_ulice IN adresy.ulice%TYPE,
     p_cislopopisne IN adresy.cislopopisne%TYPE,
     p_cisloorientacni IN adresy.cisloorientacni%TYPE,
@@ -155,4 +155,24 @@ BEGIN
         ) RETURNING idadresa INTO p_idadresa;
     END IF;
 END p_save_adresa;
+/
+
+CREATE OR REPLACE PROCEDURE p_delete_adresa(
+    p_idadresa IN adresy.idadresa%TYPE
+) AS
+    v_count NUMBER;
+BEGIN
+    -- Kontrola, zda adresa existuje
+    SELECT COUNT(*) INTO v_count
+    FROM adresy
+    WHERE idadresa = p_idadresa;
+    
+    IF v_count = 0 THEN
+        RAISE_APPLICATION_ERROR(-20002, 'Adresa s ID ' || p_idadresa || ' neexistuje.');
+    END IF;
+    
+    -- Odstranění adresy
+    DELETE FROM adresy
+    WHERE idadresa = p_idadresa;    
+END p_delete_adresa;
 /
