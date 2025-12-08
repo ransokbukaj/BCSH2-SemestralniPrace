@@ -101,6 +101,12 @@ namespace GUI.ViewModels
             //// Po registraci rovnou přihlásit?
             //Session.CurrentUserName = user.Username;
 
+            if (!UserManager.Register(RegUsername, RegPassword, RegFirstName, RegLastName, RegEmail, RegPhone))
+            {
+                RegisterError = "Neplatné uživatelské jméno nebo heslo.";
+                return;
+            }
+
             RequestClose?.Invoke(true);
         }
 
