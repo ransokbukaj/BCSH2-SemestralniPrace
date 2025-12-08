@@ -16,7 +16,7 @@
 <objectViews>
 <OView class="oracle.dbtools.crest.swingui.relational.TVTable" oid="065D768D-9F11-DE74-57A4-31B1DB941FB6" otype="Table" vid="D3C3D035-22FD-949F-0D04-72C2475F22D2">
 <hideElementsInCurrentOnly>false</hideElementsInCurrentOnly>
-<bounds x="13" y="389" width="269" height="206"/>
+<bounds x="13" y="419" width="269" height="206"/>
 </OView>
 <OView class="oracle.dbtools.crest.swingui.relational.TVTable" oid="2100BF24-3F8E-517B-5FC5-7B2DC643BFB4" otype="Table" vid="3D0683A2-D3C8-3A6A-96A6-8B1BF5A62DC5">
 <hideElementsInCurrentOnly>false</hideElementsInCurrentOnly>
@@ -32,7 +32,7 @@
 </OView>
 <OView class="oracle.dbtools.crest.swingui.relational.TVTable" oid="6AABB554-0CD3-F51D-9EA2-A7668DC87CB4" otype="Table" vid="A1C18404-B8C5-BF06-D4DB-C7AB3946D961">
 <hideElementsInCurrentOnly>false</hideElementsInCurrentOnly>
-<bounds x="12" y="126" width="283" height="234"/>
+<bounds x="12" y="126" width="283" height="250"/>
 </OView>
 <OView class="oracle.dbtools.crest.swingui.relational.TVTable" oid="797E7F3C-5F70-0743-F07F-81613B213540" otype="Table" vid="6703F080-CC23-0AC0-71D1-E62154C66733">
 <hideElementsInCurrentOnly>false</hideElementsInCurrentOnly>
@@ -159,8 +159,8 @@
 <backgroundColor>-16777216</backgroundColor>
 <lineWidth>1</lineWidth>
 <points>
-<point x="147" y="360"/>
-<point x="147" y="389"/>
+<point x="147" y="376"/>
+<point x="147" y="419"/>
 </points>
 </Connector>
 <Connector class="oracle.dbtools.crest.swingui.relational.TVFKRelation" oid="8BECBE5B-C03C-C912-BF42-634DFA79DFF6" otype="FKIndexAssociation" vid_source="C0119C8B-8608-BA5F-20DA-A6FBAEC50D35" vid_target="EEAA5F43-0452-CEB8-7C76-BAEE4B7B1B55">
@@ -187,7 +187,7 @@
 <lineWidth>1</lineWidth>
 <points>
 <point x="411" y="394"/>
-<point x="551" y="368"/>
+<point x="509" y="368"/>
 </points>
 </Connector>
 <Connector class="oracle.dbtools.crest.swingui.relational.TVFKRelation" oid="B7F94966-BFE6-B154-170A-1389C2B29EE8" otype="FKIndexAssociation" vid_source="6703F080-CC23-0AC0-71D1-E62154C66733" vid_target="9BE4C8CD-2B91-55D3-76F6-53A2D824770D">

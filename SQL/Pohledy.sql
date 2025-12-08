@@ -126,3 +126,43 @@ FROM prodeje p
     INNER JOIN druhy_plateb dp ON p.iddruhplatby = dp.iddruhplatby
     INNER JOIN kupci k ON p.idkupec = k.idkupec
 ORDER BY p.datumprodeje DESC;
+
+CREATE OR REPLACE VIEW v_zaznamy_historie AS
+SELECT 
+    zh.idzaznamhistorie AS id,
+    zh.datumzmeny AS datum_zmeny,
+    zh.popiszmeny AS popis_zmeny,
+    zh.druhoperace AS druh_operace,
+    zh.starehodnoty AS stare_hodnoty,
+    zh.novehodnoty AS nove_hodnoty,
+    zh.nazevtabulky AS nazev_tabulky,
+    zh.idradkutabulky AS id_radku_tabulky,
+    zh.idzmenenohoradku AS id_zmeneneho_radku,
+    zh.iduzivatel AS id_uzivatel,
+    u.uzivatelskejmeno AS uzivatelske_jmeno,
+    u.jmeno AS uzivatel_jmeno,
+    u.prijmeni AS uzivatel_prijmeni,
+    r.nazev AS nazev_role
+FROM zaznamy_historie zh
+    INNER JOIN uzivatele u ON zh.iduzivatel = u.iduzivatel
+    INNER JOIN role r ON u.idrole = r.idrole
+ORDER BY zh.datumzmeny DESC;
+
+CREATE OR REPLACE VIEW v_uzivatele AS
+SELECT 
+    u.iduzivatel AS id,
+    u.uzivatelskejmeno AS uzivatelske_jmeno,
+    u.jmeno AS jmeno,
+    u.prijmeni AS prijmeni,
+    u.email AS email,
+    u.telefonicislo AS telefonni_cislo,
+    u.datumregistrace AS datum_registrace,
+    u.datumposlednihoprihlaseni AS datum_posledniho_prihlaseni,
+    u.datumposlednizmeni AS datum_posledni_zmeny,
+    u.idrole AS id_role,
+    r.nazev AS nazev_role,
+    u.deaktivovan AS deaktivovan
+FROM uzivatele u
+    INNER JOIN role r ON u.idrole = r.idrole
+WHERE u.deaktivovan = 0
+ORDER BY u.uzivatelskejmeno;

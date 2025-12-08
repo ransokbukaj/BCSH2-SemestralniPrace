@@ -131,6 +131,16 @@
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
+<Column name="deaktivovan" id="C4008F60-06DA-87F8-43A8-60384D1790F3">
+<createdBy>jakub</createdBy>
+<createdTime>2025-12-08 08:30:29 UTC</createdTime>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
 <Column name="idRole" id="B873288A-4856-4AE6-AAA5-1A2DE97BE9B2">
 <createdBy>jakub</createdBy>
 <createdTime>2025-11-02 09:09:54 UTC</createdTime>

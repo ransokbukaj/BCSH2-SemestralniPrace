@@ -34,6 +34,7 @@ namespace DatabaseAccess
                         u.jmeno, 
                         u.prijmeni, 
                         u.idrole,
+                        u.deaktivovan,
                         r.nazev as nazevrole
                     FROM
                         uzivatele u
@@ -55,6 +56,12 @@ namespace DatabaseAccess
                     {
                         if (reader.Read())
                         {
+                            int deaktivovan = Convert.ToInt32(reader["deaktivovan"]);
+                            if (deaktivovan == 1)
+                            {
+                                return false;
+                            }
+
                             string storedHash = reader["heslohash"].ToString();
 
                             if (VerifyPassword(password, storedHash))

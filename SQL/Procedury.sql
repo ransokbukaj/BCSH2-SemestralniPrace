@@ -495,3 +495,201 @@ BEGIN
     WHERE idprodej = p_idprodej;    
 END p_delete_prodej;
 /
+
+
+
+CREATE OR REPLACE PROCEDURE p_save_uzivatel(
+    p_iduzivatel IN uzivatele.iduzivatel%TYPE,
+    p_uzivatelskejmeno IN uzivatele.uzivatelskejmeno%TYPE,
+    p_heslohash IN uzivatele.heslohash%TYPE,
+    p_jmeno IN uzivatele.jmeno%TYPE,
+    p_prijmeni IN uzivatele.prijmeni%TYPE,
+    p_email IN uzivatele.email%TYPE,
+    p_telefonicislo IN uzivatele.telefonicislo%TYPE,
+    p_idrole IN uzivatele.idrole%TYPE
+) AS
+    v_count NUMBER;
+    v_role_count NUMBER;
+    v_username_count NUMBER;
+BEGIN
+    -- Kontrola existence role
+    SELECT COUNT(*) INTO v_role_count
+    FROM role
+    WHERE idrole = p_idrole;
+    
+    IF v_role_count = 0 THEN
+        RAISE_APPLICATION_ERROR(-20017, 'Role s ID ' || p_idrole || ' neexistuje.');
+    END IF;
+    
+    -- Kontrola, zda uživatel s daným ID existuje
+    IF p_iduzivatel IS NOT NULL AND p_iduzivatel > 0 THEN
+        SELECT COUNT(*) INTO v_count
+        FROM uzivatele
+        WHERE iduzivatel = p_iduzivatel;
+        
+        IF v_count > 0 THEN
+            -- Kontrola jedinečnosti uživatelského jména (kromě aktuálního uživatele)
+            SELECT COUNT(*) INTO v_username_count
+            FROM uzivatele
+            WHERE UPPER(uzivatelskejmeno) = UPPER(p_uzivatelskejmeno)
+            AND iduzivatel != p_iduzivatel;
+            
+            IF v_username_count > 0 THEN
+                RAISE_APPLICATION_ERROR(-20018, 'Uživatelské jméno "' || p_uzivatelskejmeno || '" je již používáno.');
+            END IF;
+            
+            -- UPDATE - uživatel existuje
+            -- Pokud je poskytnuto nové heslo (neprázdné), aktualizuj ho
+            IF p_heslohash IS NOT NULL AND LENGTH(p_heslohash) > 0 THEN
+                UPDATE uzivatele
+                SET uzivatelskejmeno = p_uzivatelskejmeno,
+                    heslohash = p_heslohash,
+                    jmeno = p_jmeno,
+                    prijmeni = p_prijmeni,
+                    email = p_email,
+                    telefonicislo = p_telefonicislo,
+                    idrole = p_idrole,
+                    datumposlednizmeni = SYSDATE
+                WHERE iduzivatel = p_iduzivatel;
+            ELSE
+                -- Neaktualizuj heslo, pokud není poskytnuto
+                UPDATE uzivatele
+                SET uzivatelskejmeno = p_uzivatelskejmeno,
+                    jmeno = p_jmeno,
+                    prijmeni = p_prijmeni,
+                    email = p_email,
+                    telefonicislo = p_telefonicislo,
+                    idrole = p_idrole,
+                    datumposlednizmeni = SYSDATE
+                WHERE iduzivatel = p_iduzivatel;
+            END IF;
+        ELSE
+            -- ID bylo zadáno, ale záznam neexistuje
+            RAISE_APPLICATION_ERROR(-20019, 'Uživatel s ID ' || p_iduzivatel || ' neexistuje.');
+        END IF;
+    ELSE
+        -- Kontrola jedinečnosti uživatelského jména pro nového uživatele
+        SELECT COUNT(*) INTO v_username_count
+        FROM uzivatele
+        WHERE UPPER(uzivatelskejmeno) = UPPER(p_uzivatelskejmeno);
+        
+        IF v_username_count > 0 THEN
+            RAISE_APPLICATION_ERROR(-20018, 'Uživatelské jméno "' || p_uzivatelskejmeno || '" je již používáno.');
+        END IF;
+        
+        -- Kontrola, že heslo je poskytnuto pro nového uživatele
+        IF p_heslohash IS NULL OR LENGTH(p_heslohash) = 0 THEN
+            RAISE_APPLICATION_ERROR(-20020, 'Pro nového uživatele musí být zadáno heslo.');
+        END IF;
+        
+        -- INSERT - vytvoření nového uživatele
+        INSERT INTO uzivatele (
+            uzivatelskejmeno,
+            heslohash,
+            jmeno,
+            prijmeni,
+            email,
+            telefonicislo,
+            datumregistrace,
+            idrole
+        ) VALUES (
+            p_uzivatelskejmeno,
+            p_heslohash,
+            p_jmeno,
+            p_prijmeni,
+            p_email,
+            p_telefonicislo,
+            SYSDATE,
+            p_idrole
+        );
+    END IF;
+END p_save_uzivatel;
+/
+
+CREATE OR REPLACE PROCEDURE p_delete_uzivatel(
+    p_iduzivatel IN uzivatele.iduzivatel%TYPE
+) AS
+    v_count NUMBER;
+    v_historie_count NUMBER;
+    v_is_admin NUMBER;
+    v_admin_count NUMBER;
+    v_role_admin_id role.idrole%TYPE;
+BEGIN
+    -- Kontrola, zda uživatel s daným ID existuje
+    SELECT COUNT(*) INTO v_count
+    FROM uzivatele
+    WHERE iduzivatel = p_iduzivatel;
+    
+    IF v_count = 0 THEN
+        RAISE_APPLICATION_ERROR(-20021, 'Uživatel s ID ' || p_iduzivatel || ' neexistuje.');
+    END IF;
+    
+    -- Zjistíme ID role ADMIN
+    SELECT idrole INTO v_role_admin_id
+    FROM role
+    WHERE UPPER(nazev) = 'ADMIN';
+    
+    -- Kontrola, zda uživatel není poslední aktivní admin
+    SELECT COUNT(*) INTO v_is_admin
+    FROM uzivatele
+    WHERE iduzivatel = p_iduzivatel
+    AND idrole = v_role_admin_id;
+    
+    IF v_is_admin > 0 THEN
+        -- Uživatel je admin, zkontrolujeme, zda není poslední aktivní
+        SELECT COUNT(*) INTO v_admin_count
+        FROM uzivatele
+        WHERE idrole = v_role_admin_id
+        AND deaktivovan = 0;
+        
+        IF v_admin_count = 1 THEN
+            RAISE_APPLICATION_ERROR(-20022, 'Nelze smazat posledního aktivního administrátora.');
+        END IF;
+    END IF;
+    
+    -- Kontrola, zda uživatel má záznamy v historii
+    SELECT COUNT(*) INTO v_historie_count
+    FROM zaznamy_historie
+    WHERE iduzivatel = p_iduzivatel;
+    
+    IF v_historie_count > 0 THEN
+        -- Uživatel má záznamy v historii - pouze deaktivujeme
+        UPDATE uzivatele
+        SET deaktivovan = 1,
+            datumposlednizmeni = SYSDATE
+        WHERE iduzivatel = p_iduzivatel;
+    ELSE
+        -- Uživatel nemá záznamy v historii - můžeme fyzicky smazat
+        DELETE FROM uzivatele
+        WHERE iduzivatel = p_iduzivatel;
+    END IF;
+END p_delete_uzivatel;
+/
+
+CREATE OR REPLACE PROCEDURE p_change_password(
+    p_iduzivatel IN uzivatele.iduzivatel%TYPE,
+    p_noveheslohash IN uzivatele.heslohash%TYPE
+) AS
+    v_count NUMBER;
+BEGIN
+    -- Kontrola, zda uživatel existuje
+    SELECT COUNT(*) INTO v_count
+    FROM uzivatele
+    WHERE iduzivatel = p_iduzivatel;
+    
+    IF v_count = 0 THEN
+        RAISE_APPLICATION_ERROR(-20024, 'Uživatel s ID ' || p_iduzivatel || ' neexistuje.');
+    END IF;
+    
+    -- Kontrola, že nové heslo není prázdné
+    IF p_noveheslohash IS NULL OR LENGTH(p_noveheslohash) = 0 THEN
+        RAISE_APPLICATION_ERROR(-20025, 'Nové heslo nesmí být prázdné.');
+    END IF;
+    
+    -- Aktualizace hesla
+    UPDATE uzivatele
+    SET heslohash = p_noveheslohash,
+        datumposlednizmeni = SYSDATE
+    WHERE iduzivatel = p_iduzivatel;
+END p_change_password;
+/
