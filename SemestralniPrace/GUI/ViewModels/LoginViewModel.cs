@@ -13,31 +13,39 @@ namespace GUI.ViewModels
     public partial class LoginViewModel : ObservableObject
     {
 
-        [ObservableProperty]
-        private string userName;
+        // ---------- LOGIN ----------
+        [ObservableProperty] private string username;
+        [ObservableProperty] private string password;
+        [ObservableProperty] private string loginError;
 
-        [ObservableProperty]
-        private string password;
+        // ---------- REGISTRACE ----------
+        [ObservableProperty] private string regUsername;
+        [ObservableProperty] private string regPassword;
+        [ObservableProperty] private string regPasswordConfirm;
+        [ObservableProperty] private string regFirstName;
+        [ObservableProperty] private string regLastName;
+        [ObservableProperty] private string regEmail;
+        [ObservableProperty] private string regPhone;
+        [ObservableProperty] private string registerError;
 
-        [ObservableProperty]
-        private string errorMessage;
-
-        // View se na tuhle událost pověsí a okno zavře
         public event Action<bool?> RequestClose;
+        // View se na tuhle událost pověsí a okno zavře
+     
 
         public LoginViewModel()
         {
            
         }
 
+
         [RelayCommand]
         private void Login()
         {
-            ErrorMessage = string.Empty;
+            LoginError = string.Empty;
 
-            if (string.IsNullOrWhiteSpace(UserName) || string.IsNullOrWhiteSpace(Password))
+            if (string.IsNullOrWhiteSpace(Username) || string.IsNullOrWhiteSpace(Password))
             {
-                ErrorMessage = "Vyplňte uživatelské jméno i heslo.";
+                LoginError = "Vyplňte uživatelské jméno i heslo.";
                 return;
             }
 
@@ -51,6 +59,51 @@ namespace GUI.ViewModels
             
             RequestClose?.Invoke(true); 
         }
+
+        // ---------- REGISTRACE COMMAND ----------
+        [RelayCommand]
+        private void Register()
+        {
+            RegisterError = "";
+
+            if (string.IsNullOrWhiteSpace(RegUsername) ||
+                string.IsNullOrWhiteSpace(RegPassword))
+            {
+                RegisterError = "Vyplňte uživatelské jméno a heslo.";
+                return;
+            }
+
+            if (RegPassword != RegPasswordConfirm)
+            {
+                RegisterError = "Hesla se neshodují.";
+                return;
+            }
+
+            //if (_repository.ExistsUserName(RegUsername))
+            //{
+            //    RegisterError = "Uživatel už existuje.";
+            //    return;
+            //}
+
+            //var user = new User
+            //{
+            //    Username = RegUsername,
+            //    PasswordHash = _repository.Hash(RegPassword),
+            //    FirstName = RegFirstName,
+            //    LastName = RegLastName,
+            //    Email = RegEmail,
+            //    PhoneNumber = RegPhone,
+            //    RegisterDate = DateTime.Now
+            //};
+
+            //_repository.CreateUser(user);
+
+            //// Po registraci rovnou přihlásit?
+            //Session.CurrentUserName = user.Username;
+
+            RequestClose?.Invoke(true);
+        }
+
 
         [RelayCommand]
         private void Cancel()

@@ -57,7 +57,9 @@
         <DataTemplate DataType="{x:Type TypeName=viewModels:VisitViewModel}">
             <views:VisitView/>
         </DataTemplate>
-        
+
         <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+
+
     </Application.Resources>
 </Application>
