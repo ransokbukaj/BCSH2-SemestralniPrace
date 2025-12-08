@@ -17,9 +17,75 @@ namespace DatabaseAccess
             CurrentUser = null;
         }
 
-        public static bool Register(string username, string password, string firstName, string Lastname, string email, string phoneNumber)
+        public static bool Register(string username, string password, string firstName, string lastName, string email, string phoneNumber)
         {
-            return true;
+            try
+            {
+                if (string.IsNullOrWhiteSpace(username))
+                {
+                    return false;
+                }
+
+                if (string.IsNullOrWhiteSpace(password))
+                {
+                    return false;
+                }
+
+                if (string.IsNullOrWhiteSpace(firstName) || string.IsNullOrWhiteSpace(lastName))
+                {
+                    return false;
+                }
+
+                // Kontrola, zda uživatel již neexistuje
+                using (var connection = ConnectionManager.Connection)
+                {
+                    string checkQuery = @"
+                        SELECT COUNT(*) 
+                        FROM uzivatele 
+                        WHERE UPPER(uzivatelskejmeno) = UPPER(:username)";
+
+                    using (var command = connection.CreateCommand())
+                    {
+                        var param = command.CreateParameter();
+                        param.ParameterName = ":username";
+                        param.Value = username;
+
+                        command.CommandText = checkQuery;
+                        command.Parameters.Add(param);
+
+                        int count = Convert.ToInt32(command.ExecuteScalar());
+                        if (count > 0)
+                        {
+                            // Uživatelské jméno již existuje
+                            return false;
+                        }
+                    }
+                }
+
+                var newUser = new User
+                {
+                    Id = 0, // Nový uživatel
+                    Username = username,
+                    Password = password, // Bude zahashováno v SaveItem
+                    FirstName = firstName,
+                    LastName = lastName,
+                    Email = string.IsNullOrWhiteSpace(email) ? null : email,
+                    PhoneNumber = string.IsNullOrWhiteSpace(phoneNumber) ? null : phoneNumber,
+                    Role = new Counter
+                    {
+                        Id = 2 // Výchozí role pro nové uživatele
+                    }
+                };
+
+                var repository = new UserRepository();
+                repository.SaveItem(newUser);
+
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
 
         public static bool LogIn(string username, string password)
