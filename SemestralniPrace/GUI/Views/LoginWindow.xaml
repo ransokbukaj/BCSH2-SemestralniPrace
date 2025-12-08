@@ -185,7 +185,7 @@
                                     Width="80"
                                     Command="{Binding CancelCommand}"/>
                         </StackPanel>
-                    </Grid>
+                    </Grid> 
                 </ScrollViewer>
             </TabItem>
         </TabControl>
