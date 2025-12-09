@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace GUI.ViewModels
 {
@@ -28,8 +29,9 @@ namespace GUI.ViewModels
         [ObservableProperty] private string regPhone;
         [ObservableProperty] private string registerError;
 
-        public event Action<bool?> RequestClose;
         // View se na tuhle událost pověsí a okno zavře
+        public event Action<bool?> RequestClose;
+        
      
 
         public LoginViewModel()
@@ -65,6 +67,9 @@ namespace GUI.ViewModels
         private void Register()
         {
             RegisterError = "";
+            //MessageBox.Show($"Heslo: {regPassword}, Znovu: {RegPasswordConfirm}");
+            
+
 
             if (string.IsNullOrWhiteSpace(RegUsername) ||
                 string.IsNullOrWhiteSpace(RegPassword))
@@ -79,27 +84,6 @@ namespace GUI.ViewModels
                 return;
             }
 
-            //if (_repository.ExistsUserName(RegUsername))
-            //{
-            //    RegisterError = "Uživatel už existuje.";
-            //    return;
-            //}
-
-            //var user = new User
-            //{
-            //    Username = RegUsername,
-            //    PasswordHash = _repository.Hash(RegPassword),
-            //    FirstName = RegFirstName,
-            //    LastName = RegLastName,
-            //    Email = RegEmail,
-            //    PhoneNumber = RegPhone,
-            //    RegisterDate = DateTime.Now
-            //};
-
-            //_repository.CreateUser(user);
-
-            //// Po registraci rovnou přihlásit?
-            //Session.CurrentUserName = user.Username;
 
             if (!UserManager.Register(RegUsername, RegPassword, RegFirstName, RegLastName, RegEmail, RegPhone))
             {

@@ -14,12 +14,29 @@ namespace GUI.ViewModels
     public partial class AddressViewModel : ObservableObject
     {
         private readonly AddressRepository repository = new AddressRepository();
+        private readonly PostRepository postRepository = new PostRepository();
 
         [ObservableProperty]
         private ObservableCollection<Address> addresses = new();
 
         [ObservableProperty]
         private Address selectedAddress;
+
+
+        public ObservableCollection<Post> Posts { get; set; }   // seznam všech PSÈ
+
+        public Post SelectedPost                                   // vybraný post
+        {
+            get => SelectedAddress?.Post;
+            set
+            {
+                if (SelectedAddress != null)
+                {
+                    SelectedAddress.Post = value;
+                    OnPropertyChanged(nameof(SelectedAddress));
+                }
+            }
+        }
 
         public AddressViewModel()
         {
@@ -30,6 +47,7 @@ namespace GUI.ViewModels
         private void Load()
         {
             Addresses = new ObservableCollection<Address>(repository.GetList());
+            Posts = new ObservableCollection<Post>(postRepository.GetList());
         }
 
         [RelayCommand]
