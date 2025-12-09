@@ -28,7 +28,7 @@
                 <DataGridTextColumn Header="Tabulka" Binding="{Binding TableName}" Width="*"/>
                 <DataGridTextColumn Header="Operace" Binding="{Binding TypeOfOperation}" Width="*"/>
                 <DataGridTextColumn Header="Datum změny" Binding="{Binding DateOfChange}" Width="*"/>
-                <DataGridTextColumn Header="Editovaný ID" Binding="{Binding EditedRowId}" Width="*"/>
+                <DataGridTextColumn Header="Řádek v tabulce" Binding="{Binding TableRowId}" Width="*"/>
                 <DataGridTextColumn Header="Původní hodnoty" Binding="{Binding OldValues}" Width="2*"/>
                 <DataGridTextColumn Header="Nové hodnoty" Binding="{Binding NewValues}" Width="2*"/>
             </DataGrid.Columns>

@@ -77,7 +77,6 @@ BEGIN
         novehodnoty,
         nazevtabulky,
         idradkutabulky,
-        idzmenenohoradku,
         iduzivatel
     ) VALUES (
         SYSDATE,
@@ -86,7 +85,6 @@ BEGIN
         v_starehodnoty,
         v_novehodnoty,
         'ADRESY',
-        v_idradku,
         v_idradku,
         v_iduzivatel
     );
@@ -194,7 +192,6 @@ BEGIN
         novehodnoty,
         nazevtabulky,
         idradkutabulky,
-        idzmenenohoradku,
         iduzivatel
     ) VALUES (
         SYSDATE,
@@ -203,7 +200,6 @@ BEGIN
         v_starehodnoty,
         v_novehodnoty,
         'UZIVATELE',
-        v_idradku,
         v_idradku,
         v_iduzivatel
     );
@@ -281,7 +277,6 @@ BEGIN
         novehodnoty,
         nazevtabulky,
         idradkutabulky,
-        idzmenenohoradku,
         iduzivatel
     ) VALUES (
         SYSDATE,
@@ -290,7 +285,6 @@ BEGIN
         v_starehodnoty,
         v_novehodnoty,
         'POSTY',
-        v_idradku,
         v_idradku,
         v_iduzivatel
     );
@@ -380,7 +374,6 @@ BEGIN
         novehodnoty,
         nazevtabulky,
         idradkutabulky,
-        idzmenenohoradku,
         iduzivatel
     ) VALUES (
         SYSDATE,
@@ -389,7 +382,6 @@ BEGIN
         v_starehodnoty,
         v_novehodnoty,
         'KUPCI',
-        v_idradku,
         v_idradku,
         v_iduzivatel
     );
@@ -483,7 +475,6 @@ BEGIN
         novehodnoty,
         nazevtabulky,
         idradkutabulky,
-        idzmenenohoradku,
         iduzivatel
     ) VALUES (
         SYSDATE,
@@ -492,7 +483,6 @@ BEGIN
         v_starehodnoty,
         v_novehodnoty,
         'PRODEJE',
-        v_idradku,
         v_idradku,
         v_iduzivatel
     );

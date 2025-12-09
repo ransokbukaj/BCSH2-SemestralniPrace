@@ -228,7 +228,6 @@ CREATE TABLE zaznamy_historie (
     novehodnoty      CLOB,
     nazevtabulky     VARCHAR2(50) NOT NULL,
     idradkutabulky   INTEGER NOT NULL,
-    idzmenenohoradku INTEGER NOT NULL,
     iduzivatel       INTEGER NOT NULL
 );
 

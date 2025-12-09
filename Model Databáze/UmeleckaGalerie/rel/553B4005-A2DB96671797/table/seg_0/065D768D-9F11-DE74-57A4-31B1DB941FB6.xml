@@ -105,16 +105,6 @@
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
-<Column name="idZmenenohoRadku" id="1B449FBA-1690-3D47-B2E8-5853AE752F41">
-<createdBy>jakub</createdBy>
-<createdTime>2025-11-04 09:34:42 UTC</createdTime>
-<ownerDesignName>UmeleckaGalerie</ownerDesignName>
-<useDomainConstraints>false</useDomainConstraints>
-<use>1</use>
-<logicalDatatype>LOGDT011</logicalDatatype>
-<ownDataTypeParameters>,,</ownDataTypeParameters>
-<autoIncrementCycle>false</autoIncrementCycle>
-</Column>
 <Column name="idUzivatel" id="6D5CE901-2EAA-56A3-4F93-8BDF0CE04214">
 <createdBy>jakub</createdBy>
 <createdTime>2025-11-02 09:09:54 UTC</createdTime>

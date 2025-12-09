@@ -25,7 +25,6 @@ namespace DatabaseAccess
                         nove_hodnoty,
                         nazev_tabulky,
                         id_radku_tabulky,
-                        id_zmeneneho_radku,
                         uzivatelske_jmeno,
                     FROM v_zaznamy_historie";
 
@@ -43,7 +42,6 @@ namespace DatabaseAccess
                             NewValues = reader["nove_hodnoty"] == DBNull.Value ? null : reader["nove_hodnoty"].ToString(),
                             TableName = reader["nazev_tabulky"].ToString(),
                             TableRowId = Convert.ToInt32(reader["id_radku_tabulky"]),
-                            EditedRowId = Convert.ToInt32(reader["id_zmeneneho_radku"]),
                             Username = reader["uzivatelske_jmeno"].ToString()                               
                         });
                     }

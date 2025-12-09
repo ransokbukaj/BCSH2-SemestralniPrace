@@ -135,7 +135,6 @@ SELECT
     zh.novehodnoty AS nove_hodnoty,
     zh.nazevtabulky AS nazev_tabulky,
     zh.idradkutabulky AS id_radku_tabulky,
-    zh.idzmenenohoradku AS id_zmeneneho_radku,
     u.uzivatelskejmeno AS uzivatelske_jmeno
 FROM zaznamy_historie zh
     INNER JOIN uzivatele u ON zh.iduzivatel = u.iduzivatel
