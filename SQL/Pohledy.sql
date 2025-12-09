@@ -119,9 +119,7 @@ SELECT
     dp.nazev AS nazev_druhu_platby,
     p.idkupec AS id_kupec,
     k.jmeno AS kupec_jmeno,
-    k.prijmeni AS kupec_prijmeni,
-    k.email AS kupec_email,
-    k.telefonicislo AS kupec_telefon
+    k.prijmeni AS kupec_prijmeni
 FROM prodeje p
     INNER JOIN druhy_plateb dp ON p.iddruhplatby = dp.iddruhplatby
     INNER JOIN kupci k ON p.idkupec = k.idkupec

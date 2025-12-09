@@ -28,8 +28,6 @@ namespace DatabaseAccess
                         id_kupec,
                         kupec_jmeno,
                         kupec_prijmeni,
-                        kupec_email,
-                        kupec_telefon
                     FROM v_prodeje";
 
                 using (var reader = command.ExecuteReader())
@@ -52,9 +50,7 @@ namespace DatabaseAccess
                             {
                                 Id = Convert.ToInt32(reader["id_kupec"]),
                                 FirstName = reader["kupec_jmeno"].ToString(),
-                                LastName = reader["kupec_prijmeni"].ToString(),
-                                Email = reader["kupec_email"] == DBNull.Value ? null : reader["kupec_email"].ToString(),
-                                PhoneNumber = reader["kupec_telefon"].ToString()
+                                LastName = reader["kupec_prijmeni"].ToString()
                             }
                         });
                     }

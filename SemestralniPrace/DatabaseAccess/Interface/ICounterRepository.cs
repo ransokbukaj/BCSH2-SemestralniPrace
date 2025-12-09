@@ -15,7 +15,5 @@ namespace DatabaseAccess.Interface
         List<Counter> GetRoles();
         List<Counter> GetTechniques();
         List<VisitType> GetVisitTypes();
-        List<Counter> GetExhibitionCounters();
-        List<Counter> GetArtPieceCounters();
     }
 }

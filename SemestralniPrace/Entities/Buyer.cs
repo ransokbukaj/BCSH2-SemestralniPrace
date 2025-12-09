@@ -13,8 +13,6 @@ namespace Entities
         public string LastName { get; set; }
         public string PhoneNumber { get; set; }
         public string Email { get; set; }
-
-        //public List<Sale> BoughtArtPieces { get; set; }
         public Address Adress { get; set; }
     }
 }
