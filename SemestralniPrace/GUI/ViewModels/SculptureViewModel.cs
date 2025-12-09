@@ -14,9 +14,14 @@ namespace GUI.ViewModels
     public partial class SculptureViewModel : ObservableObject
     {
         private readonly SculptureRepository repository = new SculptureRepository();
+        private readonly CounterRepository counterRep = new CounterRepository();
 
         [ObservableProperty]
         private ObservableCollection<Sculpture> sculptures = new();
+
+        [ObservableProperty]
+        private ObservableCollection<Counter> materials = new();
+
 
         [ObservableProperty]
         private Sculpture selectedSculpture;
@@ -30,12 +35,16 @@ namespace GUI.ViewModels
         private void Load()
         {
             Sculptures = new ObservableCollection<Sculpture>(repository.GetList());
+            Materials = new ObservableCollection<Counter>(counterRep.GetMaterials());
         }
 
         [RelayCommand]
         private void New()
         {
-            SelectedSculpture = new Sculpture();
+            SelectedSculpture = new Sculpture()
+            {
+                Material = new Counter()
+            };
         }
 
         [RelayCommand]
@@ -43,6 +52,12 @@ namespace GUI.ViewModels
         {
             if (SelectedSculpture == null)
                 return;
+
+
+            if(Materials != null && SelectedSculpture != null)
+            {
+                SelectedSculpture.Material = Materials.FirstOrDefault(p => p.Id == SelectedSculpture.Material.Id);
+            }
 
             repository.SaveItem(SelectedSculpture);
             Load();
