@@ -42,7 +42,7 @@ namespace DatabaseAccess
                     string checkQuery = @"
                         SELECT COUNT(*) 
                         FROM uzivatele 
-                        WHERE UPPER(uzivatelskejmeno) = UPPER(:username)";
+                        WHERE uzivatelskejmeno = :username";
 
                     using (var command = connection.CreateCommand())
                     {
@@ -148,8 +148,12 @@ namespace DatabaseAccess
                                     }
                                 };
 
-                                SetDatabaseSessionIdentifier(connection, userId);
+                                // Nastav session identifikátor v ConnectionManager
+                                ConnectionManager.SetCurrentUser(userId);
+
+                                // Aktualizuj datum posledního přihlášení
                                 UpdateLastLoginDate(connection, userId);
+
                                 return true;
                             }
                         }
@@ -161,55 +165,9 @@ namespace DatabaseAccess
 
         public static void LogOut()
         {
-            ClearDatabaseSessionIdentifier(ConnectionManager.Connection);
+            // Vyčisti session identifikátor v ConnectionManager
+            ConnectionManager.ClearCurrentUser();
             CurrentUser = null;
-        }
-
-        public static string HashPassword(string password)
-        {
-            return BCrypt.Net.BCrypt.HashPassword(password, 12);
-        }
-
-        private static bool VerifyPassword(string password, string storedHash)
-        {
-            if (string.IsNullOrEmpty(password) || string.IsNullOrEmpty(storedHash))
-            {
-                return false;
-            }
-            return BCrypt.Net.BCrypt.Verify(password, storedHash);
-        }
-
-        private static void SetDatabaseSessionIdentifier(System.Data.IDbConnection connection, int userId)
-        {
-            string query = @"
-                BEGIN
-                    DBMS_SESSION.SET_IDENTIFIER(:userId);
-                END;";
-
-            using (var command = connection.CreateCommand())
-            {
-                var param = command.CreateParameter();
-                param.ParameterName = ":userId";
-                param.Value = userId.ToString();
-
-                command.CommandText = query;
-                command.Parameters.Add(param);
-                command.ExecuteNonQuery();
-            }
-        }
-
-        private static void ClearDatabaseSessionIdentifier(System.Data.IDbConnection connection)
-        {
-            string query = @"
-                BEGIN
-                    DBMS_SESSION.CLEAR_IDENTIFIER();
-                END;";
-
-            using (var command = connection.CreateCommand())
-            {
-                command.CommandText = query;
-                command.ExecuteNonQuery();
-            }
         }
 
         private static void UpdateLastLoginDate(System.Data.IDbConnection connection, int userId)
@@ -229,6 +187,20 @@ namespace DatabaseAccess
                 command.Parameters.Add(param);
                 command.ExecuteNonQuery();
             }
+        }
+
+        public static string HashPassword(string password)
+        {
+            return BCrypt.Net.BCrypt.HashPassword(password, 12);
+        }
+
+        private static bool VerifyPassword(string password, string storedHash)
+        {
+            if (string.IsNullOrEmpty(password) || string.IsNullOrEmpty(storedHash))
+            {
+                return false;
+            }
+            return BCrypt.Net.BCrypt.Verify(password, storedHash);
         }
     }
 }

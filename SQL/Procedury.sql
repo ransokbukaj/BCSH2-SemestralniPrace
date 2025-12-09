@@ -64,11 +64,11 @@ IS
     v_pocet_adminu    NUMBER;
     v_tabname         CONSTANT VARCHAR2(50) := 'UZIVATELE';
 BEGIN
-    -- zjistíme ID role ADMIN (název můžeš přizpůsobit)
+    -- zjistíme ID role Admin
     SELECT idrole
     INTO   v_role_admin_id
     FROM   role
-    WHERE  UPPER(nazev) = 'ADMIN';
+    WHERE  nazev = 'Admin';
 
     -- ověření, že p_idadmin JE admin
     SELECT COUNT(*)
@@ -528,10 +528,10 @@ BEGIN
         WHERE iduzivatel = p_iduzivatel;
         
         IF v_count > 0 THEN
-            -- Kontrola jedinečnosti uživatelského jména (kromě aktuálního uživatele)
+            -- Kontrola jedinečnosti uživatelského jména
             SELECT COUNT(*) INTO v_username_count
             FROM uzivatele
-            WHERE UPPER(uzivatelskejmeno) = UPPER(p_uzivatelskejmeno)
+            WHERE uzivatelskejmeno = p_uzivatelskejmeno
             AND iduzivatel != p_iduzivatel;
             
             IF v_username_count > 0 THEN
@@ -539,7 +539,7 @@ BEGIN
             END IF;
             
             -- UPDATE - uživatel existuje
-            -- Pokud je poskytnuto nové heslo (neprázdné), aktualizuj ho
+            -- Pokud je poskytnuto nové heslo, aktualizuj ho
             IF p_heslohash IS NOT NULL AND LENGTH(p_heslohash) > 0 THEN
                 UPDATE uzivatele
                 SET uzivatelskejmeno = p_uzivatelskejmeno,
@@ -571,7 +571,7 @@ BEGIN
         -- Kontrola jedinečnosti uživatelského jména pro nového uživatele
         SELECT COUNT(*) INTO v_username_count
         FROM uzivatele
-        WHERE UPPER(uzivatelskejmeno) = UPPER(p_uzivatelskejmeno);
+        WHERE uzivatelskejmeno = p_uzivatelskejmeno;
         
         IF v_username_count > 0 THEN
             RAISE_APPLICATION_ERROR(-20018, 'Uživatelské jméno "' || p_uzivatelskejmeno || '" je již používáno.');
@@ -591,6 +591,7 @@ BEGIN
             email,
             telefonicislo,
             datumregistrace,
+            deaktivovan,
             idrole
         ) VALUES (
             p_uzivatelskejmeno,
@@ -600,6 +601,7 @@ BEGIN
             p_email,
             p_telefonicislo,
             SYSDATE,
+            0,
             p_idrole
         );
     END IF;
@@ -624,10 +626,10 @@ BEGIN
         RAISE_APPLICATION_ERROR(-20021, 'Uživatel s ID ' || p_iduzivatel || ' neexistuje.');
     END IF;
     
-    -- Zjistíme ID role ADMIN
+    -- Zjistíme ID role Admin
     SELECT idrole INTO v_role_admin_id
     FROM role
-    WHERE UPPER(nazev) = 'ADMIN';
+    WHERE nazev = 'Admin';
     
     -- Kontrola, zda uživatel není poslední aktivní admin
     SELECT COUNT(*) INTO v_is_admin
