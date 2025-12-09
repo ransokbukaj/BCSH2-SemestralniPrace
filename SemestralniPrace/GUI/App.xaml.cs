@@ -14,7 +14,7 @@ namespace GUI
 
         public App()
         {
-           DispatcherUnhandledException += App_DispatcherUnhandledException;
+            DispatcherUnhandledException += App_DispatcherUnhandledException;
         }
 
         private void App_DispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
@@ -24,8 +24,9 @@ namespace GUI
         }
         protected override void OnExit(ExitEventArgs e)
         {
-            base.OnExit(e);
             ConnectionManager.CloseConnection();
+            base.OnExit(e);
+
         }
     }
 
