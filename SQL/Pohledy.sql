@@ -198,3 +198,35 @@ FROM sochy s
     INNER JOIN umelecka_dila d ON s.idumeleckedilo = d.idumeleckedilo
     INNER JOIN materialy m ON s.idmaterial = m.idmaterial
 ORDER BY d.nazev;
+
+CREATE OR REPLACE VIEW v_vystavy AS
+SELECT 
+    idvystava AS id,
+    nazev AS nazev,
+    datumod AS datum_od,
+    datumdo AS datum_do,
+    popis AS popis,
+    idvzdelavaciprogram AS id_vzdelavaci_program
+FROM vystavy
+ORDER BY datumod DESC;
+
+CREATE OR REPLACE VIEW v_vzdelavaci_programy AS
+SELECT 
+    idvzdelavaciprogram AS id,
+    nazev AS nazev,
+    datumod AS datum_od,
+    datumdo AS datum_do,
+    popis AS popis
+FROM vzdelavaci_programy
+ORDER BY datumod DESC;
+
+CREATE OR REPLACE VIEW v_umelci AS
+SELECT 
+    idumelec AS id,
+    jmeno AS jmeno,
+    prijmeni AS prijmeni,
+    datumnarozeni AS datum_narozeni,
+    datumumrti AS datum_umrti,
+    popis AS popis
+FROM umelci
+ORDER BY prijmeni, jmeno;

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DatabaseAccess.Interface;
 using Entities;
+using Oracle.ManagedDataAccess.Client;
 
 namespace DatabaseAccess
 {
@@ -12,32 +13,153 @@ namespace DatabaseAccess
     {
         public List<Artist> GetList()
         {
-            return Test();
-            //throw new NotImplementedException();
-        }
+            var list = new List<Artist>();
+            using (var command = ConnectionManager.Connection.CreateCommand())
+            {
+                command.CommandText = @"
+                    SELECT 
+                        id,
+                        jmeno,
+                        prijmeni,
+                        datum_narozeni,
+                        datum_umrti,
+                        popis
+                    FROM v_umelci";
 
-        private List<Artist> testList = new List<Artist>() 
-        {
-        new Artist(1,"John","Doe",DateTime.Now,DateTime.Now,"Pokus s id 1"),
-        new Artist(2,"Jane","Doe",DateTime.Now,DateTime.Now,"Pokus s id 2"),
-        new Artist(3,"Martin","Doe",DateTime.Now,DateTime.Now,"Pokus s id 3"),
-        new Artist(4,"Jack","Doe",DateTime.Now,DateTime.Now,"Pokus s id 4"),
-        new Artist(5,"Johny","Doe",DateTime.Now,DateTime.Now,"Pokus s id 5")
-        };
-
-        private List<Artist> Test()
-        {
-            return testList;
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        list.Add(new Artist
+                        {
+                            Id = Convert.ToInt32(reader["id"]),
+                            FirstName = reader["jmeno"].ToString(),
+                            LastName = reader["prijmeni"].ToString(),
+                            DateOfBirth = Convert.ToDateTime(reader["datum_narozeni"]),
+                            DateOfDeath = reader["datum_umrti"] == DBNull.Value
+                                ? DateTime.MinValue
+                                : Convert.ToDateTime(reader["datum_umrti"]),
+                            Description = reader["popis"] == DBNull.Value ? null : reader["popis"].ToString()
+                        });
+                    }
+                }
+            }
+            return list;
         }
 
         public void SaveItem(Artist artist)
         {
-            throw new NotImplementedException();
+            using (var command = ConnectionManager.Connection.CreateCommand())
+            {
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+                command.CommandText = "p_save_umelec";
+
+                var paramId = new OracleParameter
+                {
+                    ParameterName = "p_idumelec",
+                    OracleDbType = OracleDbType.Int32,
+                    Direction = System.Data.ParameterDirection.Input,
+                    Value = artist.Id == 0 ? (object)DBNull.Value : artist.Id
+                };
+                command.Parameters.Add(paramId);
+
+                var paramJmeno = new OracleParameter
+                {
+                    ParameterName = "p_jmeno",
+                    OracleDbType = OracleDbType.Varchar2,
+                    Direction = System.Data.ParameterDirection.Input,
+                    Value = artist.FirstName
+                };
+                command.Parameters.Add(paramJmeno);
+
+                var paramPrijmeni = new OracleParameter
+                {
+                    ParameterName = "p_prijmeni",
+                    OracleDbType = OracleDbType.Varchar2,
+                    Direction = System.Data.ParameterDirection.Input,
+                    Value = artist.LastName
+                };
+                command.Parameters.Add(paramPrijmeni);
+
+                var paramDatumNarozeni = new OracleParameter
+                {
+                    ParameterName = "p_datumnarozeni",
+                    OracleDbType = OracleDbType.Date,
+                    Direction = System.Data.ParameterDirection.Input,
+                    Value = artist.DateOfBirth
+                };
+                command.Parameters.Add(paramDatumNarozeni);
+
+                var paramDatumUmrti = new OracleParameter
+                {
+                    ParameterName = "p_datumumrti",
+                    OracleDbType = OracleDbType.Date,
+                    Direction = System.Data.ParameterDirection.Input,
+                    Value = artist.DateOfDeath == DateTime.MinValue ? (object)DBNull.Value : artist.DateOfDeath
+                };
+                command.Parameters.Add(paramDatumUmrti);
+
+                var paramPopis = new OracleParameter
+                {
+                    ParameterName = "p_popis",
+                    OracleDbType = OracleDbType.Clob,
+                    Direction = System.Data.ParameterDirection.Input,
+                    Value = string.IsNullOrEmpty(artist.Description) ? (object)DBNull.Value : artist.Description
+                };
+                command.Parameters.Add(paramPopis);
+
+                // Provedení procedury
+                command.ExecuteNonQuery();
+
+                // Commit transakce
+                using (var transaction = ConnectionManager.Connection.BeginTransaction())
+                {
+                    try
+                    {
+                        transaction.Commit();
+                    }
+                    catch
+                    {
+                        transaction.Rollback();
+                        throw;
+                    }
+                }
+            }
         }
 
         public void DeleteItem(int id)
         {
-            throw new NotImplementedException();
+            using (var command = ConnectionManager.Connection.CreateCommand())
+            {
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+                command.CommandText = "p_delete_umelec";
+
+                var paramId = new OracleParameter
+                {
+                    ParameterName = "p_idumelec",
+                    OracleDbType = OracleDbType.Int32,
+                    Direction = System.Data.ParameterDirection.Input,
+                    Value = id
+                };
+                command.Parameters.Add(paramId);
+
+                // Provedení procedury
+                command.ExecuteNonQuery();
+
+                // Commit transakce
+                using (var transaction = ConnectionManager.Connection.BeginTransaction())
+                {
+                    try
+                    {
+                        transaction.Commit();
+                    }
+                    catch
+                    {
+                        transaction.Rollback();
+                        throw;
+                    }
+                }
+            }
         }
     }
 }

@@ -1026,3 +1026,287 @@ BEGIN
     WHERE idumeleckedilo = p_idumeleckedilo;
 END p_delete_socha;
 /
+
+
+
+CREATE OR REPLACE PROCEDURE p_save_vystava(
+    p_idvystava IN vystavy.idvystava%TYPE,
+    p_nazev IN vystavy.nazev%TYPE,
+    p_datumod IN vystavy.datumod%TYPE,
+    p_datumdo IN vystavy.datumdo%TYPE,
+    p_popis IN vystavy.popis%TYPE,
+    p_idvzdelavaciprogram IN vystavy.idvzdelavaciprogram%TYPE
+) AS
+    v_count NUMBER;
+    v_program_count NUMBER;
+BEGIN
+    -- Kontrola, že datum od není pozdější než datum do
+    IF p_datumod > p_datumdo THEN
+        RAISE_APPLICATION_ERROR(-20070, 'Datum zahájení výstavy nemůže být pozdější než datum ukončení.');
+    END IF;
+    
+    -- Kontrola existence vzdělávacího programu (pokud je zadán)
+    IF p_idvzdelavaciprogram IS NOT NULL THEN
+        SELECT COUNT(*) INTO v_program_count
+        FROM vzdelavaci_programy
+        WHERE idvzdelavaciprogram = p_idvzdelavaciprogram;
+        
+        IF v_program_count = 0 THEN
+            RAISE_APPLICATION_ERROR(-20071, 'Vzdělávací program s ID ' || p_idvzdelavaciprogram || ' neexistuje.');
+        END IF;
+    END IF;
+    
+    -- Kontrola, zda výstava s daným ID existuje
+    IF p_idvystava IS NOT NULL AND p_idvystava > 0 THEN
+        SELECT COUNT(*) INTO v_count
+        FROM vystavy
+        WHERE idvystava = p_idvystava;
+        
+        IF v_count > 0 THEN
+            -- UPDATE - výstava existuje
+            UPDATE vystavy
+            SET nazev = p_nazev,
+                datumod = p_datumod,
+                datumdo = p_datumdo,
+                popis = p_popis,
+                idvzdelavaciprogram = p_idvzdelavaciprogram
+            WHERE idvystava = p_idvystava;
+        ELSE
+            -- ID bylo zadáno, ale záznam neexistuje
+            RAISE_APPLICATION_ERROR(-20072, 'Výstava s ID ' || p_idvystava || ' neexistuje.');
+        END IF;
+    ELSE
+        -- INSERT - vytvoření nové výstavy
+        INSERT INTO vystavy (
+            nazev,
+            datumod,
+            datumdo,
+            popis,
+            idvzdelavaciprogram
+        ) VALUES (
+            p_nazev,
+            p_datumod,
+            p_datumdo,
+            p_popis,
+            p_idvzdelavaciprogram
+        );
+    END IF;
+END p_save_vystava;
+/
+
+CREATE OR REPLACE PROCEDURE p_delete_vystava(
+    p_idvystava IN vystavy.idvystava%TYPE
+) AS
+    v_count NUMBER;
+    v_navstevy_count NUMBER;
+    v_dila_count NUMBER;
+BEGIN
+    -- Kontrola, zda výstava s daným ID existuje
+    SELECT COUNT(*) INTO v_count
+    FROM vystavy
+    WHERE idvystava = p_idvystava;
+    
+    IF v_count = 0 THEN
+        RAISE_APPLICATION_ERROR(-20073, 'Výstava s ID ' || p_idvystava || ' neexistuje.');
+    END IF;
+    
+    -- Kontrola, zda výstava nemá návštěvy
+    SELECT COUNT(*) INTO v_navstevy_count
+    FROM navstevy
+    WHERE idvystava = p_idvystava;
+    
+    IF v_navstevy_count > 0 THEN
+        RAISE_APPLICATION_ERROR(-20074, 'Nelze smazat výstavu, která má existující návštěvy.');
+    END IF;
+    
+    -- Kontrola, zda výstava nemá přiřazená umělecká díla
+    SELECT COUNT(*) INTO v_dila_count
+    FROM umelecka_dila
+    WHERE idvystava = p_idvystava;
+    
+    IF v_dila_count > 0 THEN
+        -- Místo mazání nastavíme odkazy na NULL
+        UPDATE umelecka_dila
+        SET idvystava = NULL
+        WHERE idvystava = p_idvystava;
+    END IF;
+    
+    -- Odstranění výstavy
+    DELETE FROM vystavy
+    WHERE idvystava = p_idvystava;
+END p_delete_vystava;
+/
+
+
+
+CREATE OR REPLACE PROCEDURE p_save_vzdelavaci_program(
+    p_idvzdelavaciprogram IN vzdelavaci_programy.idvzdelavaciprogram%TYPE,
+    p_nazev IN vzdelavaci_programy.nazev%TYPE,
+    p_datumod IN vzdelavaci_programy.datumod%TYPE,
+    p_datumdo IN vzdelavaci_programy.datumdo%TYPE,
+    p_popis IN vzdelavaci_programy.popis%TYPE
+) AS
+    v_count NUMBER;
+BEGIN
+    -- Kontrola, že datum od není pozdější než datum do
+    IF p_datumod > p_datumdo THEN
+        RAISE_APPLICATION_ERROR(-20080, 'Datum zahájení programu nemůže být pozdější než datum ukončení.');
+    END IF;
+    
+    -- Kontrola, zda vzdělávací program s daným ID existuje
+    IF p_idvzdelavaciprogram IS NOT NULL AND p_idvzdelavaciprogram > 0 THEN
+        SELECT COUNT(*) INTO v_count
+        FROM vzdelavaci_programy
+        WHERE idvzdelavaciprogram = p_idvzdelavaciprogram;
+        
+        IF v_count > 0 THEN
+            -- UPDATE - program existuje
+            UPDATE vzdelavaci_programy
+            SET nazev = p_nazev,
+                datumod = p_datumod,
+                datumdo = p_datumdo,
+                popis = p_popis
+            WHERE idvzdelavaciprogram = p_idvzdelavaciprogram;
+        ELSE
+            -- ID bylo zadáno, ale záznam neexistuje
+            RAISE_APPLICATION_ERROR(-20081, 'Vzdělávací program s ID ' || p_idvzdelavaciprogram || ' neexistuje.');
+        END IF;
+    ELSE
+        -- INSERT - vytvoření nového programu
+        INSERT INTO vzdelavaci_programy (
+            nazev,
+            datumod,
+            datumdo,
+            popis
+        ) VALUES (
+            p_nazev,
+            p_datumod,
+            p_datumdo,
+            p_popis
+        );
+    END IF;
+END p_save_vzdelavaci_program;
+/
+
+CREATE OR REPLACE PROCEDURE p_delete_vzdelavaci_program(
+    p_idvzdelavaciprogram IN vzdelavaci_programy.idvzdelavaciprogram%TYPE
+) AS
+    v_count NUMBER;
+    v_vystavy_count NUMBER;
+BEGIN
+    -- Kontrola, zda program s daným ID existuje
+    SELECT COUNT(*) INTO v_count
+    FROM vzdelavaci_programy
+    WHERE idvzdelavaciprogram = p_idvzdelavaciprogram;
+    
+    IF v_count = 0 THEN
+        RAISE_APPLICATION_ERROR(-20082, 'Vzdělávací program s ID ' || p_idvzdelavaciprogram || ' neexistuje.');
+    END IF;
+    
+    -- Kontrola, zda program nemá přiřazené výstavy
+    SELECT COUNT(*) INTO v_vystavy_count
+    FROM vystavy
+    WHERE idvzdelavaciprogram = p_idvzdelavaciprogram;
+    
+    IF v_vystavy_count > 0 THEN
+        -- Místo mazání nastavíme odkazy na NULL
+        UPDATE vystavy
+        SET idvzdelavaciprogram = NULL
+        WHERE idvzdelavaciprogram = p_idvzdelavaciprogram;
+    END IF;
+    
+    -- Odstranění programu
+    DELETE FROM vzdelavaci_programy
+    WHERE idvzdelavaciprogram = p_idvzdelavaciprogram;
+END p_delete_vzdelavaci_program;
+/
+
+
+
+CREATE OR REPLACE PROCEDURE p_save_umelec(
+    p_idumelec IN umelci.idumelec%TYPE,
+    p_jmeno IN umelci.jmeno%TYPE,
+    p_prijmeni IN umelci.prijmeni%TYPE,
+    p_datumnarozeni IN umelci.datumnarozeni%TYPE,
+    p_datumumrti IN umelci.datumumrti%TYPE,
+    p_popis IN umelci.popis%TYPE
+) AS
+    v_count NUMBER;
+BEGIN
+    -- Kontrola, že datum úmrtí není dříve než datum narození
+    IF p_datumumrti IS NOT NULL AND p_datumnarozeni > p_datumumrti THEN
+        RAISE_APPLICATION_ERROR(-20090, 'Datum narození nemůže být pozdější než datum úmrtí.');
+    END IF;
+    
+    -- Kontrola, že datum narození není v budoucnosti
+    IF p_datumnarozeni > SYSDATE THEN
+        RAISE_APPLICATION_ERROR(-20091, 'Datum narození nemůže být v budoucnosti.');
+    END IF;
+    
+    -- Kontrola, zda umělec s daným ID existuje
+    IF p_idumelec IS NOT NULL AND p_idumelec > 0 THEN
+        SELECT COUNT(*) INTO v_count
+        FROM umelci
+        WHERE idumelec = p_idumelec;
+        
+        IF v_count > 0 THEN
+            -- UPDATE - umělec existuje
+            UPDATE umelci
+            SET jmeno = p_jmeno,
+                prijmeni = p_prijmeni,
+                datumnarozeni = p_datumnarozeni,
+                datumumrti = p_datumumrti,
+                popis = p_popis
+            WHERE idumelec = p_idumelec;
+        ELSE
+            -- ID bylo zadáno, ale záznam neexistuje
+            RAISE_APPLICATION_ERROR(-20092, 'Umělec s ID ' || p_idumelec || ' neexistuje.');
+        END IF;
+    ELSE
+        -- INSERT - vytvoření nového umělce
+        INSERT INTO umelci (
+            jmeno,
+            prijmeni,
+            datumnarozeni,
+            datumumrti,
+            popis
+        ) VALUES (
+            p_jmeno,
+            p_prijmeni,
+            p_datumnarozeni,
+            p_datumumrti,
+            p_popis
+        );
+    END IF;
+END p_save_umelec;
+/
+
+CREATE OR REPLACE PROCEDURE p_delete_umelec(
+    p_idumelec IN umelci.idumelec%TYPE
+) AS
+    v_count NUMBER;
+    v_dila_count NUMBER;
+BEGIN
+    -- Kontrola, zda umělec s daným ID existuje
+    SELECT COUNT(*) INTO v_count
+    FROM umelci
+    WHERE idumelec = p_idumelec;
+    
+    IF v_count = 0 THEN
+        RAISE_APPLICATION_ERROR(-20093, 'Umělec s ID ' || p_idumelec || ' neexistuje.');
+    END IF;
+    
+    -- Kontrola, zda umělec nemá přiřazená umělecká díla
+    SELECT COUNT(*) INTO v_dila_count
+    FROM umelci_umelecka_dila
+    WHERE idumelec = p_idumelec;
+    
+    IF v_dila_count > 0 THEN
+        RAISE_APPLICATION_ERROR(-20094, 'Nelze smazat umělce, který má přiřazená umělecká díla.');
+    END IF;
+    
+    -- Odstranění umělce
+    DELETE FROM umelci
+    WHERE idumelec = p_idumelec;
+END p_delete_umelec;
+/
