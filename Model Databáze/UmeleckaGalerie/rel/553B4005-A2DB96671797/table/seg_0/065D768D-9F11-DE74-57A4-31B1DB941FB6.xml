@@ -120,6 +120,7 @@
 <createdTime>2025-11-02 09:09:54 UTC</createdTime>
 <generatorID>C35A4764-C09D-82D9-C78C-E3EE6F753207</generatorID>
 <ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT011</logicalDatatype>

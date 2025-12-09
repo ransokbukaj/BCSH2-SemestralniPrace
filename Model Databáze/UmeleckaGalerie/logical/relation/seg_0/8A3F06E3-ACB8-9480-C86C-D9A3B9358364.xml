@@ -11,7 +11,7 @@
 <nameOnSource>je součástí</nameOnSource>
 <nameOnTarget>odkazuje na</nameOnTarget>
 <optionalSource>true</optionalSource>
-<optionalTarget>false</optionalTarget>
+<optionalTarget>true</optionalTarget>
 <sourceCardinality>1</sourceCardinality>
 <sourceEntity>B5F9A6A2-8E47-2209-E5DB-79C4AD3E5503</sourceEntity>
 <targetCardinalityString>*</targetCardinalityString>

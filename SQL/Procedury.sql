@@ -861,3 +861,168 @@ BEGIN
     WHERE idumeleckedilo = p_idumeleckedilo;
 END p_delete_obraz;
 /
+
+
+
+CREATE OR REPLACE PROCEDURE p_save_socha(
+    p_idumeleckedilo IN umelecka_dila.idumeleckedilo%TYPE,
+    p_nazev IN umelecka_dila.nazev%TYPE,
+    p_popis IN umelecka_dila.popis%TYPE,
+    p_datumzverejneni IN umelecka_dila.datumzverejneni%TYPE,
+    p_vyska IN umelecka_dila.vyska%TYPE,
+    p_sirka IN umelecka_dila.sirka%TYPE,
+    p_idprodej IN umelecka_dila.idprodej%TYPE,
+    p_idvystava IN umelecka_dila.idvystava%TYPE,
+    p_hloubka IN sochy.hloubka%TYPE,
+    p_hmotnost IN sochy.hmotnost%TYPE,
+    p_idmaterial IN sochy.idmaterial%TYPE
+) AS
+    v_count NUMBER;
+    v_material_count NUMBER;
+    v_prodej_count NUMBER;
+    v_vystava_count NUMBER;
+    v_new_id umelecka_dila.idumeleckedilo%TYPE;
+BEGIN
+    -- Kontrola existence materiálu
+    SELECT COUNT(*) INTO v_material_count
+    FROM materialy
+    WHERE idmaterial = p_idmaterial;
+    
+    IF v_material_count = 0 THEN
+        RAISE_APPLICATION_ERROR(-20060, 'Materiál s ID ' || p_idmaterial || ' neexistuje.');
+    END IF;
+    
+    -- Kontrola existence prodeje (pokud je zadán)
+    IF p_idprodej IS NOT NULL THEN
+        SELECT COUNT(*) INTO v_prodej_count
+        FROM prodeje
+        WHERE idprodej = p_idprodej;
+        
+        IF v_prodej_count = 0 THEN
+            RAISE_APPLICATION_ERROR(-20061, 'Prodej s ID ' || p_idprodej || ' neexistuje.');
+        END IF;
+    END IF;
+    
+    -- Kontrola existence výstavy (pokud je zadána)
+    IF p_idvystava IS NOT NULL THEN
+        SELECT COUNT(*) INTO v_vystava_count
+        FROM vystavy
+        WHERE idvystava = p_idvystava;
+        
+        IF v_vystava_count = 0 THEN
+            RAISE_APPLICATION_ERROR(-20062, 'Výstava s ID ' || p_idvystava || ' neexistuje.');
+        END IF;
+    END IF;
+    
+    -- Kontrola, že rozměry jsou kladné
+    IF p_vyska <= 0 OR p_sirka <= 0 OR p_hloubka <= 0 THEN
+        RAISE_APPLICATION_ERROR(-20063, 'Výška, šířka a hloubka musí být větší než 0.');
+    END IF;
+    
+    -- Kontrola, že hmotnost je kladná
+    IF p_hmotnost <= 0 THEN
+        RAISE_APPLICATION_ERROR(-20064, 'Hmotnost musí být větší než 0.');
+    END IF;
+    
+    -- Kontrola, zda socha s daným ID existuje
+    IF p_idumeleckedilo IS NOT NULL AND p_idumeleckedilo > 0 THEN
+        SELECT COUNT(*) INTO v_count
+        FROM umelecka_dila
+        WHERE idumeleckedilo = p_idumeleckedilo;
+        
+        IF v_count > 0 THEN
+            -- UPDATE - socha existuje
+            UPDATE umelecka_dila
+            SET nazev = p_nazev,
+                popis = p_popis,
+                datumzverejneni = p_datumzverejneni,
+                vyska = p_vyska,
+                sirka = p_sirka,
+                idprodej = p_idprodej,
+                idvystava = p_idvystava
+            WHERE idumeleckedilo = p_idumeleckedilo;
+            
+            -- Aktualizace specifických dat sochy
+            UPDATE sochy
+            SET hloubka = p_hloubka,
+                hmotnost = p_hmotnost,
+                idmaterial = p_idmaterial
+            WHERE idumeleckedilo = p_idumeleckedilo;
+        ELSE
+            -- ID bylo zadáno, ale záznam neexistuje
+            RAISE_APPLICATION_ERROR(-20065, 'Socha s ID ' || p_idumeleckedilo || ' neexistuje.');
+        END IF;
+    ELSE
+        -- INSERT - vytvoření nové sochy
+        INSERT INTO umelecka_dila (
+            nazev,
+            popis,
+            datumzverejneni,
+            vyska,
+            sirka,
+            idprodej,
+            idvystava,
+            typdila
+        ) VALUES (
+            p_nazev,
+            p_popis,
+            p_datumzverejneni,
+            p_vyska,
+            p_sirka,
+            p_idprodej,
+            p_idvystava,
+            'S'
+        ) RETURNING idumeleckedilo INTO v_new_id;
+        
+        -- Vložení specifických dat sochy
+        INSERT INTO sochy (
+            idumeleckedilo,
+            hloubka,
+            hmotnost,
+            idmaterial
+        ) VALUES (
+            v_new_id,
+            p_hloubka,
+            p_hmotnost,
+            p_idmaterial
+        );
+    END IF;
+END p_save_socha;
+/
+
+CREATE OR REPLACE PROCEDURE p_delete_socha(
+    p_idumeleckedilo IN umelecka_dila.idumeleckedilo%TYPE
+) AS
+    v_count NUMBER;
+    v_prilohy_count NUMBER;
+BEGIN
+    -- Kontrola, zda socha s daným ID existuje
+    SELECT COUNT(*) INTO v_count
+    FROM umelecka_dila
+    WHERE idumeleckedilo = p_idumeleckedilo
+    AND typdila = 'S';
+    
+    IF v_count = 0 THEN
+        RAISE_APPLICATION_ERROR(-20066, 'Socha s ID ' || p_idumeleckedilo || ' neexistuje.');
+    END IF;
+    
+    -- Kontrola, zda socha má přílohy
+    SELECT COUNT(*) INTO v_prilohy_count
+    FROM prilohy
+    WHERE idumeleckedilo = p_idumeleckedilo;
+    
+    IF v_prilohy_count > 0 THEN
+        -- Smazání příloh
+        DELETE FROM prilohy
+        WHERE idumeleckedilo = p_idumeleckedilo;
+    END IF;
+    
+    -- Smazání specifických dat sochy
+    DELETE FROM sochy
+    WHERE idumeleckedilo = p_idumeleckedilo;
+    
+    -- Smazání obecných dat uměleckého díla
+    DELETE FROM umelecka_dila
+    WHERE idumeleckedilo = p_idumeleckedilo;
+END p_delete_socha;
+/
