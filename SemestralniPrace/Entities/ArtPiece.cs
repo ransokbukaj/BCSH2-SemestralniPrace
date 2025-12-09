@@ -21,8 +21,9 @@ namespace Entities
         //public Sale? Sale { get; set; }
 
         public string ArtistNames { get; set; }
-        public Counter ExhibitionCounter { get; set; }
-        public Sale Sale { get; set; }
+        public string ExhibitionName { get; set; }
+        public decimal SalePrice { get; set; }
+
         public List<Attachment> Attachments { get; set; }
     }
 }

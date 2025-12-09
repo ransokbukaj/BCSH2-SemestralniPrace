@@ -389,9 +389,112 @@ END p_delete_kupec;
 
 
 
+CREATE OR REPLACE PROCEDURE p_save_prodej(
+    p_idprodej IN prodeje.idprodej%TYPE,
+    p_cena IN prodeje.cena%TYPE,
+    p_datumprodeje IN prodeje.datumprodeje%TYPE,
+    p_cislokarty IN prodeje.cislokarty%TYPE,
+    p_cislouctu IN prodeje.cislouctu%TYPE,
+    p_iddruhplatby IN prodeje.iddruhplatby%TYPE,
+    p_idkupec IN prodeje.idkupec%TYPE
+) AS
+    v_count NUMBER;
+    v_kupec_count NUMBER;
+    v_druh_platby_count NUMBER;
+BEGIN
+    -- Kontrola existence kupce
+    SELECT COUNT(*) INTO v_kupec_count
+    FROM kupci
+    WHERE idkupec = p_idkupec;
+    
+    IF v_kupec_count = 0 THEN
+        RAISE_APPLICATION_ERROR(-20011, 'Kupec s ID ' || p_idkupec || ' neexistuje.');
+    END IF;
+    
+    -- Kontrola existence druhu platby
+    SELECT COUNT(*) INTO v_druh_platby_count
+    FROM druhy_plateb
+    WHERE iddruhplatby = p_iddruhplatby;
+    
+    IF v_druh_platby_count = 0 THEN
+        RAISE_APPLICATION_ERROR(-20012, 'Druh platby s ID ' || p_iddruhplatby || ' neexistuje.');
+    END IF;
+    
+    -- Kontrola ceny
+    IF p_cena <= 0 THEN
+        RAISE_APPLICATION_ERROR(-20013, 'Cena musí být větší než 0.');
+    END IF;
+    
+    -- Kontrola, zda prodej s daným ID existuje
+    IF p_idprodej IS NOT NULL AND p_idprodej > 0 THEN
+        SELECT COUNT(*) INTO v_count
+        FROM prodeje
+        WHERE idprodej = p_idprodej;
+        
+        IF v_count > 0 THEN
+            -- UPDATE - prodej existuje
+            UPDATE prodeje
+            SET cena = p_cena,
+                datumprodeje = p_datumprodeje,
+                cislokarty = p_cislokarty,
+                cislouctu = p_cislouctu,
+                iddruhplatby = p_iddruhplatby,
+                idkupec = p_idkupec
+            WHERE idprodej = p_idprodej;
+        ELSE
+            -- ID bylo zadáno, ale záznam neexistuje
+            RAISE_APPLICATION_ERROR(-20014, 'Prodej s ID ' || p_idprodej || ' neexistuje.');
+        END IF;
+    ELSE
+        -- INSERT - vytvoření nového prodeje
+        INSERT INTO prodeje (
+            cena,
+            datumprodeje,
+            cislokarty,
+            cislouctu,
+            iddruhplatby,
+            idkupec
+        ) VALUES (
+            p_cena,
+            p_datumprodeje,
+            p_cislokarty,
+            p_cislouctu,
+            p_iddruhplatby,
+            p_idkupec
+        );
+    END IF;
+END p_save_prodej;
+/
 
-
-
+CREATE OR REPLACE PROCEDURE p_delete_prodej(
+    p_idprodej IN prodeje.idprodej%TYPE
+) AS
+    v_count NUMBER;
+    v_dila_count NUMBER;
+BEGIN
+    -- Kontrola, zda prodej s daným ID existuje
+    SELECT COUNT(*) INTO v_count
+    FROM prodeje
+    WHERE idprodej = p_idprodej;
+    
+    IF v_count = 0 THEN
+        RAISE_APPLICATION_ERROR(-20015, 'Prodej s ID ' || p_idprodej || ' neexistuje.');
+    END IF;
+    
+    -- Kontrola, zda prodej nemá přiřazená umělecká díla
+    SELECT COUNT(*) INTO v_dila_count
+    FROM umelecka_dila
+    WHERE idprodej = p_idprodej;
+    
+    IF v_dila_count > 0 THEN
+        RAISE_APPLICATION_ERROR(-20016, 'Nelze smazat prodej, který má přiřazená umělecká díla.');
+    END IF;
+    
+    -- Odstranění prodeje
+    DELETE FROM prodeje
+    WHERE idprodej = p_idprodej;    
+END p_delete_prodej;
+/
 
 
 
