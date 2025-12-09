@@ -179,3 +179,22 @@ FROM obrazy o
     INNER JOIN podklady p ON o.idpodklad = p.idpodklad
     INNER JOIN techniky t ON o.idtechnika = t.idtechnika
 ORDER BY d.nazev;
+
+CREATE OR REPLACE VIEW v_sochy AS
+SELECT 
+    s.idumeleckedilo AS id,
+    d.nazev AS nazev,
+    d.popis AS popis,
+    d.datumzverejneni AS datum_zverejneni,
+    d.vyska AS vyska,
+    d.sirka AS sirka,
+    d.idprodej AS id_prodej,
+    d.idvystava AS id_vystava,
+    s.hloubka AS hloubka,
+    s.hmotnost AS hmotnost,
+    s.idmaterial AS id_material,
+    m.nazev AS nazev_materialu
+FROM sochy s
+    INNER JOIN umelecka_dila d ON s.idumeleckedilo = d.idumeleckedilo
+    INNER JOIN materialy m ON s.idmaterial = m.idmaterial
+ORDER BY d.nazev;
