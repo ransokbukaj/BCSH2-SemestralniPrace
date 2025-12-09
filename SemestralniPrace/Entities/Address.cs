@@ -13,5 +13,6 @@ namespace Entities
         public string HouseNumber { get; set; }
         public string StreetNumber { get; set; }
         public Post Post { get; set; }
+        public string FullAddress => $"{Street} {HouseNumber} {StreetNumber} {Post.CityWithPSC}";
     }
 }

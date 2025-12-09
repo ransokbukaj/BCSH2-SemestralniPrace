@@ -152,7 +152,7 @@ BEGIN
             p_cislopopisne,
             p_cisloorientacni,
             p_idposta
-        ) RETURNING idadresa INTO p_idadresa;
+        );
     END IF;
 END p_save_adresa;
 /
