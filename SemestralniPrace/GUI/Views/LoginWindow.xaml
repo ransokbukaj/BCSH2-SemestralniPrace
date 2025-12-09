@@ -1,6 +1,7 @@
 <Window x:Class="GUI.Views.LoginWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:helpers="clr-namespace:GUI.Helpers"
         Title="Uživatel"
         Height="350" Width="420"
         WindowStartupLocation="CenterOwner"
@@ -12,7 +13,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <!-- Hlavička okna -->
+        <!-- Hlavička -->
         <TextBlock Grid.Row="0"
                    Text="Přihlášení / registrace"
                    FontSize="18"
@@ -20,9 +21,11 @@
                    Margin="0,0,0,10"
                    HorizontalAlignment="Center"/>
 
-        <!-- Přepínání mezi login / registrace -->
         <TabControl Grid.Row="1">
-            <!-- TAB: Přihlášení -->
+
+            <!-- ************************ -->
+            <!-- TAB: PŘIHLÁŠENÍ -->
+            <!-- ************************ -->
             <TabItem Header="Přihlášení">
                 <Grid Margin="10">
                     <Grid.RowDefinitions>
@@ -51,11 +54,12 @@
                                Text="Heslo:"
                                VerticalAlignment="Center"
                                Margin="0,0,5,5"/>
-                    <TextBox Grid.Row="1" Grid.Column="1"
-                             Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}"
-                             Margin="0,0,0,5"/>
+                    <PasswordBox Grid.Row="1" Grid.Column="1"
+                                 Margin="0,0,0,5"
+                                 helpers:PasswordBoxHelper.BindPassword="True"
+                                 helpers:PasswordBoxHelper.BoundPassword="{Binding Password, Mode=TwoWay}" />
 
-                    <!-- Chybová hláška pro login -->
+                    <!-- Chyba -->
                     <TextBlock Grid.Row="2" Grid.ColumnSpan="2"
                                Text="{Binding LoginError}"
                                Foreground="Red"
@@ -80,10 +84,11 @@
                 </Grid>
             </TabItem>
 
-            <!-- TAB: Registrace -->
+            <!-- ************************ -->
+            <!-- TAB: REGISTRACE -->
+            <!-- ************************ -->
             <TabItem Header="Registrace">
-                <ScrollViewer Margin="10"
-                              VerticalScrollBarVisibility="Auto">
+                <ScrollViewer Margin="10" VerticalScrollBarVisibility="Auto">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
@@ -104,68 +109,63 @@
 
                         <!-- Uživatelské jméno -->
                         <TextBlock Grid.Row="0" Grid.Column="0"
-                                   Text="Uživatel:"
-                                   VerticalAlignment="Center"
-                                   Margin="0,0,5,5"/>
+                                   Text="Uživatel:" Margin="0,0,5,5"
+                                   VerticalAlignment="Center"/>
                         <TextBox Grid.Row="0" Grid.Column="1"
                                  Text="{Binding RegUsername, UpdateSourceTrigger=PropertyChanged}"
                                  Margin="0,0,0,5"/>
 
                         <!-- Heslo -->
                         <TextBlock Grid.Row="1" Grid.Column="0"
-                                   Text="Heslo:"
-                                   VerticalAlignment="Center"
-                                   Margin="0,0,5,5"/>
-                        <TextBox Grid.Row="1" Grid.Column="1"
-                                 Text="{Binding RegPassword, UpdateSourceTrigger=PropertyChanged}"
-                                 Margin="0,0,0,5"/>
+                                   Text="Heslo:" Margin="0,0,5,5"
+                                   VerticalAlignment="Center"/>
+                        <PasswordBox Grid.Row="1" Grid.Column="1"
+                                     Margin="0,0,0,5"
+                                     helpers:PasswordBoxHelper.BindPassword="True"
+                                     helpers:PasswordBoxHelper.BoundPassword="{Binding RegPassword, Mode=TwoWay}" />
 
-                        <!-- Potvrzení hesla -->
+                        <!-- Heslo znovu -->
                         <TextBlock Grid.Row="2" Grid.Column="0"
-                                   Text="Heslo znovu:"
-                                   VerticalAlignment="Center"
-                                   Margin="0,0,5,5"/>
-                        <TextBox Grid.Row="2" Grid.Column="1"
-                                 Text="{Binding RegPasswordConfirm, UpdateSourceTrigger=PropertyChanged}"
-                                 Margin="0,0,0,5"/>
+                                   Text="Heslo znovu:" Margin="0,0,5,5"
+                                   VerticalAlignment="Center"/>
+                        <PasswordBox Grid.Row="2" Grid.Column="1"
+                                     Margin="0,0,0,5"
+                                     helpers:PasswordBoxHelper.BindPassword="True"
+                                     helpers:PasswordBoxHelper.BoundPassword="{Binding RegPasswordConfirm, Mode=TwoWay}" />
 
                         <!-- Jméno -->
                         <TextBlock Grid.Row="3" Grid.Column="0"
-                                   Text="Jméno:"
-                                   VerticalAlignment="Center"
-                                   Margin="0,0,5,5"/>
+                                   Text="Jméno:" Margin="0,0,5,5"
+                                   VerticalAlignment="Center"/>
                         <TextBox Grid.Row="3" Grid.Column="1"
                                  Text="{Binding RegFirstName, UpdateSourceTrigger=PropertyChanged}"
                                  Margin="0,0,0,5"/>
 
                         <!-- Příjmení -->
                         <TextBlock Grid.Row="4" Grid.Column="0"
-                                   Text="Příjmení:"
-                                   VerticalAlignment="Center"
-                                   Margin="0,0,5,5"/>
+                                   Text="Příjmení:" Margin="0,0,5,5"
+                                   VerticalAlignment="Center"/>
                         <TextBox Grid.Row="4" Grid.Column="1"
                                  Text="{Binding RegLastName, UpdateSourceTrigger=PropertyChanged}"
                                  Margin="0,0,0,5"/>
 
                         <!-- Email -->
                         <TextBlock Grid.Row="5" Grid.Column="0"
-                                   Text="Email:"
-                                   VerticalAlignment="Center"
-                                   Margin="0,0,5,5"/>
+                                   Text="Email:" Margin="0,0,5,5"
+                                   VerticalAlignment="Center"/>
                         <TextBox Grid.Row="5" Grid.Column="1"
                                  Text="{Binding RegEmail, UpdateSourceTrigger=PropertyChanged}"
                                  Margin="0,0,0,5"/>
 
                         <!-- Telefon -->
                         <TextBlock Grid.Row="6" Grid.Column="0"
-                                   Text="Telefon:"
-                                   VerticalAlignment="Center"
-                                   Margin="0,0,5,5"/>
+                                   Text="Telefon:" Margin="0,0,5,5"
+                                   VerticalAlignment="Center"/>
                         <TextBox Grid.Row="6" Grid.Column="1"
                                  Text="{Binding RegPhone, UpdateSourceTrigger=PropertyChanged}"
                                  Margin="0,0,0,5"/>
 
-                        <!-- Chybová hláška pro registraci -->
+                        <!-- Chyba -->
                         <TextBlock Grid.Row="7" Grid.ColumnSpan="2"
                                    Text="{Binding RegisterError}"
                                    Foreground="Red"
@@ -185,9 +185,10 @@
                                     Width="80"
                                     Command="{Binding CancelCommand}"/>
                         </StackPanel>
-                    </Grid> 
+                    </Grid>
                 </ScrollViewer>
             </TabItem>
+
         </TabControl>
     </Grid>
 </Window>
