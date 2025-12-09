@@ -9,7 +9,7 @@
 <referredTableID>6AABB554-0CD3-F51D-9EA2-A7668DC87CB4</referredTableID>
 <keyObject>93758F2A-0543-13CF-98A0-692039B260E6</keyObject>
 <referredKeyID>93758F2A-0543-13CF-98A0-692039B260E6</referredKeyID>
-<mandatory>false</mandatory>
+<mandatory>true</mandatory>
 <refColNames>idUzivatel</refColNames>
 <transferable>true</transferable>
 <rely>false</rely>
