@@ -60,7 +60,12 @@
 
             <StackPanel Orientation="Horizontal" Margin="0,10,0,5">
                 <TextBlock Text="Typ platby:" Width="140"/>
-                <TextBox Text="{Binding SelectedSale.TypeOfPayment.Name}" Width="200"/>
+                <!--<TextBox Text="{Binding SelectedSale.TypeOfPayment.Name}" Width="200"/>-->
+                <ComboBox Width="250"
+                    ItemsSource="{Binding TypesOfPayment}"
+                    SelectedValue="{Binding SelectedSale.TypeOfPayment.Id, Mode=TwoWay}"
+                    SelectedValuePath="Id"
+                    DisplayMemberPath="Name" />
             </StackPanel>
 
             <StackPanel Orientation="Vertical" HorizontalAlignment="Right" Margin="0,15,0,0">

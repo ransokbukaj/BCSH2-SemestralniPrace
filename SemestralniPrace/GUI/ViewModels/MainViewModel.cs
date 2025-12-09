@@ -1,11 +1,14 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using DatabaseAccess;
 using GUI.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
 
 namespace GUI.ViewModels
 {
@@ -18,12 +21,16 @@ namespace GUI.ViewModels
         private bool isLogged;
 
         [ObservableProperty]
+        private bool isAdmin;
+
+        [ObservableProperty]
         private string logButtonText;
 
         public MainViewModel()
         {
             currentViewModel = new HomeViewModel();
             isLogged = false;
+            isAdmin = false;
             logButtonText = "Log in";
         }
 
@@ -33,6 +40,7 @@ namespace GUI.ViewModels
             if (IsLogged)
             {
                 CurrentViewModel = new HomeViewModel();
+                UserManager.LogOut();
                 LogButtonText = "Log in";
                 IsLogged = false;
             }
@@ -44,7 +52,17 @@ namespace GUI.ViewModels
                 bool log = (bool)dialog.ShowDialog();
                 if (log)
                 {
-                    LogButtonText = "Log out";
+                    MessageBox.Show($"User: {UserManager.CurrentUser.Role.Name}");
+                    if(UserManager.CurrentUser.Role.Name == "Admin")
+                    {
+                        IsAdmin = true;
+                    }
+                    else
+                    {
+                        IsAdmin = false;
+                    }
+
+                        LogButtonText = "Log out";
                     IsLogged = true;
                 }
 

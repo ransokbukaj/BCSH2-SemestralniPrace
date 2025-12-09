@@ -14,9 +14,12 @@ namespace GUI.ViewModels
     public partial class UserViewModel : ObservableObject
     {
         private readonly UserRepository repository = new UserRepository();
+        private readonly CounterRepository counterRep = new CounterRepository();
 
         [ObservableProperty]
         private ObservableCollection<User> users = new();
+        [ObservableProperty]
+        private ObservableCollection<Counter> roles = new();
 
         [ObservableProperty]
         private User selectedUser;
@@ -30,12 +33,16 @@ namespace GUI.ViewModels
         private void Load()
         {
             Users = new ObservableCollection<User>(repository.GetList());
+            Roles = new ObservableCollection<Counter>(counterRep.GetRoles());
         }
 
         [RelayCommand]
         private void New()
         {
-            SelectedUser = new User();
+            SelectedUser = new User()
+            {
+                Role = new Counter()
+            };
         }
 
         [RelayCommand]
@@ -43,6 +50,10 @@ namespace GUI.ViewModels
         {
             if (SelectedUser == null)
                 return;
+            if(Roles != null && SelectedUser != null)
+            {
+                SelectedUser.Role = Roles.FirstOrDefault(p => p.Id == SelectedUser.Role.Id);
+            }
 
             repository.SaveItem(SelectedUser);
             Load();

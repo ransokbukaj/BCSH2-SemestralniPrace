@@ -91,6 +91,11 @@ namespace GUI.ViewModels
                 return;
             }
 
+            if (!UserManager.LogIn(RegUsername, RegPassword))
+            {
+                RegisterError = "Nastala chyba při přihlašování nového účtu.";
+                return;
+            }
             RequestClose?.Invoke(true);
         }
 

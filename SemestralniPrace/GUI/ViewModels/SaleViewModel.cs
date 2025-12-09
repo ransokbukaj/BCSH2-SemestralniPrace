@@ -14,9 +14,12 @@ namespace GUI.ViewModels
     public partial class SaleViewModel : ObservableObject
     {
         private readonly SaleRepository repository = new SaleRepository();
+        private readonly CounterRepository counterRep = new CounterRepository();
 
         [ObservableProperty]
         private ObservableCollection<Sale> sales = new();
+        [ObservableProperty]
+        private ObservableCollection<Counter> typesOfPayment = new();
 
         [ObservableProperty]
         private Sale selectedSale;
@@ -30,12 +33,16 @@ namespace GUI.ViewModels
         private void Load()
         {
             Sales = new ObservableCollection<Sale>(repository.GetList());
+            TypesOfPayment = new ObservableCollection<Counter>(counterRep.GetPaymentMethods());
         }
 
         [RelayCommand]
         private void New()
         {
-            SelectedSale = new Sale();
+            SelectedSale = new Sale() 
+            {
+                TypeOfPayment = new Counter()
+            };
         }
 
         [RelayCommand]
@@ -43,6 +50,11 @@ namespace GUI.ViewModels
         {
             if (SelectedSale == null)
                 return;
+
+            if(SelectedSale != null && TypesOfPayment != null)
+            {
+                SelectedSale.TypeOfPayment = TypesOfPayment.FirstOrDefault(p => p.Id == SelectedSale.TypeOfPayment.Id);
+            }
 
             repository.SaveItem(SelectedSale);
             Load();

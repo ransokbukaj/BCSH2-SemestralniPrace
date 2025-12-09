@@ -36,8 +36,8 @@
                 <Button Content="Kupci" Command="{Binding UpdateViewCommand}" CommandParameter="Buyer" Visibility="{Binding IsLogged, Converter={StaticResource BoolToVisibilityConverter}}"/>
                 <Button Content="Adresy" Command="{Binding UpdateViewCommand}" CommandParameter="Address" Visibility="{Binding IsLogged, Converter={StaticResource BoolToVisibilityConverter}}"/>
                 <Button Content="Pošty" Command="{Binding UpdateViewCommand}" CommandParameter="Post" Visibility="{Binding IsLogged, Converter={StaticResource BoolToVisibilityConverter}}"/>
-                <Button Content="Uživatelé" Command="{Binding UpdateViewCommand}" CommandParameter="User" Visibility="{Binding IsLogged, Converter={StaticResource BoolToVisibilityConverter}}"/>
-                <Button Content="Záznamy historie" Command="{Binding UpdateViewCommand}" CommandParameter="HistoryLog" Visibility="{Binding IsLogged, Converter={StaticResource BoolToVisibilityConverter}}"/>
+                <Button Content="Uživatelé" Command="{Binding UpdateViewCommand}" CommandParameter="User" Visibility="{Binding IsAdmin, Converter={StaticResource BoolToVisibilityConverter}}"/>
+                <Button Content="Záznamy historie" Command="{Binding UpdateViewCommand}" CommandParameter="HistoryLog" Visibility="{Binding IsAdmin, Converter={StaticResource BoolToVisibilityConverter}}"/>
             </StackPanel>
         </Grid>
     </Border>
