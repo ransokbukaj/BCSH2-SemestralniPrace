@@ -229,3 +229,23 @@ SELECT
     popis AS popis
 FROM umelci
 ORDER BY prijmeni, jmeno;
+
+************************************************************************************************************************************************************
+CREATE OR REPLACE VIEW v_umelecka_dila AS
+SELECT
+    d.idumeleckedilo           AS id_dilo,
+    d.nazev                    AS dilo_nazev,
+    d.popis                    AS dilo_popis,
+    d.typdila                  AS typ_dila,
+    d.datumzverejneni          AS datum_zverejneni,
+    d.vyska                    AS vyska,
+    d.sirka                    AS sirka,
+    d.idprodej                 AS id_prodej,
+    d.idvystava                AS id_vystava,
+    ud.idumelec                AS id_autor,
+    u.prijmeni                 AS autor_prijmeni,
+    u.jmeno                    AS autor_jmeno
+FROM umelecka_dila d
+    LEFT JOIN umelci_umelecka_dila ud ON ud.idumeleckedilo = d.idumeleckedilo
+    LEFT JOIN umelci u               ON u.idumelec = ud.idumelec
+ORDER BY d.nazev, u.prijmeni, u.jmeno;
