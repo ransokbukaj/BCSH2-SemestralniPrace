@@ -14,9 +14,13 @@ namespace GUI.ViewModels
     public partial class BuyerViewModel : ObservableObject
     {
         private readonly BuyerRepository repository = new BuyerRepository();
+        private readonly AddressRepository addressRepository = new AddressRepository();
 
         [ObservableProperty]
         private ObservableCollection<Buyer> buyers = new();
+
+        [ObservableProperty]
+        private ObservableCollection<Address> addresses = new();
 
         [ObservableProperty]
         private Buyer selectedBuyer;
@@ -31,12 +35,16 @@ namespace GUI.ViewModels
         {
             var list = repository.GetList();
             Buyers = new ObservableCollection<Buyer>(list);
+            Addresses = new ObservableCollection<Address>(addressRepository.GetList());
         }
 
         [RelayCommand]
         private void New()
         {
-            SelectedBuyer = new Buyer();
+            SelectedBuyer = new Buyer()
+            {
+                Adress = new Address()
+            };
         }
 
         [RelayCommand]
@@ -44,6 +52,12 @@ namespace GUI.ViewModels
         {
             if (SelectedBuyer == null)
                 return;
+
+            if (SelectedBuyer?.Adress != null && Addresses != null)
+            {
+                SelectedBuyer.Adress = Addresses.FirstOrDefault(a => a.Id == SelectedBuyer.Adress.Id);
+            }
+
 
             repository.SaveItem(SelectedBuyer);
             Load();

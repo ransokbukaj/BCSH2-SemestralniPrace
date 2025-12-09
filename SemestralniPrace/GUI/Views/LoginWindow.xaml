@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:helpers="clr-namespace:GUI.Helpers"
         Title="Uživatel"
-        Height="350" Width="420"
+        Height="365" Width="420"
         WindowStartupLocation="CenterOwner"
         ResizeMode="NoResize">
 
@@ -88,8 +88,8 @@
             <!-- TAB: REGISTRACE -->
             <!-- ************************ -->
             <TabItem Header="Registrace">
-                <ScrollViewer Margin="10" VerticalScrollBarVisibility="Auto">
-                    <Grid>
+                <!--<ScrollViewer Margin="10" VerticalScrollBarVisibility="Auto">-->
+                <Grid Margin="10">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
@@ -186,7 +186,7 @@
                                     Command="{Binding CancelCommand}"/>
                         </StackPanel>
                     </Grid>
-                </ScrollViewer>
+                <!--</ScrollViewer>-->
             </TabItem>
 
         </TabControl>
