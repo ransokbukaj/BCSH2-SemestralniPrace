@@ -138,14 +138,9 @@ SELECT
     zh.nazevtabulky AS nazev_tabulky,
     zh.idradkutabulky AS id_radku_tabulky,
     zh.idzmenenohoradku AS id_zmeneneho_radku,
-    zh.iduzivatel AS id_uzivatel,
-    u.uzivatelskejmeno AS uzivatelske_jmeno,
-    u.jmeno AS uzivatel_jmeno,
-    u.prijmeni AS uzivatel_prijmeni,
-    r.nazev AS nazev_role
+    u.uzivatelskejmeno AS uzivatelske_jmeno
 FROM zaznamy_historie zh
     INNER JOIN uzivatele u ON zh.iduzivatel = u.iduzivatel
-    INNER JOIN role r ON u.idrole = r.idrole
 ORDER BY zh.datumzmeny DESC;
 
 CREATE OR REPLACE VIEW v_uzivatele AS

@@ -28,11 +28,7 @@ namespace DatabaseAccess
                             nazev_tabulky,
                             id_radku_tabulky,
                             id_zmeneneho_radku,
-                            id_uzivatel,
                             uzivatelske_jmeno,
-                            uzivatel_jmeno,
-                            uzivatel_prijmeni,
-                            nazev_role
                         FROM v_zaznamy_historie";
 
                     using (var reader = command.ExecuteReader())
@@ -50,17 +46,7 @@ namespace DatabaseAccess
                                 TableName = reader["nazev_tabulky"].ToString(),
                                 TableRowId = Convert.ToInt32(reader["id_radku_tabulky"]),
                                 EditedRowId = Convert.ToInt32(reader["id_zmeneneho_radku"]),
-                                User = new User
-                                {
-                                    Id = Convert.ToInt32(reader["id_uzivatel"]),
-                                    Username = reader["uzivatelske_jmeno"].ToString(),
-                                    FirstName = reader["uzivatel_jmeno"].ToString(),
-                                    LastName = reader["uzivatel_prijmeni"].ToString(),
-                                    Role = new Counter
-                                    {
-                                        Name = reader["nazev_role"].ToString()
-                                    }
-                                }
+                                Username = reader["uzivatelske_jmeno"].ToString()                               
                             });
                         }
                     }

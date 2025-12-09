@@ -43,7 +43,7 @@ namespace DatabaseAccess
                                     Name = reader["nazev_druhu_navstevy"].ToString(),
                                     Price = Convert.ToDecimal(reader["cena"])
                                 },
-                                Exhibition = new Exhibition
+                                ExhibitionCounter = new Counter
                                 {
                                     Id = Convert.ToInt32(reader["id_vystava"]),
                                     Name = reader["nazev_vystavy"].ToString()
@@ -97,7 +97,7 @@ namespace DatabaseAccess
                         ParameterName = "p_idvystava",
                         OracleDbType = OracleDbType.Int32,
                         Direction = System.Data.ParameterDirection.Input,
-                        Value = visit.Exhibition.Id
+                        Value = visit.ExhibitionCounter.Id
                     };
                     command.Parameters.Add(paramVystava);
 
