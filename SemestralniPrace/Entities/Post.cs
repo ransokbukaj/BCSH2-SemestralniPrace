@@ -11,7 +11,5 @@ namespace Entities
         public int Id { get; set; }
         public string City { get; set; }
         public string PSC { get; set; }
-
-        public List<Address> Adresses { get; set; }
     }
 }

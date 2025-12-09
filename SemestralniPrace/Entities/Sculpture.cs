@@ -10,7 +10,6 @@ namespace Entities
     {
         public double Depth { get; set; }
         public double Weight { get; set; }
-
         public Counter Material { get; set; }
     }
 }

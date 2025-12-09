@@ -17,7 +17,6 @@ namespace Entities
         public string TableName { get; set; }
         public int TableRowId { get; set; }
         public int EditedRowId { get; set; }
-
-        public User User { get; set; }
+        public string Username { get; set; }
     }
 }

@@ -695,3 +695,4 @@ BEGIN
     WHERE iduzivatel = p_iduzivatel;
 END p_change_password;
 /
+

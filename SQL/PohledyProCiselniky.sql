@@ -46,3 +46,19 @@ SELECT
     nazev
 FROM techniky
 ORDER BY nazev;
+
+-- Pohled pro zjednodušené výstavy jako číselníky
+CREATE OR REPLACE VIEW v_vystavy_jako_ciselniky AS
+SELECT
+    idvystava AS id,
+    nazev
+FROM vystavy
+ORDER BY nazev;
+
+-- Pohled pro zjednodušená umělecká díla jako číselníky
+CREATE OR REPLACE VIEW v_umelecka_dila_jako_ciselniky AS
+SELECT
+    idumeleckedilo AS id,
+    nazev
+FROM umelecka_dila
+ORDER BY nazev;

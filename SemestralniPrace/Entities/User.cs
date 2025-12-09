@@ -14,8 +14,6 @@ namespace Entities
         /// Použít pouze při registraci!!!
         /// </summary>
         public string Password { get; set; }
-        public string PasswordHash { get; set; }
-
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
@@ -23,8 +21,6 @@ namespace Entities
         public DateTime RegisterDate { get; set; }
         public DateTime? LastLogin { get; set; }
         public DateTime? LastChange { get; set; }
-
         public Counter Role { get; set; }
-        public List<HistoryLog> UserHistory { get; set; }
     }
 }
