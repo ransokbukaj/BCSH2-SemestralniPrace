@@ -51,14 +51,14 @@ namespace GUI.ViewModels
                 return;
             }
 
-            //Pro otestování zakomentovano -- stačí něco vyplněné pro přihlášení
-            //if (!UserManager.LogIn(UserName,Password))
-            //{
-            //    ErrorMessage = "Neplatné uživatelské jméno nebo heslo.";
-            //    return;
-            //}
+            //Pro otestování zakomentovano-- stačí něco vyplněné pro přihlášení
+            if (!UserManager.LogIn(Username, Password))
+            {
+                LoginError = "Neplatné uživatelské jméno nebo heslo.";
+                return;
+            }
 
-            
+
             RequestClose?.Invoke(true); 
         }
 
