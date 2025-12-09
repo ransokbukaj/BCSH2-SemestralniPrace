@@ -14,8 +14,8 @@
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="4*"/>
         </Grid.ColumnDefinitions>
 
         <!-- HLAVIČKA -->
@@ -116,7 +116,7 @@
                     <StackPanel Orientation="Horizontal"
                                 Margin="0,5,0,0">
                         <TextBlock Text="Přidat dílo:"
-                                   Width="140"
+                                   Width="100"
                                    VerticalAlignment="Center"/>
                         <ComboBox Width="220"
                                   ItemsSource="{Binding AllArtPieces}"
@@ -125,19 +125,16 @@
                                   Margin="0,0,10,0"/>
                         <Button Content="Přidat"
                                 Width="80"
+                                Margin="0,0,5,0"
                                 Command="{Binding AddArtPieceCommand}"/>
+                        <Button Content="Odebrat"
+                                Width="80"
+                                Command="{Binding RemoveArtPieceCommand}"/>     
+
                     </StackPanel>
 
                     <!-- ODEBRÁNÍ DÍLA Z VÝSTAVY -->
-                    <StackPanel Orientation="Horizontal"
-                                Margin="0,5,0,0">
-                        <TextBlock Text="Odebrat vybrané dílo:"
-                                   Width="140"
-                                   VerticalAlignment="Center"/>
-                        <Button Content="Odebrat"
-                                Width="80"
-                                Command="{Binding RemoveArtPieceCommand}"/>
-                    </StackPanel>
+                    
 
                 </StackPanel>
             </ScrollViewer>
