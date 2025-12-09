@@ -6,7 +6,7 @@
         mc:Ignorable="d"        
         Title="MainWindow" 
         Height="600" 
-        Width="920"       
+        Width="1150"       
         Background="Transparent">
 
     <!--"Background= #272537"-->
