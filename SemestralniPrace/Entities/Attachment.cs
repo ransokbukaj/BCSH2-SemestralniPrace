@@ -9,11 +9,9 @@ namespace Entities
     public class Attachment
     {
         public int Id { get; set; }
-
         public byte[] File { get; set; }
-
         public string FileType { get; set; }
-
         public string FileName { get; set; }
+        public int ArtPieceId { get; set; }
     }
 }

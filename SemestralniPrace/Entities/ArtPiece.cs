@@ -14,16 +14,7 @@ namespace Entities
         public DateTime PublishedDate { get; set; }
         public double Height { get; set; }
         public double Width { get; set; }
-
-        //public List<Artist> Creators { get; set; }
-        //public List<Attachment> Attachments { get; set; }
-        //public Exhibition? Exhibition { get; set; }
-        //public Sale? Sale { get; set; }
-
-        public string ArtistNames { get; set; }
-        public string ExhibitionName { get; set; }
-        public decimal SalePrice { get; set; }
-
-        public List<Attachment> Attachments { get; set; }
+        public int ExhibitionId { get; set; }
+        public int SaleId { get; set; }
     }
 }

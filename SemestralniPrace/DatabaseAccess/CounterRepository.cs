@@ -136,46 +136,5 @@ namespace DatabaseAccess
             }
             return list;
         }
-        public List<Counter> GetExhibitionCounters()
-        {
-            var list = new List<Counter>();
-            using (var command = ConnectionManager.Connection.CreateCommand())
-            {
-                command.CommandText = "SELECT id, nazev FROM v_vystavy_jako_ciselniky";
-                using (var reader = command.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        list.Add(new Counter
-                        {
-                            Id = Convert.ToInt32(reader["id"]),
-                            Name = reader["nazev"].ToString()
-                        });
-                    }
-                }
-            }
-            return list;
-        }
-
-        public List<Counter> GetArtPieceCounters()
-        {
-            var list = new List<Counter>();
-            using (var command = ConnectionManager.Connection.CreateCommand())
-            {
-                command.CommandText = "SELECT id, nazev FROM v_umelecka_dila_jako_ciselniky";
-                using (var reader = command.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        list.Add(new Counter
-                        {
-                            Id = Convert.ToInt32(reader["id"]),
-                            Name = reader["nazev"].ToString()
-                        });
-                    }
-                }
-            }
-            return list;
-        }
     }
 }
