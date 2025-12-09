@@ -13,45 +13,39 @@ namespace DatabaseAccess
         public List<Counter> GetFoundations()
         {
             var list = new List<Counter>();
-            using (var connection = ConnectionManager.Connection)
+            using (var command = ConnectionManager.Connection.CreateCommand())
             {
-                using (var command = connection.CreateCommand())
+                command.CommandText = "SELECT id, nazev FROM v_podklady";
+                using (var reader = command.ExecuteReader())
                 {
-                    command.CommandText = "SELECT id, nazev FROM v_podklady";
-                    using (var reader = command.ExecuteReader())
+                    while (reader.Read())
                     {
-                        while (reader.Read())
+                        list.Add(new Counter
                         {
-                            list.Add(new Counter
-                            {
-                                Id = Convert.ToInt32(reader["id"]),
-                                Name = reader["nazev"].ToString()
-                            });
-                        }
+                            Id = Convert.ToInt32(reader["id"]),
+                            Name = reader["nazev"].ToString()
+                        });
                     }
                 }
-            }
+            }            
             return list;
         }
 
         public List<Counter> GetMaterials()
         {
             var list = new List<Counter>();
-            using (var connection = ConnectionManager.Connection)
+            using (var command = ConnectionManager.Connection.CreateCommand())
             {
-                using (var command = connection.CreateCommand())
+                command.CommandText = "SELECT id, nazev FROM v_materialy";
+                using (var reader = command.ExecuteReader())
                 {
-                    command.CommandText = "SELECT id, nazev FROM v_materialy";
-                    using (var reader = command.ExecuteReader())
+                    while (reader.Read())
                     {
-                        while (reader.Read())
+                        list.Add(new Counter
                         {
-                            list.Add(new Counter
-                            {
-                                Id = Convert.ToInt32(reader["id"]),
-                                Name = reader["nazev"].ToString()
-                            });
-                        }
+                            Id = Convert.ToInt32(reader["id"]),
+                            Name = reader["nazev"].ToString()
+                        });
                     }
                 }
             }

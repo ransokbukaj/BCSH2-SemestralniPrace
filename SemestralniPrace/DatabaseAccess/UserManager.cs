@@ -90,73 +90,70 @@ namespace DatabaseAccess
 
         public static bool LogIn(string username, string password)
         {
-            using (var connection = ConnectionManager.Connection)
+            string query = @"
+                SELECT
+                    u.iduzivatel, 
+                    u.uzivatelskejmeno, 
+                    u.heslohash, 
+                    u.jmeno, 
+                    u.prijmeni, 
+                    u.idrole,
+                    u.deaktivovan,
+                    r.nazev as nazevrole
+                FROM
+                    uzivatele u
+                    INNER JOIN role r
+                    ON u.idrole = r.idrole
+                WHERE
+                    u.uzivatelskejmeno = :username";
+
+            using (var command = ConnectionManager.Connection.CreateCommand())
             {
-                string query = @"
-                    SELECT
-                        u.iduzivatel, 
-                        u.uzivatelskejmeno, 
-                        u.heslohash, 
-                        u.jmeno, 
-                        u.prijmeni, 
-                        u.idrole,
-                        u.deaktivovan,
-                        r.nazev as nazevrole
-                    FROM
-                        uzivatele u
-                        INNER JOIN role r
-                        ON u.idrole = r.idrole
-                    WHERE
-                        u.uzivatelskejmeno = :username";
+                var param = command.CreateParameter();
+                param.ParameterName = ":username";
+                param.Value = username;
 
-                using (var command = connection.CreateCommand())
+                command.CommandText = query;
+                command.Parameters.Add(param);
+
+                using (var reader = command.ExecuteReader())
                 {
-                    var param = command.CreateParameter();
-                    param.ParameterName = ":username";
-                    param.Value = username;
-
-                    command.CommandText = query;
-                    command.Parameters.Add(param);
-
-                    using (var reader = command.ExecuteReader())
+                    if (reader.Read())
                     {
-                        if (reader.Read())
+                        int deaktivovan = Convert.ToInt32(reader["deaktivovan"]);
+                        if (deaktivovan == 1)
                         {
-                            int deaktivovan = Convert.ToInt32(reader["deaktivovan"]);
-                            if (deaktivovan == 1)
+                            return false;
+                        }
+
+                        string storedHash = reader["heslohash"].ToString();
+
+                        if (VerifyPassword(password, storedHash))
+                        {
+                            int userId = Convert.ToInt32(reader["iduzivatel"]);
+                            int roleId = Convert.ToInt32(reader["idrole"]);
+
+                            CurrentUser = new User
                             {
-                                return false;
-                            }
-
-                            string storedHash = reader["heslohash"].ToString();
-
-                            if (VerifyPassword(password, storedHash))
-                            {
-                                int userId = Convert.ToInt32(reader["iduzivatel"]);
-                                int roleId = Convert.ToInt32(reader["idrole"]);
-
-                                CurrentUser = new User
+                                Id = userId,
+                                Username = reader["uzivatelskejmeno"].ToString(),
+                                FirstName = reader["jmeno"].ToString(),
+                                LastName = reader["prijmeni"].ToString(),
+                                Role = new Counter
                                 {
-                                    Id = userId,
-                                    Username = reader["uzivatelskejmeno"].ToString(),
-                                    FirstName = reader["jmeno"].ToString(),
-                                    LastName = reader["prijmeni"].ToString(),
-                                    Role = new Counter
-                                    {
-                                        Id = roleId,
-                                        Name = reader["nazevrole"].ToString()
-                                    }
-                                };
+                                    Id = roleId,
+                                    Name = reader["nazevrole"].ToString()
+                                }
+                            };
 
-                                SetDatabaseSessionIdentifier(connection, userId);
-                                UpdateLastLoginDate(connection, userId);
-                                return true;
-                            }
+                            SetDatabaseSessionIdentifier(ConnectionManager.Connection, userId);
+                            UpdateLastLoginDate(ConnectionManager.Connection, userId);
+                            return true;
                         }
                     }
                 }
-                return false;
             }
+            return false;            
         }
 
         public static void LogOut()
