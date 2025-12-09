@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              mc:Ignorable="d"
-              Background="White"
+             Background="White"
              d:DesignHeight="450" d:DesignWidth="900">
     <Grid Margin="10">
         <Grid.RowDefinitions>
@@ -16,12 +16,14 @@
             <ColumnDefinition Width="3*"/>
         </Grid.ColumnDefinitions>
 
+        <!-- Hlavička -->
         <TextBlock Grid.Row="0" Grid.ColumnSpan="2"
                    Text="Prodeje"
                    FontSize="24"
                    FontWeight="Bold"
                    Margin="0,0,0,10"/>
 
+        <!-- Levá strana – seznam prodejů -->
         <DataGrid Grid.Row="1" Grid.Column="0"
                   ItemsSource="{Binding Sales}"
                   SelectedItem="{Binding SelectedSale, Mode=TwoWay}"
@@ -35,67 +37,131 @@
             </DataGrid.Columns>
         </DataGrid>
 
-        <StackPanel Grid.Row="1" Grid.Column="1" Margin="10,0,0,0">
-            <TextBlock Text="Detail prodeje" FontSize="18" FontWeight="Bold" Margin="0,0,0,10"/>
+        <!-- Pravá strana – detail prodeje -->
+        <Grid Grid.Row="1" Grid.Column="1" Margin="10,0,0,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <!-- detail + díla -->
+                <RowDefinition Height="Auto"/>
+                <!-- hlavní tlačítka -->
+            </Grid.RowDefinitions>
 
-            <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
-                <TextBlock Text="Cena:" Width="140"/>
-                <TextBox Text="{Binding SelectedSale.Price, UpdateSourceTrigger=PropertyChanged}" Width="100"/>
-            </StackPanel>
+            <!-- Scrollovatelný obsah -->
+            <ScrollViewer Grid.Row="0"
+                          VerticalScrollBarVisibility="Auto">
+                <StackPanel>
 
-            <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
-                <TextBlock Text="Datum prodeje:" Width="140"/>
-                <DatePicker SelectedDate="{Binding SelectedSale.DateOfSale, UpdateSourceTrigger=PropertyChanged}" Width="200"/>
-            </StackPanel>
+                    <TextBlock Text="Detail prodeje"
+                               FontSize="18"
+                               FontWeight="Bold"
+                               Margin="0,0,0,10"/>
 
-            <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
-                <TextBlock Text="Číslo karty:" Width="140"/>
-                <TextBox Text="{Binding SelectedSale.CardNumber, UpdateSourceTrigger=PropertyChanged}" Width="200"/>
-            </StackPanel>
+                    <!-- Cena -->
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                        <TextBlock Text="Cena:" Width="140"/>
+                        <TextBox Text="{Binding SelectedSale.Price, UpdateSourceTrigger=PropertyChanged}"
+                                 Width="100"/>
+                    </StackPanel>
 
-            <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
-                <TextBlock Text="Číslo účtu:" Width="140"/>
-                <TextBox Text="{Binding SelectedSale.AccountNumber, UpdateSourceTrigger=PropertyChanged}" Width="200"/>
-            </StackPanel>
+                    <!-- Datum prodeje -->
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                        <TextBlock Text="Datum prodeje:" Width="140"/>
+                        <DatePicker SelectedDate="{Binding SelectedSale.DateOfSale, UpdateSourceTrigger=PropertyChanged}"
+                                    Width="200"/>
+                    </StackPanel>
 
-            <StackPanel Orientation="Horizontal" Margin="0,10,0,5">
-                <TextBlock Text="Typ platby:" Width="140"/>
-                <!--<TextBox Text="{Binding SelectedSale.TypeOfPayment.Name}" Width="200"/>-->
-                <ComboBox Width="200"
-                    ItemsSource="{Binding TypesOfPayment}"
-                    SelectedValue="{Binding SelectedSale.TypeOfPayment.Id, Mode=TwoWay}"
-                    SelectedValuePath="Id"
-                    DisplayMemberPath="Name" />
-            </StackPanel>
+                    <!-- Číslo karty -->
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                        <TextBlock Text="Číslo karty:" Width="140"/>
+                        <TextBox Text="{Binding SelectedSale.CardNumber, UpdateSourceTrigger=PropertyChanged}"
+                                 Width="200"/>
+                    </StackPanel>
 
-            <StackPanel Orientation="Vertical" HorizontalAlignment="Right" Margin="0,15,0,0">
+                    <!-- Číslo účtu -->
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                        <TextBlock Text="Číslo účtu:" Width="140"/>
+                        <TextBox Text="{Binding SelectedSale.AccountNumber, UpdateSourceTrigger=PropertyChanged}"
+                                 Width="200"/>
+                    </StackPanel>
 
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                    <Button Content="Nový" Command="{Binding NewCommand}" Margin="0,0,10,0" Width="80"/>
-                    <Button Content="Uložit" Command="{Binding SaveCommand}" Margin="0,0,10,0" Width="80"/>
-                    <Button Content="Smazat" Command="{Binding DeleteCommand}" Width="80"/>
+                    <!-- Typ platby -->
+                    <StackPanel Orientation="Horizontal" Margin="0,10,0,5">
+                        <TextBlock Text="Typ platby:" Width="140"/>
+                        <ComboBox Width="200"
+                                  ItemsSource="{Binding TypesOfPayment}"
+                                  SelectedValue="{Binding SelectedSale.TypeOfPayment.Id, Mode=TwoWay}"
+                                  SelectedValuePath="Id"
+                                  DisplayMemberPath="Name" />
+                    </StackPanel>
+
+                    <!-- Kupující -->
+                    <StackPanel Orientation="Horizontal" Margin="0,10,0,5">
+                        <TextBlock Text="Kupující:" Width="140"/>
+                        <ComboBox Width="250"
+                                  ItemsSource="{Binding Buyers}"
+                                  SelectedValue="{Binding SelectedSale.Buyer.Id, Mode=TwoWay}"
+                                  SelectedValuePath="Id"
+                                  DisplayMemberPath="LastName"/>
+                        <!-- pokud máš FullName, změň DisplayMemberPath -->
+                    </StackPanel>
+
+                    <!-- Umělecká díla v prodeji -->
+                    <TextBlock Text="Prodávaná umělecká díla:"
+                               Margin="0,15,0,5"/>
+
+                    <DataGrid ItemsSource="{Binding SelectedSale.ArtPieces}"
+                              SelectedItem="{Binding SelectedArtPieceOnSale, Mode=TwoWay}"
+                              AutoGenerateColumns="False"
+                              Height="150"
+                              Margin="0,0,0,5">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="Auto"/>
+                            <DataGridTextColumn Header="Název" Binding="{Binding Name}" Width="*"/>
+                            <DataGridTextColumn Header="Typ díla" Binding="{Binding ArtPieceType}" Width="*"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                    <!-- Přidávání / odebírání díla -->
+                    <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                        <TextBlock Text="Přidat dílo:" Width="140" VerticalAlignment="Center"/>
+
+                        <ComboBox Width="250"
+                                  ItemsSource="{Binding AvailableArtPieces}"
+                                  SelectedItem="{Binding SelectedArtPieceToAdd, Mode=TwoWay}"
+                                  DisplayMemberPath="Name"
+                                  Margin="0,0,10,0"/>
+
+                        <Button Content="Přidat"
+                                Width="80"
+                                Margin="0,0,5,0"
+                                Command="{Binding AddArtPieceToSaleCommand}"/>
+
+                        <Button Content="Odebrat vybrané"
+                                Width="110"
+                                Command="{Binding RemoveArtPieceFromSaleCommand}"/>
+                    </StackPanel>
+
                 </StackPanel>
+            </ScrollViewer>
 
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
-                    <Button Content="Přidej umělecké dílo" Command="{Binding LoadCommand}" Margin="0,0,10,0" Width="130"/>
-                    <Button Content="Odeber umělecké dílo" Command="{Binding LoadCommand}" Width="130"/>
-                </StackPanel>
-
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
-                    
-                    <Button Content="Přidej kupce" Command="{Binding LoadCommand}" Margin="0,0,10,0" Width="100"/>
-                    <Button Content="Odeber kupce" Command="{Binding LoadCommand}" Width="100"/>
-                    
-                </StackPanel>
-
-               
-
+            <!-- Hlavní CRUD tlačítka pro prodej – vždy viditelná -->
+            <StackPanel Grid.Row="1"
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Right"
+                        Margin="0,10,0,0">
+                <Button Content="Nový"
+                        Command="{Binding NewCommand}"
+                        Margin="0,0,10,0"
+                        Width="80"/>
+                <Button Content="Uložit"
+                        Command="{Binding SaveCommand}"
+                        Margin="0,0,10,0"
+                        Width="80"/>
+                <Button Content="Smazat"
+                        Command="{Binding DeleteCommand}"
+                        Width="80"/>
             </StackPanel>
-            <ListBox ItemsSource="{Binding SelectedSale.ArtPieceCounters}"
-DisplayMemberPath="Name"
-Width="200"
-Height="100"
-Margin="10,0,0,0"/>
-        </StackPanel>
+
+        </Grid>
     </Grid>
 </UserControl>

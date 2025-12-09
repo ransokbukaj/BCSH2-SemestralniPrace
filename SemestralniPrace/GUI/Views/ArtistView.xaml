@@ -7,17 +7,25 @@
              Background="White"
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid Margin="10">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="5*"/>
-            <ColumnDefinition Width="5*"/>
-        </Grid.ColumnDefinitions>
+        <!-- Rozdělení okna: hlavička, obsah, spodní tlačítka -->
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
+            <!-- Hlavička -->
             <RowDefinition Height="*"/>
+            <!-- Obsah -->
+            <RowDefinition Height="Auto"/>
+            <!-- CRUD tlačítka -->
         </Grid.RowDefinitions>
 
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="5*"/>
+            <!-- seznam umělců -->
+            <ColumnDefinition Width="5*"/>
+            <!-- detail + díla -->
+        </Grid.ColumnDefinitions>
+
         <!-- Hlavička -->
-        <TextBlock Grid.ColumnSpan="2"
+        <TextBlock Grid.Row="0" Grid.ColumnSpan="2"
                    Text="Umělci"
                    FontSize="24"
                    FontWeight="Bold"
@@ -39,59 +47,96 @@
             </DataGrid.Columns>
         </DataGrid>
 
-        <!-- Detail / editace -->
-        <StackPanel Grid.Row="1" Grid.Column="1" Margin="10,0,0,0">
-            <TextBlock Text="Detail umělce" FontSize="18" FontWeight="Bold" Margin="0,0,0,10"/>
+        <!-- Pravý panel: detail + seznam děl v ScrollVieweru -->
+        <ScrollViewer Grid.Row="1" Grid.Column="1"
+                      Margin="10,0,0,0"
+                      VerticalScrollBarVisibility="Auto">
+            <StackPanel>
+                <!-- Detail umělce -->
+                <TextBlock Text="Detail umělce"
+                           FontSize="18"
+                           FontWeight="Bold"
+                           Margin="0,0,0,10"/>
 
-            <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
-                <TextBlock Text="ID:" Width="100" VerticalAlignment="Center"/>
-                <TextBlock Text="{Binding SelectedArtist.Id}"/>
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                    <TextBlock Text="ID:" Width="100" VerticalAlignment="Center"/>
+                    <TextBlock Text="{Binding SelectedArtist.Id}"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                    <TextBlock Text="Jméno:" Width="100" VerticalAlignment="Center"/>
+                    <TextBox Text="{Binding SelectedArtist.FirstName, UpdateSourceTrigger=PropertyChanged}"
+                             Width="200"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                    <TextBlock Text="Příjmení:" Width="100" VerticalAlignment="Center"/>
+                    <TextBox Text="{Binding SelectedArtist.LastName, UpdateSourceTrigger=PropertyChanged}"
+                             Width="200"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                    <TextBlock Text="Narození:" Width="100" VerticalAlignment="Center"/>
+                    <DatePicker SelectedDate="{Binding SelectedArtist.DateOfBirth, UpdateSourceTrigger=PropertyChanged}"
+                                Width="200"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                    <TextBlock Text="Úmrtí:" Width="100" VerticalAlignment="Center"/>
+                    <DatePicker SelectedDate="{Binding SelectedArtist.DateOfDeath, UpdateSourceTrigger=PropertyChanged}"
+                                Width="200"/>
+                </StackPanel>
+
+                <TextBlock Text="Popis:" Margin="0,10,0,5"/>
+                <TextBox Text="{Binding SelectedArtist.Description, UpdateSourceTrigger=PropertyChanged}"
+                         AcceptsReturn="True"
+                         TextWrapping="Wrap"
+                         Height="100"
+                         VerticalScrollBarVisibility="Auto"/>
+
+                <!-- Umělecká díla umělce -->
+                <TextBlock Text="Umělecká díla umělce"
+                           FontSize="16"
+                           FontWeight="Bold"
+                           Margin="0,15,0,5"/>
+
+                <DataGrid ItemsSource="{Binding SelectedArtist.ArtPieces}"
+                          AutoGenerateColumns="False"
+                          IsReadOnly="True"
+                          Height="200">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="Auto"/>
+                        <DataGridTextColumn Header="Název" Binding="{Binding Name}" Width="*"/>
+                        <DataGridTextColumn Header="Datum vzniku" Binding="{Binding PublishedDate, StringFormat=\{0:d\}}" Width="*"/>
+                        <!-- pokud máš typ díla (obraz/socha), můžeš přidat sloupec -->
+                        <!-- <DataGridTextColumn Header="Typ" Binding="{Binding TypeName}" Width="*"/> -->
+                    </DataGrid.Columns>
+                </DataGrid>
+
+                <!-- případně sem můžeš časem přidat tlačítka na přidání/odebrání děl autora -->
             </StackPanel>
+        </ScrollViewer>
 
-            <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
-                <TextBlock Text="Jméno:" Width="100" VerticalAlignment="Center"/>
-                <TextBox Text="{Binding SelectedArtist.FirstName, UpdateSourceTrigger=PropertyChanged}" Width="200"/>
-            </StackPanel>
-
-            <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
-                <TextBlock Text="Příjmení:" Width="100" VerticalAlignment="Center"/>
-                <TextBox Text="{Binding SelectedArtist.LastName, UpdateSourceTrigger=PropertyChanged}" Width="200"/>
-            </StackPanel>
-
-            <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
-                <TextBlock Text="Narození:" Width="100" VerticalAlignment="Center"/>
-                <DatePicker SelectedDate="{Binding SelectedArtist.DateOfBirth, UpdateSourceTrigger=PropertyChanged}" Width="200"/>
-            </StackPanel>
-
-            <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
-                <TextBlock Text="Úmrtí:" Width="100" VerticalAlignment="Center"/>
-                <DatePicker SelectedDate="{Binding SelectedArtist.DateOfDeath, UpdateSourceTrigger=PropertyChanged}" Width="200"/>
-            </StackPanel>
-
-            <TextBlock Text="Popis:" Margin="0,10,0,5"/>
-            <TextBox Text="{Binding SelectedArtist.Description, UpdateSourceTrigger=PropertyChanged}"
-                     AcceptsReturn="True"
-                     TextWrapping="Wrap"
-                     Height="100"
-                     VerticalScrollBarVisibility="Auto"/>
-
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,15,0,0">
-                <Button Content="Načíst"
-                        Command="{Binding LoadArtistsCommand}"
-                        Margin="0,0,10,0"
-                        Width="80"/>
-                <Button Content="Nový"
-                        Command="{Binding NewCommand}"
-                        Margin="0,0,10,0"
-                        Width="80"/>
-                <Button Content="Uložit"
-                        Command="{Binding SaveCommand}"
-                        Margin="0,0,10,0"
-                        Width="80"/>
-                <Button Content="Smazat"
-                        Command="{Binding DeleteCommand}"
-                        Width="80"/>
-            </StackPanel>
+        <!-- Hlavní CRUD tlačítka – mimo ScrollViewer, vždy viditelná -->
+        <StackPanel Grid.Row="2" Grid.Column="1"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right"
+                    Margin="10,15,0,0">
+            <Button Content="Načíst"
+                    Command="{Binding LoadArtistsCommand}"
+                    Margin="0,0,10,0"
+                    Width="80"/>
+            <Button Content="Nový"
+                    Command="{Binding NewCommand}"
+                    Margin="0,0,10,0"
+                    Width="80"/>
+            <Button Content="Uložit"
+                    Command="{Binding SaveCommand}"
+                    Margin="0,0,10,0"
+                    Width="80"/>
+            <Button Content="Smazat"
+                    Command="{Binding DeleteCommand}"
+                    Width="80"/>
         </StackPanel>
     </Grid>
 </UserControl>
