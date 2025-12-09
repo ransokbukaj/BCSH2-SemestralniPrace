@@ -22,21 +22,14 @@ namespace GUI.ViewModels
         [ObservableProperty]
         private Address selectedAddress;
 
+        [ObservableProperty]
+        private Post selectedPost;
 
         public ObservableCollection<Post> Posts { get; set; }   // seznam všech PSÈ
 
-        public Post SelectedPost                                   // vybraný post
-        {
-            get => SelectedAddress?.Post;
-            set
-            {
-                if (SelectedAddress != null)
-                {
-                    SelectedAddress.Post = value;
-                    OnPropertyChanged(nameof(SelectedAddress));
-                }
-            }
-        }
+       
+
+      
 
         public AddressViewModel()
         {
@@ -53,7 +46,10 @@ namespace GUI.ViewModels
         [RelayCommand]
         private void New()
         {
-            SelectedAddress = new Address();
+            SelectedAddress = new Address()
+            {
+                Post = new Post()   // <<< Tohle je klíèové!
+            }; 
         }
 
         [RelayCommand]
@@ -61,6 +57,12 @@ namespace GUI.ViewModels
         {
             if (SelectedAddress == null)
                 return;
+
+            if (Posts != null)
+            {
+                // sjednotit instanci Post podle Id
+                SelectedAddress.Post = Posts.FirstOrDefault(p => p.Id == SelectedAddress.Post.Id);
+            }
 
             repository.SaveItem(SelectedAddress);
             Load();

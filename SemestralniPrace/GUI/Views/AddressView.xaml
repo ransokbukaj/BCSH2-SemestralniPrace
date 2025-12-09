@@ -66,9 +66,10 @@
                 <TextBlock Text="Pošta:" Width="120"/>
 
                 <ComboBox Width="200"
-              ItemsSource="{Binding Posts}"
-              SelectedItem="{Binding SelectedPost, Mode=TwoWay}"
-              DisplayMemberPath="CityWithPSC" />
+          ItemsSource="{Binding Posts}"
+          SelectedValue="{Binding SelectedAddress.Post.Id, Mode=TwoWay}"
+          SelectedValuePath="Id"
+          DisplayMemberPath="CityWithPSC" />
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,15,0,0">
