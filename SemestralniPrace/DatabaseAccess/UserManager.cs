@@ -37,28 +37,25 @@ namespace DatabaseAccess
                 }
 
                 // Kontrola, zda uživatel již neexistuje
-                using (var connection = ConnectionManager.Connection)
+                string checkQuery = @"
+                    SELECT COUNT(*) 
+                    FROM uzivatele 
+                    WHERE uzivatelskejmeno = :username";
+
+                using (var command = ConnectionManager.Connection.CreateCommand())
                 {
-                    string checkQuery = @"
-                        SELECT COUNT(*) 
-                        FROM uzivatele 
-                        WHERE uzivatelskejmeno = :username";
+                    var param = command.CreateParameter();
+                    param.ParameterName = ":username";
+                    param.Value = username;
 
-                    using (var command = connection.CreateCommand())
+                    command.CommandText = checkQuery;
+                    command.Parameters.Add(param);
+
+                    int count = Convert.ToInt32(command.ExecuteScalar());
+                    if (count > 0)
                     {
-                        var param = command.CreateParameter();
-                        param.ParameterName = ":username";
-                        param.Value = username;
-
-                        command.CommandText = checkQuery;
-                        command.Parameters.Add(param);
-
-                        int count = Convert.ToInt32(command.ExecuteScalar());
-                        if (count > 0)
-                        {
-                            // Uživatelské jméno již existuje
-                            return false;
-                        }
+                        // Uživatelské jméno již existuje
+                        return false;
                     }
                 }
 

@@ -14,52 +14,49 @@ namespace DatabaseAccess
         public List<Sale> GetList()
         {
             var list = new List<Sale>();
-            using (var connection = ConnectionManager.Connection)
+            using (var command = ConnectionManager.Connection.CreateCommand())
             {
-                using (var command = connection.CreateCommand())
-                {
-                    command.CommandText = @"
-                        SELECT 
-                            id,
-                            cena,
-                            datum_prodeje,
-                            cislo_karty,
-                            cislo_uctu,
-                            id_druh_platby,
-                            nazev_druhu_platby,
-                            id_kupec,
-                            kupec_jmeno,
-                            kupec_prijmeni,
-                            kupec_email,
-                            kupec_telefon
-                        FROM v_prodeje";
+                command.CommandText = @"
+                    SELECT 
+                        id,
+                        cena,
+                        datum_prodeje,
+                        cislo_karty,
+                        cislo_uctu,
+                        id_druh_platby,
+                        nazev_druhu_platby,
+                        id_kupec,
+                        kupec_jmeno,
+                        kupec_prijmeni,
+                        kupec_email,
+                        kupec_telefon
+                    FROM v_prodeje";
 
-                    using (var reader = command.ExecuteReader())
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
                     {
-                        while (reader.Read())
+                        list.Add(new Sale
                         {
-                            list.Add(new Sale
+                            Id = Convert.ToInt32(reader["id"]),
+                            Price = Convert.ToDecimal(reader["cena"]),
+                            DateOfSale = Convert.ToDateTime(reader["datum_prodeje"]),
+                            CardNumber = reader["cislo_karty"] == DBNull.Value ? null : reader["cislo_karty"].ToString(),
+                            AccountNumber = reader["cislo_uctu"] == DBNull.Value ? null : reader["cislo_uctu"].ToString(),
+                            TypeOfPayment = new Counter
                             {
-                                Id = Convert.ToInt32(reader["id"]),
-                                Price = Convert.ToDecimal(reader["cena"]),
-                                DateOfSale = Convert.ToDateTime(reader["datum_prodeje"]),
-                                CardNumber = reader["cislo_karty"] == DBNull.Value ? null : reader["cislo_karty"].ToString(),
-                                AccountNumber = reader["cislo_uctu"] == DBNull.Value ? null : reader["cislo_uctu"].ToString(),
-                                TypeOfPayment = new Counter
-                                {
-                                    Id = Convert.ToInt32(reader["id_druh_platby"]),
-                                    Name = reader["nazev_druhu_platby"].ToString()
-                                },
-                                Buyer = new Buyer
-                                {
-                                    Id = Convert.ToInt32(reader["id_kupec"]),
-                                    FirstName = reader["kupec_jmeno"].ToString(),
-                                    LastName = reader["kupec_prijmeni"].ToString(),
-                                    Email = reader["kupec_email"] == DBNull.Value ? null : reader["kupec_email"].ToString(),
-                                    PhoneNumber = reader["kupec_telefon"].ToString()
-                                }
-                            });
-                        }
+                                Id = Convert.ToInt32(reader["id_druh_platby"]),
+                                Name = reader["nazev_druhu_platby"].ToString()
+                            },
+                            Buyer = new Buyer
+                            {
+                                Id = Convert.ToInt32(reader["id_kupec"]),
+                                FirstName = reader["kupec_jmeno"].ToString(),
+                                LastName = reader["kupec_prijmeni"].ToString(),
+                                Email = reader["kupec_email"] == DBNull.Value ? null : reader["kupec_email"].ToString(),
+                                PhoneNumber = reader["kupec_telefon"].ToString()
+                            }
+                        });
                     }
                 }
             }
@@ -68,91 +65,88 @@ namespace DatabaseAccess
 
         public void SaveItem(Sale sale)
         {
-            using (var connection = ConnectionManager.Connection)
+            using (var command = ConnectionManager.Connection.CreateCommand())
             {
-                using (var command = connection.CreateCommand())
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+                command.CommandText = "p_save_prodej";
+
+                var paramId = new OracleParameter
                 {
-                    command.CommandType = System.Data.CommandType.StoredProcedure;
-                    command.CommandText = "p_save_prodej";
+                    ParameterName = "p_idprodej",
+                    OracleDbType = OracleDbType.Int32,
+                    Direction = System.Data.ParameterDirection.Input,
+                    Value = sale.Id == 0 ? (object)DBNull.Value : sale.Id
+                };
+                command.Parameters.Add(paramId);
 
-                    var paramId = new OracleParameter
+                var paramCena = new OracleParameter
+                {
+                    ParameterName = "p_cena",
+                    OracleDbType = OracleDbType.Decimal,
+                    Direction = System.Data.ParameterDirection.Input,
+                    Value = sale.Price
+                };
+                command.Parameters.Add(paramCena);
+
+                var paramDatum = new OracleParameter
+                {
+                    ParameterName = "p_datumprodeje",
+                    OracleDbType = OracleDbType.Date,
+                    Direction = System.Data.ParameterDirection.Input,
+                    Value = sale.DateOfSale
+                };
+                command.Parameters.Add(paramDatum);
+
+                var paramCisloKarty = new OracleParameter
+                {
+                    ParameterName = "p_cislokarty",
+                    OracleDbType = OracleDbType.Varchar2,
+                    Direction = System.Data.ParameterDirection.Input,
+                    Value = string.IsNullOrEmpty(sale.CardNumber) ? (object)DBNull.Value : sale.CardNumber
+                };
+                command.Parameters.Add(paramCisloKarty);
+
+                var paramCisloUctu = new OracleParameter
+                {
+                    ParameterName = "p_cislouctu",
+                    OracleDbType = OracleDbType.Varchar2,
+                    Direction = System.Data.ParameterDirection.Input,
+                    Value = string.IsNullOrEmpty(sale.AccountNumber) ? (object)DBNull.Value : sale.AccountNumber
+                };
+                command.Parameters.Add(paramCisloUctu);
+
+                var paramDruhPlatby = new OracleParameter
+                {
+                    ParameterName = "p_iddruhplatby",
+                    OracleDbType = OracleDbType.Int32,
+                    Direction = System.Data.ParameterDirection.Input,
+                    Value = sale.TypeOfPayment.Id
+                };
+                command.Parameters.Add(paramDruhPlatby);
+
+                var paramKupec = new OracleParameter
+                {
+                    ParameterName = "p_idkupec",
+                    OracleDbType = OracleDbType.Int32,
+                    Direction = System.Data.ParameterDirection.Input,
+                    Value = sale.Buyer.Id
+                };
+                command.Parameters.Add(paramKupec);
+
+                // Provedení procedury
+                command.ExecuteNonQuery();
+
+                // Commit transakce
+                using (var transaction = ConnectionManager.Connection.BeginTransaction())
+                {
+                    try
                     {
-                        ParameterName = "p_idprodej",
-                        OracleDbType = OracleDbType.Int32,
-                        Direction = System.Data.ParameterDirection.Input,
-                        Value = sale.Id == 0 ? (object)DBNull.Value : sale.Id
-                    };
-                    command.Parameters.Add(paramId);
-
-                    var paramCena = new OracleParameter
+                        transaction.Commit();
+                    }
+                    catch
                     {
-                        ParameterName = "p_cena",
-                        OracleDbType = OracleDbType.Decimal,
-                        Direction = System.Data.ParameterDirection.Input,
-                        Value = sale.Price
-                    };
-                    command.Parameters.Add(paramCena);
-
-                    var paramDatum = new OracleParameter
-                    {
-                        ParameterName = "p_datumprodeje",
-                        OracleDbType = OracleDbType.Date,
-                        Direction = System.Data.ParameterDirection.Input,
-                        Value = sale.DateOfSale
-                    };
-                    command.Parameters.Add(paramDatum);
-
-                    var paramCisloKarty = new OracleParameter
-                    {
-                        ParameterName = "p_cislokarty",
-                        OracleDbType = OracleDbType.Varchar2,
-                        Direction = System.Data.ParameterDirection.Input,
-                        Value = string.IsNullOrEmpty(sale.CardNumber) ? (object)DBNull.Value : sale.CardNumber
-                    };
-                    command.Parameters.Add(paramCisloKarty);
-
-                    var paramCisloUctu = new OracleParameter
-                    {
-                        ParameterName = "p_cislouctu",
-                        OracleDbType = OracleDbType.Varchar2,
-                        Direction = System.Data.ParameterDirection.Input,
-                        Value = string.IsNullOrEmpty(sale.AccountNumber) ? (object)DBNull.Value : sale.AccountNumber
-                    };
-                    command.Parameters.Add(paramCisloUctu);
-
-                    var paramDruhPlatby = new OracleParameter
-                    {
-                        ParameterName = "p_iddruhplatby",
-                        OracleDbType = OracleDbType.Int32,
-                        Direction = System.Data.ParameterDirection.Input,
-                        Value = sale.TypeOfPayment.Id
-                    };
-                    command.Parameters.Add(paramDruhPlatby);
-
-                    var paramKupec = new OracleParameter
-                    {
-                        ParameterName = "p_idkupec",
-                        OracleDbType = OracleDbType.Int32,
-                        Direction = System.Data.ParameterDirection.Input,
-                        Value = sale.Buyer.Id
-                    };
-                    command.Parameters.Add(paramKupec);
-
-                    // Provedení procedury
-                    command.ExecuteNonQuery();
-
-                    // Commit transakce
-                    using (var transaction = connection.BeginTransaction())
-                    {
-                        try
-                        {
-                            transaction.Commit();
-                        }
-                        catch
-                        {
-                            transaction.Rollback();
-                            throw;
-                        }
+                        transaction.Rollback();
+                        throw;
                     }
                 }
             }
@@ -160,37 +154,34 @@ namespace DatabaseAccess
 
         public void DeleteItem(int id)
         {
-            using (var connection = ConnectionManager.Connection)
+            using (var command = ConnectionManager.Connection.CreateCommand())
             {
-                using (var command = connection.CreateCommand())
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+                command.CommandText = "p_delete_prodej";
+
+                var paramId = new OracleParameter
                 {
-                    command.CommandType = System.Data.CommandType.StoredProcedure;
-                    command.CommandText = "p_delete_prodej";
+                    ParameterName = "p_idprodej",
+                    OracleDbType = OracleDbType.Int32,
+                    Direction = System.Data.ParameterDirection.Input,
+                    Value = id
+                };
+                command.Parameters.Add(paramId);
 
-                    var paramId = new OracleParameter
+                // Provedení procedury
+                command.ExecuteNonQuery();
+
+                // Commit transakce
+                using (var transaction = ConnectionManager.Connection.BeginTransaction())
+                {
+                    try
                     {
-                        ParameterName = "p_idprodej",
-                        OracleDbType = OracleDbType.Int32,
-                        Direction = System.Data.ParameterDirection.Input,
-                        Value = id
-                    };
-                    command.Parameters.Add(paramId);
-
-                    // Provedení procedury
-                    command.ExecuteNonQuery();
-
-                    // Commit transakce
-                    using (var transaction = connection.BeginTransaction())
+                        transaction.Commit();
+                    }
+                    catch
                     {
-                        try
-                        {
-                            transaction.Commit();
-                        }
-                        catch
-                        {
-                            transaction.Rollback();
-                            throw;
-                        }
+                        transaction.Rollback();
+                        throw;
                     }
                 }
             }
