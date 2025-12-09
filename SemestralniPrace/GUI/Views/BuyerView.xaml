@@ -69,7 +69,7 @@
             <!-- Adresa jen jako text (detail adresy řeší AddressView) -->
             <StackPanel Orientation="Horizontal" Margin="0,10,0,5">
                 <TextBlock Text="Adresa:" Width="120"/>
-                <ComboBox Width="250"
+                <ComboBox Width="200"
                         ItemsSource="{Binding Addresses}"
                         SelectedValue="{Binding SelectedBuyer.Adress.Id, Mode=TwoWay}"
                         SelectedValuePath="Id"

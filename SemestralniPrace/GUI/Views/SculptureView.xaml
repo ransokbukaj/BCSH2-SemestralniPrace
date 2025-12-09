@@ -86,7 +86,7 @@
 
                     <StackPanel Orientation="Horizontal" Margin="0,10,0,5">
                         <TextBlock Text="Materiál:" Width="140"/>
-                    <ComboBox Width="250"
+                    <ComboBox Width="200"
                         ItemsSource="{Binding Materials}"
                         SelectedValue="{Binding SelectedSculpture.Material.Id, Mode=TwoWay}"
                         SelectedValuePath="Id"
