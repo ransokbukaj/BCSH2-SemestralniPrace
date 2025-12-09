@@ -159,3 +159,23 @@ FROM uzivatele u
     INNER JOIN role r ON u.idrole = r.idrole
 WHERE u.deaktivovan = 0
 ORDER BY u.uzivatelskejmeno;
+
+CREATE OR REPLACE VIEW v_obrazy AS
+SELECT 
+    o.idumeleckedilo AS id,
+    d.nazev AS nazev,
+    d.popis AS popis,
+    d.datumzverejneni AS datum_zverejneni,
+    d.vyska AS vyska,
+    d.sirka AS sirka,
+    d.idprodej AS id_prodej,
+    d.idvystava AS id_vystava,
+    o.idpodklad AS id_podklad,
+    p.nazev AS nazev_podkladu,
+    o.idtechnika AS id_technika,
+    t.nazev AS nazev_techniky
+FROM obrazy o
+    INNER JOIN umelecka_dila d ON o.idumeleckedilo = d.idumeleckedilo
+    INNER JOIN podklady p ON o.idpodklad = p.idpodklad
+    INNER JOIN techniky t ON o.idtechnika = t.idtechnika
+ORDER BY d.nazev;
