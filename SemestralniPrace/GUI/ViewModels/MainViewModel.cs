@@ -118,6 +118,9 @@ namespace GUI.ViewModels
                 case "SystemCatalog":
                     CurrentViewModel = new SystemCatalogViewModel();
                     break;
+                case "Profil":
+                    CurrentViewModel = new UserProfileViewModel();
+                    break;
             }
         }
     }

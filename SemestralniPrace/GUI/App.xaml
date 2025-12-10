@@ -62,6 +62,10 @@
             <views:SystemCatalogView/>
         </DataTemplate>
 
+        <DataTemplate DataType="{x:Type TypeName=viewModels:UserProfileViewModel}">
+            <views:UserProfileView/>
+        </DataTemplate>
+
         <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter" />
 
     </Application.Resources>
