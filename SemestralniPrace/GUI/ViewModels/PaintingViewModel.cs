@@ -2,6 +2,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using DatabaseAccess;
 using Entities;
+using GUI.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -16,20 +17,99 @@ namespace GUI.ViewModels
     {
         private readonly PaintingRepository repository = new PaintingRepository();
         private readonly CounterRepository counterRep = new CounterRepository();
+        private readonly AttachmentRepository attRep = new AttachmentRepository();
 
 
 
         [ObservableProperty]
         private ObservableCollection<Painting> paintings = new();
+
         [ObservableProperty]
         private ObservableCollection<Counter> techniques = new();
+
         [ObservableProperty]
         private ObservableCollection<Counter> bases = new();
 
+        [ObservableProperty]
+        private ObservableCollection<Attachment> attachments = new();
+
+        
+        [ObservableProperty]
+        private Painting selectedPainting;
+
+
 
 
         [ObservableProperty]
-        private Painting selectedPainting;
+        private Attachment selectedAttachment;
+
+        [ObservableProperty]
+        private ImageSource selectedImage;
+
+
+        partial void OnSelectedPaintingChanged(Painting? oldValue, Painting newValue)
+        {
+            if(SelectedPainting != null && SelectedPainting.Id != 0)
+            {
+                Attachments = new ObservableCollection<Attachment>(attRep.GetListByArtPieceId(SelectedPainting.Id));
+                if(Attachments.Count > 0)
+                {
+                    SelectedAttachment = Attachments[0];
+                    SelectedImage = AttachmentHelper.LoadImageSource(SelectedAttachment.File);
+                }
+            }
+        }
+
+        partial void OnSelectedAttachmentChanged(Attachment value)
+        {
+            SelectedImage = AttachmentHelper.LoadImageSource(SelectedAttachment.File);
+        }
+
+        [RelayCommand]
+        private void PreviousImage()
+        {
+            int cur = Attachments.IndexOf(SelectedAttachment);
+            if(cur == 0)
+            {
+                SelectedAttachment = Attachments.Last();
+            }
+            else
+            {
+                SelectedAttachment = Attachments[cur - 1];
+            }
+        }
+
+        [RelayCommand]
+        private void NextImage()
+        {
+            int cur = Attachments.IndexOf(SelectedAttachment);
+            if (cur == (Attachments.Count - 1))
+            {
+                SelectedAttachment = Attachments.First();
+            }
+            else
+            {
+                SelectedAttachment = Attachments[cur + 1];
+            }
+        }
+
+        [RelayCommand]
+        private void AddImage()
+        {
+
+        }
+
+        [RelayCommand]
+        private void RemoveCurrentImage()
+        {
+
+
+
+
+        }
+
+
+
 
         public PaintingViewModel()
         {
@@ -42,6 +122,7 @@ namespace GUI.ViewModels
             Paintings = new ObservableCollection<Painting>(repository.GetList());
             Techniques = new ObservableCollection<Counter>(counterRep.GetTechniques());
             Bases = new ObservableCollection<Counter>(counterRep.GetFoundations());
+            
         }
 
         [RelayCommand]

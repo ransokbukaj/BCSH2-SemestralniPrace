@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              mc:Ignorable="d"
              Background="White"
-             d:DesignHeight="450" d:DesignWidth="900">
+             d:DesignHeight="1000" d:DesignWidth="900">
     <Grid Margin="10">
         <!-- Hlavní rozdělení: hlavička, obsah, spodní tlačítka -->
         <Grid.RowDefinitions>
@@ -131,7 +131,7 @@
                             HorizontalAlignment="Left"
                             Margin="0,0,10,0">
                         <!-- předpoklad: CurrentImagePath (string) ve ViewModelu nebo SelectedPainting.ImagePath -->
-                        <Image Source="{Binding CurrentImagePath}"
+                        <Image Source="{Binding SelectedImage}"
                                Stretch="Uniform"/>
                     </Border>
 
@@ -139,11 +139,11 @@
                     <StackPanel Grid.Column="1"
                                 VerticalAlignment="Top">
                         <TextBlock Text="Název souboru:" FontWeight="Bold"/>
-                        <TextBlock Text="{Binding SelectedPainting.FileName}"
+                        <TextBlock Text="{Binding SelectedAttachment.FileName}"
                                    Margin="0,0,0,5"/>
 
                         <TextBlock Text="Typ souboru:" FontWeight="Bold"/>
-                        <TextBlock Text="{Binding SelectedPainting.FileType}"/>
+                        <TextBlock Text="{Binding SelectedAttachment.FileType}"/>
                     </StackPanel>
                 </Grid>
 
