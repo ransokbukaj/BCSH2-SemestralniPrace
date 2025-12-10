@@ -25,7 +25,7 @@ namespace DatabaseAccess
                         nove_hodnoty,
                         nazev_tabulky,
                         id_radku_tabulky,
-                        uzivatelske_jmeno,
+                        uzivatelske_jmeno
                     FROM v_zaznamy_historie";
 
                 using (var reader = command.ExecuteReader())

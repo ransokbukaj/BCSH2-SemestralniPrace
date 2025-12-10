@@ -150,7 +150,6 @@ SELECT
     u.telefonicislo AS telefonni_cislo,
     u.datumregistrace AS datum_registrace,
     u.datumposlednihoprihlaseni AS datum_posledniho_prihlaseni,
-    u.datumposlednizmeni AS datum_posledni_zmeny,
     u.idrole AS id_role,
     r.nazev AS nazev_role,
     u.deaktivovan AS deaktivovan

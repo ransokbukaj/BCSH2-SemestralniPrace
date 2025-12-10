@@ -26,7 +26,6 @@ namespace DatabaseAccess
                         telefonni_cislo,
                         datum_registrace,
                         datum_posledniho_prihlaseni,
-                        datum_posledni_zmeny,
                         id_role,
                         nazev_role
                     FROM v_uzivatele";
@@ -47,9 +46,6 @@ namespace DatabaseAccess
                             LastLogin = reader["datum_posledniho_prihlaseni"] == DBNull.Value
                                 ? (DateTime?)null
                                 : Convert.ToDateTime(reader["datum_posledniho_prihlaseni"]),
-                            LastChange = reader["datum_posledni_zmeny"] == DBNull.Value
-                                ? (DateTime?)null
-                                : Convert.ToDateTime(reader["datum_posledni_zmeny"]),
                             Role = new Counter
                             {
                                 Id = Convert.ToInt32(reader["id_role"]),

@@ -35,7 +35,7 @@
                 <DataGridTextColumn Header="Příjmení" Binding="{Binding LastName}" Width="*"/>
                 <DataGridTextColumn Header="Email" Binding="{Binding Email}" Width="*"/>
                 <DataGridTextColumn Header="Telefon" Binding="{Binding PhoneNumber}" Width="*"/>
-                <DataGridTextColumn Header="Role" Binding="{Binding Role}" Width="*"/>
+                <DataGridTextColumn Header="Role" Binding="{Binding Role.Name}" Width="*"/>
             </DataGrid.Columns>
         </DataGrid>
 

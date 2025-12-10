@@ -20,7 +20,6 @@ namespace Entities
         public string PhoneNumber { get; set; }
         public DateTime RegisterDate { get; set; }
         public DateTime? LastLogin { get; set; }
-        public DateTime? LastChange { get; set; }
         public Counter Role { get; set; }
     }
 }
