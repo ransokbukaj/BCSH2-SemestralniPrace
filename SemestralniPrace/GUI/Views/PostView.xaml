@@ -29,7 +29,7 @@
                   IsReadOnly="True"
                   Margin="0,0,10,0">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="Auto"/>
+                <!--<DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="Auto"/>-->
                 <DataGridTextColumn Header="Město" Binding="{Binding City}" Width="*"/>
                 <DataGridTextColumn Header="PSČ" Binding="{Binding PSC}" Width="*"/>
             </DataGrid.Columns>
@@ -38,10 +38,10 @@
         <StackPanel Grid.Row="1" Grid.Column="1" Margin="10,0,0,0">
             <TextBlock Text="Detail pošty" FontSize="18" FontWeight="Bold" Margin="0,0,0,10"/>
 
-            <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+            <!--<StackPanel Orientation="Horizontal" Margin="0,0,0,5">
                 <TextBlock Text="ID:" Width="120"/>
                 <TextBlock Text="{Binding SelectedPost.Id}"/>
-            </StackPanel>
+            </StackPanel>-->
 
             <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
                 <TextBlock Text="Město:" Width="120"/>

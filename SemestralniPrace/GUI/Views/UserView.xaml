@@ -29,7 +29,7 @@
                   IsReadOnly="True"
                   Margin="0,0,10,0">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="Auto"/>
+                <!--<DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="Auto"/>-->
                 <DataGridTextColumn Header="Uživatelské jméno" Binding="{Binding Username}" Width="*"/>
                 <DataGridTextColumn Header="Jméno" Binding="{Binding FirstName}" Width="*"/>
                 <DataGridTextColumn Header="Příjmení" Binding="{Binding LastName}" Width="*"/>
@@ -43,10 +43,10 @@
             <StackPanel>
                 <TextBlock Text="Detail uživatele" FontSize="18" FontWeight="Bold" Margin="0,0,0,10"/>
 
-                <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                <!--<StackPanel Orientation="Horizontal" Margin="0,0,0,5">
                     <TextBlock Text="ID:" Width="160"/>
                     <TextBlock Text="{Binding SelectedUser.Id}"/>
-                </StackPanel>
+                </StackPanel>-->
 
                 <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
                     <TextBlock Text="Uživatelské jméno:" Width="160"/>

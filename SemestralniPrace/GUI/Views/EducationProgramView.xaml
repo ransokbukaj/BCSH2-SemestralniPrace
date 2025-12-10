@@ -31,7 +31,7 @@
                   IsReadOnly="True"
                   Margin="0,0,10,0">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="Auto"/>
+                <!--<DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="Auto"/>-->
                 <DataGridTextColumn Header="Název" Binding="{Binding Name}" Width="*"/>
                 <DataGridTextColumn Header="Od" Binding="{Binding From, StringFormat=\{0:d\}}" Width="*"/>
                 <DataGridTextColumn Header="Do" Binding="{Binding To, StringFormat=\{0:d\}}" Width="*"/>
@@ -93,7 +93,7 @@
                               IsReadOnly="True"
                               Height="150">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="Auto"/>
+                            <!--<DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="Auto"/>-->
                             <DataGridTextColumn Header="Název" Binding="{Binding Name}" Width="*"/>
                             <DataGridTextColumn Header="Od" Binding="{Binding From, StringFormat=\{0:d\}}" Width="*"/>
                             <DataGridTextColumn Header="Do" Binding="{Binding To, StringFormat=\{0:d\}}" Width="*"/>
