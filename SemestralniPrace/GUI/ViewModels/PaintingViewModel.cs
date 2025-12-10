@@ -105,7 +105,14 @@ namespace GUI.ViewModels
         [RelayCommand]
         private void RemoveArtistFromPainting()
         {
+            if (SelectedPainting != null && SelectedArtistToRemove != null)
+            {
+                artistRep.RemoveArtistFromArtPiece(SelectedArtistToRemove.Id, SelectedPainting.Id);
+                AvailableArtists.Add(SelectedArtistToRemove);
+                Authors.Remove(SelectedArtistToRemove);
 
+                SelectedArtistToRemove = Authors.FirstOrDefault();
+            }
         }
 
 
