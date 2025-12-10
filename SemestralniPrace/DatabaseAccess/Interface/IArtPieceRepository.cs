@@ -15,7 +15,6 @@ namespace DatabaseAccess.Interface
 
         List<ArtPiece> GetListByExhibitionId(int exhibitionId);
 
-        //Díla co nejsou na žádné výstavì.
         List<ArtPiece> GetListInStorage();
 
         List<ArtPiece> GetListBySaleId(int saleId);

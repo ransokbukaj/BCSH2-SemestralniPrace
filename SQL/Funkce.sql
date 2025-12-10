@@ -139,7 +139,53 @@ EXCEPTION
 END;
 /
 
+------------------------------------------------------------------------------------------------------------------------------------------------------
 
+CREATE OR REPLACE FUNCTION f_get_artists_by_artpiece(
+    p_idumeleckedilo IN umelecka_dila.idumeleckedilo%TYPE
+) RETURN SYS_REFCURSOR
+IS
+    v_cursor SYS_REFCURSOR;
+BEGIN
+    OPEN v_cursor FOR
+        SELECT 
+            u.idumelec,
+            u.jmeno,
+            u.prijmeni,
+            u.datumnarozeni,
+            u.datumumrti,
+            u.popis
+        FROM umelci u
+        INNER JOIN umelci_umelecka_dila uud ON u.idumelec = uud.idumelec
+        WHERE uud.idumeleckedilo = p_idumeleckedilo
+        ORDER BY u.prijmeni, u.jmeno;
+    
+    RETURN v_cursor;
+END;
+/
 
-
-
+CREATE OR REPLACE FUNCTION f_get_artpieces_by_artist(
+    p_idumelec IN umelci.idumelec%TYPE
+) RETURN SYS_REFCURSOR
+IS
+    v_cursor SYS_REFCURSOR;
+BEGIN
+    OPEN v_cursor FOR
+        SELECT 
+            d.idumeleckedilo,
+            d.nazev,
+            d.popis,
+            d.datumzverejneni,
+            d.vyska,
+            d.sirka,
+            d.idprodej,
+            d.idvystava,
+            d.typdila
+        FROM umelecka_dila d
+        INNER JOIN umelci_umelecka_dila uud ON d.idumeleckedilo = uud.idumeleckedilo
+        WHERE uud.idumelec = p_idumelec
+        ORDER BY d.nazev;
+    
+    RETURN v_cursor;
+END;
+/
