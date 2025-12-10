@@ -1,5 +1,6 @@
 using DatabaseAccess.Interface;
 using Entities;
+using Oracle.ManagedDataAccess.Client;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,8 +11,6 @@ namespace DatabaseAccess
 {
     internal class ArtPieceRepository : IArtPieceRepository
     {
-       
-
         public List<ArtPiece> GetList()
         {
             var list = new List<ArtPiece>();
@@ -21,10 +20,14 @@ namespace DatabaseAccess
                     SELECT 
                         id_dilo,
                         dilo_nazev,
-                        
-
-
-                    FROM v_vystavy";
+                        dilo_popis,
+                        typ_dila,
+                        datum_zverejneni,
+                        vyska,
+                        sirka,
+                        id_prodej,
+                        id_vystava
+                    FROM v_umelecka_dila";
 
                 using (var reader = command.ExecuteReader())
                 {
@@ -32,12 +35,14 @@ namespace DatabaseAccess
                     {
                         list.Add(new ArtPiece
                         {
-                            Id = Convert.ToInt32(reader["id"]),
-                            Name = reader["nazev"].ToString(),
-
-
-
-                           
+                            Id = Convert.ToInt32(reader["id_dilo"]),
+                            Name = reader["dilo_nazev"].ToString(),
+                            Description = reader["dilo_popis"] == DBNull.Value ? null : reader["dilo_popis"].ToString(),
+                            PublishedDate = Convert.ToDateTime(reader["datum_zverejneni"]),
+                            Height = Convert.ToDouble(reader["vyska"]),
+                            Width = Convert.ToDouble(reader["sirka"]),
+                            ExhibitionId = reader["id_vystava"] == DBNull.Value ? 0 : Convert.ToInt32(reader["id_vystava"]),
+                            SaleId = reader["id_prodej"] == DBNull.Value ? 0 : Convert.ToInt32(reader["id_prodej"])
                         });
                     }
                 }
@@ -58,22 +63,182 @@ namespace DatabaseAccess
 
         public List<ArtPiece> GetListByArtistId(int artistId)
         {
-            throw new NotImplementedException();
+            var list = new List<ArtPiece>();
+            using (var command = ConnectionManager.Connection.CreateCommand())
+            {
+                // Volání funkce vracející cursor
+                command.CommandText = "SELECT * FROM TABLE(f_get_artpieces_by_artist(:p_idumelec))";
+                command.CommandType = System.Data.CommandType.Text;
+
+                // Parametr pro ID umělce
+                var paramId = new OracleParameter
+                {
+                    ParameterName = "p_idumelec",
+                    OracleDbType = OracleDbType.Int32,
+                    Direction = System.Data.ParameterDirection.Input,
+                    Value = artistId
+                };
+                command.Parameters.Add(paramId);
+
+                // Načtení dat
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        list.Add(new ArtPiece
+                        {
+                            Id = Convert.ToInt32(reader["idumeleckedilo"]),
+                            Name = reader["nazev"].ToString(),
+                            Description = reader["popis"] == DBNull.Value ? null : reader["popis"].ToString(),
+                            PublishedDate = Convert.ToDateTime(reader["datumzverejneni"]),
+                            Height = Convert.ToDouble(reader["vyska"]),
+                            Width = Convert.ToDouble(reader["sirka"]),
+                            ExhibitionId = reader["idvystava"] == DBNull.Value ? 0 : Convert.ToInt32(reader["idvystava"]),
+                            SaleId = reader["idprodej"] == DBNull.Value ? 0 : Convert.ToInt32(reader["idprodej"])
+                        });
+                    }
+                }
+            }
+            return list;
         }
 
         public List<ArtPiece> GetListByExhibitionId(int exhibitionId)
         {
-            throw new NotImplementedException();
+            var list = new List<ArtPiece>();
+            using (var command = ConnectionManager.Connection.CreateCommand())
+            {
+                command.CommandText = @"
+                    SELECT 
+                        idumeleckedilo,
+                        nazev,
+                        popis,
+                        datumzverejneni,
+                        vyska,
+                        sirka,
+                        idprodej,
+                        idvystava,
+                        typdila
+                    FROM umelecka_dila
+                    WHERE idvystava = :exhibitionId
+                    ORDER BY nazev";
+
+                var paramId = new OracleParameter
+                {
+                    ParameterName = "exhibitionId",
+                    OracleDbType = OracleDbType.Int32,
+                    Value = exhibitionId
+                };
+                command.Parameters.Add(paramId);
+
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        list.Add(new ArtPiece
+                        {
+                            Id = Convert.ToInt32(reader["idumeleckedilo"]),
+                            Name = reader["nazev"].ToString(),
+                            Description = reader["popis"] == DBNull.Value ? null : reader["popis"].ToString(),
+                            PublishedDate = Convert.ToDateTime(reader["datumzverejneni"]),
+                            Height = Convert.ToDouble(reader["vyska"]),
+                            Width = Convert.ToDouble(reader["sirka"]),
+                            ExhibitionId = reader["idvystava"] == DBNull.Value ? 0 : Convert.ToInt32(reader["idvystava"]),
+                            SaleId = reader["idprodej"] == DBNull.Value ? 0 : Convert.ToInt32(reader["idprodej"])
+                        });
+                    }
+                }
+            }
+            return list;
         }
 
         public List<ArtPiece> GetListInStorage()
         {
-            throw new NotImplementedException();
+            var list = new List<ArtPiece>();
+            using (var command = ConnectionManager.Connection.CreateCommand())
+            {
+                command.CommandText = @"
+                    SELECT 
+                        idumeleckedilo,
+                        nazev,
+                        popis,
+                        datumzverejneni,
+                        vyska,
+                        sirka,
+                        idprodej,
+                        idvystava,
+                        typdila
+                    FROM umelecka_dila
+                    WHERE idvystava IS NULL 
+                    ORDER BY nazev";
+
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        list.Add(new ArtPiece
+                        {
+                            Id = Convert.ToInt32(reader["idumeleckedilo"]),
+                            Name = reader["nazev"].ToString(),
+                            Description = reader["popis"] == DBNull.Value ? null : reader["popis"].ToString(),
+                            PublishedDate = Convert.ToDateTime(reader["datumzverejneni"]),
+                            Height = Convert.ToDouble(reader["vyska"]),
+                            Width = Convert.ToDouble(reader["sirka"]),
+                            ExhibitionId = 0,
+                            SaleId = 0
+                        });
+                    }
+                }
+            }
+            return list;
         }
 
         public List<ArtPiece> GetListBySaleId(int saleId)
         {
-            throw new NotImplementedException();
+            var list = new List<ArtPiece>();
+            using (var command = ConnectionManager.Connection.CreateCommand())
+            {
+                command.CommandText = @"
+                    SELECT 
+                        idumeleckedilo,
+                        nazev,
+                        popis,
+                        datumzverejneni,
+                        vyska,
+                        sirka,
+                        idprodej,
+                        idvystava,
+                        typdila
+                    FROM umelecka_dila
+                    WHERE idprodej = :saleId
+                    ORDER BY nazev";
+
+                var paramId = new OracleParameter
+                {
+                    ParameterName = "saleId",
+                    OracleDbType = OracleDbType.Int32,
+                    Value = saleId
+                };
+                command.Parameters.Add(paramId);
+
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        list.Add(new ArtPiece
+                        {
+                            Id = Convert.ToInt32(reader["idumeleckedilo"]),
+                            Name = reader["nazev"].ToString(),
+                            Description = reader["popis"] == DBNull.Value ? null : reader["popis"].ToString(),
+                            PublishedDate = Convert.ToDateTime(reader["datumzverejneni"]),
+                            Height = Convert.ToDouble(reader["vyska"]),
+                            Width = Convert.ToDouble(reader["sirka"]),
+                            ExhibitionId = reader["idvystava"] == DBNull.Value ? 0 : Convert.ToInt32(reader["idvystava"]),
+                            SaleId = Convert.ToInt32(reader["idprodej"])
+                        });
+                    }
+                }
+            }
+            return list;
         }
     }
 }
