@@ -5,6 +5,7 @@ using Entities;
 using GUI.Views;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,25 +19,39 @@ namespace GUI.ViewModels
         [ObservableProperty]
         private ObservableObject currentViewModel;
 
+        private readonly UserRepository userRep = new UserRepository();
+
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(IsLogged))]
         [NotifyPropertyChangedFor(nameof(IsAdmin))]
         private User currentUser = null;
 
+        [ObservableProperty]
+        private User selectedUser;
 
         public bool IsLogged => CurrentUser != null;
-
         public bool IsAdmin => CurrentUser != null && CurrentUser.Role.Name == "Admin";
+
 
         [ObservableProperty]
         private string logButtonText;
 
+        [ObservableProperty]
+        private ObservableCollection<User> users;
+
         public MainViewModel()
         {
             currentViewModel = new HomeViewModel();
-            //isLogged = false;
-            //isAdmin = false;
             logButtonText = "Log in";
+        }
+
+        partial void OnCurrentUserChanged(User value)
+        {
+            if (CurrentUser != null && IsAdmin)
+            {
+                List<User> list = userRep.GetList().Where(u => u.Id != CurrentUser.Id).ToList();
+                Users = new ObservableCollection<User>(list);
+            }
         }
 
         [RelayCommand]
@@ -44,12 +59,20 @@ namespace GUI.ViewModels
         {
             if (IsLogged)
             {
-                CurrentViewModel = new HomeViewModel();
-                UserManager.LogOut();
-                CurrentUser = UserManager.CurrentUser;
-                LogButtonText = "Log in";
-                //IsLogged = false;
-                //IsAdmin = false;
+                if (UserManager.isSimulating)
+                {
+                    UserManager.EndSimulatingUser();
+                    CurrentUser = UserManager.CurrentUser;
+                    LogButtonText = "Log out";
+                }
+                else
+                {
+                    UserManager.LogOut();
+                    CurrentViewModel = new HomeViewModel();
+                    CurrentUser = UserManager.CurrentUser;
+                    LogButtonText = "Log in";
+                }
+                
             }
             else
             {
@@ -61,44 +84,17 @@ namespace GUI.ViewModels
                     LogButtonText = "Log out";
                     CurrentUser = UserManager.CurrentUser;
                 }
-
-
-                //bool log = (bool)
-                //if (log)
-                //{
-                //    //MessageBox.Show($"User: {UserManager.CurrentUser.Role.Name}");
-                //    if(UserManager.CurrentUser.Role.Name == "Admin")
-                //    {
-                //        IsAdmin = true;
-                //    }
-                //    else
-                //    {
-                //        IsAdmin = false;
-                //    }
-
-                //        LogButtonText = "Log out";
-                //    IsLogged = true;
-                //}
-
             }
 
 
         }
         [RelayCommand]
-        private void Pokus()
+        private void SimulateOtherUser()
         {
-            CurrentUser = new User()
-            {
-                Id = 100,
-                Username = "Pokus metoda",
-                Email = "Toto je jen pro pokus",
-                Role = new Counter()
-                {
-                    Name = "Toto je jen pro pokus"
-                }
-            };
-            UserManager.CurrentUser = CurrentUser;
+            UserManager.StartSimulateUser(SelectedUser);
+            CurrentUser = UserManager.CurrentUser;
             CurrentViewModel = new HomeViewModel();
+            LogButtonText = "End Simulation";
         }
 
         [RelayCommand]

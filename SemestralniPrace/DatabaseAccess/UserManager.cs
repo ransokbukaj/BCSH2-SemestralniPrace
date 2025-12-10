@@ -12,6 +12,9 @@ namespace DatabaseAccess
     {
         public static User? CurrentUser;
 
+        public static bool isSimulating;
+        private static User loggedUser;
+
         static UserManager()
         {
             CurrentUser = null;
@@ -153,6 +156,9 @@ namespace DatabaseAccess
             return false;            
         }
 
+
+
+
         public static void LogOut()
         {
             ClearDatabaseSessionIdentifier(ConnectionManager.Connection);
@@ -171,6 +177,43 @@ namespace DatabaseAccess
                 return false;
             }
             return BCrypt.Net.BCrypt.Verify(password, storedHash);
+        }
+
+
+        public static void StartSimulateUser(User target)
+        {
+            if(CurrentUser == null)
+            {
+                throw new Exception("Není možno simulatovat bez přihlášení.");
+            }
+            if(CurrentUser.Role.Name != "Admin")
+            {
+                throw new Exception("Simulovat může jen uživatel s oprávněním administrátora.");
+            }
+
+            if (isSimulating)
+            {
+                throw new Exception("Není možno simulatovat jiného uživatele, když už se simuluje.");
+            }
+
+            isSimulating = true;
+            loggedUser = CurrentUser;
+            LogOut();
+
+            CurrentUser = target;
+            SetDatabaseSessionIdentifier(ConnectionManager.Connection, CurrentUser.Id);
+        }
+
+        public static void EndSimulatingUser()
+        {
+            if (!isSimulating)
+            {
+                throw new Exception("Není možné ukončit neexistujicí simulaci.");
+            }
+            LogOut();
+            CurrentUser = loggedUser;
+            SetDatabaseSessionIdentifier(ConnectionManager.Connection, CurrentUser.Id);
+            isSimulating= false;
         }
 
         private static void SetDatabaseSessionIdentifier(System.Data.IDbConnection connection, int userId)
