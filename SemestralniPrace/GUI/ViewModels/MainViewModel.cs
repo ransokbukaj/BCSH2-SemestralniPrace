@@ -84,6 +84,22 @@ namespace GUI.ViewModels
 
 
         }
+        [RelayCommand]
+        private void Pokus()
+        {
+            CurrentUser = new User()
+            {
+                Id = 100,
+                Username = "Pokus metoda",
+                Email = "Toto je jen pro pokus",
+                Role = new Counter()
+                {
+                    Name = "Toto je jen pro pokus"
+                }
+            };
+            UserManager.CurrentUser = CurrentUser;
+            CurrentViewModel = new HomeViewModel();
+        }
 
         [RelayCommand]
         public void UpdateView(object parameter)

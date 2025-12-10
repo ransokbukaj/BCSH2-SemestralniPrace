@@ -27,7 +27,11 @@
                 <Button Content="{Binding LogButtonText}" Command="{Binding UpdateLogCommand}" />
                 <Button Content="Home" Command="{Binding UpdateViewCommand}" CommandParameter="Home" Margin="0 25 0 0" />
                 <Button Content="Můj profil" Command="{Binding UpdateViewCommand}" CommandParameter="Profil" Visibility="{Binding IsLogged, Converter={StaticResource BoolToVisibilityConverter}}" />
+                
+                
+                <Button Content="Pokus" Command="{Binding PokusCommand}" Visibility="{Binding IsLogged, Converter={StaticResource BoolToVisibilityConverter}}" />
 
+                
                 <Button Content="Výstavy" Command="{Binding UpdateViewCommand}" CommandParameter="Exhibition" Visibility="{Binding IsLogged, Converter={StaticResource BoolToVisibilityConverter}}" Margin="0 25 0 0"/>
                 <Button Content="Vzdělávací programy" Command="{Binding UpdateViewCommand}" CommandParameter="EducationProgram" Visibility="{Binding IsLogged, Converter={StaticResource BoolToVisibilityConverter}}"/>
                 <Button Content="Umělci" Command="{Binding UpdateViewCommand}" CommandParameter="Artist" Visibility="{Binding IsLogged, Converter={StaticResource BoolToVisibilityConverter}}"/>
