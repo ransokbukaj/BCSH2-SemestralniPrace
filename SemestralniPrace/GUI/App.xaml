@@ -58,8 +58,11 @@
             <views:VisitView/>
         </DataTemplate>
 
-        <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+        <DataTemplate DataType="{x:Type TypeName=viewModels:SystemCatalogViewModel}">
+            <views:SystemCatalogView/>
+        </DataTemplate>
 
+        <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter" />
 
     </Application.Resources>
 </Application>

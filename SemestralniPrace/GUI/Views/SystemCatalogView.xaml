@@ -1,0 +1,201 @@
+﻿<UserControl x:Class="GUI.Views.SystemCatalogView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d"
+             Background="White"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,10">
+            <TextBlock Text="Systémový katalog"
+                       FontSize="24"
+                       FontWeight="Bold"
+                       VerticalAlignment="Center"/>
+            <TextBlock Text="{Binding Catalog.DatabaseUser, StringFormat='Uživatel: {0}'}"
+                       FontSize="14"
+                       VerticalAlignment="Center"
+                       Margin="10,0,0,0"/>
+            <TextBlock Text="{Binding Catalog.TotalTableCount, StringFormat=' | Tabulky: {0}'}"
+                       FontSize="14"
+                       VerticalAlignment="Center"/>
+            <TextBlock Text="{Binding Catalog.TotalViewCount, StringFormat=' | Pohledy: {0}'}"
+                       FontSize="14"
+                       VerticalAlignment="Center"/>
+        </StackPanel>
+
+        <TabControl Grid.Row="1">
+            
+            <!-- Tab: Tabulky -->
+            <TabItem Header="Tabulky">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="3*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <DataGrid Grid.Column="0"
+                              ItemsSource="{Binding Tables}"
+                              SelectedItem="{Binding SelectedTable, Mode=TwoWay}"
+                              AutoGenerateColumns="False"
+                              IsReadOnly="True"
+                              Margin="0,0,10,0">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Název tabulky" Binding="{Binding TableName}" Width="*"/>
+                            <DataGridTextColumn Header="Sloupce" Binding="{Binding ColumnCount}" Width="60"/>
+                            <DataGridTextColumn Header="FK" Binding="{Binding ForeignKeyCount}" Width="40"/>
+                            <DataGridTextColumn Header="Řádky" Binding="{Binding EstimatedRowCount}" Width="70"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                    <StackPanel Grid.Column="1" Margin="10,0,0,0">
+                        <TextBlock Text="Sloupce tabulky" FontSize="18" FontWeight="Bold" Margin="0,0,0,10"/>
+                        
+                        <DataGrid ItemsSource="{Binding TableColumns}"
+                                  AutoGenerateColumns="False"
+                                  IsReadOnly="True"
+                                  Height="400">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Sloupec" Binding="{Binding ColumnName}" Width="*"/>
+                                <DataGridTextColumn Header="Datový typ" Binding="{Binding DataType}" Width="100"/>
+                                <DataGridCheckBoxColumn Header="NULL" Binding="{Binding IsNullable, Mode=OneWay}" Width="50"/>
+                                <DataGridCheckBoxColumn Header="PK" Binding="{Binding IsPK, Mode=OneWay}" Width="40"/>
+                                <DataGridCheckBoxColumn Header="FK" Binding="{Binding IsFK, Mode=OneWay}" Width="40"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+
+            <!-- Tab: Pohledy -->
+            <TabItem Header="Pohledy">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="2*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <DataGrid Grid.Column="0"
+                              ItemsSource="{Binding Views}"
+                              SelectedItem="{Binding SelectedView, Mode=TwoWay}"
+                              AutoGenerateColumns="False"
+                              IsReadOnly="True"
+                              Margin="0,0,10,0">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Název pohledu" Binding="{Binding ViewName}" Width="*"/>
+                            <DataGridTextColumn Header="Sloupce" Binding="{Binding ColumnCount}" Width="60"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                    <StackPanel Grid.Column="1" Margin="10,0,0,0">
+                        <TextBlock Text="SQL Definice pohledu" FontSize="18" FontWeight="Bold" Margin="0,0,0,10"/>
+                        
+                        <TextBox Text="{Binding ViewDefinition, Mode=OneWay}"
+                                 IsReadOnly="True"
+                                 TextWrapping="Wrap"
+                                 VerticalScrollBarVisibility="Auto"
+                                 Height="400"
+                                 FontFamily="Consolas"
+                                 FontSize="11"/>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+
+            <!-- Tab: Primární klíče -->
+            <TabItem Header="Primární klíče">
+                <DataGrid ItemsSource="{Binding PrimaryKeys}"
+                          AutoGenerateColumns="False"
+                          IsReadOnly="True">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Tabulka" Binding="{Binding TableName}" Width="*"/>
+                        <DataGridTextColumn Header="Název omezení" Binding="{Binding ConstraintName}" Width="*"/>
+                        <DataGridTextColumn Header="Sloupce" Binding="{Binding Columns}" Width="*"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+
+            <!-- Tab: Cizí klíče -->
+            <TabItem Header="Cizí klíče">
+                <DataGrid ItemsSource="{Binding ForeignKeys}"
+                          AutoGenerateColumns="False"
+                          IsReadOnly="True">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Zdrojová tabulka" Binding="{Binding SourceTable}" Width="*"/>
+                        <DataGridTextColumn Header="Omezení" Binding="{Binding ConstraintName}" Width="*"/>
+                        <DataGridTextColumn Header="Vztah" Binding="{Binding Relationship}" Width="2*"/>
+                        <DataGridTextColumn Header="Pravidlo mazání" Binding="{Binding DeleteRule}" Width="100"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+
+            <!-- Tab: Indexy -->
+            <TabItem Header="Indexy">
+                <DataGrid ItemsSource="{Binding Indexes}"
+                          AutoGenerateColumns="False"
+                          IsReadOnly="True">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Tabulka" Binding="{Binding TableName}" Width="*"/>
+                        <DataGridTextColumn Header="Název indexu" Binding="{Binding IndexName}" Width="*"/>
+                        <DataGridTextColumn Header="Typ" Binding="{Binding IndexType}" Width="100"/>
+                        <DataGridTextColumn Header="Sloupce" Binding="{Binding Columns}" Width="*"/>
+                        <DataGridCheckBoxColumn Header="Unikátní" Binding="{Binding IsUnique, Mode=OneWay}" Width="70"/>
+                        <DataGridCheckBoxColumn Header="Platný" Binding="{Binding IsValid, Mode=OneWay}" Width="60"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+
+            <!-- Tab: Sekvence -->
+            <TabItem Header="Sekvence">
+                <DataGrid ItemsSource="{Binding Sequences}"
+                          AutoGenerateColumns="False"
+                          IsReadOnly="True">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Název" Binding="{Binding SequenceName}" Width="*"/>
+                        <DataGridTextColumn Header="Min" Binding="{Binding MinValue}" Width="100"/>
+                        <DataGridTextColumn Header="Max" Binding="{Binding MaxValue}" Width="100"/>
+                        <DataGridTextColumn Header="Krok" Binding="{Binding IncrementBy}" Width="60"/>
+                        <DataGridTextColumn Header="Cache" Binding="{Binding Cache}" Width="60"/>
+                        <DataGridCheckBoxColumn Header="Cyklická" Binding="{Binding Cyclic, Mode=OneWay}" Width="70"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+
+            <!-- Tab: Triggery -->
+            <TabItem Header="Triggery">
+                <DataGrid ItemsSource="{Binding Triggers}"
+                          AutoGenerateColumns="False"
+                          IsReadOnly="True">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Trigger" Binding="{Binding TriggerName}" Width="*"/>
+                        <DataGridTextColumn Header="Tabulka" Binding="{Binding TableName}" Width="*"/>
+                        <DataGridTextColumn Header="Událost" Binding="{Binding Event}" Width="120"/>
+                        <DataGridTextColumn Header="Typ" Binding="{Binding TriggerType}" Width="80"/>
+                        <DataGridCheckBoxColumn Header="Aktivní" Binding="{Binding IsActive, Mode=OneWay}" Width="60"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+
+            <!-- Tab: Procedury a funkce -->
+            <TabItem Header="Procedury/Funkce">
+                <DataGrid ItemsSource="{Binding Procedures}"
+                          AutoGenerateColumns="False"
+                          IsReadOnly="True">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Název" Binding="{Binding Name}" Width="*"/>
+                        <DataGridTextColumn Header="Typ" Binding="{Binding Type}" Width="100"/>
+                        <DataGridTextColumn Header="Stav" Binding="{Binding Status}" Width="80"/>
+                        <DataGridTextColumn Header="Parametry" Binding="{Binding ParameterCount}" Width="80"/>
+                        <DataGridTextColumn Header="Vytvořeno" Binding="{Binding CreatedDate, StringFormat='dd.MM.yyyy'}" Width="90"/>
+                        <DataGridTextColumn Header="Změněno" Binding="{Binding LastModified, StringFormat='dd.MM.yyyy'}" Width="90"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+
+        </TabControl>
+    </Grid>
+</UserControl>

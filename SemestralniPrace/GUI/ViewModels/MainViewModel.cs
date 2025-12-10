@@ -115,6 +115,9 @@ namespace GUI.ViewModels
                 case "HistoryLog":
                     CurrentViewModel = new HistoryLogViewModel();
                     break;
+                case "SystemCatalog":
+                    CurrentViewModel = new SystemCatalogViewModel();
+                    break;
             }
         }
     }

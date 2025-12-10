@@ -38,6 +38,7 @@
                 <Button Content="Pošty" Command="{Binding UpdateViewCommand}" CommandParameter="Post" Visibility="{Binding IsLogged, Converter={StaticResource BoolToVisibilityConverter}}"/>
                 <Button Content="Uživatelé" Command="{Binding UpdateViewCommand}" CommandParameter="User" Visibility="{Binding IsAdmin, Converter={StaticResource BoolToVisibilityConverter}}"/>
                 <Button Content="Záznamy historie" Command="{Binding UpdateViewCommand}" CommandParameter="HistoryLog" Visibility="{Binding IsAdmin, Converter={StaticResource BoolToVisibilityConverter}}"/>
+                <Button Content="Systémový katalog" Command="{Binding UpdateViewCommand}" CommandParameter="SystemCatalog" Visibility="{Binding IsAdmin, Converter={StaticResource BoolToVisibilityConverter}}"/>
             </StackPanel>
         </Grid>
     </Border>

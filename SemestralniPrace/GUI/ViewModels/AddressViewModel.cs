@@ -25,7 +25,7 @@ namespace GUI.ViewModels
         [ObservableProperty]
         private Post selectedPost;
 
-        public ObservableCollection<Post> Posts { get; set; }   // seznam všech PSÈ
+        public ObservableCollection<Post> Posts { get; set; }   // seznam vï¿½ech PSï¿½
 
        
 
@@ -48,7 +48,7 @@ namespace GUI.ViewModels
         {
             SelectedAddress = new Address()
             {
-                Post = new Post()   // <<< Tohle je klíèové!
+                Post = new Post()   // <<< Tohle je klï¿½ï¿½ovï¿½!
             }; 
         }
 
