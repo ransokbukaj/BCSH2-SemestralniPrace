@@ -16,5 +16,9 @@ namespace DatabaseAccess.Interface
         void SaveItem(Artist artist);
 
         void DeleteItem(int id);
+
+
+        void AddArtistToArtPiece(int id, int idArt);
+        void RemoveArtistFromArtPiece(int id, int idArt);
     }
 }

@@ -180,7 +180,7 @@
 
                 <!-- Seznam autorů obrazu -->
                 <ListBox ItemsSource="{Binding Authors}"
-                         SelectedItem="{Binding SelectedArtist, Mode=TwoWay}"
+                         SelectedItem="{Binding SelectedArtistToRemove, Mode=TwoWay}"
                          DisplayMemberPath="LastName"
                          Height="120"/>
 

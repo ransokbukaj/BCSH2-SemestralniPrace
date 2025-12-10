@@ -242,5 +242,54 @@ namespace DatabaseAccess
             }
             return list;
         }
+
+        public void AddArtistToArtPiece(int id, int idArt)
+        {
+            using (var command = ConnectionManager.Connection.CreateCommand())
+            {
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+                command.CommandText = "p_pridat_umelece_k_dilu";
+
+                var paramArtId = new OracleParameter
+                {
+                    ParameterName = "p_idumeleckedilo",
+                    OracleDbType = OracleDbType.Int32,
+                    Direction = System.Data.ParameterDirection.Input,
+                    Value = idArt
+                };
+                command.Parameters.Add(paramArtId);
+
+                var paramId = new OracleParameter
+                {
+                    ParameterName = "p_idumelec",
+                    OracleDbType = OracleDbType.Int32,
+                    Direction = System.Data.ParameterDirection.Input,
+                    Value = id
+                };
+                command.Parameters.Add(paramId);
+
+                // Provedení procedury
+                command.ExecuteNonQuery();
+
+                // Commit transakce
+                using (var transaction = ConnectionManager.Connection.BeginTransaction())
+                {
+                    try
+                    {
+                        transaction.Commit();
+                    }
+                    catch
+                    {
+                        transaction.Rollback();
+                        throw;
+                    }
+                }
+            }
+        }
+
+        public void RemoveArtistFromArtPiece(int id, int idArt)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

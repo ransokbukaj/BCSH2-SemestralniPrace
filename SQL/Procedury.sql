@@ -1369,3 +1369,53 @@ BEGIN
     END IF;
 END;
 /
+
+
+
+CREATE OR REPLACE PROCEDURE p_delete_priloha (
+    p_idpriloha IN INTEGER
+) AS
+BEGIN
+    DELETE FROM prilohy
+    WHERE idpriloha = p_idpriloha;
+END;
+/
+
+
+CREATE OR REPLACE PROCEDURE p_pridat_umelece_k_dilu (
+    p_idumeleckedilo IN umelci_umelecka_dila.idumeleckedilo%TYPE,
+    p_idumelec       IN umelci_umelecka_dila.idumelec%TYPE
+) AS
+BEGIN
+    INSERT INTO umelci_umelecka_dila (
+        idumeleckedilo,
+        idumelec
+    ) VALUES (
+        p_idumeleckedilo,
+        p_idumelec
+    );
+EXCEPTION
+    WHEN DUP_VAL_ON_INDEX THEN
+        -- záznam už existuje (stejný umelec + stejné dílo)
+        -- můžeš buď ignorovat, nebo odchytit jako chybu:
+        -- RAISE_APPLICATION_ERROR(-20001, 'Tento umelec už je k tomuto dílu přiřazen.');
+        NULL;
+END;
+/
+
+CREATE OR REPLACE PROCEDURE p_odebrat_umelece_od_dila (
+    p_idumeleckedilo IN umelci_umelecka_dila.idumeleckedilo%TYPE,
+    p_idumelec       IN umelci_umelecka_dila.idumelec%TYPE
+) AS
+BEGIN
+    DELETE FROM umelci_umelecka_dila
+    WHERE idumeleckedilo = p_idumeleckedilo
+      AND idumelec       = p_idumelec;
+
+    -- volitelné: kontrola, jestli se opravdu něco smazalo
+    IF SQL%ROWCOUNT = 0 THEN
+        -- RAISE_APPLICATION_ERROR(-20002, 'Tento umelec není k tomuto dílu přiřazen.');
+        NULL;
+    END IF;
+END;
+/
