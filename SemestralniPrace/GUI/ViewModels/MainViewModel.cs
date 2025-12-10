@@ -24,6 +24,7 @@ namespace GUI.ViewModels
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(IsLogged))]
         [NotifyPropertyChangedFor(nameof(IsAdmin))]
+        [NotifyPropertyChangedFor(nameof(CanSimulate))]
         private User currentUser = null;
 
         [ObservableProperty]
@@ -31,7 +32,7 @@ namespace GUI.ViewModels
 
         public bool IsLogged => CurrentUser != null;
         public bool IsAdmin => CurrentUser != null && CurrentUser.Role.Name == "Admin";
-
+        public bool CanSimulate => IsAdmin && UserManager.isSimulating == false;
 
         [ObservableProperty]
         private string logButtonText;
@@ -91,10 +92,14 @@ namespace GUI.ViewModels
         [RelayCommand]
         private void SimulateOtherUser()
         {
-            UserManager.StartSimulateUser(SelectedUser);
-            CurrentUser = UserManager.CurrentUser;
-            CurrentViewModel = new HomeViewModel();
-            LogButtonText = "End Simulation";
+            if(SelectedUser != null)
+            {
+                UserManager.StartSimulateUser(SelectedUser);
+                CurrentUser = UserManager.CurrentUser;
+                CurrentViewModel = new HomeViewModel();
+                LogButtonText = "End Simulation";
+            }
+            
         }
 
         [RelayCommand]
