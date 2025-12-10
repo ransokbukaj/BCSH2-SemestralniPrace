@@ -1310,3 +1310,62 @@ BEGIN
     WHERE idumelec = p_idumelec;
 END p_delete_umelec;
 /
+
+
+
+CREATE OR REPLACE PROCEDURE p_save_priloha (
+    p_soubor         IN BLOB,
+    p_typsouboru     IN VARCHAR2,
+    p_nazevsouboru   IN VARCHAR2,
+    p_idumeleckedilo IN INTEGER,
+    p_idpriloha      IN INTEGER  -- pokud NULL → insert, jinak update/insert
+) AS
+    v_count INTEGER;
+BEGIN
+    IF p_idpriloha IS NOT NULL THEN
+        -- zjistíme, jestli záznam existuje
+        SELECT COUNT(*)
+          INTO v_count
+          FROM prilohy
+         WHERE idpriloha = p_idpriloha;
+
+        IF v_count > 0 THEN
+            -- UPDATE existující přílohy
+            UPDATE prilohy
+               SET soubor         = p_soubor,
+                   typsouboru     = p_typsouboru,
+                   nazevsouboru   = p_nazevsouboru,
+                   idumeleckedilo = p_idumeleckedilo
+             WHERE idpriloha      = p_idpriloha;
+        ELSE
+            -- id je sice předané, ale záznam neexistuje → vložíme s tímhle id
+            INSERT INTO prilohy (
+                idpriloha,
+                soubor,
+                typsouboru,
+                nazevsouboru,
+                idumeleckedilo
+            ) VALUES (
+                p_idpriloha,
+                p_soubor,
+                p_typsouboru,
+                p_nazevsouboru,
+                p_idumeleckedilo
+            );
+        END IF;
+    ELSE
+        -- nový záznam, id se neudává → doplní trigger přes sekvenci
+        INSERT INTO prilohy (
+            soubor,
+            typsouboru,
+            nazevsouboru,
+            idumeleckedilo
+        ) VALUES (
+            p_soubor,
+            p_typsouboru,
+            p_nazevsouboru,
+            p_idumeleckedilo
+        );
+    END IF;
+END;
+/

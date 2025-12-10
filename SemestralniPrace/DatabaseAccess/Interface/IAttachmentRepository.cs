@@ -13,7 +13,7 @@ namespace DatabaseAccess.Interface
 
         List<Attachment> GetListByArtPieceId(int id);
 
-        void SaveItem(Attachment attachment);
+        void SaveItem(Attachment attachment, int id);
 
         void DeleteItem(int id);
     }

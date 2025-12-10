@@ -3,9 +3,11 @@ using CommunityToolkit.Mvvm.Input;
 using DatabaseAccess;
 using Entities;
 using GUI.Helpers;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -96,7 +98,30 @@ namespace GUI.ViewModels
         [RelayCommand]
         private void AddImage()
         {
+            var dlg = new OpenFileDialog
+            {
+                Title = "Vyber obrázek",
+                Filter = "Obrázky|*.png;*.jpg;*.jpeg;*.bmp;*.gif",
+                Multiselect = false
+            };
+            
 
+            if (dlg.ShowDialog() == true)
+            {
+                Attachment att = new Attachment
+                {
+                    FileName = Path.GetFileName(dlg.FileName),
+                    File = File.ReadAllBytes(dlg.FileName),
+                    FileType = Path.GetExtension(dlg.FileName)
+
+                };
+
+                Attachments.Add(att);
+                SelectedAttachment = att;
+                attRep.SaveItem(att, SelectedPainting.Id);
+
+            }
+               
         }
 
         [RelayCommand]

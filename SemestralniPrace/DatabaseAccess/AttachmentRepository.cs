@@ -58,9 +58,76 @@ namespace DatabaseAccess
             return list;
         }
 
-        public void SaveItem(Attachment attachment)
+        public void SaveItem(Attachment attachment, int artId)
         {
-            throw new NotImplementedException();
+            using (var command = ConnectionManager.Connection.CreateCommand())
+            {
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+                command.CommandText = "p_save_priloha";
+
+                var paramFile = new OracleParameter
+                {
+                    ParameterName = "p_soubor",
+                    OracleDbType = OracleDbType.Blob,
+                    Direction = System.Data.ParameterDirection.Input,
+                    Value = attachment.File
+                };
+                command.Parameters.Add(paramFile);
+
+                var paramType = new OracleParameter
+                {
+                    ParameterName = "p_typsouboru",
+                    OracleDbType = OracleDbType.Varchar2,
+                    Direction = System.Data.ParameterDirection.Input,
+                    Value = attachment.FileType
+                };
+                command.Parameters.Add(paramType);
+
+                var paramName = new OracleParameter
+                {
+                    ParameterName = "p_nazevsouboru",
+                    OracleDbType = OracleDbType.Varchar2,
+                    Direction = System.Data.ParameterDirection.Input,
+                    Value = attachment.FileName
+                };
+                command.Parameters.Add(paramName);
+
+
+                var paramArtId = new OracleParameter
+                {
+                    ParameterName = "p_idumeleckedilo",
+                    OracleDbType = OracleDbType.Int32,
+                    Direction = System.Data.ParameterDirection.Input,
+                    Value = artId
+                };
+                command.Parameters.Add(paramArtId);
+
+                var paramAttId = new OracleParameter
+                {
+                    ParameterName = "p_idpriloha",
+                    OracleDbType = OracleDbType.Varchar2,
+                    Direction = System.Data.ParameterDirection.Input,
+                    Value = attachment.Id == 0 ? (object)DBNull.Value : attachment.Id
+                };
+                command.Parameters.Add(paramAttId);
+
+                // Provedení procedury
+                command.ExecuteNonQuery();
+
+                // Commit transakce
+                using (var transaction = ConnectionManager.Connection.BeginTransaction())
+                {
+                    try
+                    {
+                        transaction.Commit();
+                    }
+                    catch
+                    {
+                        transaction.Rollback();
+                        throw;
+                    }
+                }
+            }
         }
 
         public void DeleteItem(int id)
@@ -68,5 +135,6 @@ namespace DatabaseAccess
             throw new NotImplementedException();
         }
 
+      
     }
 }
