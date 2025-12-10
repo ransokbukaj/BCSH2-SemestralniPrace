@@ -1,6 +1,7 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using DatabaseAccess;
+using Entities;
 using GUI.Views;
 using System;
 using System.Collections.Generic;
@@ -18,10 +19,14 @@ namespace GUI.ViewModels
         private ObservableObject currentViewModel;
 
         [ObservableProperty]
-        private bool isLogged;
+        [NotifyPropertyChangedFor(nameof(IsLogged))]
+        [NotifyPropertyChangedFor(nameof(IsAdmin))]
+        private User currentUser = null;
 
-        [ObservableProperty]
-        private bool isAdmin;
+
+        public bool IsLogged => CurrentUser != null;
+
+        public bool IsAdmin => CurrentUser != null && CurrentUser.Role.Name == "Admin";
 
         [ObservableProperty]
         private string logButtonText;
@@ -29,8 +34,8 @@ namespace GUI.ViewModels
         public MainViewModel()
         {
             currentViewModel = new HomeViewModel();
-            isLogged = false;
-            isAdmin = false;
+            //isLogged = false;
+            //isAdmin = false;
             logButtonText = "Log in";
         }
 
@@ -41,31 +46,39 @@ namespace GUI.ViewModels
             {
                 CurrentViewModel = new HomeViewModel();
                 UserManager.LogOut();
+                CurrentUser = UserManager.CurrentUser;
                 LogButtonText = "Log in";
-                IsLogged = false;
-                IsAdmin = false;
+                //IsLogged = false;
+                //IsAdmin = false;
             }
             else
             {
                 var vm = new LoginViewModel();
                 var dialog = new LoginWindow(vm);
-
                 bool log = (bool)dialog.ShowDialog();
                 if (log)
                 {
-                    //MessageBox.Show($"User: {UserManager.CurrentUser.Role.Name}");
-                    if(UserManager.CurrentUser.Role.Name == "Admin")
-                    {
-                        IsAdmin = true;
-                    }
-                    else
-                    {
-                        IsAdmin = false;
-                    }
-
-                        LogButtonText = "Log out";
-                    IsLogged = true;
+                    LogButtonText = "Log out";
+                    CurrentUser = UserManager.CurrentUser;
                 }
+
+
+                //bool log = (bool)
+                //if (log)
+                //{
+                //    //MessageBox.Show($"User: {UserManager.CurrentUser.Role.Name}");
+                //    if(UserManager.CurrentUser.Role.Name == "Admin")
+                //    {
+                //        IsAdmin = true;
+                //    }
+                //    else
+                //    {
+                //        IsAdmin = false;
+                //    }
+
+                //        LogButtonText = "Log out";
+                //    IsLogged = true;
+                //}
 
             }
 
