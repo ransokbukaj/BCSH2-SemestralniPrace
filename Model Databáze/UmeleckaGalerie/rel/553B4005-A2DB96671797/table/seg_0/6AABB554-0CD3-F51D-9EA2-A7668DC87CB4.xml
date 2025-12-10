@@ -119,18 +119,6 @@
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
-<Column name="datumPosledniZmeni" id="EAB666B1-E53D-4410-CE15-CCFCCFEFFF35">
-<createdBy>jakub</createdBy>
-<createdTime>2025-11-02 09:09:54 UTC</createdTime>
-<generatorID>00B7C042-BD13-F82E-70A4-35699C0F5289</generatorID>
-<ownerDesignName>UmeleckaGalerie</ownerDesignName>
-<nullsAllowed>true</nullsAllowed>
-<useDomainConstraints>false</useDomainConstraints>
-<use>1</use>
-<logicalDatatype>LOGDT008</logicalDatatype>
-<ownDataTypeParameters>,,</ownDataTypeParameters>
-<autoIncrementCycle>false</autoIncrementCycle>
-</Column>
 <Column name="deaktivovan" id="C4008F60-06DA-87F8-43A8-60384D1790F3">
 <createdBy>jakub</createdBy>
 <createdTime>2025-12-08 08:30:29 UTC</createdTime>

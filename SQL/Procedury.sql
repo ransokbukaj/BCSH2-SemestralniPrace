@@ -103,11 +103,8 @@ BEGIN
 
     -- aktualizace role
     UPDATE uzivatele
-    SET    idrole = p_idrole_nova,
-           datumposlednizmeni = SYSDATE
-    WHERE  iduzivatel = p_iduzivatel;
-
-   
+    SET    idrole = p_idrole_nova
+    WHERE  iduzivatel = p_iduzivatel;   
 END;
 /
 
@@ -548,8 +545,7 @@ BEGIN
                     prijmeni = p_prijmeni,
                     email = p_email,
                     telefonicislo = p_telefonicislo,
-                    idrole = p_idrole,
-                    datumposlednizmeni = SYSDATE
+                    idrole = p_idrole
                 WHERE iduzivatel = p_iduzivatel;
             ELSE
                 -- Neaktualizuj heslo, pokud není poskytnuto
@@ -559,8 +555,7 @@ BEGIN
                     prijmeni = p_prijmeni,
                     email = p_email,
                     telefonicislo = p_telefonicislo,
-                    idrole = p_idrole,
-                    datumposlednizmeni = SYSDATE
+                    idrole = p_idrole
                 WHERE iduzivatel = p_iduzivatel;
             END IF;
         ELSE
@@ -657,8 +652,7 @@ BEGIN
     IF v_historie_count > 0 THEN
         -- Uživatel má záznamy v historii - pouze deaktivujeme
         UPDATE uzivatele
-        SET deaktivovan = 1,
-            datumposlednizmeni = SYSDATE
+        SET deaktivovan = 1
         WHERE iduzivatel = p_iduzivatel;
     ELSE
         -- Uživatel nemá záznamy v historii - můžeme fyzicky smazat
@@ -690,8 +684,7 @@ BEGIN
     
     -- Aktualizace hesla
     UPDATE uzivatele
-    SET heslohash = p_noveheslohash,
-        datumposlednizmeni = SYSDATE
+    SET heslohash = p_noveheslohash
     WHERE iduzivatel = p_iduzivatel;
 END p_change_password;
 /

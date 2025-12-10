@@ -101,7 +101,6 @@ BEGIN
         novehodnoty,
         nazevtabulky,
         idradkutabulky,
-        idzmenenohoradku,
         iduzivatel
     ) VALUES (
         SYSDATE,
@@ -110,7 +109,6 @@ BEGIN
         v_starehodnoty,
         v_novehodnoty,
         'ADRESY',
-        v_idradku,
         v_idradku,
         v_iduzivatel
     );
@@ -242,7 +240,6 @@ BEGIN
         novehodnoty,
         nazevtabulky,
         idradkutabulky,
-        idzmenenohoradku,
         iduzivatel
     ) VALUES (
         SYSDATE,
@@ -251,7 +248,6 @@ BEGIN
         v_starehodnoty,
         v_novehodnoty,
         'UZIVATELE',
-        v_idradku,
         v_idradku,
         v_iduzivatel
     );
@@ -572,7 +568,6 @@ BEGIN
         novehodnoty,
         nazevtabulky,
         idradkutabulky,
-        idzmenenohoradku,
         iduzivatel
     ) VALUES (
         SYSDATE,
@@ -581,7 +576,6 @@ BEGIN
         v_starehodnoty,
         v_novehodnoty,
         'PRODEJE',
-        v_idradku,
         v_idradku,
         v_iduzivatel
     );
@@ -1025,8 +1019,6 @@ BEGIN
 END;
 /
 
-
-
 -- Trigger pro tabulku umelecka_dila
 CREATE OR REPLACE TRIGGER trg_umelecka_dila_historie
     AFTER INSERT OR UPDATE OR DELETE
@@ -1448,160 +1440,5 @@ BEGIN
         v_idradku,
         v_iduzivatel
     );
-END;
-/
-
-----------------------------------------------------------------------------------------------------
-
--- Procedura pro aktualizaci data poslední změny uživatele
-CREATE OR REPLACE PROCEDURE p_update_user_last_change
-IS
-    v_iduzivatel uzivatele.iduzivatel%TYPE;
-    PRAGMA AUTONOMOUS_TRANSACTION;
-BEGIN
-    -- Zjištění ID aktuálního uživatele
-    BEGIN
-        SELECT TO_NUMBER(SYS_CONTEXT('USERENV', 'CLIENT_IDENTIFIER'))
-        INTO v_iduzivatel
-        FROM DUAL;
-    EXCEPTION
-        WHEN OTHERS THEN
-            v_iduzivatel := NULL;
-    END;
-    
-    -- Pokud je uživatel přihlášen, aktualizuj datum poslední změny
-    IF v_iduzivatel IS NOT NULL THEN
-        UPDATE uzivatele
-        SET datumposlednizmeni = SYSDATE
-        WHERE iduzivatel = v_iduzivatel;
-        
-        COMMIT;
-    END IF;
-END;
-/
-
--- Trigger pro tabulku adresy
-CREATE OR REPLACE TRIGGER trg_adresy_user_change
-    AFTER INSERT OR UPDATE OR DELETE
-    ON adresy
-BEGIN
-    p_update_user_last_change();
-END;
-/
-
--- Trigger pro tabulku posty
-CREATE OR REPLACE TRIGGER trg_posty_user_change
-    AFTER INSERT OR UPDATE OR DELETE
-    ON posty
-BEGIN
-    p_update_user_last_change();
-END;
-/
-
--- Trigger pro tabulku kupci
-CREATE OR REPLACE TRIGGER trg_kupci_user_change
-    AFTER INSERT OR UPDATE OR DELETE
-    ON kupci
-BEGIN
-    p_update_user_last_change();
-END;
-/
-
--- Trigger pro tabulku prodeje
-CREATE OR REPLACE TRIGGER trg_prodeje_user_change
-    AFTER INSERT OR UPDATE OR DELETE
-    ON prodeje
-BEGIN
-    p_update_user_last_change();
-END;
-/
-
--- Trigger pro tabulku vystavy
-CREATE OR REPLACE TRIGGER trg_vystavy_user_change
-    AFTER INSERT OR UPDATE OR DELETE
-    ON vystavy
-BEGIN
-    p_update_user_last_change();
-END;
-/
-
--- Trigger pro tabulku vzdelavaci_programy
-CREATE OR REPLACE TRIGGER trg_vzdelavaci_programy_user_change
-    AFTER INSERT OR UPDATE OR DELETE
-    ON vzdelavaci_programy
-BEGIN
-    p_update_user_last_change();
-END;
-/
-
--- Trigger pro tabulku navstevy
-CREATE OR REPLACE TRIGGER trg_navstevy_user_change
-    AFTER INSERT OR UPDATE OR DELETE
-    ON navstevy
-BEGIN
-    p_update_user_last_change();
-END;
-/
-
--- Trigger pro tabulku umelci
-CREATE OR REPLACE TRIGGER trg_umelci_user_change
-    AFTER INSERT OR UPDATE OR DELETE
-    ON umelci
-BEGIN
-    p_update_user_last_change();
-END;
-/
-
--- Trigger pro tabulku umelecka_dila
-CREATE OR REPLACE TRIGGER trg_umelecka_dila_user_change
-    AFTER INSERT OR UPDATE OR DELETE
-    ON umelecka_dila
-BEGIN
-    p_update_user_last_change();
-END;
-/
-
--- Trigger pro tabulku obrazy
-CREATE OR REPLACE TRIGGER trg_obrazy_user_change
-    AFTER INSERT OR UPDATE OR DELETE
-    ON obrazy
-BEGIN
-    p_update_user_last_change();
-END;
-/
-
--- Trigger pro tabulku sochy
-CREATE OR REPLACE TRIGGER trg_sochy_user_change
-    AFTER INSERT OR UPDATE OR DELETE
-    ON sochy
-BEGIN
-    p_update_user_last_change();
-END;
-/
-
--- Trigger pro tabulku prilohy
-CREATE OR REPLACE TRIGGER trg_prilohy_user_change
-    AFTER INSERT OR UPDATE OR DELETE
-    ON prilohy
-BEGIN
-    p_update_user_last_change();
-END;
-/
-
--- Trigger pro tabulku umelci_umelecka_dila
-CREATE OR REPLACE TRIGGER trg_umelci_dila_user_change
-    AFTER INSERT OR UPDATE OR DELETE
-    ON umelci_umelecka_dila
-BEGIN
-    p_update_user_last_change();
-END;
-/
-
--- Trigger pro tabulku uzivatele
-CREATE OR REPLACE TRIGGER trg_uzivatele_user_change
-    AFTER INSERT OR UPDATE OR DELETE
-    ON uzivatele
-BEGIN
-    p_update_user_last_change();
 END;
 /

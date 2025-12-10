@@ -132,19 +132,6 @@
 <logicalDatatype>LOGDT008</logicalDatatype>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 </Attribute>
-<Attribute name="datumPosledniZmeni" id="00B7C042-BD13-F82E-70A4-35699C0F5289">
-<createdBy>jakub</createdBy>
-<createdTime>2025-11-02 08:49:18 UTC</createdTime>
-<ownerDesignName>UmeleckaGalerie</ownerDesignName>
-<engineerTo>
-<item key="553B4005-5906-3AC4-6EA3-A2DB96671797" value="true"/>
-</engineerTo>
-<nullsAllowed>true</nullsAllowed>
-<useDomainConstraints>false</useDomainConstraints>
-<use>1</use>
-<logicalDatatype>LOGDT008</logicalDatatype>
-<ownDataTypeParameters>,,</ownDataTypeParameters>
-</Attribute>
 <Attribute name="idRole" id="AD8D4DBA-5198-142D-C5F1-07594B94C397">
 <createdBy>jakub</createdBy>
 <createdTime>2025-11-02 08:51:30 UTC</createdTime>
