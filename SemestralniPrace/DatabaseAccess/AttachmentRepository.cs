@@ -26,7 +26,7 @@ namespace DatabaseAccess
                         idpriloha,
                         soubor,
                         typsouboru,
-                        nazevsouboru,
+                        nazevsouboru
                    
                     FROM prilohy
                     WHERE idumeleckedilo = :umeleckeId
@@ -44,15 +44,11 @@ namespace DatabaseAccess
                 {
                     while (reader.Read())
                     {
-                        int idTemp = Convert.ToInt32(reader["idpriloha"]);
-                        long blobLength = reader.GetBytes( 0, 0,  null,  0, 0);
-                        byte[] fileTemp = new byte[blobLength];
-                        reader.GetBytes(0, 0, fileTemp, 0, fileTemp.Length);
-
+                        
                         list.Add(new Attachment
                         {
-                            Id = idTemp,
-                            File = fileTemp,
+                            Id = Convert.ToInt32(reader["idpriloha"]),
+                            File = (byte[])reader["soubor"],
                             FileType = reader["typsouboru"].ToString(),
                             FileName = reader["nazevsouboru"].ToString()
                         });
