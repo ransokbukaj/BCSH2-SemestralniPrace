@@ -189,7 +189,6 @@ CREATE TABLE uzivatele (
     telefonicislo             VARCHAR2(20),
     datumregistrace           DATE NOT NULL,
     datumposlednihoprihlaseni DATE,
-    datumposlednizmeni        DATE,
     deaktivovan               INTEGER NOT NULL,
     idrole                    INTEGER NOT NULL
 );

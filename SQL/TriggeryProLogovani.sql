@@ -128,6 +128,7 @@ DECLARE
     v_idradku INTEGER;
     v_nazev_role role.nazev%TYPE;
     v_nazev_role_old role.nazev%TYPE;
+    v_log_change BOOLEAN := TRUE;
 BEGIN
     -- Zjištění ID aktuálního uživatele z SESSION_IDENTIFIER
     BEGIN
@@ -141,6 +142,27 @@ BEGIN
     
     -- Pokud není nastavený identifikátor, nepokračuj (registrace/systémové operace)
     IF v_iduzivatel IS NULL THEN
+        RETURN;
+    END IF;
+    
+    IF UPDATING THEN
+        IF (:NEW.uzivatelskejmeno = :OLD.uzivatelskejmeno AND
+            :NEW.heslohash = :OLD.heslohash AND
+            :NEW.jmeno = :OLD.jmeno AND
+            :NEW.prijmeni = :OLD.prijmeni AND
+            NVL(:NEW.email, 'NULL') = NVL(:OLD.email, 'NULL') AND
+            NVL(:NEW.telefonicislo, 'NULL') = NVL(:OLD.telefonicislo, 'NULL') AND
+            :NEW.datumregistrace = :OLD.datumregistrace AND
+            :NEW.deaktivovan = :OLD.deaktivovan AND
+            :NEW.idrole = :OLD.idrole AND
+            (:NEW.datumposlednihoprihlaseni != :OLD.datumposlednihoprihlaseni OR 
+            (:NEW.datumposlednihoprihlaseni IS NOT NULL AND :OLD.datumposlednihoprihlaseni IS NULL))) THEN
+            v_log_change := FALSE;
+        END IF;
+    END IF;
+    
+    -- Pokud nemáme logovat, skonči
+    IF NOT v_log_change THEN
         RETURN;
     END IF;
     
@@ -190,7 +212,6 @@ BEGIN
             'telefonicislo: ' || NVL(:OLD.telefonicislo, 'NULL') || ', ' ||
             'datumregistrace: ' || TO_CHAR(:OLD.datumregistrace, 'DD.MM.YYYY HH24:MI:SS') || ', ' ||
             'datumposlednihoprihlaseni: ' || NVL(TO_CHAR(:OLD.datumposlednihoprihlaseni, 'DD.MM.YYYY HH24:MI:SS'), 'NULL') || ', ' ||
-            'datumposlednizmeni: ' || NVL(TO_CHAR(:OLD.datumposlednizmeni, 'DD.MM.YYYY HH24:MI:SS'), 'NULL') || ', ' ||
             'deaktivovan: ' || :OLD.deaktivovan || ', ' ||
             'role: ' || v_nazev_role_old;
             
@@ -202,7 +223,6 @@ BEGIN
             'telefonicislo: ' || NVL(:NEW.telefonicislo, 'NULL') || ', ' ||
             'datumregistrace: ' || TO_CHAR(:NEW.datumregistrace, 'DD.MM.YYYY HH24:MI:SS') || ', ' ||
             'datumposlednihoprihlaseni: ' || NVL(TO_CHAR(:NEW.datumposlednihoprihlaseni, 'DD.MM.YYYY HH24:MI:SS'), 'NULL') || ', ' ||
-            'datumposlednizmeni: ' || NVL(TO_CHAR(:NEW.datumposlednizmeni, 'DD.MM.YYYY HH24:MI:SS'), 'NULL') || ', ' ||
             'deaktivovan: ' || :NEW.deaktivovan || ', ' ||
             'role: ' || v_nazev_role;
             
@@ -225,7 +245,6 @@ BEGIN
             'telefonicislo: ' || NVL(:OLD.telefonicislo, 'NULL') || ', ' ||
             'datumregistrace: ' || TO_CHAR(:OLD.datumregistrace, 'DD.MM.YYYY HH24:MI:SS') || ', ' ||
             'datumposlednihoprihlaseni: ' || NVL(TO_CHAR(:OLD.datumposlednihoprihlaseni, 'DD.MM.YYYY HH24:MI:SS'), 'NULL') || ', ' ||
-            'datumposlednizmeni: ' || NVL(TO_CHAR(:OLD.datumposlednizmeni, 'DD.MM.YYYY HH24:MI:SS'), 'NULL') || ', ' ||
             'deaktivovan: ' || :OLD.deaktivovan || ', ' ||
             'role: ' || v_nazev_role;
         v_novehodnoty := NULL;

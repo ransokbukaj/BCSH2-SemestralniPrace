@@ -210,7 +210,7 @@ namespace DatabaseAccess
         {
             string query = @"
                 UPDATE uzivatele
-                SET datumposlednihoprihlaseni = SYSDATE 
+                SET datumposlednihoprihlaseni = SYSDATE
                 WHERE iduzivatel = :userId";
 
             using (var command = connection.CreateCommand())

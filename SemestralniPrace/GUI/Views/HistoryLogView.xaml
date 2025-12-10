@@ -24,7 +24,7 @@
                   AutoGenerateColumns="False"
                   IsReadOnly="True">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="Auto"/>
+                <DataGridTextColumn Header="Uživatel" Binding="{Binding Username}" Width="Auto"/>
                 <DataGridTextColumn Header="Tabulka" Binding="{Binding TableName}" Width="*"/>
                 <DataGridTextColumn Header="Operace" Binding="{Binding TypeOfOperation}" Width="*"/>
                 <DataGridTextColumn Header="Datum změny" Binding="{Binding DateOfChange}" Width="*"/>
