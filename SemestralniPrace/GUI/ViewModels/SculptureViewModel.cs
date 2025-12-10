@@ -20,6 +20,9 @@ namespace GUI.ViewModels
         private readonly SculptureRepository repository = new SculptureRepository();
         private readonly CounterRepository counterRep = new CounterRepository();
         private readonly AttachmentRepository attRep = new AttachmentRepository();
+        private readonly ArtistRepository artistRep = new ArtistRepository();
+
+
 
         [ObservableProperty]
         private ObservableCollection<Sculpture> sculptures = new();
@@ -32,6 +35,13 @@ namespace GUI.ViewModels
 
 
         [ObservableProperty]
+        private ObservableCollection<Artist> authors = new();
+
+        [ObservableProperty]
+        private ObservableCollection<Artist> availableArtists = new();
+
+
+        [ObservableProperty]
         private Sculpture selectedSculpture;
 
         [ObservableProperty]
@@ -39,6 +49,12 @@ namespace GUI.ViewModels
 
         [ObservableProperty]
         private ImageSource selectedImage;
+
+        [ObservableProperty]
+        private Artist selectedArtistToAdd;
+
+        [ObservableProperty]
+        private Artist selectedArtistToRemove;
 
 
         partial void OnSelectedSculptureChanged(Sculpture? oldValue, Sculpture newValue)
@@ -56,6 +72,12 @@ namespace GUI.ViewModels
                     SelectedAttachment = null;
                     SelectedImage = null;
                 }
+                Authors = new ObservableCollection<Artist>(artistRep.GetListByArtPieceId(SelectedSculpture.Id));
+
+                var assignedIds = new HashSet<int>(artistRep.GetListByArtPieceId(SelectedSculpture.Id).Select(a => a.Id));
+
+                var coll = artistRep.GetList().Where(a => !assignedIds.Contains(a.Id)).ToList();
+                AvailableArtists = new ObservableCollection<Artist>(coll);
             }
         }
 
@@ -64,6 +86,40 @@ namespace GUI.ViewModels
             if (SelectedAttachment != null)
                 SelectedImage = AttachmentHelper.LoadImageSource(SelectedAttachment.File);
         }
+
+
+
+
+        [RelayCommand]
+        private void AddArtistToSculpture()
+        {
+            if (SelectedSculpture != null && SelectedArtistToAdd != null)
+            {
+                artistRep.AddArtistToArtPiece(SelectedArtistToAdd.Id, SelectedSculpture.Id);
+                Authors.Add(SelectedArtistToAdd);
+                AvailableArtists.Remove(SelectedArtistToAdd);
+
+                SelectedArtistToAdd = AvailableArtists.FirstOrDefault();
+            }
+        }
+
+        [RelayCommand]
+        private void RemoveArtistFromSculpture()
+        {
+            if (SelectedSculpture != null && SelectedArtistToRemove != null)
+            {
+                artistRep.RemoveArtistFromArtPiece(SelectedArtistToRemove.Id, SelectedSculpture.Id);
+                AvailableArtists.Add(SelectedArtistToRemove);
+                Authors.Remove(SelectedArtistToRemove);
+
+                SelectedArtistToRemove = Authors.FirstOrDefault();
+            }
+        }
+
+
+
+
+
 
         [RelayCommand]
         private void PreviousImage()
@@ -106,8 +162,8 @@ namespace GUI.ViewModels
         {
             var dlg = new OpenFileDialog
             {
-                Title = "Vyber obr·zek",
-                Filter = "Obr·zky|*.png;*.jpg;*.jpeg;*.bmp;*.gif",
+                Title = "Vyber obr√°zek",
+                Filter = "Obr√°zky|*.png;*.jpg;*.jpeg;*.bmp;*.gif",
                 Multiselect = false
             };
 

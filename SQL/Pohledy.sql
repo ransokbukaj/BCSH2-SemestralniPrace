@@ -253,11 +253,14 @@ ORDER BY d.nazev, u.prijmeni, u.jmeno;
 
 CREATE OR REPLACE VIEW v_umelci_dila AS
 SELECT
-    u.idumelec,
-    u.jmeno,
-    u.prijmeni,
+    u.idumelec AS id,
+    u.jmeno AS jmeno,
+    u.prijmeni AS prijmeni,
+    u.datumnarozeni AS datum_narozeni,
+    u.datumumrti AS datum_umrti,
+    u.popis AS popis,
     ud.idumeleckedilo
 FROM umelci u
 LEFT JOIN umelci_umelecka_dila ud
        ON ud.idumelec = u.idumelec
-ORDER BY u.prijmeni, u.jmeno, ud.idumeleckedilo;
+ORDER BY prijmeni, jmeno, ud.idumeleckedilo;

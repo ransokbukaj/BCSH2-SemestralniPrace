@@ -26,5 +26,7 @@ namespace Entities
         public DateTime DateOfBirth { get; set; }
         public DateTime DateOfDeath { get; set; }
         public string Description { get; set; }
+
+        public string FullName { get => $"{FirstName} {LastName}";  }
     }
 }

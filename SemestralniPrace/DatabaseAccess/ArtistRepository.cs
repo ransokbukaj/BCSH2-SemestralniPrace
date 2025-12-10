@@ -211,9 +211,12 @@ namespace DatabaseAccess
             {
                 command.CommandText = @"
                     SELECT 
-                        idumelec,
+                        id,
                         jmeno,
-                        prijmeni
+                        prijmeni,
+                        datum_narozeni,
+                        datum_umrti,
+                        popis
                     FROM v_umelci_dila
                     WHERE idumeleckedilo = :idumldila";
 
@@ -232,10 +235,15 @@ namespace DatabaseAccess
                     {
                         list.Add(new Artist
                         {
-                            Id = Convert.ToInt32(reader["idumelec"]),
+                            Id = Convert.ToInt32(reader["id"]),
                             FirstName = reader["jmeno"].ToString(),
                             LastName = reader["prijmeni"].ToString(),
-                            
+                            DateOfBirth = Convert.ToDateTime(reader["datum_narozeni"]),
+                            DateOfDeath = reader["datum_umrti"] == DBNull.Value
+                                ? DateTime.MinValue
+                                : Convert.ToDateTime(reader["datum_umrti"]),
+                            Description = reader["popis"] == DBNull.Value ? null : reader["popis"].ToString()
+
                         });
                     }
                 }

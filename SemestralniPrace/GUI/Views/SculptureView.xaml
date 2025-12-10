@@ -39,7 +39,7 @@
                   IsReadOnly="True"
                   Margin="0,0,10,0">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="Auto"/>
+                <!--<DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="Auto"/>-->
                 <DataGridTextColumn Header="Název" Binding="{Binding Name}" Width="*"/>
                 <DataGridTextColumn Header="Výška" Binding="{Binding Height}" Width="*"/>
                 <DataGridTextColumn Header="Šířka" Binding="{Binding Width}" Width="*"/>
@@ -58,10 +58,10 @@
                            FontWeight="Bold"
                            Margin="0,0,0,10"/>
 
-                <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                <!--<StackPanel Orientation="Horizontal" Margin="0,0,0,5">
                     <TextBlock Text="ID:" Width="140"/>
                     <TextBlock Text="{Binding SelectedSculpture.Id}"/>
-                </StackPanel>
+                </StackPanel>-->
 
                 <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
                     <TextBlock Text="Název:" Width="140"/>
@@ -183,11 +183,19 @@
                 <TextBlock Text="Autoři:" Margin="0,15,0,5"/>
 
                 <!-- Seznam autorů sochy -->
-                <ListBox ItemsSource="{Binding SelectedSculpture.Artists}"
-                         SelectedItem="{Binding SelectedArtistOnSculpture, Mode=TwoWay}"
-                         DisplayMemberPath="LastName"
-                         Height="120"/>
+                <DataGrid ItemsSource="{Binding Authors}"
+            SelectedItem="{Binding SelectedArtistToRemove, Mode=TwoWay}"
+            AutoGenerateColumns="False"
+            Height="120" 
+            IsReadOnly="True"
+            CanUserAddRows="False">
 
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Jméno" Binding="{Binding FirstName}" Width="auto" />
+                        <DataGridTextColumn Header="Příjmení" Binding="{Binding LastName}" Width="auto"/>
+                    </DataGrid.Columns>
+
+                </DataGrid>
                 <!-- Přidání / odebrání autora -->
                 <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
                     <TextBlock Text="Přidat autora:" Width="140" VerticalAlignment="Center"/>
@@ -195,7 +203,7 @@
                     <ComboBox Width="200"
                               ItemsSource="{Binding AvailableArtists}"
                               SelectedItem="{Binding SelectedArtistToAdd, Mode=TwoWay}"
-                              DisplayMemberPath="LastName"
+                              DisplayMemberPath="FullName"
                               Margin="0,0,10,0"/>
 
                     <Button Content="Přidat"
