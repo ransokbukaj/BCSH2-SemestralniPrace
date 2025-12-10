@@ -161,5 +161,10 @@ namespace DatabaseAccess
                 }
             }
         }
+
+        public List<Exhibition> GetListByProgramId(int programId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

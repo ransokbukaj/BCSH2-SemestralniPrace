@@ -55,5 +55,25 @@ namespace DatabaseAccess
         {
             throw new NotImplementedException();
         }
+
+        public List<ArtPiece> GetListByArtistId(int artistId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<ArtPiece> GetListByExhibitionId(int exhibitionId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<ArtPiece> GetListInStorage()
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<ArtPiece> GetListBySaleId(int saleId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

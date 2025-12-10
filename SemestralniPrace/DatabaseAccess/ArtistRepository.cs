@@ -161,5 +161,10 @@ namespace DatabaseAccess
                 }
             }
         }
+
+        public List<Artist> GetListByArtPieceId(int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
