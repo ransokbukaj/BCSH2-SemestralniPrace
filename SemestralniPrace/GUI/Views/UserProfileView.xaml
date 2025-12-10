@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:helpers="clr-namespace:GUI.Helpers"
              mc:Ignorable="d"
              Background="White"
              d:DesignHeight="450" d:DesignWidth="800">
@@ -10,12 +11,9 @@
     <Grid Margin="10">
         <!-- Hlavička, obsah, spodní tlačítka -->
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <!-- nadpis -->
-            <RowDefinition Height="*"/>
-            <!-- obsah (scroll) -->
-            <RowDefinition Height="Auto"/>
-            <!-- hlavní tlačítka -->
+            <RowDefinition Height="Auto"/>   <!-- nadpis -->
+            <RowDefinition Height="*"/>     <!-- obsah (scroll) -->
+            <RowDefinition Height="Auto"/>  <!-- hlavní tlačítka -->
         </Grid.RowDefinitions>
 
         <!-- Nadpis -->
@@ -77,33 +75,27 @@
                 <GroupBox Header="Změna hesla">
                     <StackPanel Margin="10">
 
-                        <!-- staré heslo -->
-                        <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
-                            <TextBlock Text="Současné heslo:" Width="160" VerticalAlignment="Center"/>
-                            <!-- pro čisté MVVM by to chtělo behavior; tady jednodušší verze s TextBoxem -->
-                            <PasswordBox x:Name="CurrentPasswordBox"
-                                         Width="200"
-                                         Tag="{Binding}" />
-                        </StackPanel>
+                        
 
                         <!-- nové heslo -->
                         <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
                             <TextBlock Text="Nové heslo:" Width="160" VerticalAlignment="Center"/>
-                            <PasswordBox x:Name="NewPasswordBox"
-                                         Width="200"
-                                         Tag="{Binding}" />
+                            <PasswordBox
+                                            Width="200"
+                                            helpers:PasswordBoxHelper.BindPassword="True"
+                                            helpers:PasswordBoxHelper.BoundPassword="{Binding NewPassword, Mode=TwoWay}" />
                         </StackPanel>
 
                         <!-- potvrzení nového hesla -->
                         <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
                             <TextBlock Text="Nové heslo znovu:" Width="160" VerticalAlignment="Center"/>
-                            <PasswordBox x:Name="NewPasswordConfirmBox"
-                                         Width="200"
-                                         Tag="{Binding}" />
+                            <PasswordBox  Width="200"
+                                       helpers:PasswordBoxHelper.BindPassword="True"
+                                       helpers:PasswordBoxHelper.BoundPassword="{Binding NewPasswordConfirm, Mode=TwoWay}" />
                         </StackPanel>
 
                         <!-- chybová / informační hláška -->
-                        <TextBlock Text="{Binding ChangePasswordMessage}"
+                        <TextBlock Text="{Binding ErrorLog}"
                                    Foreground="Red"
                                    Margin="0,5,0,0"
                                    TextWrapping="Wrap"/>

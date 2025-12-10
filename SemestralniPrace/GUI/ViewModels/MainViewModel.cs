@@ -43,6 +43,7 @@ namespace GUI.ViewModels
                 UserManager.LogOut();
                 LogButtonText = "Log in";
                 IsLogged = false;
+                IsAdmin = false;
             }
             else
             {
@@ -52,7 +53,7 @@ namespace GUI.ViewModels
                 bool log = (bool)dialog.ShowDialog();
                 if (log)
                 {
-                    MessageBox.Show($"User: {UserManager.CurrentUser.Role.Name}");
+                    //MessageBox.Show($"User: {UserManager.CurrentUser.Role.Name}");
                     if(UserManager.CurrentUser.Role.Name == "Admin")
                     {
                         IsAdmin = true;

@@ -24,9 +24,24 @@ namespace GUI.ViewModels
         [ObservableProperty]
         private User selectedUser;
 
+
+        [ObservableProperty]
+        private string newPassword;
+        [ObservableProperty]
+        private string newPasswordConfirm;
+        [ObservableProperty]
+        private string errorLog;
+
         public UserViewModel()
         {
             Load();
+        }
+
+        partial void OnSelectedUserChanged(User value)
+        {
+            ErrorLog = string.Empty;
+            NewPassword = string.Empty;
+            NewPasswordConfirm = string.Empty;
         }
 
         [RelayCommand]
@@ -67,6 +82,33 @@ namespace GUI.ViewModels
 
             repository.DeleteItem(SelectedUser.Id);
             Load();
+        }
+
+
+        [RelayCommand]
+        private void ChangePassword()
+        {
+            if(SelectedUser != null)
+            {
+                ErrorLog = string.Empty;
+                if (string.IsNullOrEmpty(NewPassword) && string.IsNullOrEmpty(NewPasswordConfirm))
+                {
+                    ErrorLog = "Původní heslo, nové heslo a potvrzení musí být vyplněné.";
+                    return;
+                }
+
+                if (NewPassword != NewPasswordConfirm)
+                {
+                    ErrorLog = "Hesla se neshodují.";
+                    return;
+                }
+
+                repository.ChangePassword(SelectedUser.Id, NewPassword);
+                ErrorLog = "Heslo úspěšně změněno.";
+
+            }
+
+
         }
     }
 }
