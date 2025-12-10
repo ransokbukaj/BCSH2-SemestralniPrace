@@ -59,40 +59,54 @@ namespace GUI.ViewModels
                     SelectedAttachment = Attachments[0];
                     SelectedImage = AttachmentHelper.LoadImageSource(SelectedAttachment.File);
                 }
+                else
+                {
+                    SelectedAttachment = null;
+                    SelectedImage = null;
+                }
             }
         }
 
         partial void OnSelectedAttachmentChanged(Attachment value)
         {
-            SelectedImage = AttachmentHelper.LoadImageSource(SelectedAttachment.File);
+            if(SelectedAttachment != null)
+                SelectedImage = AttachmentHelper.LoadImageSource(SelectedAttachment.File);
         }
 
         [RelayCommand]
         private void PreviousImage()
         {
-            int cur = Attachments.IndexOf(SelectedAttachment);
-            if(cur == 0)
+            if(SelectedAttachment != null)
             {
-                SelectedAttachment = Attachments.Last();
+                int cur = Attachments.IndexOf(SelectedAttachment);
+                if (cur == 0)
+                {
+                    SelectedAttachment = Attachments.Last();
+                }
+                else
+                {
+                    SelectedAttachment = Attachments[cur - 1];
+                }
             }
-            else
-            {
-                SelectedAttachment = Attachments[cur - 1];
-            }
+            
         }
 
         [RelayCommand]
         private void NextImage()
         {
-            int cur = Attachments.IndexOf(SelectedAttachment);
-            if (cur == (Attachments.Count - 1))
+            if(SelectedAttachment != null)
             {
-                SelectedAttachment = Attachments.First();
+                int cur = Attachments.IndexOf(SelectedAttachment);
+                if (cur == (Attachments.Count - 1))
+                {
+                    SelectedAttachment = Attachments.First();
+                }
+                else
+                {
+                    SelectedAttachment = Attachments[cur + 1];
+                }
             }
-            else
-            {
-                SelectedAttachment = Attachments[cur + 1];
-            }
+            
         }
 
         [RelayCommand]
@@ -127,10 +141,14 @@ namespace GUI.ViewModels
         [RelayCommand]
         private void RemoveCurrentImage()
         {
-
-
-
-
+            if(SelectedAttachment != null)
+            {
+                SelectedImage = null;
+                Attachments.Remove(SelectedAttachment);
+                attRep.DeleteItem(SelectedAttachment.Id);
+                SelectedAttachment = Attachments.FirstOrDefault();
+            }
+           
         }
 
 

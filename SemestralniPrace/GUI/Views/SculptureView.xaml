@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              mc:Ignorable="d"
              Background="White"
-             d:DesignHeight="450" d:DesignWidth="900">
+             d:DesignHeight="1000" d:DesignWidth="900">
     <Grid Margin="10">
         <!-- 3 řádky: hlavička, obsah, spodní tlačítka -->
         <Grid.RowDefinitions>
@@ -116,17 +116,68 @@
                               DisplayMemberPath="Name" />
                 </StackPanel>
 
-                <!-- OBRÁZEK SOCHY -->
-                <TextBlock Text="Obrázek:" Margin="0,10,0,5"/>
-                <Border Width="250" Height="250"
-                        Background="#FFEFEFEF"
-                        BorderBrush="#FFCCCCCC"
-                        BorderThickness="1"
-                        HorizontalAlignment="Left">
-                    <!-- očekává se SelectedSculpture.ImagePath (string) -->
-                    <Image Source="{Binding SelectedSculpture.ImagePath}"
-                           Stretch="Uniform"/>
-                </Border>
+                <!-- GALERIE OBRÁZKŮ + INFO O SOUBORU -->
+                <TextBlock Text="Obrázky:" Margin="0,10,0,5"/>
+
+                <!-- Obrázek + info vedle sebe -->
+                <Grid Margin="0,0,0,5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Hlavní obrázek -->
+                    <Border Grid.Column="0"
+            Width="250" Height="250"
+            Background="#FFEFEFEF"
+            BorderBrush="#FFCCCCCC"
+            BorderThickness="1"
+            HorizontalAlignment="Left"
+            Margin="0,0,10,0">
+                        <!-- předpoklad: CurrentImagePath (string) ve ViewModelu nebo SelectedPainting.ImagePath -->
+                        <Image Source="{Binding SelectedImage}"
+               Stretch="Uniform"/>
+                    </Border>
+
+                    <!-- Info o souboru -->
+                    <StackPanel Grid.Column="1"
+                VerticalAlignment="Top">
+                        <TextBlock Text="Název souboru:" FontWeight="Bold"/>
+                        <TextBlock Text="{Binding SelectedAttachment.FileName}"
+                   Margin="0,0,0,5"/>
+
+                        <TextBlock Text="Typ souboru:" FontWeight="Bold"/>
+                        <TextBlock Text="{Binding SelectedAttachment.FileType}"/>
+                    </StackPanel>
+                </Grid>
+
+                <!-- Přepínací tlačítka + info o pozici v galerii -->
+                <StackPanel Orientation="Horizontal"
+            Margin="0,5,0,0"
+            VerticalAlignment="Center">
+                    <Button Content="◀"
+            Width="40"
+            Margin="0,0,5,0"
+            Command="{Binding PreviousImageCommand}"/>
+                    <TextBlock Text="{Binding ImagePositionText}"
+               VerticalAlignment="Center"
+               Margin="0,0,5,0"/>
+                    <Button Content="▶"
+            Width="40"
+            Command="{Binding NextImageCommand}"/>
+                </StackPanel>
+
+                <!-- Přidat / smazat aktuální obrázek -->
+                <StackPanel Orientation="Horizontal"
+            Margin="0,5,0,0">
+                    <Button Content="Přidat obrázek"
+            Width="120"
+            Margin="0,0,10,0"
+            Command="{Binding AddImageCommand}"/>
+                    <Button Content="Smazat aktuální"
+            Width="120"
+            Command="{Binding RemoveCurrentImageCommand}"/>
+                </StackPanel>
 
                 <!-- AUTOŘI SOCHY -->
                 <TextBlock Text="Autoři:" Margin="0,15,0,5"/>

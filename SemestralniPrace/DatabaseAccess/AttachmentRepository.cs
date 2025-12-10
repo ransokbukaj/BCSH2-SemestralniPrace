@@ -132,7 +132,37 @@ namespace DatabaseAccess
 
         public void DeleteItem(int id)
         {
-            throw new NotImplementedException();
+            using (var command = ConnectionManager.Connection.CreateCommand())
+            {
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+                command.CommandText = "p_delete_priloha";
+
+                var paramId = new OracleParameter
+                {
+                    ParameterName = "p_idpriloha",
+                    OracleDbType = OracleDbType.Int32,
+                    Direction = System.Data.ParameterDirection.Input,
+                    Value = id
+                };
+                command.Parameters.Add(paramId);
+
+                // Provedení procedury
+                command.ExecuteNonQuery();
+
+                // Commit transakce
+                using (var transaction = ConnectionManager.Connection.BeginTransaction())
+                {
+                    try
+                    {
+                        transaction.Commit();
+                    }
+                    catch
+                    {
+                        transaction.Rollback();
+                        throw;
+                    }
+                }
+            }
         }
 
       
