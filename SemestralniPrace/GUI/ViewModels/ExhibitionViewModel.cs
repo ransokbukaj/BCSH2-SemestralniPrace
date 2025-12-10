@@ -49,12 +49,29 @@ namespace GUI.ViewModels
         [RelayCommand]
         private void AddArtPiece()
         {
+            if(SelectedExhibition != null && SelectedArtPieceToAdd != null)
+            {
+                artRepo.AddArtPieceToExhibition(SelectedArtPieceToAdd.Id,SelectedExhibition.Id);
 
+                ExhibitionArtPieces.Add(SelectedArtPieceToAdd);
+                AvailableArtPieces.Remove(SelectedArtPieceToAdd);
+
+                SelectedArtPieceToAdd = AvailableArtPieces.FirstOrDefault();
+            }
         }
         [RelayCommand]
         private void RemoveArtPiece()
         {
+            if (SelectedExhibition != null && SelectedArtPieceToRemove != null)
+            {
+                artRepo.RemoveArtPieceFromExhibition(SelectedArtPieceToRemove.Id, SelectedExhibition.Id);
 
+                AvailableArtPieces.Add(SelectedArtPieceToRemove);
+                ExhibitionArtPieces.Remove(SelectedArtPieceToRemove);
+
+
+                SelectedArtPieceToRemove = ExhibitionArtPieces.FirstOrDefault();
+            }
         }
 
 

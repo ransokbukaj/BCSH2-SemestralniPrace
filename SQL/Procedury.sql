@@ -1412,3 +1412,187 @@ BEGIN
     END IF;
 END;
 /
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+CREATE OR REPLACE PROCEDURE p_pridat_dilo_na_vystavu(
+    p_idumeleckedilo IN umelecka_dila.idumeleckedilo%TYPE,
+    p_idvystava      IN vystavy.idvystava%TYPE
+)
+IS
+    v_existuje_dilo   NUMBER;
+    v_existuje_vystava NUMBER;
+
+    v_datumzverejneni  umelecka_dila.datumzverejneni%TYPE;
+    v_datumod          vystavy.datumod%TYPE;
+    v_datumdo          vystavy.datumdo%TYPE;
+BEGIN
+    ----------------------------------------------------------------------
+    -- 1) Kontrola existence uměleckého díla
+    ----------------------------------------------------------------------
+    SELECT COUNT(*)
+    INTO v_existuje_dilo
+    FROM umelecka_dila
+    WHERE idumeleckedilo = p_idumeleckedilo;
+
+    IF v_existuje_dilo = 0 THEN
+        RAISE_APPLICATION_ERROR(-20001, 'Umělecké dílo s daným ID neexistuje.');
+    END IF;
+
+    ----------------------------------------------------------------------
+    -- 2) Kontrola existence výstavy
+    ----------------------------------------------------------------------
+    SELECT COUNT(*)
+    INTO v_existuje_vystava
+    FROM vystavy
+    WHERE idvystava = p_idvystava;
+
+    IF v_existuje_vystava = 0 THEN
+        RAISE_APPLICATION_ERROR(-20002, 'Výstava s daným ID neexistuje.');
+    END IF;
+
+    ----------------------------------------------------------------------
+    -- 3) Načtení datumu zveřejnění díla + datumů výstavy
+    ----------------------------------------------------------------------
+    SELECT datumzverejneni
+      INTO v_datumzverejneni
+      FROM umelecka_dila
+     WHERE idumeleckedilo = p_idumeleckedilo;
+
+    SELECT datumod, datumdo
+      INTO v_datumod, v_datumdo
+      FROM vystavy
+     WHERE idvystava = p_idvystava;
+
+    ----------------------------------------------------------------------
+    -- 4) Kontrola logiky dat: dílo nesmí být zveřejněno po výstavě
+    ----------------------------------------------------------------------
+    -- IF v_datumzverejneni > v_datumdo THEN
+    --     RAISE_APPLICATION_ERROR(
+    --         -20003,
+    --         'Dílo bylo zveřejněno až po skončení výstavy.'
+    --     );
+    -- END IF;
+
+    ----------------------------------------------------------------------
+    -- 5) Přiřazení díla na výstavu
+    ----------------------------------------------------------------------
+    UPDATE umelecka_dila
+       SET idvystava = p_idvystava
+     WHERE idumeleckedilo = p_idumeleckedilo;
+
+END;
+/
+
+
+CREATE OR REPLACE PROCEDURE p_odeber_dilo_z_vystavy (
+    p_idumeleckedilo IN umelecka_dila.idumeleckedilo%TYPE,
+    p_idvystava      IN vystavy.idvystava%TYPE
+) IS
+    v_existuje_dilo     NUMBER;
+    v_existuje_vystava  NUMBER;
+    v_aktualni_vystava  umelecka_dila.idvystava%TYPE;
+BEGIN
+    -- kontrola, že dílo existuje
+    SELECT COUNT(*)
+      INTO v_existuje_dilo
+      FROM umelecka_dila
+     WHERE idumeleckedilo = p_idumeleckedilo;
+
+    IF v_existuje_dilo = 0 THEN
+        RAISE_APPLICATION_ERROR(-20041, 'Dílo s ID ' || p_idumeleckedilo || ' neexistuje.');
+    END IF;
+
+    -- kontrola, že výstava existuje
+    SELECT COUNT(*)
+      INTO v_existuje_vystava
+      FROM vystavy
+     WHERE idvystava = p_idvystava;
+
+    IF v_existuje_vystava = 0 THEN
+        RAISE_APPLICATION_ERROR(-20042, 'Výstava s ID ' || p_idvystava || ' neexistuje.');
+    END IF;
+
+    -- zjištění, na jaké výstavě dílo aktuálně je
+    SELECT idvystava
+      INTO v_aktualni_vystava
+      FROM umelecka_dila
+     WHERE idumeleckedilo = p_idumeleckedilo;
+
+    IF v_aktualni_vystava IS NULL THEN
+        RAISE_APPLICATION_ERROR(-20043, 'Dílo není přiřazeno k žádné výstavě.');
+    ELSIF v_aktualni_vystava <> p_idvystava THEN
+        RAISE_APPLICATION_ERROR(
+            -20044,
+            'Dílo s ID ' || p_idumeleckedilo ||
+            ' není přiřazeno k výstavě s ID ' || p_idvystava || '.'
+        );
+    END IF;
+
+    -- samotné odebrání díla z výstavy
+    UPDATE umelecka_dila
+       SET idvystava = NULL
+     WHERE idumeleckedilo = p_idumeleckedilo;
+END;
+/
+
+
+CREATE OR REPLACE PROCEDURE p_pridat_vystavu_do_programu (
+    p_idvystava           IN vystavy.idvystava%TYPE,
+    p_idvzdelavaciprogram IN vzdelavaci_programy.idvzdelavaciprogram%TYPE
+) AS
+    v_vystava_count NUMBER;
+    v_program_count NUMBER;
+BEGIN
+    -- Kontrola, že výstava existuje
+    SELECT COUNT(*)
+    INTO   v_vystava_count
+    FROM   vystavy
+    WHERE  idvystava = p_idvystava;
+
+    IF v_vystava_count = 0 THEN
+        RAISE_APPLICATION_ERROR(-20083, 'Výstava s ID ' || p_idvystava || ' neexistuje.');
+    END IF;
+
+    -- Kontrola, že program existuje
+    SELECT COUNT(*)
+    INTO   v_program_count
+    FROM   vzdelavaci_programy
+    WHERE  idvzdelavaciprogram = p_idvzdelavaciprogram;
+
+    IF v_program_count = 0 THEN
+        RAISE_APPLICATION_ERROR(-20084, 'Vzdělávací program s ID ' || p_idvzdelavaciprogram || ' neexistuje.');
+    END IF;
+
+    -- Přiřazení výstavy k programu
+    UPDATE vystavy
+    SET    idvzdelavaciprogram = p_idvzdelavaciprogram
+    WHERE  idvystava = p_idvystava;
+END p_pridat_vystavu_do_programu;
+/
+
+
+
+CREATE OR REPLACE PROCEDURE p_odebrat_vystavu_z_programu (
+    p_idvystava IN vystavy.idvystava%TYPE
+) AS
+    v_vystava_count NUMBER;
+BEGIN
+    -- Kontrola, že výstava existuje
+    SELECT COUNT(*)
+    INTO   v_vystava_count
+    FROM   vystavy
+    WHERE  idvystava = p_idvystava;
+
+    IF v_vystava_count = 0 THEN
+        RAISE_APPLICATION_ERROR(-20085, 'Výstava s ID ' || p_idvystava || ' neexistuje.');
+    END IF;
+
+    -- Odebrání programu (odkaz na program -> NULL)
+    UPDATE vystavy
+    SET    idvzdelavaciprogram = NULL
+    WHERE  idvystava = p_idvystava;
+END p_odebrat_vystavu_z_programu;
+/

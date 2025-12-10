@@ -251,6 +251,7 @@ ORDER BY d.nazev, u.prijmeni, u.jmeno;
 
 
 
+
 CREATE OR REPLACE VIEW v_umelci_dila AS
 SELECT
     u.idumelec AS id,
@@ -264,3 +265,21 @@ FROM umelci u
 LEFT JOIN umelci_umelecka_dila ud
        ON ud.idumelec = u.idumelec
 ORDER BY prijmeni, jmeno, ud.idumeleckedilo;
+
+CREATE OR REPLACE VIEW v_dila_umelci AS
+SELECT
+    d.idumeleckedilo        AS id_dilo,
+    d.nazev                 AS dilo_nazev,
+    d.typdila               AS typ_dila,
+    d.datumzverejneni       AS datum_zverejneni,
+    d.popis                 AS popis,
+    d.vyska                 AS vyska,
+    d.sirka                 AS sirka,
+    d.idprodej              AS id_prodej,
+    d.idvystava             AS id_vystava,
+    ud.idumelec             AS id_umelec
+FROM umelecka_dila d
+JOIN umelci_umelecka_dila ud
+     ON ud.idumeleckedilo = d.idumeleckedilo
+ORDER BY d.nazev, ud.idumelec;
+

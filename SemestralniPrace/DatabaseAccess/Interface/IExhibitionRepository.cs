@@ -16,5 +16,10 @@ namespace DatabaseAccess.Interface
         void SaveItem(Exhibition exhibition);
 
         void DeleteItem(int id);
+
+
+        void AddExhibitionToProgram(int idEx, int idProgram);
+        void RemoveExhibitionFromProgram(int idEx);
+        
     }
 }

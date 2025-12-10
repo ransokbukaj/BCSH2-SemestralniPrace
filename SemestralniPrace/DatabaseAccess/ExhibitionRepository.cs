@@ -206,5 +206,92 @@ namespace DatabaseAccess
             }
             return list;
         }
+
+
+        public void AddExhibitionToProgram(int idEx, int idProgram)
+        {
+            using (var command = ConnectionManager.Connection.CreateCommand())
+            {
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+                command.CommandText = "p_pridat_vystavu_do_programu";
+
+                var paramIdExh = new OracleParameter
+                {
+                    ParameterName = "p_idvystava",
+                    OracleDbType = OracleDbType.Int32,
+                    Direction = System.Data.ParameterDirection.Input,
+                    Value = idEx
+                };
+                command.Parameters.Add(paramIdExh);
+
+                var paramIdProg = new OracleParameter
+                {
+                    ParameterName = "p_idvzdelavaciprogram",
+                    OracleDbType = OracleDbType.Varchar2,
+                    Direction = System.Data.ParameterDirection.Input,
+                    Value = idProgram
+                };
+                command.Parameters.Add(paramIdProg);
+
+
+                // Provedení procedury
+                command.ExecuteNonQuery();
+
+                // Commit transakce
+                using (var transaction = ConnectionManager.Connection.BeginTransaction())
+                {
+                    try
+                    {
+                        transaction.Commit();
+                    }
+                    catch
+                    {
+                        transaction.Rollback();
+                        throw;
+                    }
+                }
+            }
+        }
+
+        public void RemoveExhibitionFromProgram(int idEx)
+        {
+            using (var command = ConnectionManager.Connection.CreateCommand())
+            {
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+                command.CommandText = "p_odebrat_vystavu_z_programu";
+
+                var paramIdExh = new OracleParameter
+                {
+                    ParameterName = "p_idvystava",
+                    OracleDbType = OracleDbType.Int32,
+                    Direction = System.Data.ParameterDirection.Input,
+                    Value = idEx
+                };
+                command.Parameters.Add(paramIdExh);
+
+                
+
+                // Provedení procedury
+                command.ExecuteNonQuery();
+
+                // Commit transakce
+                using (var transaction = ConnectionManager.Connection.BeginTransaction())
+                {
+                    try
+                    {
+                        transaction.Commit();
+                    }
+                    catch
+                    {
+                        transaction.Rollback();
+                        throw;
+                    }
+                }
+            }
+        }
+
+
+
+
     }
 }

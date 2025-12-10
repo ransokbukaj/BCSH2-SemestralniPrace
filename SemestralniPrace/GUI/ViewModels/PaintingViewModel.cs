@@ -157,8 +157,8 @@ namespace GUI.ViewModels
         {
             var dlg = new OpenFileDialog
             {
-                Title = "Vyber obr·zek",
-                Filter = "Obr·zky|*.png;*.jpg;*.jpeg;*.bmp;*.gif",
+                Title = "Vyber obr√°zek",
+                Filter = "Obr√°zky|*.png;*.jpg;*.jpeg;*.bmp;*.gif",
                 Multiselect = false
             };
             

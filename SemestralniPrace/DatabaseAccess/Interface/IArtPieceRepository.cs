@@ -22,5 +22,9 @@ namespace DatabaseAccess.Interface
         void SaveItem(ArtPiece piece);
 
         void DeleteItem(int id);
+
+        void AddArtPieceToExhibition(int idArtpiece, int idExhibition);
+
+        void RemoveArtPieceFromExhibition(int idArtpiece, int idExhibition);
     }
 }

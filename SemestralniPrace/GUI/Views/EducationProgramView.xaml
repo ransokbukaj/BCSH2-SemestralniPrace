@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              mc:Ignorable="d"
              Background="White"
-             d:DesignHeight="450" d:DesignWidth="900">
+             d:DesignHeight="600" d:DesignWidth="900">
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -88,8 +88,9 @@
                                Margin="0,15,0,5"/>
 
                     <DataGrid ItemsSource="{Binding ExhibitionsInProgram}"
-                              SelectedItem="{Binding SelectedExhibitionInProgram, Mode=TwoWay}"
+                              SelectedItem="{Binding SelectedExhibitionToRemove, Mode=TwoWay}"
                               AutoGenerateColumns="False"
+                              IsReadOnly="True"
                               Height="150">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="Auto"/>

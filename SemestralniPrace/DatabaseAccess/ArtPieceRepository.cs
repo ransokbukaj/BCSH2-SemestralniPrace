@@ -4,6 +4,7 @@ using Oracle.ManagedDataAccess.Client;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -145,7 +146,7 @@ namespace DatabaseAccess
                             PublishedDate = Convert.ToDateTime(reader["datum_zverejneni"]),
                             Height = Convert.ToDouble(reader["vyska"]),
                             Width = Convert.ToDouble(reader["sirka"]),
-                            
+
                         });
                     }
                 }
@@ -293,5 +294,101 @@ namespace DatabaseAccess
             }
             return list;
         }
+
+
+
+        public void AddArtPieceToExhibition(int idArtpiece, int idExhibition)
+        {
+            using (var command = ConnectionManager.Connection.CreateCommand())
+            {
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+                command.CommandText = "p_pridat_dilo_na_vystavu";
+
+                var paramIdArt = new OracleParameter
+                {
+                    ParameterName = "p_idumeleckedilo",
+                    OracleDbType = OracleDbType.Int32,
+                    Direction = System.Data.ParameterDirection.Input,
+                    Value = idArtpiece
+                };
+                command.Parameters.Add(paramIdArt);
+
+                var paramIdExhib = new OracleParameter
+                {
+                    ParameterName = "p_idvystava",
+                    OracleDbType = OracleDbType.Varchar2,
+                    Direction = System.Data.ParameterDirection.Input,
+                    Value = idExhibition
+                };
+                command.Parameters.Add(paramIdExhib);
+
+
+                // Provedení procedury
+                command.ExecuteNonQuery();
+
+                // Commit transakce
+                using (var transaction = ConnectionManager.Connection.BeginTransaction())
+                {
+                    try
+                    {
+                        transaction.Commit();
+                    }
+                    catch
+                    {
+                        transaction.Rollback();
+                        throw;
+                    }
+                }
+            }
+        }
+
+
+
+        public void RemoveArtPieceFromExhibition(int idArtpiece, int idExhibition)
+        {
+            using (var command = ConnectionManager.Connection.CreateCommand())
+            {
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+                command.CommandText = "p_odeber_dilo_z_vystavy";
+
+                var paramIdArt = new OracleParameter
+                {
+                    ParameterName = "p_idumeleckedilo",
+                    OracleDbType = OracleDbType.Int32,
+                    Direction = System.Data.ParameterDirection.Input,
+                    Value = idArtpiece
+                };
+                command.Parameters.Add(paramIdArt);
+
+                var paramIdExhib = new OracleParameter
+                {
+                    ParameterName = "p_idvystava",
+                    OracleDbType = OracleDbType.Varchar2,
+                    Direction = System.Data.ParameterDirection.Input,
+                    Value = idExhibition
+                };
+                command.Parameters.Add(paramIdExhib);
+
+
+                // Provedení procedury
+                command.ExecuteNonQuery();
+
+                // Commit transakce
+                using (var transaction = ConnectionManager.Connection.BeginTransaction())
+                {
+                    try
+                    {
+                        transaction.Commit();
+                    }
+                    catch
+                    {
+                        transaction.Rollback();
+                        throw;
+                    }
+                }
+            }
+
+        }
+
     }
 }
