@@ -164,7 +164,47 @@ namespace DatabaseAccess
 
         public List<Exhibition> GetListByProgramId(int programId)
         {
-            throw new NotImplementedException();
+            var list = new List<Exhibition>();
+            using (var command = ConnectionManager.Connection.CreateCommand())
+            {
+                command.CommandText = @"
+                    SELECT 
+                        id,
+                        nazev,
+                        datum_od,
+                        datum_do,
+                        popis,
+                        id_vzdelavaci_program
+                    FROM v_vystavy
+                    WHERE id_vzdelavaci_program = :programId";
+
+                var paramId = new OracleParameter
+                {
+                    ParameterName = "programId",
+                    OracleDbType = OracleDbType.Int32,
+                    Value = programId
+                };
+                command.Parameters.Add(paramId);
+
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        list.Add(new Exhibition
+                        {
+                            Id = Convert.ToInt32(reader["id"]),
+                            Name = reader["nazev"].ToString(),
+                            From = Convert.ToDateTime(reader["datum_od"]),
+                            To = Convert.ToDateTime(reader["datum_do"]),
+                            Description = reader["popis"] == DBNull.Value ? null : reader["popis"].ToString(),
+                            EducationProgramId = reader["id_vzdelavaci_program"] == DBNull.Value
+                                ? 0
+                                : Convert.ToInt32(reader["id_vzdelavaci_program"])
+                        });
+                    }
+                }
+            }
+            return list;
         }
     }
 }
