@@ -23,7 +23,6 @@ namespace GUI.ViewModels
         private readonly ArtistRepository artistRep = new ArtistRepository();
 
 
-
         [ObservableProperty]
         private ObservableCollection<Painting> paintings = new();
 
@@ -42,13 +41,8 @@ namespace GUI.ViewModels
         [ObservableProperty]
         private ObservableCollection<Artist> availableArtists = new();
 
-
-
-
         [ObservableProperty]
         private Painting selectedPainting;
-
-
 
 
         [ObservableProperty]
@@ -56,6 +50,12 @@ namespace GUI.ViewModels
 
         [ObservableProperty]
         private ImageSource selectedImage;
+
+        [ObservableProperty]
+        private Artist selectedArtistToAdd;
+
+        [ObservableProperty]
+        private Artist selectedArtistToRemove;
 
 
         partial void OnSelectedPaintingChanged(Painting? oldValue, Painting newValue)
@@ -88,6 +88,33 @@ namespace GUI.ViewModels
             if(SelectedAttachment != null)
                 SelectedImage = AttachmentHelper.LoadImageSource(SelectedAttachment.File);
         }
+
+        [RelayCommand]
+        private void AddArtistToPainting()
+        {
+            if(SelectedPainting != null && SelectedArtistToAdd != null )
+            {
+                artistRep.AddArtistToArtPiece(SelectedArtistToAdd.Id, SelectedPainting.Id);
+                Authors.Add(SelectedArtistToAdd);
+                AvailableArtists.Remove(SelectedArtistToAdd);
+                
+                SelectedArtistToAdd = AvailableArtists.FirstOrDefault();
+            }
+        }
+
+        [RelayCommand]
+        private void RemoveArtistFromPainting()
+        {
+            if (SelectedPainting != null && SelectedArtistToRemove != null)
+            {
+                artistRep.RemoveArtistFromArtPiece(SelectedArtistToRemove.Id, SelectedPainting.Id);
+                AvailableArtists.Add(SelectedArtistToRemove);
+                Authors.Remove(SelectedArtistToRemove);
+
+                SelectedArtistToRemove = Authors.FirstOrDefault();
+            }
+        }
+
 
         [RelayCommand]
         private void PreviousImage()
