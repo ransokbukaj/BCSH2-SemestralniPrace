@@ -1,11 +1,12 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using DatabaseAccess.Interface;
 using Entities;
 using Oracle.ManagedDataAccess.Client;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace DatabaseAccess
 {
@@ -162,40 +163,79 @@ namespace DatabaseAccess
             }
         }
 
+        //public List<Artist> GetListByArtPieceId(int id)
+        //{
+        //    var list = new List<Artist>();
+        //    using (var command = ConnectionManager.Connection.CreateCommand())
+        //    {
+        //        // Nastavení pro volání funkce
+        //        command.CommandText = "SELECT * FROM TABLE(f_get_artists_by_artpiece(:p_idumeleckedilo))";
+        //        command.CommandType = System.Data.CommandType.Text;
+
+        //        // Parametr pro ID uměleckého díla
+        //        var paramId = new OracleParameter
+        //        {
+        //            ParameterName = "p_idumeleckedilo",
+        //            OracleDbType = OracleDbType.Int32,
+        //            Direction = System.Data.ParameterDirection.Input,
+        //            Value = id
+        //        };
+        //        command.Parameters.Add(paramId);
+
+        //        // Načtení dat
+        //        using (var reader = command.ExecuteReader())
+        //        {
+        //            while (reader.Read())
+        //            {
+        //                list.Add(new Artist
+        //                {
+        //                    Id = Convert.ToInt32(reader["idumelec"]),
+        //                    FirstName = reader["jmeno"].ToString(),
+        //                    LastName = reader["prijmeni"].ToString(),
+        //                    DateOfBirth = Convert.ToDateTime(reader["datumnarozeni"]),
+        //                    DateOfDeath = reader["datumumrti"] == DBNull.Value
+        //                        ? DateTime.MinValue
+        //                        : Convert.ToDateTime(reader["datumumrti"]),
+        //                    Description = reader["popis"] == DBNull.Value ? null : reader["popis"].ToString()
+        //                });
+        //            }
+        //        }
+        //    }
+        //    return list;
+        //}
+
         public List<Artist> GetListByArtPieceId(int id)
         {
             var list = new List<Artist>();
             using (var command = ConnectionManager.Connection.CreateCommand())
             {
-                // Nastavení pro volání funkce
-                command.CommandText = "SELECT * FROM TABLE(f_get_artists_by_artpiece(:p_idumeleckedilo))";
-                command.CommandType = System.Data.CommandType.Text;
+                command.CommandText = @"
+                    SELECT 
+                        idumelec,
+                        jmeno,
+                        prijmeni
+                    FROM v_umelci_dila
+                    WHERE idumeleckedilo = :idumldila";
 
-                // Parametr pro ID uměleckého díla
                 var paramId = new OracleParameter
                 {
-                    ParameterName = "p_idumeleckedilo",
+                    ParameterName = "idumldila",
                     OracleDbType = OracleDbType.Int32,
                     Direction = System.Data.ParameterDirection.Input,
                     Value = id
                 };
                 command.Parameters.Add(paramId);
 
-                // Načtení dat
                 using (var reader = command.ExecuteReader())
                 {
                     while (reader.Read())
                     {
                         list.Add(new Artist
                         {
-                            Id = Convert.ToInt32(reader["idumelec"]),
+                            Id = Convert.ToInt32(reader["id"]),
                             FirstName = reader["jmeno"].ToString(),
                             LastName = reader["prijmeni"].ToString(),
-                            DateOfBirth = Convert.ToDateTime(reader["datumnarozeni"]),
-                            DateOfDeath = reader["datumumrti"] == DBNull.Value
-                                ? DateTime.MinValue
-                                : Convert.ToDateTime(reader["datumumrti"]),
-                            Description = reader["popis"] == DBNull.Value ? null : reader["popis"].ToString()
+                            
                         });
                     }
                 }

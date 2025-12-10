@@ -20,6 +20,7 @@ namespace GUI.ViewModels
         private readonly PaintingRepository repository = new PaintingRepository();
         private readonly CounterRepository counterRep = new CounterRepository();
         private readonly AttachmentRepository attRep = new AttachmentRepository();
+        private readonly ArtistRepository artistRep = new ArtistRepository();
 
 
 
@@ -35,7 +36,15 @@ namespace GUI.ViewModels
         [ObservableProperty]
         private ObservableCollection<Attachment> attachments = new();
 
-        
+        [ObservableProperty]
+        private ObservableCollection<Artist> authors = new();
+
+        [ObservableProperty]
+        private ObservableCollection<Artist> availableArtists = new();
+
+
+
+
         [ObservableProperty]
         private Painting selectedPainting;
 
@@ -64,6 +73,13 @@ namespace GUI.ViewModels
                     SelectedAttachment = null;
                     SelectedImage = null;
                 }
+
+                Authors = new ObservableCollection<Artist>(artistRep.GetListByArtPieceId(SelectedPainting.Id));
+
+                var assignedIds = new HashSet<int>(artistRep.GetListByArtPieceId(SelectedPainting.Id).Select(a => a.Id));
+
+                var coll = artistRep.GetList().Where(a => !assignedIds.Contains(a.Id)).ToList();
+                AvailableArtists = new ObservableCollection<Artist>(coll);
             }
         }
 

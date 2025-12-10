@@ -179,8 +179,8 @@
                 <TextBlock Text="Autoři:" Margin="0,15,0,5"/>
 
                 <!-- Seznam autorů obrazu -->
-                <ListBox ItemsSource="{Binding SelectedPainting.Artists}"
-                         SelectedItem="{Binding SelectedArtistOnPainting, Mode=TwoWay}"
+                <ListBox ItemsSource="{Binding Authors}"
+                         SelectedItem="{Binding SelectedArtist, Mode=TwoWay}"
                          DisplayMemberPath="LastName"
                          Height="120"/>
 

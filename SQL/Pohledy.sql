@@ -249,3 +249,16 @@ FROM umelecka_dila d
     LEFT JOIN umelci_umelecka_dila ud ON ud.idumeleckedilo = d.idumeleckedilo
     LEFT JOIN umelci u               ON u.idumelec = ud.idumelec
 ORDER BY d.nazev, u.prijmeni, u.jmeno;
+
+
+
+CREATE OR REPLACE VIEW v_umelci_dila AS
+SELECT
+    u.idumelec,
+    u.jmeno,
+    u.prijmeni,
+    ud.idumeleckedilo
+FROM umelci u
+LEFT JOIN umelci_umelecka_dila ud
+       ON ud.idumelec = u.idumelec
+ORDER BY u.prijmeni, u.jmeno, ud.idumeleckedilo;
