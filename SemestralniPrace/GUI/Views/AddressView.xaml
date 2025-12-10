@@ -30,7 +30,7 @@
                   IsReadOnly="True"
                   Margin="0,0,10,0">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="Auto"/>
+                <!--<DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="Auto"/>-->
                 <DataGridTextColumn Header="Ulice" Binding="{Binding Street}" Width="*"/>
                 <DataGridTextColumn Header="Č.p." Binding="{Binding HouseNumber}" Width="*"/>
                 <DataGridTextColumn Header="Č.o." Binding="{Binding StreetNumber}" Width="*"/>
@@ -42,10 +42,10 @@
         <StackPanel Grid.Row="1" Grid.Column="1" Margin="10,0,0,0">
             <TextBlock Text="Detail adresy" FontSize="18" FontWeight="Bold" Margin="0,0,0,10"/>
 
-            <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+            <!--<StackPanel Orientation="Horizontal" Margin="0,0,0,5">
                 <TextBlock Text="ID:" Width="120"/>
                 <TextBlock Text="{Binding SelectedAddress.Id}"/>
-            </StackPanel>
+            </StackPanel>-->
 
             <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
                 <TextBlock Text="Ulice:" Width="120"/>

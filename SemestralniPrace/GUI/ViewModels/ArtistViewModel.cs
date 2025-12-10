@@ -14,9 +14,14 @@ namespace GUI.ViewModels
     public partial class ArtistViewModel : ObservableObject
     {
         private readonly ArtistRepository repository = new ArtistRepository();
+        private readonly ArtPieceRepository artRepo = new ArtPieceRepository();
+
 
         [ObservableProperty]
         private ObservableCollection<Artist> artists = new();
+
+        [ObservableProperty]
+        private ObservableCollection<ArtPiece> artPieces = new();
 
         [ObservableProperty]
         private Artist selectedArtist;
@@ -24,6 +29,14 @@ namespace GUI.ViewModels
         public ArtistViewModel()
         {
             Load();
+        }
+
+        partial void OnSelectedArtistChanged(Artist value)
+        {
+            if(SelectedArtist != null)
+            {
+                ArtPieces = new ObservableCollection<ArtPiece>(artRepo.GetListByArtistId(SelectedArtist.Id));
+            }
         }
 
         [RelayCommand]

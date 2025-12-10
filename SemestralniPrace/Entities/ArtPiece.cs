@@ -10,11 +10,25 @@ namespace Entities
     {
         public int Id { get; set; }
         public string Name { get; set; }
+
+        public string Type { get; set; }
         public string Description { get; set; }
         public DateTime PublishedDate { get; set; }
         public double Height { get; set; }
         public double Width { get; set; }
         public int ExhibitionId { get; set; }
         public int SaleId { get; set; }
+
+        public string TypeToString {
+            get
+            {
+                return Type switch
+                {
+                    "S" => "Socha",
+                    "O" => "Obraz",
+                    _ => "Neznámý typ"
+                };
+            }
+        }
     }
 }

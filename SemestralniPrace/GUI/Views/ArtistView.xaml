@@ -100,7 +100,7 @@
                            FontWeight="Bold"
                            Margin="0,15,0,5"/>
 
-                <DataGrid ItemsSource="{Binding SelectedArtist.ArtPieces}"
+                <DataGrid ItemsSource="{Binding ArtPieces}"
                           AutoGenerateColumns="False"
                           IsReadOnly="True"
                           Height="200">

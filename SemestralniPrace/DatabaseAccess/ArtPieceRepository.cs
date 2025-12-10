@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace DatabaseAccess
 {
-    internal class ArtPieceRepository : IArtPieceRepository
+    public class ArtPieceRepository : IArtPieceRepository
     {
         public List<ArtPiece> GetList()
         {
@@ -61,40 +61,91 @@ namespace DatabaseAccess
             throw new NotImplementedException();
         }
 
+
+
+        //public List<ArtPiece> GetListByArtistId(int artistId)
+        //{
+        //    var list = new List<ArtPiece>();
+        //    using (var command = ConnectionManager.Connection.CreateCommand())
+        //    {
+        //        // Volání funkce vracející cursor
+        //        command.CommandText = "SELECT * FROM TABLE(f_get_artpieces_by_artist(:p_idumelec))";
+        //        command.CommandType = System.Data.CommandType.Text;
+
+        //        // Parametr pro ID umělce
+        //        var paramId = new OracleParameter
+        //        {
+        //            ParameterName = "p_idumelec",
+        //            OracleDbType = OracleDbType.Int32,
+        //            Direction = System.Data.ParameterDirection.Input,
+        //            Value = artistId
+        //        };
+        //        command.Parameters.Add(paramId);
+
+        //        // Načtení dat
+        //        using (var reader = command.ExecuteReader())
+        //        {
+        //            while (reader.Read())
+        //            {
+        //                list.Add(new ArtPiece
+        //                {
+        //                    Id = Convert.ToInt32(reader["idumeleckedilo"]),
+        //                    Name = reader["nazev"].ToString(),
+        //                    Description = reader["popis"] == DBNull.Value ? null : reader["popis"].ToString(),
+        //                    PublishedDate = Convert.ToDateTime(reader["datumzverejneni"]),
+        //                    Height = Convert.ToDouble(reader["vyska"]),
+        //                    Width = Convert.ToDouble(reader["sirka"]),
+        //                    ExhibitionId = reader["idvystava"] == DBNull.Value ? 0 : Convert.ToInt32(reader["idvystava"]),
+        //                    SaleId = reader["idprodej"] == DBNull.Value ? 0 : Convert.ToInt32(reader["idprodej"])
+        //                });
+        //            }
+        //        }
+        //    }
+        //    return list;
+        //}
+
         public List<ArtPiece> GetListByArtistId(int artistId)
         {
             var list = new List<ArtPiece>();
             using (var command = ConnectionManager.Connection.CreateCommand())
             {
-                // Volání funkce vracející cursor
-                command.CommandText = "SELECT * FROM TABLE(f_get_artpieces_by_artist(:p_idumelec))";
-                command.CommandType = System.Data.CommandType.Text;
+                command.CommandText = @"
+                    SELECT 
+                        id_dilo,
+                        dilo_nazev,
+                        typ_dila,
+                        datum_zverejneni,
+                        popis,
+                        vyska,
+                        sirka,
+                        id_prodej,
+                        id_vystava,
+                        id_umelec
+                    FROM v_dila_umelci
+                    WHERE id_umelec = :artistId
+                    ORDER BY dilo_nazev";
 
-                // Parametr pro ID umělce
                 var paramId = new OracleParameter
                 {
-                    ParameterName = "p_idumelec",
+                    ParameterName = "artistId",
                     OracleDbType = OracleDbType.Int32,
-                    Direction = System.Data.ParameterDirection.Input,
                     Value = artistId
                 };
                 command.Parameters.Add(paramId);
 
-                // Načtení dat
                 using (var reader = command.ExecuteReader())
                 {
                     while (reader.Read())
                     {
                         list.Add(new ArtPiece
                         {
-                            Id = Convert.ToInt32(reader["idumeleckedilo"]),
-                            Name = reader["nazev"].ToString(),
+                            Id = Convert.ToInt32(reader["id_dilo"]),
+                            Name = reader["dilo_nazev"].ToString(),
                             Description = reader["popis"] == DBNull.Value ? null : reader["popis"].ToString(),
-                            PublishedDate = Convert.ToDateTime(reader["datumzverejneni"]),
+                            PublishedDate = Convert.ToDateTime(reader["datum_zverejneni"]),
                             Height = Convert.ToDouble(reader["vyska"]),
                             Width = Convert.ToDouble(reader["sirka"]),
-                            ExhibitionId = reader["idvystava"] == DBNull.Value ? 0 : Convert.ToInt32(reader["idvystava"]),
-                            SaleId = reader["idprodej"] == DBNull.Value ? 0 : Convert.ToInt32(reader["idprodej"])
+                            
                         });
                     }
                 }
@@ -143,7 +194,8 @@ namespace DatabaseAccess
                             Height = Convert.ToDouble(reader["vyska"]),
                             Width = Convert.ToDouble(reader["sirka"]),
                             ExhibitionId = reader["idvystava"] == DBNull.Value ? 0 : Convert.ToInt32(reader["idvystava"]),
-                            SaleId = reader["idprodej"] == DBNull.Value ? 0 : Convert.ToInt32(reader["idprodej"])
+                            SaleId = reader["idprodej"] == DBNull.Value ? 0 : Convert.ToInt32(reader["idprodej"]),
+                            Type = reader["typdila"].ToString()
                         });
                     }
                 }
@@ -184,7 +236,8 @@ namespace DatabaseAccess
                             Height = Convert.ToDouble(reader["vyska"]),
                             Width = Convert.ToDouble(reader["sirka"]),
                             ExhibitionId = 0,
-                            SaleId = 0
+                            SaleId = 0,
+                            Type = reader["typdila"].ToString()
                         });
                     }
                 }

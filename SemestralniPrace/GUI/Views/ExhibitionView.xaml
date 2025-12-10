@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              mc:Ignorable="d"
              Background="White"
-             d:DesignHeight="450" d:DesignWidth="1000">
+             d:DesignHeight="1000" d:DesignWidth="1000">
 
     <Grid Margin="10">
         <Grid.RowDefinitions>
@@ -97,7 +97,7 @@
                                Margin="0,15,0,5"/>
 
                     <DataGrid ItemsSource="{Binding ExhibitionArtPieces}"
-                              SelectedItem="{Binding SelectedExhibitionArtPiece, Mode=TwoWay}"
+                              SelectedItem="{Binding SelectedArtPieceToRemove, Mode=TwoWay}"
                               AutoGenerateColumns="False"
                               IsReadOnly="True"
                               Height="160"
@@ -107,7 +107,7 @@
                                                 Binding="{Binding Name}"
                                                 Width="2*"/>
                             <DataGridTextColumn Header="Typ díla"
-                                                Binding="{Binding ArtType}"
+                                                Binding="{Binding TypeToString}"
                                                 Width="*"/>
                         </DataGrid.Columns>
                     </DataGrid>
@@ -119,7 +119,7 @@
                                    Width="100"
                                    VerticalAlignment="Center"/>
                         <ComboBox Width="220"
-                                  ItemsSource="{Binding AllArtPieces}"
+                                  ItemsSource="{Binding AvailableArtPieces}"
                                   SelectedItem="{Binding SelectedArtPieceToAdd, Mode=TwoWay}"
                                   DisplayMemberPath="Name"
                                   Margin="0,0,10,0"/>
