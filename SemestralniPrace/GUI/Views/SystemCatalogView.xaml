@@ -27,6 +27,9 @@
             <TextBlock Text="{Binding Catalog.TotalViewCount, StringFormat=' | Pohledy: {0}'}"
                        FontSize="14"
                        VerticalAlignment="Center"/>
+            <TextBlock Text="{Binding Catalog.TotalProcedureCount, StringFormat=' | Procedury a funkce: {0}'}"
+                       FontSize="14"
+                       VerticalAlignment="Center"/>
         </StackPanel>
 
         <TabControl Grid.Row="1">
