@@ -27,7 +27,7 @@ namespace DatabaseAccess
                         nazev_druhu_platby,
                         id_kupec,
                         kupec_jmeno,
-                        kupec_prijmeni,
+                        kupec_prijmeni
                     FROM v_prodeje";
 
                 using (var reader = command.ExecuteReader())
