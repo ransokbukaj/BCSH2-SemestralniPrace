@@ -9,6 +9,8 @@
         Width="1150"       
         Background="Transparent">
 
+    
+    
     <!--"Background= #272537"-->
     <Border Background="Snow">
         <Grid >

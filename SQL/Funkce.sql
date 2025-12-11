@@ -1,140 +1,105 @@
-CREATE OR REPLACE FUNCTION f_vystava_financni_prehled(
-    p_idvystava        IN vystavy.idvystava%TYPE,
-    p_datum_od         IN DATE,
-    p_datum_do         IN DATE,
-    p_zahrnout_vstupne IN CHAR DEFAULT 'A',
-    p_zahrnout_prodeje IN CHAR DEFAULT 'A'
+CREATE OR REPLACE FUNCTION f_trzba_z_vystavy(
+    p_idvystava IN vystavy.idvystava%TYPE
 ) RETURN NUMBER
 IS
-    v_datumod         vystavy.datumod%TYPE;
-    v_datumdo         vystavy.datumdo%TYPE;
-    v_trzba_vstupne   NUMBER(12,2) := 0;
-    v_trzba_prodeje   NUMBER(12,2) := 0;
-    v_vysledek        NUMBER(12,2);
+    v_trzba_vstupne NUMBER(12,2);
 BEGIN
-    -- načtení dat výstavy
-    SELECT datumod, datumdo
-    INTO   v_datumod, v_datumdo
-    FROM   vystavy
-    WHERE  idvystava = p_idvystava;
+    -- Tržba ze vstupného na danou výstavu
+    SELECT NVL(SUM(dn.cena), 0)
+    INTO   v_trzba_vstupne
+    FROM   navstevy n
+           JOIN druhy_navstev dn
+             ON n.iddruhnavstevy = dn.iddruhnavstevy
+    WHERE  n.idvystava = p_idvystava;
 
-    IF p_datum_od IS NOT NULL THEN
-        v_datumod := p_datum_od;
-    END IF;
-	
-    IF p_datum_do IS NOT NULL THEN
-        v_datumdo := p_datum_do;
-    END IF;
-
-    IF v_datumod > v_datumdo THEN
-        RAISE_APPLICATION_ERROR(-20100, 'Neplatný interval data (od > do).');
-    END IF;
-
-    -- tržba ze vstupného
-    IF p_zahrnout_vstupne = 'A' THEN
-        SELECT NVL(SUM(dn.cena), 0)
-        INTO   v_trzba_vstupne
-        FROM   navstevy n
-               JOIN druhy_navstev dn ON dn.iddruhnavstevy = n.iddruhnavstevy
-        WHERE  n.idvystava = p_idvystava
-        AND    n.datumnavstevy BETWEEN v_datumod AND v_datumdo;
-    END IF;
-
-    -- tržba z prodeje děl
-    IF p_zahrnout_prodeje = 'A' THEN
-        SELECT NVL(SUM(p.cena), 0)
-        INTO   v_trzba_prodeje
-        FROM   umelecka_dila d
-               JOIN prodeje p ON p.idprodej = d.idprodej
-        WHERE  d.idvystava = p_idvystava
-        AND    p.datumprodeje BETWEEN v_datumod AND v_datumdo;
-    END IF;
-
-    v_vysledek := v_trzba_vstupne + v_trzba_prodeje;
-    RETURN v_vysledek;
+    RETURN v_trzba_vstupne;
 EXCEPTION
     WHEN NO_DATA_FOUND THEN
-        RAISE_APPLICATION_ERROR(-20101, 'Výstava neexistuje.');
+        RETURN 0;
 END;
 /
 
-
-CREATE OR REPLACE FUNCTION f_prumerna_cena_prodanych_del_umelce(
+CREATE OR REPLACE FUNCTION f_prumerna_cena_dil_autora(
     p_idumelec IN umelci.idumelec%TYPE
 ) RETURN NUMBER
 IS
-    v_prumer NUMBER(12, 2);
+    v_prumer NUMBER(12,2);
 BEGIN
     SELECT NVL(AVG(p.cena), 0)
     INTO   v_prumer
     FROM   umelci_umelecka_dila ud
-           JOIN umelecka_dila d ON d.idumeleckedilo = ud.idumeleckedilo
-           JOIN prodeje p       ON p.idprodej = d.idprodej
+           JOIN umelecka_dila d
+             ON ud.idumeleckedilo = d.idumeleckedilo
+           JOIN prodeje p
+             ON d.idprodej = p.idprodej
     WHERE  ud.idumelec = p_idumelec;
 
     RETURN v_prumer;
 EXCEPTION
     WHEN NO_DATA_FOUND THEN
-        -- autor neexistuje nebo nemá žádná prodaná díla
         RETURN 0;
 END;
 /
 
 
-CREATE OR REPLACE FUNCTION f_aktualni_status_dila(
-    p_idumeleckedilo IN umelecka_dila.idumeleckedilo%TYPE
+
+CREATE OR REPLACE FUNCTION f_popis_vystavy(
+    p_idvystava IN vystavy.idvystava%TYPE
 ) RETURN VARCHAR2
 IS
-    v_nazev_dila     umelecka_dila.nazev%TYPE;
-    v_idprodej       umelecka_dila.idprodej%TYPE;
-    v_idvystava      umelecka_dila.idvystava%TYPE;
-    v_status         VARCHAR2(4000);
-    v_kupec_jmeno    VARCHAR2(200);
-    v_datumprodeje   DATE;
-    v_vystava_nazev  vystavy.nazev%TYPE;
-    v_vystava_od     vystavy.datumod%TYPE;
-    v_vystava_do     vystavy.datumdo%TYPE;
+    v_nazev        vystavy.nazev%TYPE;
+    v_datumod      vystavy.datumod%TYPE;
+    v_datumdo      vystavy.datumdo%TYPE;
+    v_pocet_del    NUMBER;
+    v_pocet_navst  NUMBER;
 BEGIN
-    -- základní info o díle
-    SELECT nazev, idprodej, idvystava
-    INTO   v_nazev_dila, v_idprodej, v_idvystava
-    FROM   umelecka_dila
-    WHERE  idumeleckedilo = p_idumeleckedilo;
+    -- Základní údaje o výstavě
+    SELECT v.nazev,
+           v.datumod,
+           v.datumdo,
+           (SELECT COUNT(*)
+              FROM umelecka_dila d
+             WHERE d.idvystava = v.idvystava),
+           (SELECT COUNT(*)
+              FROM navstevy n
+             WHERE n.idvystava = v.idvystava)
+    INTO   v_nazev,
+           v_datumod,
+           v_datumdo,
+           v_pocet_del,
+           v_pocet_navst
+    FROM   vystavy v
+    WHERE  v.idvystava = p_idvystava;
 
-    -- Je prodané
-    IF v_idprodej IS NOT NULL THEN
-        SELECT k.prijmeni || ' ' || k.jmeno,
-               p.datumprodeje
-        INTO   v_kupec_jmeno,
-               v_datumprodeje
-        FROM   prodeje p
-               JOIN kupci k ON k.idkupec = p.idkupec
-        WHERE  p.idprodej = v_idprodej;
-
-        v_status := 'Prodáno kupci: ' || v_kupec_jmeno ||
-                    ' dne ' || TO_CHAR(v_datumprodeje, 'DD.MM.YYYY');
-        RETURN v_status;
-    END IF;
-
-    -- Je na výstavě
-    IF v_idvystava IS NOT NULL THEN
-        SELECT nazev, datumod, datumdo
-        INTO   v_vystava_nazev, v_vystava_od, v_vystava_do
-        FROM   vystavy
-        WHERE  idvystava = v_idvystava;
-
-        v_status := 'Na výstavě: ' || v_vystava_nazev ||
-                    ' (' || TO_CHAR(v_vystava_od, 'DD.MM.YYYY') ||
-                    ' - ' || TO_CHAR(v_vystava_do, 'DD.MM.YYYY') || ')';
-        RETURN v_status;
-    END IF;
-
-    -- Není vystaveno
-    v_status := 'V depozitáři (bez výstavy a prodeje)';
-    RETURN v_status;
-
+    RETURN 'Výstava "' || v_nazev || '" (' ||
+           TO_CHAR(v_datumod, 'DD.MM.YYYY') || ' – ' ||
+           TO_CHAR(v_datumdo, 'DD.MM.YYYY') || '), počet děl: ' ||
+           v_pocet_del || ', počet návštěv: ' || v_pocet_navst;
 EXCEPTION
     WHEN NO_DATA_FOUND THEN
-        RETURN 'Dílo neexistuje.';
+        RETURN 'Výstava s ID=' || p_idvystava || ' neexistuje.';
+END;
+/
+
+
+CREATE OR REPLACE FUNCTION f_pocet_prodanych_del_autora(
+    p_idumelec IN umelci.idumelec%TYPE
+) RETURN NUMBER
+IS
+    v_pocet NUMBER := 0;
+
+    CURSOR c_dila IS
+        SELECT d.idprodej
+        FROM umelecka_dila d
+             JOIN umelci_umelecka_dila ud ON d.idumeleckedilo = ud.idumeleckedilo
+        WHERE ud.idumelec = p_idumelec;
+BEGIN
+    FOR r IN c_dila LOOP
+        IF r.idprodej IS NOT NULL THEN
+            v_pocet := v_pocet + 1;
+        END IF;
+    END LOOP;
+
+    RETURN v_pocet;
 END;
 /
