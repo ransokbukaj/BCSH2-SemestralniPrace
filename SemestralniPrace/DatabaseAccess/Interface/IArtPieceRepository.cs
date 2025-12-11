@@ -19,6 +19,8 @@ namespace DatabaseAccess.Interface
 
         List<ArtPiece> GetListBySaleId(int saleId);
 
+        List<ArtPiece> GetListUnsold();
+
         void SaveItem(ArtPiece piece);
 
         void DeleteItem(int id);

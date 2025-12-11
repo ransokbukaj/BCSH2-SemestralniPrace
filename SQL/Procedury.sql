@@ -1596,3 +1596,74 @@ BEGIN
     WHERE  idvystava = p_idvystava;
 END p_odebrat_vystavu_z_programu;
 /
+
+CREATE OR REPLACE PROCEDURE p_pridat_dilo_do_prodeje (
+    p_idumeleckedilo IN umelecka_dila.idumeleckedilo%TYPE,
+    p_idprodej       IN prodeje.idprodej%TYPE
+) AS
+    v_dilo_count   NUMBER;
+    v_prodej_count NUMBER;
+    v_uz_v_prodeji NUMBER;
+BEGIN
+    -- Kontrola, že dílo existuje
+    SELECT COUNT(*)
+      INTO v_dilo_count
+      FROM umelecka_dila
+     WHERE idumeleckedilo = p_idumeleckedilo;
+
+    IF v_dilo_count = 0 THEN
+        RAISE_APPLICATION_ERROR(-20090, 'Umělecké dílo s ID ' || p_idumeleckedilo || ' neexistuje.');
+    END IF;
+
+    -- Kontrola, že prodej existuje
+    SELECT COUNT(*)
+      INTO v_prodej_count
+      FROM prodeje
+     WHERE idprodej = p_idprodej;
+
+    IF v_prodej_count = 0 THEN
+        RAISE_APPLICATION_ERROR(-20091, 'Prodej s ID ' || p_idprodej || ' neexistuje.');
+    END IF;
+
+    -- Volitelně: zkontrolovat, že dílo už není v jiném prodeji
+    SELECT COUNT(*)
+      INTO v_uz_v_prodeji
+      FROM umelecka_dila
+     WHERE idumeleckedilo = p_idumeleckedilo
+       AND idprodej IS NOT NULL;
+
+    IF v_uz_v_prodeji > 0 THEN
+        RAISE_APPLICATION_ERROR(-20092,
+            'Umělecké dílo s ID ' || p_idumeleckedilo || ' je už přiřazeno k nějakému prodeji.');
+    END IF;
+
+    -- Přiřazení díla k prodeji
+    UPDATE umelecka_dila
+       SET idprodej = p_idprodej
+     WHERE idumeleckedilo = p_idumeleckedilo;
+END p_pridat_dilo_do_prodeje;
+/
+
+
+
+CREATE OR REPLACE PROCEDURE p_odebrat_dilo_z_prodeje (
+    p_idumeleckedilo IN umelecka_dila.idumeleckedilo%TYPE
+) AS
+    v_dilo_count NUMBER;
+BEGIN
+    -- Kontrola, že dílo existuje
+    SELECT COUNT(*)
+      INTO v_dilo_count
+      FROM umelecka_dila
+     WHERE idumeleckedilo = p_idumeleckedilo;
+
+    IF v_dilo_count = 0 THEN
+        RAISE_APPLICATION_ERROR(-20093, 'Umělecké dílo s ID ' || p_idumeleckedilo || ' neexistuje.');
+    END IF;
+
+    -- Odebrání z prodeje (idprodej = NULL)
+    UPDATE umelecka_dila
+       SET idprodej = NULL
+     WHERE idumeleckedilo = p_idumeleckedilo;
+END p_odebrat_dilo_z_prodeje;
+/

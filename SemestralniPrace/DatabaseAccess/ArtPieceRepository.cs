@@ -287,13 +287,57 @@ namespace DatabaseAccess
                             Height = Convert.ToDouble(reader["vyska"]),
                             Width = Convert.ToDouble(reader["sirka"]),
                             ExhibitionId = reader["idvystava"] == DBNull.Value ? 0 : Convert.ToInt32(reader["idvystava"]),
-                            SaleId = Convert.ToInt32(reader["idprodej"])
+                            SaleId = Convert.ToInt32(reader["idprodej"]),
+                             Type = reader["typdila"].ToString()
                         });
                     }
                 }
             }
             return list;
         }
+
+        public List<ArtPiece> GetListUnsold()
+        {
+            var list = new List<ArtPiece>();
+            using (var command = ConnectionManager.Connection.CreateCommand())
+            {
+                command.CommandText = @"
+                    SELECT 
+                        idumeleckedilo,
+                        nazev,
+                        popis,
+                        datumzverejneni,
+                        vyska,
+                        sirka,
+                        idprodej,
+                        idvystava,
+                        typdila
+                    FROM umelecka_dila
+                    WHERE idprodej is NULL
+                    ORDER BY nazev";
+
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        list.Add(new ArtPiece
+                        {
+                            Id = Convert.ToInt32(reader["idumeleckedilo"]),
+                            Name = reader["nazev"].ToString(),
+                            Description = reader["popis"] == DBNull.Value ? null : reader["popis"].ToString(),
+                            PublishedDate = Convert.ToDateTime(reader["datumzverejneni"]),
+                            Height = Convert.ToDouble(reader["vyska"]),
+                            Width = Convert.ToDouble(reader["sirka"]),
+                            ExhibitionId = reader["idvystava"] == DBNull.Value ? 0 : Convert.ToInt32(reader["idvystava"]),
+                            SaleId = reader["idprodej"] == DBNull.Value ? 0 : Convert.ToInt32(reader["idprodej"]),
+                            Type = reader["typdila"].ToString()
+                        });
+                    }
+                }
+            }
+            return list;
+        }
+
 
 
 
@@ -342,8 +386,6 @@ namespace DatabaseAccess
             }
         }
 
-
-
         public void RemoveArtPieceFromExhibition(int idArtpiece, int idExhibition)
         {
             using (var command = ConnectionManager.Connection.CreateCommand())
@@ -390,5 +432,85 @@ namespace DatabaseAccess
 
         }
 
+        public void AddArtPieceToSale(int idArtPiece, int idSale)
+        {
+            using (var command = ConnectionManager.Connection.CreateCommand())
+            {
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+                command.CommandText = "p_pridat_dilo_do_prodeje";
+
+                var paramIdArt = new OracleParameter
+                {
+                    ParameterName = "p_idumeleckedilo",
+                    OracleDbType = OracleDbType.Int32,
+                    Direction = System.Data.ParameterDirection.Input,
+                    Value = idArtPiece
+                };
+                command.Parameters.Add(paramIdArt);
+
+                var paramIdSale = new OracleParameter
+                {
+                    ParameterName = "p_idprodej",
+                    OracleDbType = OracleDbType.Varchar2,
+                    Direction = System.Data.ParameterDirection.Input,
+                    Value = idSale
+                };
+                command.Parameters.Add(paramIdSale);
+
+
+                // Provedení procedury
+                command.ExecuteNonQuery();
+
+                // Commit transakce
+                using (var transaction = ConnectionManager.Connection.BeginTransaction())
+                {
+                    try
+                    {
+                        transaction.Commit();
+                    }
+                    catch
+                    {
+                        transaction.Rollback();
+                        throw;
+                    }
+                }
+            }
+        }
+
+        public void RemoveArtPieceFromSale(int idArtPiece)
+        {
+            using (var command = ConnectionManager.Connection.CreateCommand())
+            {
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+                command.CommandText = "p_odebrat_dilo_z_prodeje";
+
+                var paramIdArt = new OracleParameter
+                {
+                    ParameterName = "p_idumeleckedilo",
+                    OracleDbType = OracleDbType.Int32,
+                    Direction = System.Data.ParameterDirection.Input,
+                    Value = idArtPiece
+                };
+                command.Parameters.Add(paramIdArt);
+
+                // Provedení procedury
+                command.ExecuteNonQuery();
+
+                // Commit transakce
+                using (var transaction = ConnectionManager.Connection.BeginTransaction())
+                {
+                    try
+                    {
+                        transaction.Commit();
+                    }
+                    catch
+                    {
+                        transaction.Rollback();
+                        throw;
+                    }
+                }
+            }
+
+        }
     }
 }

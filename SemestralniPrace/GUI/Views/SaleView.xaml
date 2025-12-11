@@ -89,9 +89,9 @@
                         <TextBlock Text="Typ platby:" Width="140"/>
                         <ComboBox Width="200"
                                   ItemsSource="{Binding TypesOfPayment}"
-                                  SelectedValue="{Binding SelectedSale.TypeOfPayment.Id, Mode=TwoWay}"
-                                  SelectedValuePath="Id"
-                                  DisplayMemberPath="Name" />
+                                 SelectedValue="{Binding SelectedSale.TypeOfPayment.Id, Mode=TwoWay}"
+                                SelectedValuePath="Id"
+                                DisplayMemberPath="Name" />
                     </StackPanel>
 
                     <!-- Kupující -->
@@ -100,8 +100,10 @@
                         <ComboBox Width="250"
                                   ItemsSource="{Binding Buyers}"
                                   SelectedValue="{Binding SelectedSale.Buyer.Id, Mode=TwoWay}"
-                                  SelectedValuePath="Id"
-                                  DisplayMemberPath="LastName"/>
+                                SelectedValuePath="Id"
+                                DisplayMemberPath="FullName"/>
+                        
+                        
                         <!-- pokud máš FullName, změň DisplayMemberPath -->
                     </StackPanel>
 
@@ -109,21 +111,22 @@
                     <TextBlock Text="Prodávaná umělecká díla:"
                                Margin="0,15,0,5"/>
 
-                    <DataGrid ItemsSource="{Binding SelectedSale.ArtPieces}"
-                              SelectedItem="{Binding SelectedArtPieceOnSale, Mode=TwoWay}"
+                    <DataGrid ItemsSource="{Binding SaleArtPieces}"
+                              SelectedItem="{Binding SelectedArtPieceToRemove, Mode=TwoWay}"
                               AutoGenerateColumns="False"
+                              IsReadOnly="True"
                               Height="150"
                               Margin="0,0,0,5">
                         <DataGrid.Columns>
                             <!--<DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="Auto"/>-->
                             <DataGridTextColumn Header="Název" Binding="{Binding Name}" Width="*"/>
-                            <DataGridTextColumn Header="Typ díla" Binding="{Binding ArtPieceType}" Width="*"/>
+                            <DataGridTextColumn Header="Typ díla" Binding="{Binding TypeToString}" Width="*"/>
                         </DataGrid.Columns>
                     </DataGrid>
 
                     <!-- Přidávání / odebírání díla -->
                     <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
-                        <TextBlock Text="Přidat dílo:" Width="140" VerticalAlignment="Center"/>
+                        <TextBlock Text="Přidat dílo:" Width="120" VerticalAlignment="Center"/>
 
                         <ComboBox Width="250"
                                   ItemsSource="{Binding AvailableArtPieces}"
@@ -134,11 +137,11 @@
                         <Button Content="Přidat"
                                 Width="80"
                                 Margin="0,0,5,0"
-                                Command="{Binding AddArtPieceToSaleCommand}"/>
+                                Command="{Binding AddArtPieceCommand}"/>
 
                         <Button Content="Odebrat vybrané"
                                 Width="110"
-                                Command="{Binding RemoveArtPieceFromSaleCommand}"/>
+                                Command="{Binding RemoveArtPieceCommand}"/>
                     </StackPanel>
 
                 </StackPanel>
