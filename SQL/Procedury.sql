@@ -38,6 +38,8 @@ BEGIN
 END;
 /
 
+
+
 CREATE OR REPLACE PROCEDURE p_trzba_mentorske_vetve(
     p_idmentor         IN  umelci.idumelec%TYPE,
     o_pocet_umelcu     OUT NUMBER,
@@ -45,29 +47,34 @@ CREATE OR REPLACE PROCEDURE p_trzba_mentorske_vetve(
     o_trzba_celkem     OUT NUMBER
 ) IS
 BEGIN
-    /*
-      Strom umělců:
-      START WITH idumelec = p_idmentor
-      CONNECT BY PRIOR idumelec = idmentor  (mentor -> žáci)
-    */
+    -- 1) Nejprve spočítáme počet umělců ve větvi (mentor + žáci)
+    WITH strom AS (
+        SELECT idumelec
+        FROM   umelci
+        START WITH idumelec = p_idmentor
+        CONNECT BY PRIOR idumelec = idmentor   -- mentor -> žáci
+    )
+    SELECT COUNT(*)    -- tady už stačí COUNT(*)
+    INTO   o_pocet_umelcu
+    FROM   strom;
+
+    -- 2) A teď zvlášť spočítáme prodeje a tržbu celé větve
     WITH strom AS (
         SELECT idumelec
         FROM   umelci
         START WITH idumelec = p_idmentor
         CONNECT BY PRIOR idumelec = idmentor
     )
-    SELECT NVL(COUNT(DISTINCT s.idumelec), 0),
-           NVL(COUNT(p.idprodej), 0),
+    SELECT NVL(COUNT(p.idprodej), 0),
            NVL(SUM(p.cena), 0)
-    INTO   o_pocet_umelcu,
-           o_pocet_prodeju,
+    INTO   o_pocet_prodeju,
            o_trzba_celkem
     FROM   strom s
            JOIN umelci_umelecka_dila ud
              ON ud.idumelec = s.idumelec
            JOIN umelecka_dila d
              ON d.idumeleckedilo = ud.idumeleckedilo
-           JOIN prodeje p
+           LEFT JOIN prodeje p              -- POZOR: LEFT JOIN, ať nezmizí díla bez prodeje
              ON p.idprodej = d.idprodej;
 EXCEPTION
     WHEN NO_DATA_FOUND THEN
@@ -77,6 +84,118 @@ EXCEPTION
 END;
 /
 
+
+
+CREATE OR REPLACE PROCEDURE p_nejuspesnejsi_potomek(
+    p_idmentor      IN  umelci.idumelec%TYPE,
+    o_idpotomek     OUT umelci.idumelec%TYPE,
+    o_jmenopotomek  OUT VARCHAR2,
+    o_pocet_del     OUT NUMBER
+) IS
+BEGIN
+    /*
+      1) Najdeme všechny potomky mentora (mentor NEBUDE zahrnut)
+      2) Spočítáme jejich počet děl podle tabulky UMELCI_UMELECKA_DILA
+      3) Vybereme toho, kdo má největší počet děl
+    */
+    WITH strom AS (
+        SELECT idumelec
+        FROM   umelci
+        START WITH idumelec = p_idmentor
+        CONNECT BY PRIOR idumelec = idmentor
+    ),
+    potomci AS (
+        SELECT idumelec
+        FROM   strom
+        WHERE  idumelec <> p_idmentor    -- vynech mentora
+    ),
+    statistika AS (
+        SELECT p.idumelec,
+               COUNT(ud.idumeleckedilo) AS pocet_del
+        FROM   potomci p
+               LEFT JOIN umelci_umelecka_dila ud
+                      ON ud.idumelec = p.idumelec
+        GROUP BY p.idumelec
+    )
+    SELECT u.idumelec,
+           u.jmeno || ' ' || u.prijmeni,
+           s.pocet_del
+    INTO   o_idpotomek,
+           o_jmenopotomek,
+           o_pocet_del
+    FROM   statistika s
+           JOIN umelci u ON u.idumelec = s.idumelec
+    ORDER BY s.pocet_del DESC
+    FETCH FIRST 1 ROW ONLY;
+EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+        -- Žádný potomek nebo žádná díla
+        o_idpotomek    := NULL;
+        o_jmenopotomek := NULL;
+        o_pocet_del    := NULL;
+END;
+/
+
+
+CREATE OR REPLACE PROCEDURE p_aktivita_uzivatele(
+    p_iduzivatel            IN  uzivatele.iduzivatel%TYPE,
+    o_pocet_zmen            OUT NUMBER,
+    o_pocet_insertu         OUT NUMBER,
+    o_pocet_updatu          OUT NUMBER,
+    o_pocet_deletu          OUT NUMBER,
+    o_posledni_zmena        OUT DATE,
+    o_deaktivovan           OUT NUMBER
+) IS
+BEGIN
+    -- 1) Celkový počet změn
+    SELECT NVL(COUNT(*), 0)
+    INTO   o_pocet_zmen
+    FROM   zaznamy_historie
+    WHERE  iduzivatel = p_iduzivatel;
+
+    -- 2) Počet INSERT
+    SELECT NVL(COUNT(*), 0)
+    INTO   o_pocet_insertu
+    FROM   zaznamy_historie
+    WHERE  iduzivatel = p_iduzivatel
+      AND  druhoperace = 'INSERT';
+
+    -- 3) Počet UPDATE
+    SELECT NVL(COUNT(*), 0)
+    INTO   o_pocet_updatu
+    FROM   zaznamy_historie
+    WHERE  iduzivatel = p_iduzivatel
+      AND  druhoperace = 'UPDATE';
+
+    -- 4) Počet DELETE
+    SELECT NVL(COUNT(*), 0)
+    INTO   o_pocet_deletu
+    FROM   zaznamy_historie
+    WHERE  iduzivatel = p_iduzivatel
+      AND  druhoperace = 'DELETE';
+
+    -- 5) Datum poslední změny
+    SELECT MAX(datumzmeny)
+    INTO   o_posledni_zmena
+    FROM   zaznamy_historie
+    WHERE  iduzivatel = p_iduzivatel;
+
+    -- 6) Zda je uživatel deaktivovaný
+    SELECT deaktivovan
+    INTO   o_deaktivovan
+    FROM   uzivatele
+    WHERE  iduzivatel = p_iduzivatel;
+
+EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+        o_pocet_zmen      := 0;
+        o_pocet_insertu   := 0;
+        o_pocet_updatu    := 0;
+        o_pocet_deletu    := 0;
+        o_posledni_zmena  := NULL;
+        o_deaktivovan     := NULL;
+END;
+/
 
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------
