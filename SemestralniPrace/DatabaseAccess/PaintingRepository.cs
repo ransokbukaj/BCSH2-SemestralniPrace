@@ -65,151 +65,153 @@ namespace DatabaseAccess
 
         public void SaveItem(Painting painting)
         {
-            using (var command = ConnectionManager.Connection.CreateCommand())
+            using (var transaction = ConnectionManager.Connection.BeginTransaction())
             {
-                command.CommandType = System.Data.CommandType.StoredProcedure;
-                command.CommandText = "p_save_obraz";
-
-                var paramId = new OracleParameter
+                try
                 {
-                    ParameterName = "p_idumeleckedilo",
-                    OracleDbType = OracleDbType.Int32,
-                    Direction = System.Data.ParameterDirection.Input,
-                    Value = painting.Id == 0 ? (object)DBNull.Value : painting.Id
-                };
-                command.Parameters.Add(paramId);
-
-                var paramNazev = new OracleParameter
-                {
-                    ParameterName = "p_nazev",
-                    OracleDbType = OracleDbType.Varchar2,
-                    Direction = System.Data.ParameterDirection.Input,
-                    Value = painting.Name
-                };
-                command.Parameters.Add(paramNazev);
-
-                var paramPopis = new OracleParameter
-                {
-                    ParameterName = "p_popis",
-                    OracleDbType = OracleDbType.Clob,
-                    Direction = System.Data.ParameterDirection.Input,
-                    Value = string.IsNullOrEmpty(painting.Description) ? (object)DBNull.Value : painting.Description
-                };
-                command.Parameters.Add(paramPopis);
-
-                var paramDatum = new OracleParameter
-                {
-                    ParameterName = "p_datumzverejneni",
-                    OracleDbType = OracleDbType.Date,
-                    Direction = System.Data.ParameterDirection.Input,
-                    Value = painting.PublishedDate
-                };
-                command.Parameters.Add(paramDatum);
-
-                var paramVyska = new OracleParameter
-                {
-                    ParameterName = "p_vyska",
-                    OracleDbType = OracleDbType.Decimal,
-                    Direction = System.Data.ParameterDirection.Input,
-                    Value = painting.Height
-                };
-                command.Parameters.Add(paramVyska);
-
-                var paramSirka = new OracleParameter
-                {
-                    ParameterName = "p_sirka",
-                    OracleDbType = OracleDbType.Decimal,
-                    Direction = System.Data.ParameterDirection.Input,
-                    Value = painting.Width
-                };
-                command.Parameters.Add(paramSirka);
-
-                var paramProdej = new OracleParameter
-                {
-                    ParameterName = "p_idprodej",
-                    OracleDbType = OracleDbType.Int32,
-                    Direction = System.Data.ParameterDirection.Input,
-                    Value = painting.SaleId == 0 ? (object)DBNull.Value : painting.SaleId
-                };
-                command.Parameters.Add(paramProdej);
-
-                var paramVystava = new OracleParameter
-                {
-                    ParameterName = "p_idvystava",
-                    OracleDbType = OracleDbType.Int32,
-                    Direction = System.Data.ParameterDirection.Input,
-                    Value = painting.ExhibitionId == 0 ? (object)DBNull.Value : painting.ExhibitionId
-                };
-                command.Parameters.Add(paramVystava);
-
-                var paramPodklad = new OracleParameter
-                {
-                    ParameterName = "p_idpodklad",
-                    OracleDbType = OracleDbType.Int32,
-                    Direction = System.Data.ParameterDirection.Input,
-                    Value = painting.Base.Id
-                };
-                command.Parameters.Add(paramPodklad);
-
-                var paramTechnika = new OracleParameter
-                {
-                    ParameterName = "p_idtechnika",
-                    OracleDbType = OracleDbType.Int32,
-                    Direction = System.Data.ParameterDirection.Input,
-                    Value = painting.Technique.Id
-                };
-                command.Parameters.Add(paramTechnika);
-
-                // Provedení procedury
-                command.ExecuteNonQuery();
-
-                // Commit transakce
-                using (var transaction = ConnectionManager.Connection.BeginTransaction())
-                {
-                    try
+                    using (var command = ConnectionManager.Connection.CreateCommand())
                     {
-                        transaction.Commit();
+                        command.Transaction = transaction;
+                        command.CommandType = System.Data.CommandType.StoredProcedure;
+                        command.CommandText = "p_save_obraz";
+
+                        var paramId = new OracleParameter
+                        {
+                            ParameterName = "p_idumeleckedilo",
+                            OracleDbType = OracleDbType.Int32,
+                            Direction = System.Data.ParameterDirection.Input,
+                            Value = painting.Id == 0 ? (object)DBNull.Value : painting.Id
+                        };
+                        command.Parameters.Add(paramId);
+
+                        var paramNazev = new OracleParameter
+                        {
+                            ParameterName = "p_nazev",
+                            OracleDbType = OracleDbType.Varchar2,
+                            Direction = System.Data.ParameterDirection.Input,
+                            Value = painting.Name
+                        };
+                        command.Parameters.Add(paramNazev);
+
+                        var paramPopis = new OracleParameter
+                        {
+                            ParameterName = "p_popis",
+                            OracleDbType = OracleDbType.Clob,
+                            Direction = System.Data.ParameterDirection.Input,
+                            Value = string.IsNullOrEmpty(painting.Description) ? (object)DBNull.Value : painting.Description
+                        };
+                        command.Parameters.Add(paramPopis);
+
+                        var paramDatum = new OracleParameter
+                        {
+                            ParameterName = "p_datumzverejneni",
+                            OracleDbType = OracleDbType.Date,
+                            Direction = System.Data.ParameterDirection.Input,
+                            Value = painting.PublishedDate
+                        };
+                        command.Parameters.Add(paramDatum);
+
+                        var paramVyska = new OracleParameter
+                        {
+                            ParameterName = "p_vyska",
+                            OracleDbType = OracleDbType.Decimal,
+                            Direction = System.Data.ParameterDirection.Input,
+                            Value = painting.Height
+                        };
+                        command.Parameters.Add(paramVyska);
+
+                        var paramSirka = new OracleParameter
+                        {
+                            ParameterName = "p_sirka",
+                            OracleDbType = OracleDbType.Decimal,
+                            Direction = System.Data.ParameterDirection.Input,
+                            Value = painting.Width
+                        };
+                        command.Parameters.Add(paramSirka);
+
+                        var paramProdej = new OracleParameter
+                        {
+                            ParameterName = "p_idprodej",
+                            OracleDbType = OracleDbType.Int32,
+                            Direction = System.Data.ParameterDirection.Input,
+                            Value = painting.SaleId == 0 ? (object)DBNull.Value : painting.SaleId
+                        };
+                        command.Parameters.Add(paramProdej);
+
+                        var paramVystava = new OracleParameter
+                        {
+                            ParameterName = "p_idvystava",
+                            OracleDbType = OracleDbType.Int32,
+                            Direction = System.Data.ParameterDirection.Input,
+                            Value = painting.ExhibitionId == 0 ? (object)DBNull.Value : painting.ExhibitionId
+                        };
+                        command.Parameters.Add(paramVystava);
+
+                        var paramPodklad = new OracleParameter
+                        {
+                            ParameterName = "p_idpodklad",
+                            OracleDbType = OracleDbType.Int32,
+                            Direction = System.Data.ParameterDirection.Input,
+                            Value = painting.Base.Id
+                        };
+                        command.Parameters.Add(paramPodklad);
+
+                        var paramTechnika = new OracleParameter
+                        {
+                            ParameterName = "p_idtechnika",
+                            OracleDbType = OracleDbType.Int32,
+                            Direction = System.Data.ParameterDirection.Input,
+                            Value = painting.Technique.Id
+                        };
+                        command.Parameters.Add(paramTechnika);
+
+                        // Provedení procedury
+                        command.ExecuteNonQuery();
                     }
-                    catch
-                    {
-                        transaction.Rollback();
-                        throw;
-                    }
+
+                    // Commit transakce
+                    transaction.Commit();
+                }
+                catch
+                {
+                    transaction.Rollback();
+                    throw;
                 }
             }
         }
 
         public void DeleteItem(int id)
         {
-            using (var command = ConnectionManager.Connection.CreateCommand())
+            using (var transaction = ConnectionManager.Connection.BeginTransaction())
             {
-                command.CommandType = System.Data.CommandType.StoredProcedure;
-                command.CommandText = "p_delete_obraz";
-
-                var paramId = new OracleParameter
+                try
                 {
-                    ParameterName = "p_idumeleckedilo",
-                    OracleDbType = OracleDbType.Int32,
-                    Direction = System.Data.ParameterDirection.Input,
-                    Value = id
-                };
-                command.Parameters.Add(paramId);
+                    using (var command = ConnectionManager.Connection.CreateCommand())
+                    {
+                        command.Transaction = transaction;
+                        command.CommandType = System.Data.CommandType.StoredProcedure;
+                        command.CommandText = "p_delete_obraz";
 
-                // Provedení procedury
-                command.ExecuteNonQuery();
+                        var paramId = new OracleParameter
+                        {
+                            ParameterName = "p_idumeleckedilo",
+                            OracleDbType = OracleDbType.Int32,
+                            Direction = System.Data.ParameterDirection.Input,
+                            Value = id
+                        };
+                        command.Parameters.Add(paramId);
 
-                // Commit transakce
-                using (var transaction = ConnectionManager.Connection.BeginTransaction())
+                        // Provedení procedury
+                        command.ExecuteNonQuery();
+                    }
+
+                    // Commit transakce
+                    transaction.Commit();
+                }
+                catch
                 {
-                    try
-                    {
-                        transaction.Commit();
-                    }
-                    catch
-                    {
-                        transaction.Rollback();
-                        throw;
-                    }
+                    transaction.Rollback();
+                    throw;
                 }
             }
         }

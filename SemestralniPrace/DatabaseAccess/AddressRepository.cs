@@ -52,106 +52,108 @@ namespace DatabaseAccess
 
         public void SaveItem(Address address)
         {
-            using (var command = ConnectionManager.Connection.CreateCommand())
+            using (var transaction = ConnectionManager.Connection.BeginTransaction())
             {
-                command.CommandType = System.Data.CommandType.StoredProcedure;
-                command.CommandText = "p_save_adresa";
-
-                var paramId = new OracleParameter
+                try
                 {
-                    ParameterName = "p_idadresa",
-                    OracleDbType = OracleDbType.Int32,
-                    Direction = System.Data.ParameterDirection.Input,
-                    Value = address.Id == 0 ? (object)DBNull.Value : address.Id
-                };
-                command.Parameters.Add(paramId);
-
-                var paramUlice = new OracleParameter
-                {
-                    ParameterName = "p_ulice",
-                    OracleDbType = OracleDbType.Varchar2,
-                    Direction = System.Data.ParameterDirection.Input,
-                    Value = address.Street
-                };
-                command.Parameters.Add(paramUlice);
-
-                var paramCisloPopisne = new OracleParameter
-                {
-                    ParameterName = "p_cislopopisne",
-                    OracleDbType = OracleDbType.Varchar2,
-                    Direction = System.Data.ParameterDirection.Input,
-                    Value = address.HouseNumber
-                };
-                command.Parameters.Add(paramCisloPopisne);
-
-                var paramCisloOrientacni = new OracleParameter
-                {
-                    ParameterName = "p_cisloorientacni",
-                    OracleDbType = OracleDbType.Varchar2,
-                    Direction = System.Data.ParameterDirection.Input,
-                    Value = string.IsNullOrEmpty(address.StreetNumber) ? (object)DBNull.Value : address.StreetNumber
-                };
-                command.Parameters.Add(paramCisloOrientacni);
-
-                var paramIdPosta = new OracleParameter
-                {
-                    ParameterName = "p_idposta",
-                    OracleDbType = OracleDbType.Int32,
-                    Direction = System.Data.ParameterDirection.Input,
-                    Value = address.Post.Id
-                };
-                command.Parameters.Add(paramIdPosta);
-
-                // Provedení procedury
-                command.ExecuteNonQuery();
-
-                // Commit transakce
-                using (var transaction = ConnectionManager.Connection.BeginTransaction())
-                {
-                    try
+                    using (var command = ConnectionManager.Connection.CreateCommand())
                     {
-                        transaction.Commit();
+                        command.Transaction = transaction;
+                        command.CommandType = System.Data.CommandType.StoredProcedure;
+                        command.CommandText = "p_save_adresa";
+
+                        var paramId = new OracleParameter
+                        {
+                            ParameterName = "p_idadresa",
+                            OracleDbType = OracleDbType.Int32,
+                            Direction = System.Data.ParameterDirection.Input,
+                            Value = address.Id == 0 ? (object)DBNull.Value : address.Id
+                        };
+                        command.Parameters.Add(paramId);
+
+                        var paramUlice = new OracleParameter
+                        {
+                            ParameterName = "p_ulice",
+                            OracleDbType = OracleDbType.Varchar2,
+                            Direction = System.Data.ParameterDirection.Input,
+                            Value = address.Street
+                        };
+                        command.Parameters.Add(paramUlice);
+
+                        var paramCisloPopisne = new OracleParameter
+                        {
+                            ParameterName = "p_cislopopisne",
+                            OracleDbType = OracleDbType.Varchar2,
+                            Direction = System.Data.ParameterDirection.Input,
+                            Value = address.HouseNumber
+                        };
+                        command.Parameters.Add(paramCisloPopisne);
+
+                        var paramCisloOrientacni = new OracleParameter
+                        {
+                            ParameterName = "p_cisloorientacni",
+                            OracleDbType = OracleDbType.Varchar2,
+                            Direction = System.Data.ParameterDirection.Input,
+                            Value = string.IsNullOrEmpty(address.StreetNumber) ? (object)DBNull.Value : address.StreetNumber
+                        };
+                        command.Parameters.Add(paramCisloOrientacni);
+
+                        var paramIdPosta = new OracleParameter
+                        {
+                            ParameterName = "p_idposta",
+                            OracleDbType = OracleDbType.Int32,
+                            Direction = System.Data.ParameterDirection.Input,
+                            Value = address.Post.Id
+                        };
+                        command.Parameters.Add(paramIdPosta);
+
+                        // Provedení procedury
+                        command.ExecuteNonQuery();
                     }
-                    catch
-                    {
-                        transaction.Rollback();
-                        throw;
-                    }
+
+                    // Commit transakce
+                    transaction.Commit();
+                }
+                catch
+                {
+                    transaction.Rollback();
+                    throw;
                 }
             }
         }
 
         public void DeleteItem(int id)
         {
-            using (var command = ConnectionManager.Connection.CreateCommand())
+            using (var transaction = ConnectionManager.Connection.BeginTransaction())
             {
-                command.CommandType = System.Data.CommandType.StoredProcedure;
-                command.CommandText = "p_delete_adresa";
-
-                var paramId = new OracleParameter
+                try
                 {
-                    ParameterName = "p_idadresa",
-                    OracleDbType = OracleDbType.Int32,
-                    Direction = System.Data.ParameterDirection.Input,
-                    Value = id
-                };
-                command.Parameters.Add(paramId);
+                    using (var command = ConnectionManager.Connection.CreateCommand())
+                    {
+                        command.Transaction = transaction;
+                        command.CommandType = System.Data.CommandType.StoredProcedure;
+                        command.CommandText = "p_delete_adresa";
 
-                // Provedení procedury
-                command.ExecuteNonQuery();
+                        var paramId = new OracleParameter
+                        {
+                            ParameterName = "p_idadresa",
+                            OracleDbType = OracleDbType.Int32,
+                            Direction = System.Data.ParameterDirection.Input,
+                            Value = id
+                        };
+                        command.Parameters.Add(paramId);
 
-                // Commit transakce
-                using (var transaction = ConnectionManager.Connection.BeginTransaction())
+                        // Provedení procedury
+                        command.ExecuteNonQuery();
+                    }
+
+                    // Commit transakce
+                    transaction.Commit();
+                }
+                catch
                 {
-                    try
-                    {
-                        transaction.Commit();
-                    }
-                    catch
-                    {
-                        transaction.Rollback();
-                        throw;
-                    }
+                    transaction.Rollback();
+                    throw;
                 }
             }
         }

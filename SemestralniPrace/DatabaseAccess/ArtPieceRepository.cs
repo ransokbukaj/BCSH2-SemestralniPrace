@@ -245,7 +245,7 @@ namespace DatabaseAccess
                             Width = Convert.ToDouble(reader["sirka"]),
                             ExhibitionId = reader["idvystava"] == DBNull.Value ? 0 : Convert.ToInt32(reader["idvystava"]),
                             SaleId = Convert.ToInt32(reader["idprodej"]),
-                             Type = reader["typdila"].ToString()
+                            Type = reader["typdila"].ToString()
                         });
                     }
                 }
@@ -300,90 +300,90 @@ namespace DatabaseAccess
 
         public void AddArtPieceToExhibition(int idArtpiece, int idExhibition)
         {
-            using (var command = ConnectionManager.Connection.CreateCommand())
+            using (var transaction = ConnectionManager.Connection.BeginTransaction())
             {
-                command.CommandType = System.Data.CommandType.StoredProcedure;
-                command.CommandText = "p_pridat_dilo_na_vystavu";
-
-                var paramIdArt = new OracleParameter
+                try
                 {
-                    ParameterName = "p_idumeleckedilo",
-                    OracleDbType = OracleDbType.Int32,
-                    Direction = System.Data.ParameterDirection.Input,
-                    Value = idArtpiece
-                };
-                command.Parameters.Add(paramIdArt);
-
-                var paramIdExhib = new OracleParameter
-                {
-                    ParameterName = "p_idvystava",
-                    OracleDbType = OracleDbType.Varchar2,
-                    Direction = System.Data.ParameterDirection.Input,
-                    Value = idExhibition
-                };
-                command.Parameters.Add(paramIdExhib);
-
-
-                // Provedení procedury
-                command.ExecuteNonQuery();
-
-                // Commit transakce
-                using (var transaction = ConnectionManager.Connection.BeginTransaction())
-                {
-                    try
+                    using (var command = ConnectionManager.Connection.CreateCommand())
                     {
-                        transaction.Commit();
+                        command.Transaction = transaction;
+                        command.CommandType = System.Data.CommandType.StoredProcedure;
+                        command.CommandText = "p_pridat_dilo_na_vystavu";
+
+                        var paramIdArt = new OracleParameter
+                        {
+                            ParameterName = "p_idumeleckedilo",
+                            OracleDbType = OracleDbType.Int32,
+                            Direction = System.Data.ParameterDirection.Input,
+                            Value = idArtpiece
+                        };
+                        command.Parameters.Add(paramIdArt);
+
+                        var paramIdExhib = new OracleParameter
+                        {
+                            ParameterName = "p_idvystava",
+                            OracleDbType = OracleDbType.Varchar2,
+                            Direction = System.Data.ParameterDirection.Input,
+                            Value = idExhibition
+                        };
+                        command.Parameters.Add(paramIdExhib);
+
+                        // Provedení procedury
+                        command.ExecuteNonQuery();
                     }
-                    catch
-                    {
-                        transaction.Rollback();
-                        throw;
-                    }
+
+                    // Commit transakce
+                    transaction.Commit();
+                }
+                catch
+                {
+                    transaction.Rollback();
+                    throw;
                 }
             }
         }
 
         public void RemoveArtPieceFromExhibition(int idArtpiece, int idExhibition)
         {
-            using (var command = ConnectionManager.Connection.CreateCommand())
+            using (var transaction = ConnectionManager.Connection.BeginTransaction())
             {
-                command.CommandType = System.Data.CommandType.StoredProcedure;
-                command.CommandText = "p_odeber_dilo_z_vystavy";
-
-                var paramIdArt = new OracleParameter
+                try
                 {
-                    ParameterName = "p_idumeleckedilo",
-                    OracleDbType = OracleDbType.Int32,
-                    Direction = System.Data.ParameterDirection.Input,
-                    Value = idArtpiece
-                };
-                command.Parameters.Add(paramIdArt);
-
-                var paramIdExhib = new OracleParameter
-                {
-                    ParameterName = "p_idvystava",
-                    OracleDbType = OracleDbType.Varchar2,
-                    Direction = System.Data.ParameterDirection.Input,
-                    Value = idExhibition
-                };
-                command.Parameters.Add(paramIdExhib);
-
-
-                // Provedení procedury
-                command.ExecuteNonQuery();
-
-                // Commit transakce
-                using (var transaction = ConnectionManager.Connection.BeginTransaction())
-                {
-                    try
+                    using (var command = ConnectionManager.Connection.CreateCommand())
                     {
-                        transaction.Commit();
+                        command.Transaction = transaction;
+                        command.CommandType = System.Data.CommandType.StoredProcedure;
+                        command.CommandText = "p_odeber_dilo_z_vystavy";
+
+                        var paramIdArt = new OracleParameter
+                        {
+                            ParameterName = "p_idumeleckedilo",
+                            OracleDbType = OracleDbType.Int32,
+                            Direction = System.Data.ParameterDirection.Input,
+                            Value = idArtpiece
+                        };
+                        command.Parameters.Add(paramIdArt);
+
+                        var paramIdExhib = new OracleParameter
+                        {
+                            ParameterName = "p_idvystava",
+                            OracleDbType = OracleDbType.Varchar2,
+                            Direction = System.Data.ParameterDirection.Input,
+                            Value = idExhibition
+                        };
+                        command.Parameters.Add(paramIdExhib);
+
+                        // Provedení procedury
+                        command.ExecuteNonQuery();
                     }
-                    catch
-                    {
-                        transaction.Rollback();
-                        throw;
-                    }
+
+                    // Commit transakce
+                    transaction.Commit();
+                }
+                catch
+                {
+                    transaction.Rollback();
+                    throw;
                 }
             }
 
@@ -391,80 +391,81 @@ namespace DatabaseAccess
 
         public void AddArtPieceToSale(int idArtPiece, int idSale)
         {
-            using (var command = ConnectionManager.Connection.CreateCommand())
+            using (var transaction = ConnectionManager.Connection.BeginTransaction())
             {
-                command.CommandType = System.Data.CommandType.StoredProcedure;
-                command.CommandText = "p_pridat_dilo_do_prodeje";
-
-                var paramIdArt = new OracleParameter
+                try
                 {
-                    ParameterName = "p_idumeleckedilo",
-                    OracleDbType = OracleDbType.Int32,
-                    Direction = System.Data.ParameterDirection.Input,
-                    Value = idArtPiece
-                };
-                command.Parameters.Add(paramIdArt);
-
-                var paramIdSale = new OracleParameter
-                {
-                    ParameterName = "p_idprodej",
-                    OracleDbType = OracleDbType.Varchar2,
-                    Direction = System.Data.ParameterDirection.Input,
-                    Value = idSale
-                };
-                command.Parameters.Add(paramIdSale);
-
-
-                // Provedení procedury
-                command.ExecuteNonQuery();
-
-                // Commit transakce
-                using (var transaction = ConnectionManager.Connection.BeginTransaction())
-                {
-                    try
+                    using (var command = ConnectionManager.Connection.CreateCommand())
                     {
-                        transaction.Commit();
+                        command.Transaction = transaction;
+                        command.CommandType = System.Data.CommandType.StoredProcedure;
+                        command.CommandText = "p_pridat_dilo_do_prodeje";
+
+                        var paramIdArt = new OracleParameter
+                        {
+                            ParameterName = "p_idumeleckedilo",
+                            OracleDbType = OracleDbType.Int32,
+                            Direction = System.Data.ParameterDirection.Input,
+                            Value = idArtPiece
+                        };
+                        command.Parameters.Add(paramIdArt);
+
+                        var paramIdSale = new OracleParameter
+                        {
+                            ParameterName = "p_idprodej",
+                            OracleDbType = OracleDbType.Varchar2,
+                            Direction = System.Data.ParameterDirection.Input,
+                            Value = idSale
+                        };
+                        command.Parameters.Add(paramIdSale);
+
+                        // Provedení procedury
+                        command.ExecuteNonQuery();
                     }
-                    catch
-                    {
-                        transaction.Rollback();
-                        throw;
-                    }
+
+                    // Commit transakce
+                    transaction.Commit();
+                }
+                catch
+                {
+                    transaction.Rollback();
+                    throw;
                 }
             }
         }
 
         public void RemoveArtPieceFromSale(int idArtPiece)
         {
-            using (var command = ConnectionManager.Connection.CreateCommand())
+            using (var transaction = ConnectionManager.Connection.BeginTransaction())
             {
-                command.CommandType = System.Data.CommandType.StoredProcedure;
-                command.CommandText = "p_odebrat_dilo_z_prodeje";
-
-                var paramIdArt = new OracleParameter
+                try
                 {
-                    ParameterName = "p_idumeleckedilo",
-                    OracleDbType = OracleDbType.Int32,
-                    Direction = System.Data.ParameterDirection.Input,
-                    Value = idArtPiece
-                };
-                command.Parameters.Add(paramIdArt);
+                    using (var command = ConnectionManager.Connection.CreateCommand())
+                    {
+                        command.Transaction = transaction;
+                        command.CommandType = System.Data.CommandType.StoredProcedure;
+                        command.CommandText = "p_odebrat_dilo_z_prodeje";
 
-                // Provedení procedury
-                command.ExecuteNonQuery();
+                        var paramIdArt = new OracleParameter
+                        {
+                            ParameterName = "p_idumeleckedilo",
+                            OracleDbType = OracleDbType.Int32,
+                            Direction = System.Data.ParameterDirection.Input,
+                            Value = idArtPiece
+                        };
+                        command.Parameters.Add(paramIdArt);
 
-                // Commit transakce
-                using (var transaction = ConnectionManager.Connection.BeginTransaction())
+                        // Provedení procedury
+                        command.ExecuteNonQuery();
+                    }
+
+                    // Commit transakce
+                    transaction.Commit();
+                }
+                catch
                 {
-                    try
-                    {
-                        transaction.Commit();
-                    }
-                    catch
-                    {
-                        transaction.Rollback();
-                        throw;
-                    }
+                    transaction.Rollback();
+                    throw;
                 }
             }
 

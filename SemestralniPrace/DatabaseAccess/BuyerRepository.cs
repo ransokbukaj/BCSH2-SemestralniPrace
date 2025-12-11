@@ -65,115 +65,117 @@ namespace DatabaseAccess
 
         public void SaveItem(Buyer buyer)
         {
-            using (var command = ConnectionManager.Connection.CreateCommand())
+            using (var transaction = ConnectionManager.Connection.BeginTransaction())
             {
-                command.CommandType = System.Data.CommandType.StoredProcedure;
-                command.CommandText = "p_save_kupec";
-
-                var paramId = new OracleParameter
+                try
                 {
-                    ParameterName = "p_idkupec",
-                    OracleDbType = OracleDbType.Int32,
-                    Direction = System.Data.ParameterDirection.Input,
-                    Value = buyer.Id == 0 ? (object)DBNull.Value : buyer.Id
-                };
-                command.Parameters.Add(paramId);
-
-                var paramJmeno = new OracleParameter
-                {
-                    ParameterName = "p_jmeno",
-                    OracleDbType = OracleDbType.Varchar2,
-                    Direction = System.Data.ParameterDirection.Input,
-                    Value = buyer.FirstName
-                };
-                command.Parameters.Add(paramJmeno);
-
-                var paramPrijmeni = new OracleParameter
-                {
-                    ParameterName = "p_prijmeni",
-                    OracleDbType = OracleDbType.Varchar2,
-                    Direction = System.Data.ParameterDirection.Input,
-                    Value = buyer.LastName
-                };
-                command.Parameters.Add(paramPrijmeni);
-
-                var paramTelefon = new OracleParameter
-                {
-                    ParameterName = "p_telefonicislo",
-                    OracleDbType = OracleDbType.Varchar2,
-                    Direction = System.Data.ParameterDirection.Input,
-                    Value = buyer.PhoneNumber
-                };
-                command.Parameters.Add(paramTelefon);
-
-                var paramEmail = new OracleParameter
-                {
-                    ParameterName = "p_email",
-                    OracleDbType = OracleDbType.Varchar2,
-                    Direction = System.Data.ParameterDirection.Input,
-                    Value = string.IsNullOrEmpty(buyer.Email) ? (object)DBNull.Value : buyer.Email
-                };
-                command.Parameters.Add(paramEmail);
-
-                var paramIdAdresa = new OracleParameter
-                {
-                    ParameterName = "p_idadresa",
-                    OracleDbType = OracleDbType.Int32,
-                    Direction = System.Data.ParameterDirection.Input,
-                    Value = buyer.Adress.Id
-                };
-                command.Parameters.Add(paramIdAdresa);
-
-                // Provedení procedury
-                command.ExecuteNonQuery();
-
-                // Commit transakce
-                using (var transaction = ConnectionManager.Connection.BeginTransaction())
-                {
-                    try
+                    using (var command = ConnectionManager.Connection.CreateCommand())
                     {
-                        transaction.Commit();
+                        command.Transaction = transaction;
+                        command.CommandType = System.Data.CommandType.StoredProcedure;
+                        command.CommandText = "p_save_kupec";
+
+                        var paramId = new OracleParameter
+                        {
+                            ParameterName = "p_idkupec",
+                            OracleDbType = OracleDbType.Int32,
+                            Direction = System.Data.ParameterDirection.Input,
+                            Value = buyer.Id == 0 ? (object)DBNull.Value : buyer.Id
+                        };
+                        command.Parameters.Add(paramId);
+
+                        var paramJmeno = new OracleParameter
+                        {
+                            ParameterName = "p_jmeno",
+                            OracleDbType = OracleDbType.Varchar2,
+                            Direction = System.Data.ParameterDirection.Input,
+                            Value = buyer.FirstName
+                        };
+                        command.Parameters.Add(paramJmeno);
+
+                        var paramPrijmeni = new OracleParameter
+                        {
+                            ParameterName = "p_prijmeni",
+                            OracleDbType = OracleDbType.Varchar2,
+                            Direction = System.Data.ParameterDirection.Input,
+                            Value = buyer.LastName
+                        };
+                        command.Parameters.Add(paramPrijmeni);
+
+                        var paramTelefon = new OracleParameter
+                        {
+                            ParameterName = "p_telefonicislo",
+                            OracleDbType = OracleDbType.Varchar2,
+                            Direction = System.Data.ParameterDirection.Input,
+                            Value = buyer.PhoneNumber
+                        };
+                        command.Parameters.Add(paramTelefon);
+
+                        var paramEmail = new OracleParameter
+                        {
+                            ParameterName = "p_email",
+                            OracleDbType = OracleDbType.Varchar2,
+                            Direction = System.Data.ParameterDirection.Input,
+                            Value = string.IsNullOrEmpty(buyer.Email) ? (object)DBNull.Value : buyer.Email
+                        };
+                        command.Parameters.Add(paramEmail);
+
+                        var paramIdAdresa = new OracleParameter
+                        {
+                            ParameterName = "p_idadresa",
+                            OracleDbType = OracleDbType.Int32,
+                            Direction = System.Data.ParameterDirection.Input,
+                            Value = buyer.Adress.Id
+                        };
+                        command.Parameters.Add(paramIdAdresa);
+
+                        // Provedení procedury
+                        command.ExecuteNonQuery();
                     }
-                    catch
-                    {
-                        transaction.Rollback();
-                        throw;
-                    }
+
+                    // Commit transakce
+                    transaction.Commit();
+                }
+                catch
+                {
+                    transaction.Rollback();
+                    throw;
                 }
             }
         }
 
         public void DeleteItem(int id)
         {
-            using (var command = ConnectionManager.Connection.CreateCommand())
+            using (var transaction = ConnectionManager.Connection.BeginTransaction())
             {
-                command.CommandType = System.Data.CommandType.StoredProcedure;
-                command.CommandText = "p_delete_kupec";
-
-                var paramId = new OracleParameter
+                try
                 {
-                    ParameterName = "p_idkupec",
-                    OracleDbType = OracleDbType.Int32,
-                    Direction = System.Data.ParameterDirection.Input,
-                    Value = id
-                };
-                command.Parameters.Add(paramId);
+                    using (var command = ConnectionManager.Connection.CreateCommand())
+                    {
+                        command.Transaction = transaction;
+                        command.CommandType = System.Data.CommandType.StoredProcedure;
+                        command.CommandText = "p_delete_kupec";
 
-                // Provedení procedury
-                command.ExecuteNonQuery();
+                        var paramId = new OracleParameter
+                        {
+                            ParameterName = "p_idkupec",
+                            OracleDbType = OracleDbType.Int32,
+                            Direction = System.Data.ParameterDirection.Input,
+                            Value = id
+                        };
+                        command.Parameters.Add(paramId);
 
-                // Commit transakce
-                using (var transaction = ConnectionManager.Connection.BeginTransaction())
+                        // Provedení procedury
+                        command.ExecuteNonQuery();
+                    }
+
+                    // Commit transakce
+                    transaction.Commit();
+                }
+                catch
                 {
-                    try
-                    {
-                        transaction.Commit();
-                    }
-                    catch
-                    {
-                        transaction.Rollback();
-                        throw;
-                    }
+                    transaction.Rollback();
+                    throw;
                 }
             }
         }

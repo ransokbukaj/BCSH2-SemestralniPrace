@@ -60,141 +60,143 @@ namespace DatabaseAccess
 
         public void SaveItem(User user)
         {
-            using (var command = ConnectionManager.Connection.CreateCommand())
+            using (var transaction = ConnectionManager.Connection.BeginTransaction())
             {
-                command.CommandType = System.Data.CommandType.StoredProcedure;
-                command.CommandText = "p_save_uzivatel";
-
-                var paramId = new OracleParameter
+                try
                 {
-                    ParameterName = "p_iduzivatel",
-                    OracleDbType = OracleDbType.Int32,
-                    Direction = System.Data.ParameterDirection.Input,
-                    Value = user.Id == 0 ? (object)DBNull.Value : user.Id
-                };
-                command.Parameters.Add(paramId);
+                    using (var command = ConnectionManager.Connection.CreateCommand())
+                    {
+                        command.Transaction = transaction;
+                        command.CommandType = System.Data.CommandType.StoredProcedure;
+                        command.CommandText = "p_save_uzivatel";
 
-                var paramUsername = new OracleParameter
-                {
-                    ParameterName = "p_uzivatelskejmeno",
-                    OracleDbType = OracleDbType.Varchar2,
-                    Direction = System.Data.ParameterDirection.Input,
-                    Value = user.Username
-                };
-                command.Parameters.Add(paramUsername);
+                        var paramId = new OracleParameter
+                        {
+                            ParameterName = "p_iduzivatel",
+                            OracleDbType = OracleDbType.Int32,
+                            Direction = System.Data.ParameterDirection.Input,
+                            Value = user.Id == 0 ? (object)DBNull.Value : user.Id
+                        };
+                        command.Parameters.Add(paramId);
 
-                // Pro nového uživatele použijeme Password (plain text, který se zahashuje)
-                // Pro existujícího uživatele, pokud není Password prázdný, zahashujeme ho
-                string passwordHash = null;
-                if (!string.IsNullOrEmpty(user.Password))
-                {
-                    passwordHash = UserManager.HashPassword(user.Password);
+                        var paramUsername = new OracleParameter
+                        {
+                            ParameterName = "p_uzivatelskejmeno",
+                            OracleDbType = OracleDbType.Varchar2,
+                            Direction = System.Data.ParameterDirection.Input,
+                            Value = user.Username
+                        };
+                        command.Parameters.Add(paramUsername);
+
+                        // Pro nového uživatele použijeme Password (plain text, který se zahashuje)
+                        // Pro existujícího uživatele, pokud není Password prázdný, zahashujeme ho
+                        string passwordHash = null;
+                        if (!string.IsNullOrEmpty(user.Password))
+                        {
+                            passwordHash = UserManager.HashPassword(user.Password);
+                        }
+
+                        var paramPassword = new OracleParameter
+                        {
+                            ParameterName = "p_heslohash",
+                            OracleDbType = OracleDbType.Varchar2,
+                            Direction = System.Data.ParameterDirection.Input,
+                            Value = string.IsNullOrEmpty(passwordHash) ? (object)DBNull.Value : passwordHash
+                        };
+                        command.Parameters.Add(paramPassword);
+
+                        var paramJmeno = new OracleParameter
+                        {
+                            ParameterName = "p_jmeno",
+                            OracleDbType = OracleDbType.Varchar2,
+                            Direction = System.Data.ParameterDirection.Input,
+                            Value = user.FirstName
+                        };
+                        command.Parameters.Add(paramJmeno);
+
+                        var paramPrijmeni = new OracleParameter
+                        {
+                            ParameterName = "p_prijmeni",
+                            OracleDbType = OracleDbType.Varchar2,
+                            Direction = System.Data.ParameterDirection.Input,
+                            Value = user.LastName
+                        };
+                        command.Parameters.Add(paramPrijmeni);
+
+                        var paramEmail = new OracleParameter
+                        {
+                            ParameterName = "p_email",
+                            OracleDbType = OracleDbType.Varchar2,
+                            Direction = System.Data.ParameterDirection.Input,
+                            Value = string.IsNullOrEmpty(user.Email) ? (object)DBNull.Value : user.Email
+                        };
+                        command.Parameters.Add(paramEmail);
+
+                        var paramTelefon = new OracleParameter
+                        {
+                            ParameterName = "p_telefonicislo",
+                            OracleDbType = OracleDbType.Varchar2,
+                            Direction = System.Data.ParameterDirection.Input,
+                            Value = string.IsNullOrEmpty(user.PhoneNumber) ? (object)DBNull.Value : user.PhoneNumber
+                        };
+                        command.Parameters.Add(paramTelefon);
+
+                        var paramRole = new OracleParameter
+                        {
+                            ParameterName = "p_idrole",
+                            OracleDbType = OracleDbType.Int32,
+                            Direction = System.Data.ParameterDirection.Input,
+                            Value = user.Role.Id
+                        };
+                        command.Parameters.Add(paramRole);
+
+                        // Provedení procedury
+                        command.ExecuteNonQuery();
+                    }
+
+                    // Commit transakce
+                    transaction.Commit();
                 }
-
-                var paramPassword = new OracleParameter
+                catch
                 {
-                    ParameterName = "p_heslohash",
-                    OracleDbType = OracleDbType.Varchar2,
-                    Direction = System.Data.ParameterDirection.Input,
-                    Value = string.IsNullOrEmpty(passwordHash) ? (object)DBNull.Value : passwordHash
-                };
-                command.Parameters.Add(paramPassword);
-
-                var paramJmeno = new OracleParameter
-                {
-                    ParameterName = "p_jmeno",
-                    OracleDbType = OracleDbType.Varchar2,
-                    Direction = System.Data.ParameterDirection.Input,
-                    Value = user.FirstName
-                };
-                command.Parameters.Add(paramJmeno);
-
-                var paramPrijmeni = new OracleParameter
-                {
-                    ParameterName = "p_prijmeni",
-                    OracleDbType = OracleDbType.Varchar2,
-                    Direction = System.Data.ParameterDirection.Input,
-                    Value = user.LastName
-                };
-                command.Parameters.Add(paramPrijmeni);
-
-                var paramEmail = new OracleParameter
-                {
-                    ParameterName = "p_email",
-                    OracleDbType = OracleDbType.Varchar2,
-                    Direction = System.Data.ParameterDirection.Input,
-                    Value = string.IsNullOrEmpty(user.Email) ? (object)DBNull.Value : user.Email
-                };
-                command.Parameters.Add(paramEmail);
-
-                var paramTelefon = new OracleParameter
-                {
-                    ParameterName = "p_telefonicislo",
-                    OracleDbType = OracleDbType.Varchar2,
-                    Direction = System.Data.ParameterDirection.Input,
-                    Value = string.IsNullOrEmpty(user.PhoneNumber) ? (object)DBNull.Value : user.PhoneNumber
-                };
-                command.Parameters.Add(paramTelefon);
-
-                var paramRole = new OracleParameter
-                {
-                    ParameterName = "p_idrole",
-                    OracleDbType = OracleDbType.Int32,
-                    Direction = System.Data.ParameterDirection.Input,
-                    Value = user.Role.Id
-                };
-                command.Parameters.Add(paramRole);
-
-                // Provedení procedury
-                command.ExecuteNonQuery();
-
-                // Commit transakce
-                using (var transaction = ConnectionManager.Connection.BeginTransaction())
-                {
-                    try
-                    {
-                        transaction.Commit();
-                    }
-                    catch
-                    {
-                        transaction.Rollback();
-                        throw;
-                    }
+                    transaction.Rollback();
+                    throw;
                 }
             }
         }
 
         public void DeleteItem(int id)
         {
-            using (var command = ConnectionManager.Connection.CreateCommand())
+            using (var transaction = ConnectionManager.Connection.BeginTransaction())
             {
-                command.CommandType = System.Data.CommandType.StoredProcedure;
-                command.CommandText = "p_delete_uzivatel";
-
-                var paramId = new OracleParameter
+                try
                 {
-                    ParameterName = "p_iduzivatel",
-                    OracleDbType = OracleDbType.Int32,
-                    Direction = System.Data.ParameterDirection.Input,
-                    Value = id
-                };
-                command.Parameters.Add(paramId);
+                    using (var command = ConnectionManager.Connection.CreateCommand())
+                    {
+                        command.Transaction = transaction;
+                        command.CommandType = System.Data.CommandType.StoredProcedure;
+                        command.CommandText = "p_delete_uzivatel";
 
-                // Provedení procedury
-                command.ExecuteNonQuery();
+                        var paramId = new OracleParameter
+                        {
+                            ParameterName = "p_iduzivatel",
+                            OracleDbType = OracleDbType.Int32,
+                            Direction = System.Data.ParameterDirection.Input,
+                            Value = id
+                        };
+                        command.Parameters.Add(paramId);
 
-                // Commit transakce
-                using (var transaction = ConnectionManager.Connection.BeginTransaction())
+                        // Provedení procedury
+                        command.ExecuteNonQuery();
+                    }
+
+                    // Commit transakce
+                    transaction.Commit();
+                }
+                catch
                 {
-                    try
-                    {
-                        transaction.Commit();
-                    }
-                    catch
-                    {
-                        transaction.Rollback();
-                        throw;
-                    }
+                    transaction.Rollback();
+                    throw;
                 }
             }
         }
@@ -208,46 +210,47 @@ namespace DatabaseAccess
 
             string passwordHash = UserManager.HashPassword(newPassword);
 
-            using (var command = ConnectionManager.Connection.CreateCommand())
+            using (var transaction = ConnectionManager.Connection.BeginTransaction())
             {
-                command.CommandType = System.Data.CommandType.StoredProcedure;
-                command.CommandText = "p_change_password";
-
-                var paramId = new OracleParameter
+                try
                 {
-                    ParameterName = "p_iduzivatel",
-                    OracleDbType = OracleDbType.Int32,
-                    Direction = System.Data.ParameterDirection.Input,
-                    Value = id
-                };
-                command.Parameters.Add(paramId);
-
-                var paramPassword = new OracleParameter
-                {
-                    ParameterName = "p_noveheslohash",
-                    OracleDbType = OracleDbType.Varchar2,
-                    Direction = System.Data.ParameterDirection.Input,
-                    Value = passwordHash
-                };
-                command.Parameters.Add(paramPassword);
-
-                // Provedení procedury
-                command.ExecuteNonQuery();
-
-                // Commit transakce
-                using (var transaction = ConnectionManager.Connection.BeginTransaction())
-                {
-                    try
+                    using (var command = ConnectionManager.Connection.CreateCommand())
                     {
-                        transaction.Commit();
+                        command.Transaction = transaction;
+                        command.CommandType = System.Data.CommandType.StoredProcedure;
+                        command.CommandText = "p_change_password";
+
+                        var paramId = new OracleParameter
+                        {
+                            ParameterName = "p_iduzivatel",
+                            OracleDbType = OracleDbType.Int32,
+                            Direction = System.Data.ParameterDirection.Input,
+                            Value = id
+                        };
+                        command.Parameters.Add(paramId);
+
+                        var paramPassword = new OracleParameter
+                        {
+                            ParameterName = "p_noveheslohash",
+                            OracleDbType = OracleDbType.Varchar2,
+                            Direction = System.Data.ParameterDirection.Input,
+                            Value = passwordHash
+                        };
+                        command.Parameters.Add(paramPassword);
+
+                        // Provedení procedury
+                        command.ExecuteNonQuery();
                     }
-                    catch
-                    {
-                        transaction.Rollback();
-                        throw;
-                    }
+
+                    // Commit transakce
+                    transaction.Commit();
                 }
-            }            
+                catch
+                {
+                    transaction.Rollback();
+                    throw;
+                }
+            }
         }
     }
 }

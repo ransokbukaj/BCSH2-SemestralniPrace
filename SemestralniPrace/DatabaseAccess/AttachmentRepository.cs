@@ -44,7 +44,7 @@ namespace DatabaseAccess
                 {
                     while (reader.Read())
                     {
-                        
+
                         list.Add(new Attachment
                         {
                             Id = Convert.ToInt32(reader["idpriloha"]),
@@ -60,111 +60,113 @@ namespace DatabaseAccess
 
         public void SaveItem(Attachment attachment, int artId)
         {
-            using (var command = ConnectionManager.Connection.CreateCommand())
+            using (var transaction = ConnectionManager.Connection.BeginTransaction())
             {
-                command.CommandType = System.Data.CommandType.StoredProcedure;
-                command.CommandText = "p_save_priloha";
-
-                var paramFile = new OracleParameter
+                try
                 {
-                    ParameterName = "p_soubor",
-                    OracleDbType = OracleDbType.Blob,
-                    Direction = System.Data.ParameterDirection.Input,
-                    Value = attachment.File
-                };
-                command.Parameters.Add(paramFile);
-
-                var paramType = new OracleParameter
-                {
-                    ParameterName = "p_typsouboru",
-                    OracleDbType = OracleDbType.Varchar2,
-                    Direction = System.Data.ParameterDirection.Input,
-                    Value = attachment.FileType
-                };
-                command.Parameters.Add(paramType);
-
-                var paramName = new OracleParameter
-                {
-                    ParameterName = "p_nazevsouboru",
-                    OracleDbType = OracleDbType.Varchar2,
-                    Direction = System.Data.ParameterDirection.Input,
-                    Value = attachment.FileName
-                };
-                command.Parameters.Add(paramName);
-
-
-                var paramArtId = new OracleParameter
-                {
-                    ParameterName = "p_idumeleckedilo",
-                    OracleDbType = OracleDbType.Int32,
-                    Direction = System.Data.ParameterDirection.Input,
-                    Value = artId
-                };
-                command.Parameters.Add(paramArtId);
-
-                var paramAttId = new OracleParameter
-                {
-                    ParameterName = "p_idpriloha",
-                    OracleDbType = OracleDbType.Varchar2,
-                    Direction = System.Data.ParameterDirection.Input,
-                    Value = attachment.Id == 0 ? (object)DBNull.Value : attachment.Id
-                };
-                command.Parameters.Add(paramAttId);
-
-                // Provedení procedury
-                command.ExecuteNonQuery();
-
-                // Commit transakce
-                using (var transaction = ConnectionManager.Connection.BeginTransaction())
-                {
-                    try
+                    using (var command = ConnectionManager.Connection.CreateCommand())
                     {
-                        transaction.Commit();
+                        command.Transaction = transaction;
+                        command.CommandType = System.Data.CommandType.StoredProcedure;
+                        command.CommandText = "p_save_priloha";
+
+                        var paramFile = new OracleParameter
+                        {
+                            ParameterName = "p_soubor",
+                            OracleDbType = OracleDbType.Blob,
+                            Direction = System.Data.ParameterDirection.Input,
+                            Value = attachment.File
+                        };
+                        command.Parameters.Add(paramFile);
+
+                        var paramType = new OracleParameter
+                        {
+                            ParameterName = "p_typsouboru",
+                            OracleDbType = OracleDbType.Varchar2,
+                            Direction = System.Data.ParameterDirection.Input,
+                            Value = attachment.FileType
+                        };
+                        command.Parameters.Add(paramType);
+
+                        var paramName = new OracleParameter
+                        {
+                            ParameterName = "p_nazevsouboru",
+                            OracleDbType = OracleDbType.Varchar2,
+                            Direction = System.Data.ParameterDirection.Input,
+                            Value = attachment.FileName
+                        };
+                        command.Parameters.Add(paramName);
+
+
+                        var paramArtId = new OracleParameter
+                        {
+                            ParameterName = "p_idumeleckedilo",
+                            OracleDbType = OracleDbType.Int32,
+                            Direction = System.Data.ParameterDirection.Input,
+                            Value = artId
+                        };
+                        command.Parameters.Add(paramArtId);
+
+                        var paramAttId = new OracleParameter
+                        {
+                            ParameterName = "p_idpriloha",
+                            OracleDbType = OracleDbType.Varchar2,
+                            Direction = System.Data.ParameterDirection.Input,
+                            Value = attachment.Id == 0 ? (object)DBNull.Value : attachment.Id
+                        };
+                        command.Parameters.Add(paramAttId);
+
+                        // Provedení procedury
+                        command.ExecuteNonQuery();
                     }
-                    catch
-                    {
-                        transaction.Rollback();
-                        throw;
-                    }
+
+                    // Commit transakce
+                    transaction.Commit();
+                }
+                catch
+                {
+                    transaction.Rollback();
+                    throw;
                 }
             }
         }
 
         public void DeleteItem(int id)
         {
-            using (var command = ConnectionManager.Connection.CreateCommand())
+            using (var transaction = ConnectionManager.Connection.BeginTransaction())
             {
-                command.CommandType = System.Data.CommandType.StoredProcedure;
-                command.CommandText = "p_delete_priloha";
-
-                var paramId = new OracleParameter
+                try
                 {
-                    ParameterName = "p_idpriloha",
-                    OracleDbType = OracleDbType.Int32,
-                    Direction = System.Data.ParameterDirection.Input,
-                    Value = id
-                };
-                command.Parameters.Add(paramId);
+                    using (var command = ConnectionManager.Connection.CreateCommand())
+                    {
+                        command.Transaction = transaction;
+                        command.CommandType = System.Data.CommandType.StoredProcedure;
+                        command.CommandText = "p_delete_priloha";
 
-                // Provedení procedury
-                command.ExecuteNonQuery();
+                        var paramId = new OracleParameter
+                        {
+                            ParameterName = "p_idpriloha",
+                            OracleDbType = OracleDbType.Int32,
+                            Direction = System.Data.ParameterDirection.Input,
+                            Value = id
+                        };
+                        command.Parameters.Add(paramId);
 
-                // Commit transakce
-                using (var transaction = ConnectionManager.Connection.BeginTransaction())
+                        // Provedení procedury
+                        command.ExecuteNonQuery();
+                    }
+
+                    // Commit transakce
+                    transaction.Commit();
+                }
+                catch
                 {
-                    try
-                    {
-                        transaction.Commit();
-                    }
-                    catch
-                    {
-                        transaction.Rollback();
-                        throw;
-                    }
+                    transaction.Rollback();
+                    throw;
                 }
             }
         }
 
-      
+
     }
 }

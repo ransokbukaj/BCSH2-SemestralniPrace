@@ -61,124 +61,126 @@ namespace DatabaseAccess
 
         public void SaveItem(Sale sale)
         {
-            using (var command = ConnectionManager.Connection.CreateCommand())
+            using (var transaction = ConnectionManager.Connection.BeginTransaction())
             {
-                command.CommandType = System.Data.CommandType.StoredProcedure;
-                command.CommandText = "p_save_prodej";
-
-                var paramId = new OracleParameter
+                try
                 {
-                    ParameterName = "p_idprodej",
-                    OracleDbType = OracleDbType.Int32,
-                    Direction = System.Data.ParameterDirection.Input,
-                    Value = sale.Id == 0 ? (object)DBNull.Value : sale.Id
-                };
-                command.Parameters.Add(paramId);
-
-                var paramCena = new OracleParameter
-                {
-                    ParameterName = "p_cena",
-                    OracleDbType = OracleDbType.Decimal,
-                    Direction = System.Data.ParameterDirection.Input,
-                    Value = sale.Price
-                };
-                command.Parameters.Add(paramCena);
-
-                var paramDatum = new OracleParameter
-                {
-                    ParameterName = "p_datumprodeje",
-                    OracleDbType = OracleDbType.Date,
-                    Direction = System.Data.ParameterDirection.Input,
-                    Value = sale.DateOfSale
-                };
-                command.Parameters.Add(paramDatum);
-
-                var paramCisloKarty = new OracleParameter
-                {
-                    ParameterName = "p_cislokarty",
-                    OracleDbType = OracleDbType.Varchar2,
-                    Direction = System.Data.ParameterDirection.Input,
-                    Value = string.IsNullOrEmpty(sale.CardNumber) ? (object)DBNull.Value : sale.CardNumber
-                };
-                command.Parameters.Add(paramCisloKarty);
-
-                var paramCisloUctu = new OracleParameter
-                {
-                    ParameterName = "p_cislouctu",
-                    OracleDbType = OracleDbType.Varchar2,
-                    Direction = System.Data.ParameterDirection.Input,
-                    Value = string.IsNullOrEmpty(sale.AccountNumber) ? (object)DBNull.Value : sale.AccountNumber
-                };
-                command.Parameters.Add(paramCisloUctu);
-
-                var paramDruhPlatby = new OracleParameter
-                {
-                    ParameterName = "p_iddruhplatby",
-                    OracleDbType = OracleDbType.Int32,
-                    Direction = System.Data.ParameterDirection.Input,
-                    Value = sale.TypeOfPayment.Id
-                };
-                command.Parameters.Add(paramDruhPlatby);
-
-                var paramKupec = new OracleParameter
-                {
-                    ParameterName = "p_idkupec",
-                    OracleDbType = OracleDbType.Int32,
-                    Direction = System.Data.ParameterDirection.Input,
-                    Value = sale.Buyer.Id
-                };
-                command.Parameters.Add(paramKupec);
-
-                // Provedení procedury
-                command.ExecuteNonQuery();
-
-                // Commit transakce
-                using (var transaction = ConnectionManager.Connection.BeginTransaction())
-                {
-                    try
+                    using (var command = ConnectionManager.Connection.CreateCommand())
                     {
-                        transaction.Commit();
+                        command.Transaction = transaction;
+                        command.CommandType = System.Data.CommandType.StoredProcedure;
+                        command.CommandText = "p_save_prodej";
+
+                        var paramId = new OracleParameter
+                        {
+                            ParameterName = "p_idprodej",
+                            OracleDbType = OracleDbType.Int32,
+                            Direction = System.Data.ParameterDirection.Input,
+                            Value = sale.Id == 0 ? (object)DBNull.Value : sale.Id
+                        };
+                        command.Parameters.Add(paramId);
+
+                        var paramCena = new OracleParameter
+                        {
+                            ParameterName = "p_cena",
+                            OracleDbType = OracleDbType.Decimal,
+                            Direction = System.Data.ParameterDirection.Input,
+                            Value = sale.Price
+                        };
+                        command.Parameters.Add(paramCena);
+
+                        var paramDatum = new OracleParameter
+                        {
+                            ParameterName = "p_datumprodeje",
+                            OracleDbType = OracleDbType.Date,
+                            Direction = System.Data.ParameterDirection.Input,
+                            Value = sale.DateOfSale
+                        };
+                        command.Parameters.Add(paramDatum);
+
+                        var paramCisloKarty = new OracleParameter
+                        {
+                            ParameterName = "p_cislokarty",
+                            OracleDbType = OracleDbType.Varchar2,
+                            Direction = System.Data.ParameterDirection.Input,
+                            Value = string.IsNullOrEmpty(sale.CardNumber) ? (object)DBNull.Value : sale.CardNumber
+                        };
+                        command.Parameters.Add(paramCisloKarty);
+
+                        var paramCisloUctu = new OracleParameter
+                        {
+                            ParameterName = "p_cislouctu",
+                            OracleDbType = OracleDbType.Varchar2,
+                            Direction = System.Data.ParameterDirection.Input,
+                            Value = string.IsNullOrEmpty(sale.AccountNumber) ? (object)DBNull.Value : sale.AccountNumber
+                        };
+                        command.Parameters.Add(paramCisloUctu);
+
+                        var paramDruhPlatby = new OracleParameter
+                        {
+                            ParameterName = "p_iddruhplatby",
+                            OracleDbType = OracleDbType.Int32,
+                            Direction = System.Data.ParameterDirection.Input,
+                            Value = sale.TypeOfPayment.Id
+                        };
+                        command.Parameters.Add(paramDruhPlatby);
+
+                        var paramKupec = new OracleParameter
+                        {
+                            ParameterName = "p_idkupec",
+                            OracleDbType = OracleDbType.Int32,
+                            Direction = System.Data.ParameterDirection.Input,
+                            Value = sale.Buyer.Id
+                        };
+                        command.Parameters.Add(paramKupec);
+
+                        // Provedení procedury
+                        command.ExecuteNonQuery();
                     }
-                    catch
-                    {
-                        transaction.Rollback();
-                        throw;
-                    }
+
+                    // Commit transakce
+                    transaction.Commit();
+                }
+                catch
+                {
+                    transaction.Rollback();
+                    throw;
                 }
             }
         }
 
         public void DeleteItem(int id)
         {
-            using (var command = ConnectionManager.Connection.CreateCommand())
+            using (var transaction = ConnectionManager.Connection.BeginTransaction())
             {
-                command.CommandType = System.Data.CommandType.StoredProcedure;
-                command.CommandText = "p_delete_prodej";
-
-                var paramId = new OracleParameter
+                try
                 {
-                    ParameterName = "p_idprodej",
-                    OracleDbType = OracleDbType.Int32,
-                    Direction = System.Data.ParameterDirection.Input,
-                    Value = id
-                };
-                command.Parameters.Add(paramId);
+                    using (var command = ConnectionManager.Connection.CreateCommand())
+                    {
+                        command.Transaction = transaction;
+                        command.CommandType = System.Data.CommandType.StoredProcedure;
+                        command.CommandText = "p_delete_prodej";
 
-                // Provedení procedury
-                command.ExecuteNonQuery();
+                        var paramId = new OracleParameter
+                        {
+                            ParameterName = "p_idprodej",
+                            OracleDbType = OracleDbType.Int32,
+                            Direction = System.Data.ParameterDirection.Input,
+                            Value = id
+                        };
+                        command.Parameters.Add(paramId);
 
-                // Commit transakce
-                using (var transaction = ConnectionManager.Connection.BeginTransaction())
+                        // Provedení procedury
+                        command.ExecuteNonQuery();
+                    }
+
+                    // Commit transakce
+                    transaction.Commit();
+                }
+                catch
                 {
-                    try
-                    {
-                        transaction.Commit();
-                    }
-                    catch
-                    {
-                        transaction.Rollback();
-                        throw;
-                    }
+                    transaction.Rollback();
+                    throw;
                 }
             }
         }

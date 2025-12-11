@@ -55,97 +55,99 @@ namespace DatabaseAccess
 
         public void SaveItem(Visit visit, int idExhibit)
         {
-            using (var command = ConnectionManager.Connection.CreateCommand())
+            using (var transaction = ConnectionManager.Connection.BeginTransaction())
             {
-                command.CommandType = System.Data.CommandType.StoredProcedure;
-                command.CommandText = "p_save_navsteva";
-
-                var paramId = new OracleParameter
+                try
                 {
-                    ParameterName = "p_idnavsteva",
-                    OracleDbType = OracleDbType.Int32,
-                    Direction = System.Data.ParameterDirection.Input,
-                    Value = visit.Id == 0 ? (object)DBNull.Value : visit.Id
-                };
-                command.Parameters.Add(paramId);
-
-                var paramDatum = new OracleParameter
-                {
-                    ParameterName = "p_datumnavstevy",
-                    OracleDbType = OracleDbType.Date,
-                    Direction = System.Data.ParameterDirection.Input,
-                    Value = visit.DateOfVisit
-                };
-                command.Parameters.Add(paramDatum);
-
-                var paramDruhNavstevy = new OracleParameter
-                {
-                    ParameterName = "p_iddruhnavstevy",
-                    OracleDbType = OracleDbType.Int32,
-                    Direction = System.Data.ParameterDirection.Input,
-                    Value = visit.VisitType.Id
-                };
-                command.Parameters.Add(paramDruhNavstevy);
-
-                var paramVystava = new OracleParameter
-                {
-                    ParameterName = "p_idvystava",
-                    OracleDbType = OracleDbType.Int32,
-                    Direction = System.Data.ParameterDirection.Input,
-                    Value = visit.ExhibitionCounter.Id
-                };
-                command.Parameters.Add(paramVystava);
-
-                // Provedení procedury
-                command.ExecuteNonQuery();
-
-                // Commit transakce
-                using (var transaction = ConnectionManager.Connection.BeginTransaction())
-                {
-                    try
+                    using (var command = ConnectionManager.Connection.CreateCommand())
                     {
-                        transaction.Commit();
+                        command.Transaction = transaction;
+                        command.CommandType = System.Data.CommandType.StoredProcedure;
+                        command.CommandText = "p_save_navsteva";
+
+                        var paramId = new OracleParameter
+                        {
+                            ParameterName = "p_idnavsteva",
+                            OracleDbType = OracleDbType.Int32,
+                            Direction = System.Data.ParameterDirection.Input,
+                            Value = visit.Id == 0 ? (object)DBNull.Value : visit.Id
+                        };
+                        command.Parameters.Add(paramId);
+
+                        var paramDatum = new OracleParameter
+                        {
+                            ParameterName = "p_datumnavstevy",
+                            OracleDbType = OracleDbType.Date,
+                            Direction = System.Data.ParameterDirection.Input,
+                            Value = visit.DateOfVisit
+                        };
+                        command.Parameters.Add(paramDatum);
+
+                        var paramDruhNavstevy = new OracleParameter
+                        {
+                            ParameterName = "p_iddruhnavstevy",
+                            OracleDbType = OracleDbType.Int32,
+                            Direction = System.Data.ParameterDirection.Input,
+                            Value = visit.VisitType.Id
+                        };
+                        command.Parameters.Add(paramDruhNavstevy);
+
+                        var paramVystava = new OracleParameter
+                        {
+                            ParameterName = "p_idvystava",
+                            OracleDbType = OracleDbType.Int32,
+                            Direction = System.Data.ParameterDirection.Input,
+                            Value = visit.ExhibitionCounter.Id
+                        };
+                        command.Parameters.Add(paramVystava);
+
+                        // Provedení procedury
+                        command.ExecuteNonQuery();
                     }
-                    catch
-                    {
-                        transaction.Rollback();
-                        throw;
-                    }
+
+                    // Commit transakce
+                    transaction.Commit();
+                }
+                catch
+                {
+                    transaction.Rollback();
+                    throw;
                 }
             }
         }
 
         public void DeleteItem(int id)
         {
-            using (var command = ConnectionManager.Connection.CreateCommand())
+            using (var transaction = ConnectionManager.Connection.BeginTransaction())
             {
-                command.CommandType = System.Data.CommandType.StoredProcedure;
-                command.CommandText = "p_delete_navsteva";
-
-                var paramId = new OracleParameter
+                try
                 {
-                    ParameterName = "p_idnavsteva",
-                    OracleDbType = OracleDbType.Int32,
-                    Direction = System.Data.ParameterDirection.Input,
-                    Value = id
-                };
-                command.Parameters.Add(paramId);
+                    using (var command = ConnectionManager.Connection.CreateCommand())
+                    {
+                        command.Transaction = transaction;
+                        command.CommandType = System.Data.CommandType.StoredProcedure;
+                        command.CommandText = "p_delete_navsteva";
 
-                // Provedení procedury
-                command.ExecuteNonQuery();
+                        var paramId = new OracleParameter
+                        {
+                            ParameterName = "p_idnavsteva",
+                            OracleDbType = OracleDbType.Int32,
+                            Direction = System.Data.ParameterDirection.Input,
+                            Value = id
+                        };
+                        command.Parameters.Add(paramId);
 
-                // Commit transakce
-                using (var transaction = ConnectionManager.Connection.BeginTransaction())
+                        // Provedení procedury
+                        command.ExecuteNonQuery();
+                    }
+
+                    // Commit transakce
+                    transaction.Commit();
+                }
+                catch
                 {
-                    try
-                    {
-                        transaction.Commit();
-                    }
-                    catch
-                    {
-                        transaction.Rollback();
-                        throw;
-                    }
+                    transaction.Rollback();
+                    throw;
                 }
             }
         }
