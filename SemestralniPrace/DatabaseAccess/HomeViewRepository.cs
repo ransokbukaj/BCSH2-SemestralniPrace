@@ -1,14 +1,9 @@
-﻿using DatabaseAccess.Interface;
+using DatabaseAccess.Interface;
 using Entities;
 using Entities.Home;
 using Oracle.ManagedDataAccess.Client;
 using Oracle.ManagedDataAccess.Types;
-using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DatabaseAccess
 {
@@ -111,7 +106,7 @@ namespace DatabaseAccess
                             Id = Convert.ToInt32(reader["idumeleckedilo"]),
                             Name = reader["nazev"].ToString(),
                             PublishedDate = Convert.ToDateTime(reader["datumzverejneni"]),
-                            Authors= reader["autori"].ToString(),
+                            Authors = reader["autori"].ToString(),
                             Type = reader["typdila"].ToString()
 
                         });
@@ -204,5 +199,209 @@ namespace DatabaseAccess
                 return result;
             }
         }
+
+
+
+        public MentorBranchStatistics GetMentorBranchStatics(int id)
+        {
+            using (var command = ConnectionManager.Connection.CreateCommand())
+            {
+                command.CommandType = CommandType.StoredProcedure;
+                command.CommandText = "p_trzba_mentorske_vetve";
+
+                // IN parametr – ID umělce
+                var pId = new OracleParameter
+                {
+                    ParameterName = "p_idmentor",
+                    OracleDbType = OracleDbType.Int32,
+                    Direction = ParameterDirection.Input,
+                    Value = id
+                };
+                command.Parameters.Add(pId);
+
+                // OUT parametry
+                var amountOfArtist = new OracleParameter
+                {
+                    ParameterName = "o_pocet_umelcu",
+                    OracleDbType = OracleDbType.Int32,
+                    Direction = ParameterDirection.Output
+                };
+                command.Parameters.Add(amountOfArtist);
+
+                var amountOfSale = new OracleParameter
+                {
+                    ParameterName = "o_pocet_prodeju",
+                    OracleDbType = OracleDbType.Int32,
+                    Direction = ParameterDirection.Output
+                };
+                command.Parameters.Add(amountOfSale);
+
+                var totalProfit = new OracleParameter
+                {
+                    ParameterName = "o_trzba_celkem",
+                    OracleDbType = OracleDbType.Double,
+                    Direction = ParameterDirection.Output
+                };
+                command.Parameters.Add(totalProfit);
+
+                // Vykonání procedury
+                command.ExecuteNonQuery();
+
+                // Naplnění objektu
+                var result = new MentorBranchStatistics
+                {
+                    ArtistsInBranch = ((OracleDecimal)amountOfArtist.Value).ToInt32(),
+                    AmountofSales = ((OracleDecimal)amountOfSale.Value).ToInt32(),
+                    TotalProfit = ((OracleDecimal)totalProfit.Value).ToDouble(),
+                };
+
+                return result;
+
+            }
+        }
+
+        public MostSuccesfulMentore GetMostSuccesfulMentore(int artistId)
+        {
+            using (var command = ConnectionManager.Connection.CreateCommand())
+            {
+                command.CommandType = CommandType.StoredProcedure;
+                command.CommandText = "p_nejuspesnejsi_potomek";
+
+                var idOfMentor = new OracleParameter
+                {
+                    ParameterName = "p_idmentor",
+                    OracleDbType = OracleDbType.Int32,
+                    Direction = ParameterDirection.Input,
+                    Value = artistId
+                };
+                command.Parameters.Add(idOfMentor);
+
+                // OUT parametry
+                var idOfMentore = new OracleParameter
+                {
+                    ParameterName = "o_idpotomek",
+                    OracleDbType = OracleDbType.Int32,
+                    Direction = ParameterDirection.Output
+                };
+                command.Parameters.Add(idOfMentore);
+
+                var nameOfMentore = new OracleParameter
+                {
+                    ParameterName = "o_jmenopotomek",
+                    OracleDbType = OracleDbType.Varchar2,
+                    Direction = ParameterDirection.Output
+                };
+                command.Parameters.Add(nameOfMentore);
+
+                var amountOfArt = new OracleParameter
+                {
+                    ParameterName = "o_pocet_del",
+                    OracleDbType = OracleDbType.Double,
+                    Direction = ParameterDirection.Output
+                };
+                command.Parameters.Add(amountOfArt);
+
+                // Vykonání procedury
+                command.ExecuteNonQuery();
+
+                // Naplnění objektu
+                var result = new MostSuccesfulMentore
+                {
+                    ArtistId = ((OracleDecimal)idOfMentore.Value).ToInt32(),
+                    ArtistName = nameOfMentore.Value.ToString(),
+                    AmountOfArtPieces = ((OracleDecimal)amountOfArt.Value).ToInt32(),
+
+                };
+
+                return result;
+            }
+        }
+
+        public UserStatistics GetUserStatistics(int userId)
+        {
+            using (var command = ConnectionManager.Connection.CreateCommand())
+            {
+                command.CommandType = CommandType.StoredProcedure;
+                command.CommandText = "p_aktivita_uzivatele";
+
+                var pId = new OracleParameter
+                {
+                    ParameterName = "p_iduzivatel",
+                    OracleDbType = OracleDbType.Int32,
+                    Direction = ParameterDirection.Input,
+                    Value = userId
+                };
+                command.Parameters.Add(pId);
+
+                // OUT parametry
+                var amountOfChanges = new OracleParameter
+                {
+                    ParameterName = "o_pocet_zmen",
+                    OracleDbType = OracleDbType.Int32,
+                    Direction = ParameterDirection.Output
+                };
+                command.Parameters.Add(amountOfChanges);
+
+                var amountOfInsert = new OracleParameter
+                {
+                    ParameterName = "o_pocet_insertu",
+                    OracleDbType = OracleDbType.Int32,
+                    Direction = ParameterDirection.Output
+                };
+                command.Parameters.Add(amountOfInsert);
+
+                var amountOfUpdate = new OracleParameter
+                {
+                    ParameterName = "o_pocet_updatu",
+                    OracleDbType = OracleDbType.Int32,
+                    Direction = ParameterDirection.Output
+                };
+                command.Parameters.Add(amountOfUpdate);
+
+                var amountOfDelete = new OracleParameter
+                {
+                    ParameterName = "o_pocet_deletu",
+                    OracleDbType = OracleDbType.Int32,
+                    Direction = ParameterDirection.Output
+                };
+                command.Parameters.Add(amountOfDelete);
+
+                var lastChange = new OracleParameter
+                {
+                    ParameterName = "o_posledni_zmena",
+                    OracleDbType = OracleDbType.Date,
+                    Direction = ParameterDirection.Output
+                };
+                command.Parameters.Add(lastChange);
+
+                var isDisabled = new OracleParameter
+                {
+                    ParameterName = "o_deaktivovan",
+                    OracleDbType = OracleDbType.Date,
+                    Direction = ParameterDirection.Output
+                };
+                command.Parameters.Add(isDisabled);
+
+
+
+                // Vykonání procedury
+                command.ExecuteNonQuery();
+
+                // Naplnění objektu
+                var result = new UserStatistics
+                {
+                    AmountOfChanges = ((OracleDecimal)amountOfChanges.Value).ToInt32(),
+                    AmountOfInserts = ((OracleDecimal)amountOfInsert.Value).ToInt32(),
+                    AmountOfDelete = ((OracleDecimal)amountOfDelete.Value).ToInt32(),
+                    AmountOfUpdate = ((OracleDecimal)amountOfUpdate.Value).ToInt32(),
+                    LastChange = (DateTime)lastChange.Value
+
+                };
+
+                return result;
+            }
+        }
     }
+
+
 }

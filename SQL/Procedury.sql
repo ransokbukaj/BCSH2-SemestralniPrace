@@ -74,7 +74,7 @@ BEGIN
              ON ud.idumelec = s.idumelec
            JOIN umelecka_dila d
              ON d.idumeleckedilo = ud.idumeleckedilo
-           LEFT JOIN prodeje p              -- POZOR: LEFT JOIN, ať nezmizí díla bez prodeje
+           LEFT JOIN prodeje p              
              ON p.idprodej = d.idprodej;
 EXCEPTION
     WHEN NO_DATA_FOUND THEN

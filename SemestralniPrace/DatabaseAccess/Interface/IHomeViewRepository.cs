@@ -1,4 +1,4 @@
-﻿using Entities.Home;
+using Entities.Home;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,5 +16,9 @@ namespace DatabaseAccess.Interface
         GaleryStatistic GetGaleryStatistic();
 
         ArtistStatistic GetArtistStatistic(int artistId);
+
+        MentorBranchStatistics GetMentorBranchStatics(int id);
+
+        UserStatistics GetUserStatistics(int userId);
     }
 }
