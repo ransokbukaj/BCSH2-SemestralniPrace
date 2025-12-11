@@ -38,6 +38,45 @@ BEGIN
 END;
 /
 
+CREATE OR REPLACE PROCEDURE p_trzba_mentorske_vetve(
+    p_idmentor         IN  umelci.idumelec%TYPE,
+    o_pocet_umelcu     OUT NUMBER,
+    o_pocet_prodeju    OUT NUMBER,
+    o_trzba_celkem     OUT NUMBER
+) IS
+BEGIN
+    /*
+      Strom umělců:
+      START WITH idumelec = p_idmentor
+      CONNECT BY PRIOR idumelec = idmentor  (mentor -> žáci)
+    */
+    WITH strom AS (
+        SELECT idumelec
+        FROM   umelci
+        START WITH idumelec = p_idmentor
+        CONNECT BY PRIOR idumelec = idmentor
+    )
+    SELECT NVL(COUNT(DISTINCT s.idumelec), 0),
+           NVL(COUNT(p.idprodej), 0),
+           NVL(SUM(p.cena), 0)
+    INTO   o_pocet_umelcu,
+           o_pocet_prodeju,
+           o_trzba_celkem
+    FROM   strom s
+           JOIN umelci_umelecka_dila ud
+             ON ud.idumelec = s.idumelec
+           JOIN umelecka_dila d
+             ON d.idumeleckedilo = ud.idumeleckedilo
+           JOIN prodeje p
+             ON p.idprodej = d.idprodej;
+EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+        o_pocet_umelcu  := 0;
+        o_pocet_prodeju := 0;
+        o_trzba_celkem  := 0;
+END;
+/
+
 
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------
