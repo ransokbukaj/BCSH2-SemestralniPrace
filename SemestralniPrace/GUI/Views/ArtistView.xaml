@@ -122,10 +122,6 @@
                     Orientation="Horizontal"
                     HorizontalAlignment="Right"
                     Margin="10,15,0,0">
-            <Button Content="Načíst"
-                    Command="{Binding LoadArtistsCommand}"
-                    Margin="0,0,10,0"
-                    Width="80"/>
             <Button Content="Nový"
                     Command="{Binding NewCommand}"
                     Margin="0,0,10,0"
