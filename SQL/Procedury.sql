@@ -964,12 +964,7 @@ CREATE OR REPLACE PROCEDURE p_save_vystava(
 ) AS
     v_count NUMBER;
     v_program_count NUMBER;
-BEGIN
-    -- Kontrola, že datum od není pozdější než datum do
-    IF p_datumod > p_datumdo THEN
-        RAISE_APPLICATION_ERROR(-20070, 'Datum zahájení výstavy nemůže být pozdější než datum ukončení.');
-    END IF;
-    
+BEGIN    
     -- Kontrola existence vzdělávacího programu (pokud je zadán)
     IF p_idvzdelavaciprogram IS NOT NULL THEN
         SELECT COUNT(*) INTO v_program_count
@@ -1072,12 +1067,7 @@ CREATE OR REPLACE PROCEDURE p_save_vzdelavaci_program(
     p_popis IN vzdelavaci_programy.popis%TYPE
 ) AS
     v_count NUMBER;
-BEGIN
-    -- Kontrola, že datum od není pozdější než datum do
-    IF p_datumod > p_datumdo THEN
-        RAISE_APPLICATION_ERROR(-20080, 'Datum zahájení programu nemůže být pozdější než datum ukončení.');
-    END IF;
-    
+BEGIN    
     -- Kontrola, zda vzdělávací program s daným ID existuje
     IF p_idvzdelavaciprogram IS NOT NULL AND p_idvzdelavaciprogram > 0 THEN
         SELECT COUNT(*) INTO v_count
