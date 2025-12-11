@@ -108,11 +108,7 @@ namespace GUI.ViewModels
 
                 repository.SaveItem(SelectedUser);
                 Load();
-<<<<<<< Updated upstream
-            }, "Uložení uživatele selhalo. Uživatelské jméno může být již obsazené.");
-=======
             }, "Uložení uživatele selhalo.");
->>>>>>> Stashed changes
         }
 
         [RelayCommand]
@@ -143,11 +139,7 @@ namespace GUI.ViewModels
 
                 if (string.IsNullOrWhiteSpace(NewPassword) || string.IsNullOrWhiteSpace(NewPasswordConfirm))
                 {
-<<<<<<< Updated upstream
                     ErrorLog = "Nové heslo a potvrzení musí být vyplněné.";
-=======
-                    ErrorLog = "Nové heslo a jeho potvrzení musí být vyplněné.";
->>>>>>> Stashed changes
                     return;
                 }
 
@@ -159,14 +151,10 @@ namespace GUI.ViewModels
 
                 repository.ChangePassword(SelectedUser.Id, NewPassword);
                 ErrorLog = "Heslo úspěšně změněno.";
-<<<<<<< Updated upstream
 
                 NewPassword = string.Empty;
                 NewPasswordConfirm = string.Empty;
             }, "Změna hesla selhala");
-=======
-            }
->>>>>>> Stashed changes
         }
     }
 }
