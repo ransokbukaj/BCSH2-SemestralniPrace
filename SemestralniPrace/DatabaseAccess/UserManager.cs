@@ -133,8 +133,7 @@ namespace DatabaseAccess
                         if (VerifyPassword(password, storedHash))
                         {
                             int userId = Convert.ToInt32(reader["iduzivatel"]);
-                            int roleId = Convert.ToInt32(reader["idrole"]);
-
+                            UpdateLastLoginDate(ConnectionManager.Connection, userId);
                             CurrentUser = new User
                             {
                                 Id = userId,
@@ -143,7 +142,7 @@ namespace DatabaseAccess
                                 LastName = reader["prijmeni"].ToString(),
                                 Role = new Counter
                                 {
-                                    Id = roleId,
+                                    Id = Convert.ToInt32(reader["idrole"]),
                                     Name = reader["nazevrole"].ToString()
                                 },
                                 RegisterDate = Convert.ToDateTime(reader["datumregistrace"]),
@@ -151,9 +150,7 @@ namespace DatabaseAccess
                                 ? (DateTime?)null
                                 : Convert.ToDateTime(reader["datumposlednihoprihlaseni"]),
                             };
-
                             SetDatabaseSessionIdentifier(ConnectionManager.Connection, userId);
-                            UpdateLastLoginDate(ConnectionManager.Connection, userId);
                             return true;
                         }
                     }
