@@ -1,4 +1,45 @@
+CREATE OR REPLACE VIEW v_nejnovejsi_um_dila AS
+SELECT
+    d.idumeleckedilo,
+    d.nazev,
+    d.datumzverejneni,
+    LISTAGG(u.jmeno || ' ' || u.prijmeni, ', ') 
+        WITHIN GROUP (ORDER BY u.prijmeni, u.jmeno) AS autori,
+    d.typdila
+FROM umelecka_dila d
+LEFT JOIN umelci_umelecka_dila ud
+       ON d.idumeleckedilo = ud.idumeleckedilo
+LEFT JOIN umelci u
+       ON ud.idumelec = u.idumelec
+GROUP BY d.idumeleckedilo, d.nazev, d.datumzverejneni, d.typdila;
 
+
+CREATE OR REPLACE VIEW v_statistiky_galerie AS
+SELECT
+    (SELECT COUNT(*) FROM umelecka_dila) AS pocet_umelecky_del,
+    (SELECT COUNT(*) FROM obrazy) AS pocet_obrazu,
+    (SELECT COUNT(*) FROM sochy) AS pocet_soch,
+    (SELECT COUNT(*) FROM vystavy)       AS pocet_vystav,
+    (SELECT COUNT(*) FROM vzdelavaci_programy) AS pocet_vzdelavacich_programu,
+    (SELECT COUNT(*) FROM umelci)        AS pocet_umelcu,
+    (SELECT COUNT(*) FROM uzivatele)     AS pocet_uzivatelu,
+    (SELECT COUNT(*) FROM navstevy)     AS pocet_navstevniku,
+    (SELECT NVL(SUM(cena), 0) FROM prodeje) AS trzba_celkem
+FROM dual;
+
+
+CREATE OR REPLACE VIEW v_aktualni_vystavy AS
+SELECT
+    v.idvystava,
+    v.nazev,
+    v.datumod,
+    v.datumdo,
+    v.popis,
+    vp.nazev AS nazev_programu
+FROM vystavy v
+LEFT JOIN vzdelavaci_programy vp
+       ON v.idvzdelavaciprogram = vp.idvzdelavaciprogram
+WHERE SYSDATE BETWEEN v.datumod AND v.datumdo;
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------
 
