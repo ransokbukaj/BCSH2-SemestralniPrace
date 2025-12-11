@@ -1,0 +1,17 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="92BCE2F0-1161-9B4B-6ED1-AEF855C3AAAA" containerWithKeyObject="9EF2F6DA-DF7F-A66F-A10E-78A0862C0DCA" localFKIndex="B3557359-B891-B337-BF5F-325BDABA62EF" name="PRODEJ_KUPEC_FK">
+<createdBy>jakub</createdBy>
+<createdTime>2025-12-11 12:10:05 UTC</createdTime>
+<generatorID>7A56F2FE-75A0-5BA3-8D87-B412620DEADA</generatorID>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<referredTableLongName>KUPEC</referredTableLongName>
+<deleteRule>NO ACTION</deleteRule>
+<referredTableID>9C658B36-18EB-C8EA-561E-07F67A13E50F</referredTableID>
+<keyObject>79F5DBEE-4891-0342-0812-4B28527861D4</keyObject>
+<referredKeyID>79F5DBEE-4891-0342-0812-4B28527861D4</referredKeyID>
+<mandatory>true</mandatory>
+<refColNames>idKupec</refColNames>
+<transferable>true</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>

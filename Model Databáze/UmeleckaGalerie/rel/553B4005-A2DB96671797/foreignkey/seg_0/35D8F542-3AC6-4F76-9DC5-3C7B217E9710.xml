@@ -1,10 +1,10 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
-<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="35D8F542-3AC6-4F76-9DC5-3C7B217E9710" containerWithKeyObject="9EF2F6DA-DF7F-A66F-A10E-78A0862C0DCA" localFKIndex="C8741956-2C52-5F6F-18D0-9B5C8CE74FBE" name="PRODEJE_DRUH_PLATBY_FK">
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="35D8F542-3AC6-4F76-9DC5-3C7B217E9710" containerWithKeyObject="9EF2F6DA-DF7F-A66F-A10E-78A0862C0DCA" localFKIndex="C8741956-2C52-5F6F-18D0-9B5C8CE74FBE" name="PRODEJE_DRUHY_PLATEB_FK">
 <createdBy>jakub</createdBy>
 <createdTime>2024-12-09 11:17:58 UTC</createdTime>
 <generatorID>0AC5E782-01CB-E324-C969-D3A636E393F1</generatorID>
 <ownerDesignName>UmeleckaGalerie</ownerDesignName>
-<referredTableLongName>DRUHY_PLATEB</referredTableLongName>
+<referredTableLongName>DRUH_PLATBY</referredTableLongName>
 <deleteRule>NO ACTION</deleteRule>
 <referredTableID>7C186F31-FED1-7A7B-EFA7-69BAE6EE5DDF</referredTableID>
 <keyObject>AB44B39A-5F5D-AAD1-01BE-8994C83FA10F</keyObject>

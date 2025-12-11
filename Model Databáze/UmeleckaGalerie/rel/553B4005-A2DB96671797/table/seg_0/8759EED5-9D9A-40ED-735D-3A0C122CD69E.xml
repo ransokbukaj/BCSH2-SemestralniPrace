@@ -60,7 +60,7 @@
 <colUsage columnID="E0FC6625-65CF-ACD5-B89A-9075E7BF1B40"/>
 </indexColumnUsage>
 </ind_PK_UK>
-<ind_PK_UK id="BB6944F7-E991-FD44-3385-36C68F69D420" name="POSTA_psc_UN">
+<ind_PK_UK id="BB6944F7-E991-FD44-3385-36C68F69D420" name="POSTY_psc_UN">
 <createdBy>jakub</createdBy>
 <createdTime>2024-12-09 11:17:58 UTC</createdTime>
 <generatorID>60A0F9C6-5AB9-17E1-940A-F007039A2188</generatorID>

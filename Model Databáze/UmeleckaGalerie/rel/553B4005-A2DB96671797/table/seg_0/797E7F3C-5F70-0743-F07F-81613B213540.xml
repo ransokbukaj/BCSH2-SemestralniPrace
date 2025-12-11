@@ -48,7 +48,7 @@
 <colUsage columnID="42420AF4-91AE-DE6F-0D6B-69EEC490CEE6"/>
 </indexColumnUsage>
 </ind_PK_UK>
-<ind_PK_UK id="C06D4353-7124-0E0F-AA5B-3007B1A3A0C0" name="TECHNIKA_nazev_UN">
+<ind_PK_UK id="C06D4353-7124-0E0F-AA5B-3007B1A3A0C0" name="TECHNIKY_nazev_UN">
 <createdBy>jakub</createdBy>
 <createdTime>2024-12-09 11:17:58 UTC</createdTime>
 <generatorID>6DD9D5D0-8300-BF84-A69F-37E1CBC212CB</generatorID>

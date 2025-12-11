@@ -91,6 +91,21 @@
 <logicalDatatype>LOGDT040</logicalDatatype>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 </Attribute>
+<Attribute name="idUmelec1" id="7C1792F2-09CC-B0C5-7549-6F0EDABAE808">
+<createdBy>jakub</createdBy>
+<createdTime>2025-12-11 12:06:54 UTC</createdTime>
+<generatorID>20979332-462B-7371-FDBA-625DEF35E31B</generatorID>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<engineerTo>
+<item key="553B4005-5906-3AC4-6EA3-A2DB96671797" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<referedAttribute>6B892CE6-4685-355B-0113-E521C09D72E4</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
 </attributes>
 <identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
 <identifier id="AE050168-67F6-DAD8-0FC7-CD15D9055E35" name="UMELEC PK">

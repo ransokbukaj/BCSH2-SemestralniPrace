@@ -81,6 +81,22 @@
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
+<Column name="idMentor" id="261B22F9-CBA0-AB6C-9AF9-974E6D93CC92">
+<createdBy>jakub</createdBy>
+<createdTime>2025-12-11 12:10:05 UTC</createdTime>
+<generatorID>7C1792F2-09CC-B0C5-7549-6F0EDABAE808</generatorID>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="ADADE983-3426-1904-5E16-FA76278EA029" referredColumn="848B85BC-852A-7C50-6AC1-DFE1E8D1090D"/>
+</associations>
+</Column>
 </columns>
 <indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
 <ind_PK_UK id="1215A41C-3114-0729-AF2C-116BE9C9D70F" name="UMELEC_PK">
@@ -93,6 +109,17 @@
 <isSurrogateKey>false</isSurrogateKey>
 <indexColumnUsage>
 <colUsage columnID="848B85BC-852A-7C50-6AC1-DFE1E8D1090D"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="0B9EEEAE-B1DD-1B91-87F7-15AF99B644DC" name="UMELEC_MENTOR_FK">
+<createdBy>jakub</createdBy>
+<createdTime>2025-12-11 12:10:05 UTC</createdTime>
+<generatorID>20979332-462B-7371-FDBA-625DEF35E31B</generatorID>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="261B22F9-CBA0-AB6C-9AF9-974E6D93CC92"/>
 </indexColumnUsage>
 </ind_PK_UK>
 </indexes>

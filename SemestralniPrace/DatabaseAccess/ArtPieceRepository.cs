@@ -62,49 +62,6 @@ namespace DatabaseAccess
             throw new NotImplementedException();
         }
 
-
-
-        //public List<ArtPiece> GetListByArtistId(int artistId)
-        //{
-        //    var list = new List<ArtPiece>();
-        //    using (var command = ConnectionManager.Connection.CreateCommand())
-        //    {
-        //        // Volání funkce vracející cursor
-        //        command.CommandText = "SELECT * FROM TABLE(f_get_artpieces_by_artist(:p_idumelec))";
-        //        command.CommandType = System.Data.CommandType.Text;
-
-        //        // Parametr pro ID umělce
-        //        var paramId = new OracleParameter
-        //        {
-        //            ParameterName = "p_idumelec",
-        //            OracleDbType = OracleDbType.Int32,
-        //            Direction = System.Data.ParameterDirection.Input,
-        //            Value = artistId
-        //        };
-        //        command.Parameters.Add(paramId);
-
-        //        // Načtení dat
-        //        using (var reader = command.ExecuteReader())
-        //        {
-        //            while (reader.Read())
-        //            {
-        //                list.Add(new ArtPiece
-        //                {
-        //                    Id = Convert.ToInt32(reader["idumeleckedilo"]),
-        //                    Name = reader["nazev"].ToString(),
-        //                    Description = reader["popis"] == DBNull.Value ? null : reader["popis"].ToString(),
-        //                    PublishedDate = Convert.ToDateTime(reader["datumzverejneni"]),
-        //                    Height = Convert.ToDouble(reader["vyska"]),
-        //                    Width = Convert.ToDouble(reader["sirka"]),
-        //                    ExhibitionId = reader["idvystava"] == DBNull.Value ? 0 : Convert.ToInt32(reader["idvystava"]),
-        //                    SaleId = reader["idprodej"] == DBNull.Value ? 0 : Convert.ToInt32(reader["idprodej"])
-        //                });
-        //            }
-        //        }
-        //    }
-        //    return list;
-        //}
-
         public List<ArtPiece> GetListByArtistId(int artistId)
         {
             var list = new List<ArtPiece>();

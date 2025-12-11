@@ -1,0 +1,21 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="UMELEC_MENTOR" directorySegmentName="seg_0" id="20979332-462B-7371-FDBA-625DEF35E31B">
+<createdBy>jakub</createdBy>
+<createdTime>2025-12-11 12:06:54 UTC</createdTime>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<engineerTo>
+<item key="553B4005-5906-3AC4-6EA3-A2DB96671797" value="true"/>
+</engineerTo>
+<targetPk>AE050168-67F6-DAD8-0FC7-CD15D9055E35</targetPk>
+<identifying>false</identifying>
+<nameOnSource>je mentor</nameOnSource>
+<nameOnTarget>má mentora</nameOnTarget>
+<optionalSource>true</optionalSource>
+<optionalTarget>true</optionalTarget>
+<sourceCardinality>1</sourceCardinality>
+<sourceEntity>FCDF3E00-6202-1E34-A439-706E6C9D9D55</sourceEntity>
+<targetCardinalityString>*</targetCardinalityString>
+<targetEntity>FCDF3E00-6202-1E34-A439-706E6C9D9D55</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</Relation>
