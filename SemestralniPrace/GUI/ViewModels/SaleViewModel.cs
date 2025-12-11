@@ -16,13 +16,39 @@ namespace GUI.ViewModels
         private readonly SaleRepository repository = new SaleRepository();
         private readonly CounterRepository counterRep = new CounterRepository();
 
+        private readonly ArtPieceRepository artRepo = new ArtPieceRepository();
+
         [ObservableProperty]
         private ObservableCollection<Sale> sales = new();
         [ObservableProperty]
         private ObservableCollection<Counter> typesOfPayment = new();
 
         [ObservableProperty]
+        private ObservableCollection<ArtPiece> availableArtPieces = new();
+
+        [ObservableProperty]
+        private ObservableCollection<ArtPiece> exhibitionArtPieces = new();
+
+
+
+        [ObservableProperty]
         private Sale selectedSale;
+
+        [ObservableProperty]
+        private ArtPiece selectedArtPieceToRemove;
+
+        [ObservableProperty]
+        private ArtPiece selectedArtPieceToAdd;
+
+
+        partial void OnSelectedSaleChanged(Sale value)
+        {
+            if (SelectedSale != null)
+            {
+                ExhibitionArtPieces = new ObservableCollection<ArtPiece>(artRepo.GetListBySaleId(SelectedSale.Id));
+                AvailableArtPieces = new ObservableCollection<ArtPiece>(artRepo.GetListInStorage());
+            }
+        }
 
         public SaleViewModel()
         {

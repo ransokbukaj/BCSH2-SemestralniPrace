@@ -53,7 +53,7 @@ namespace DatabaseAccess
             return list;
         }
 
-        public void SaveItem(Visit visit)
+        public void SaveItem(Visit visit, int idExhibit)
         {
             using (var command = ConnectionManager.Connection.CreateCommand())
             {

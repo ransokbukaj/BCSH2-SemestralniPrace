@@ -12,5 +12,6 @@ namespace Entities
         public DateTime DateOfVisit { get; set; }
         public VisitType VisitType { get; set; }
         public Counter ExhibitionCounter { get; set; }
+
     }
 }

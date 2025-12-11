@@ -47,6 +47,32 @@
                 <DatePicker SelectedDate="{Binding SelectedVisit.DateOfVisit, UpdateSourceTrigger=PropertyChanged}" Width="200"/>
             </StackPanel>
 
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                <TextBlock Text="Typ návštěvy:" Width="140"/>
+                <ComboBox ItemsSource="{Binding VisitTypes}"
+          DisplayMemberPath="Name"
+          SelectedValuePath="Id"
+          SelectedValue="{Binding SelectedVisit.VisitType.Id, Mode=TwoWay}"
+          Width="200" />
+            </StackPanel>
+
+            <!-- ▼ Přidaná cena -->
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                <TextBlock Text="Cena:" Width="140"/>
+                <TextBlock Text="{Binding SelectedVisit.VisitType.Price, UpdateSourceTrigger=PropertyChanged}"
+                 Width="200"/>
+            </StackPanel>
+
+            <!-- ▼ Nový řádek – výstava -->
+            <StackPanel Orientation="Horizontal" Margin="0,15,0,5">
+                <TextBlock Text="Výstava:" Width="140"/>
+                <ComboBox ItemsSource="{Binding Exhibitions}"
+                            SelectedValuePath="Id"
+                            DisplayMemberPath="Name"
+                            SelectedValue="{Binding SelectedVisit.ExhibitionCounter.Id, Mode=TwoWay}"
+                            Width="200"/>
+            </StackPanel>
+
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,15,0,0">
                 <!--<Button Content="Načíst" Command="{Binding LoadCommand}" Margin="0,0,10,0" Width="80"/>-->
                 <Button Content="Nový" Command="{Binding NewCommand}" Margin="0,0,10,0" Width="80"/>

@@ -30,6 +30,8 @@ namespace GUI.ViewModels
         {
             currentUser = UserManager.CurrentUser;
         }
+
+
         [RelayCommand]
         private void ChangePassword()
         {
