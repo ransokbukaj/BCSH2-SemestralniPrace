@@ -2,6 +2,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using DatabaseAccess;
 using Entities;
+using GUI.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -16,7 +17,6 @@ namespace GUI.ViewModels
         private readonly SaleRepository repository = new SaleRepository();
         private readonly CounterRepository counterRep = new CounterRepository();
         private readonly BuyerRepository buyerRep = new BuyerRepository();
-
         private readonly ArtPieceRepository artRepo = new ArtPieceRepository();
 
         [ObservableProperty]
@@ -34,7 +34,6 @@ namespace GUI.ViewModels
         [ObservableProperty]
         private ObservableCollection<Buyer> buyers = new();
 
-
         [ObservableProperty]
         private Sale selectedSale;
 
@@ -44,48 +43,58 @@ namespace GUI.ViewModels
         [ObservableProperty]
         private ArtPiece selectedArtPieceToAdd;
 
-
         partial void OnSelectedSaleChanged(Sale value)
         {
-            if (SelectedSale != null)
+            ErrorHandler.SafeExecute(() =>
             {
-                SaleArtPieces = new ObservableCollection<ArtPiece>(artRepo.GetListBySaleId(SelectedSale.Id));
-                AvailableArtPieces = new ObservableCollection<ArtPiece>(artRepo.GetListUnsold());
-
-            }
+                if (SelectedSale != null)
+                {
+                    SaleArtPieces = new ObservableCollection<ArtPiece>(artRepo.GetListBySaleId(SelectedSale.Id));
+                    AvailableArtPieces = new ObservableCollection<ArtPiece>(artRepo.GetListUnsold());
+                }
+            }, "Načtení uměleckých děl pro prodej selhalo");
         }
 
         [RelayCommand]
         private void AddArtPiece()
         {
-            if (SelectedSale != null && SelectedArtPieceToAdd != null)
+            if (SelectedSale == null || SelectedArtPieceToAdd == null)
+                return;
+
+            ErrorHandler.SafeExecute(() =>
             {
+                // Kontrola, zda je prodej již uložen
+                if (SelectedSale.Id == 0)
+                {
+                    ErrorHandler.ShowError("Validační chyba", "Před přidáním uměleckého díla musíte nejprve uložit prodej");
+                    return;
+                }
+
                 artRepo.AddArtPieceToSale(SelectedArtPieceToAdd.Id, SelectedSale.Id);
 
                 SaleArtPieces.Add(SelectedArtPieceToAdd);
                 AvailableArtPieces.Remove(SelectedArtPieceToAdd);
 
                 SelectedArtPieceToAdd = AvailableArtPieces.FirstOrDefault();
-            }
+            }, "Přidání uměleckého díla do prodeje selhalo");
         }
+
         [RelayCommand]
         private void RemoveArtPiece()
         {
-            if (SelectedSale != null && SelectedArtPieceToRemove != null)
+            if (SelectedSale == null || SelectedArtPieceToRemove == null)
+                return;
+
+            ErrorHandler.SafeExecute(() =>
             {
                 artRepo.RemoveArtPieceFromSale(SelectedArtPieceToRemove.Id);
 
                 AvailableArtPieces.Add(SelectedArtPieceToRemove);
                 SaleArtPieces.Remove(SelectedArtPieceToRemove);
 
-
                 SelectedArtPieceToRemove = SaleArtPieces.FirstOrDefault();
-            }
+            }, "Odebrání uměleckého díla z prodeje selhalo");
         }
-
-
-
-
 
         public SaleViewModel()
         {
@@ -95,9 +104,12 @@ namespace GUI.ViewModels
         [RelayCommand]
         private void Load()
         {
-            Sales = new ObservableCollection<Sale>(repository.GetList());
-            TypesOfPayment = new ObservableCollection<Counter>(counterRep.GetPaymentMethods());
-            Buyers = new ObservableCollection<Buyer>(buyerRep.GetList());
+            ErrorHandler.SafeExecute(() =>
+            {
+                Sales = new ObservableCollection<Sale>(repository.GetList());
+                TypesOfPayment = new ObservableCollection<Counter>(counterRep.GetPaymentMethods());
+                Buyers = new ObservableCollection<Buyer>(buyerRep.GetList());
+            }, "Načtení prodejů selhalo");
         }
 
         [RelayCommand]
@@ -119,16 +131,31 @@ namespace GUI.ViewModels
         [RelayCommand]
         private void Save()
         {
-            if (SelectedSale == null || SelectedSale.Buyer.Id == 0 || SelectedSale.TypeOfPayment.Id == 0)
+            if (SelectedSale == null)
                 return;
 
-            if(SelectedSale != null && TypesOfPayment != null)
+            ErrorHandler.SafeExecute(() =>
             {
-                SelectedSale.TypeOfPayment = TypesOfPayment.FirstOrDefault(p => p.Id == SelectedSale.TypeOfPayment.Id);
-            }
+                if (SelectedSale.Buyer == null || SelectedSale.Buyer.Id == 0)
+                {
+                    ErrorHandler.ShowError("Validační chyba", "Musíte vybrat kupce");
+                    return;
+                }
 
-            repository.SaveItem(SelectedSale);
-            Load();
+                if (SelectedSale.TypeOfPayment == null || SelectedSale.TypeOfPayment.Id == 0)
+                {
+                    ErrorHandler.ShowError("Validační chyba", "Musíte vybrat typ platby");
+                    return;
+                }
+
+                if (SelectedSale != null && TypesOfPayment != null)
+                {
+                    SelectedSale.TypeOfPayment = TypesOfPayment.FirstOrDefault(p => p.Id == SelectedSale.TypeOfPayment.Id);
+                }
+
+                repository.SaveItem(SelectedSale);
+                Load();
+            }, "Uložení prodeje selhalo.");
         }
 
         [RelayCommand]
@@ -137,8 +164,11 @@ namespace GUI.ViewModels
             if (SelectedSale == null || SelectedSale.Id == 0)
                 return;
 
-            repository.DeleteItem(SelectedSale.Id);
-            Load();
+            ErrorHandler.SafeExecute(() =>
+            {
+                repository.DeleteItem(SelectedSale.Id);
+                Load();
+            }, "Smazání prodeje selhalo. Prodej má pravděpodobně přiřazená umělecká díla.");
         }
     }
 }
