@@ -44,6 +44,7 @@
                 <DataGridTextColumn Header="Příjmení" Binding="{Binding LastName}" Width="*"/>
                 <DataGridTextColumn Header="Narození" Binding="{Binding DateOfBirth, StringFormat=\{0:d\}}" Width="*"/>
                 <DataGridTextColumn Header="Úmrtí" Binding="{Binding DateOfDeath, StringFormat=\{0:d\}}" Width="*"/>
+                
             </DataGrid.Columns>
         </DataGrid>
 
@@ -85,6 +86,18 @@
                     <TextBlock Text="Úmrtí:" Width="100" VerticalAlignment="Center"/>
                     <DatePicker SelectedDate="{Binding SelectedArtist.DateOfDeath, UpdateSourceTrigger=PropertyChanged}"
                                 Width="200"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="0,10,0,5">
+                    <TextBlock Text="Průměrná cena díla:" Width="150" VerticalAlignment="Center"/>
+                    <TextBox  Text="{Binding SelectedArtist.AvgPrice, UpdateSourceTrigger=PropertyChanged}"
+                    Width="150"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="0,10,0,5">
+                    <TextBlock Text="Počet prodaných děl:" Width="150" VerticalAlignment="Center"/>
+                    <TextBox  Text="{Binding SelectedArtist.SoldPieces, UpdateSourceTrigger=PropertyChanged}"
+                    Width="150"/>
                 </StackPanel>
 
                 <TextBlock Text="Popis:" Margin="0,10,0,5"/>

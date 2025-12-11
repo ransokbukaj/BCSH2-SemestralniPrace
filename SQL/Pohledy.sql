@@ -35,7 +35,7 @@ SELECT
     v.nazev,
     v.datumod,
     v.datumdo,
-    v.popis,
+   f_popis_vystavy(v.idvystava) as popis,
     vp.nazev AS nazev_programu
 FROM vystavy v
 LEFT JOIN vzdelavaci_programy vp
@@ -216,7 +216,9 @@ SELECT
     prijmeni AS prijmeni,
     datumnarozeni AS datum_narozeni,
     datumumrti AS datum_umrti,
-    popis AS popis
+    popis AS popis,
+    f_prumerna_cena_dil_autora(idumelec) AS prum_cena,
+    f_pocet_prodanych_del_autora(idumelec) AS prod_dila
 FROM umelci
 ORDER BY prijmeni, jmeno;
 

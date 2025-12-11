@@ -65,7 +65,7 @@
                         <!--<DataGridTextColumn Header="Popis"
                                 Binding="{Binding Description}"
                                 Width="2*"/>-->
-                        <DataGridTextColumn Header="Vzdělávací program"
+                            <DataGridTextColumn Header="Vzdělávací program"
                                 Binding="{Binding EducationProgramName}"
                                 Width="2*"/>
 

@@ -24,7 +24,9 @@ namespace DatabaseAccess
                         prijmeni,
                         datum_narozeni,
                         datum_umrti,
-                        popis
+                        popis,
+                        prum_cena,
+                        prod_dila
                     FROM v_umelci";
 
                 using (var reader = command.ExecuteReader())
@@ -40,7 +42,9 @@ namespace DatabaseAccess
                             DateOfDeath = reader["datum_umrti"] == DBNull.Value
                                 ? DateTime.MinValue
                                 : Convert.ToDateTime(reader["datum_umrti"]),
-                            Description = reader["popis"] == DBNull.Value ? null : reader["popis"].ToString()
+                            Description = reader["popis"] == DBNull.Value ? null : reader["popis"].ToString(),
+                            AvgPrice = Convert.ToDouble(reader["prum_cena"]),
+                            SoldPieces = Convert.ToInt32(reader["prod_dila"])
                         });
                     }
                 }
