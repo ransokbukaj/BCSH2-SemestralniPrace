@@ -19,6 +19,7 @@ namespace DatabaseAccess.Interface
 
         MentorBranchStatistics GetMentorBranchStatics(int id);
 
+        MostSuccesfulMentore GetMostSuccesfulMentore(int artistId);
         UserStatistics GetUserStatistics(int userId);
     }
 }

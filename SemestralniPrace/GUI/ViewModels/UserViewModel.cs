@@ -2,6 +2,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using DatabaseAccess;
 using Entities;
+using Entities.Home;
 using GUI.Helpers;
 using System;
 using System.Collections.Generic;
@@ -16,6 +17,7 @@ namespace GUI.ViewModels
     {
         private readonly UserRepository repository = new UserRepository();
         private readonly CounterRepository counterRep = new CounterRepository();
+        private readonly HomeViewRepository homeRep = new HomeViewRepository();
 
         [ObservableProperty]
         private ObservableCollection<User> users = new();
@@ -35,6 +37,9 @@ namespace GUI.ViewModels
         [ObservableProperty]
         private string errorLog;
 
+        [ObservableProperty]
+        private UserStatistics userStat;
+
         public UserViewModel()
         {
             Load();
@@ -45,6 +50,10 @@ namespace GUI.ViewModels
             ErrorLog = string.Empty;
             NewPassword = string.Empty;
             NewPasswordConfirm = string.Empty;
+            if(SelectedUser != null)
+            {
+                UserStat = homeRep.GetUserStatistics(SelectedUser.Id);
+            }
         }
 
         [RelayCommand]

@@ -377,7 +377,7 @@ namespace DatabaseAccess
                 var isDisabled = new OracleParameter
                 {
                     ParameterName = "o_deaktivovan",
-                    OracleDbType = OracleDbType.Date,
+                    OracleDbType = OracleDbType.Int32,
                     Direction = ParameterDirection.Output
                 };
                 command.Parameters.Add(isDisabled);
@@ -388,13 +388,17 @@ namespace DatabaseAccess
                 command.ExecuteNonQuery();
 
                 // Naplnění objektu
+
+                var oLast = (OracleDate)lastChange.Value;
+                
                 var result = new UserStatistics
                 {
                     AmountOfChanges = ((OracleDecimal)amountOfChanges.Value).ToInt32(),
-                    AmountOfInserts = ((OracleDecimal)amountOfInsert.Value).ToInt32(),
+                    AmountOfInsert = ((OracleDecimal)amountOfInsert.Value).ToInt32(),
                     AmountOfDelete = ((OracleDecimal)amountOfDelete.Value).ToInt32(),
                     AmountOfUpdate = ((OracleDecimal)amountOfUpdate.Value).ToInt32(),
-                    LastChange = (DateTime)lastChange.Value
+
+                    LastChange = oLast.IsNull ? DateTime.MinValue : oLast.Value
 
                 };
 

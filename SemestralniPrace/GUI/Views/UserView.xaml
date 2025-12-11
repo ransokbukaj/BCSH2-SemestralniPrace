@@ -86,7 +86,7 @@
                 </StackPanel>
 
                 <!-- ▼ Datum registrace -->
-                <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                <StackPanel Orientation="Horizontal" Margin="0,5,0,5">
                     <TextBlock Text="Datum registrace:" Width="160"/>
                     <TextBlock Text="{Binding SelectedUser.RegisterDate, StringFormat='{}{0:dd.MM.yyyy HH:mm}'}"/>
                 </StackPanel>
@@ -96,6 +96,30 @@
                     <TextBlock Text="Poslední přihlášení:" Width="160"/>
                     <TextBlock Text="{Binding SelectedUser.LastLogin, StringFormat='{}{0:dd.MM.yyyy HH:mm}'}"/>
                 </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="0,10,0,10">
+                    <TextBlock Text="Počet provedených změn:" Width="160"/>
+                    <TextBlock Text="{Binding UserStat.AmountOfChanges}"/>
+                </StackPanel>
+                
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                    <TextBlock Text="Počet provedených Insert:" Width="160"/>
+                    <TextBlock Text="{Binding UserStat.AmountOfInsert}"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                    <TextBlock Text="Počet provedených Update:" Width="160"/>
+                    <TextBlock Text="{Binding UserStat.AmountOfUpdate}"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,15">
+                    <TextBlock Text="Počet provedených Delete:" Width="160"/>
+                    <TextBlock Text="{Binding UserStat.AmountOfDelete}"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                    <TextBlock Text="Ćas poslední úpravy:" Width="160"/>
+                    <TextBlock Text="{Binding UserStat.LastChange, StringFormat='{}{0:dd.MM.yyyy HH:mm:ss}'}"/>
+                </StackPanel>
+
+
 
                 <GroupBox Header="Změna hesla">
                     <StackPanel Margin="10">

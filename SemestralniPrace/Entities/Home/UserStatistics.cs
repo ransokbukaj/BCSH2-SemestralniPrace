@@ -9,7 +9,7 @@ namespace Entities.Home
     public class UserStatistics
     {
         public int AmountOfChanges { get; set; }
-        public int AmountOfInserts { get; set; }
+        public int AmountOfInsert { get; set; }
 
         public int AmountOfUpdate { get; set; }
         public int AmountOfDelete { get; set; }
