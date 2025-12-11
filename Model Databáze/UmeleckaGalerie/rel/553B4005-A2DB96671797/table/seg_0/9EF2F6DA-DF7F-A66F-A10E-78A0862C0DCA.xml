@@ -87,9 +87,10 @@
 <colAssociation fkAssociation="35D8F542-3AC6-4F76-9DC5-3C7B217E9710" referredColumn="8A18F4DF-F5E8-B8C9-70C3-C8929AB2028C"/>
 </associations>
 </Column>
-<Column name="idKupec" id="E91FC2AC-587D-FBDA-4E4A-DBEB87F716C8">
+<Column name="idKupec" id="9E3A6867-2503-A54C-4441-4A2DFB6D5D99">
 <createdBy>jakub</createdBy>
-<createdTime>2025-11-11 08:06:55 UTC</createdTime>
+<createdTime>2025-12-11 12:10:05 UTC</createdTime>
+<generatorID>12A9469D-FD12-E1B4-9132-BA3397518B68</generatorID>
 <ownerDesignName>UmeleckaGalerie</ownerDesignName>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
@@ -97,6 +98,9 @@
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <previousColumn>false</previousColumn>
 <autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="92BCE2F0-1161-9B4B-6ED1-AEF855C3AAAA" referredColumn="CE3E1F4B-204A-6727-94CE-56419E3762DD"/>
+</associations>
 </Column>
 </columns>
 <indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
@@ -112,7 +116,7 @@
 <colUsage columnID="19CA665D-AC56-8768-9EBB-8FC9D2D8DF91"/>
 </indexColumnUsage>
 </ind_PK_UK>
-<ind_PK_UK id="C8741956-2C52-5F6F-18D0-9B5C8CE74FBE" name="PRODEJE_DRUH_PLATBY_FK">
+<ind_PK_UK id="C8741956-2C52-5F6F-18D0-9B5C8CE74FBE" name="PRODEJE_DRUHY_PLATEB_FK">
 <createdBy>jakub</createdBy>
 <createdTime>2024-12-09 11:17:58 UTC</createdTime>
 <generatorID>0AC5E782-01CB-E324-C969-D3A636E393F1</generatorID>
@@ -121,6 +125,17 @@
 <isSurrogateKey>false</isSurrogateKey>
 <indexColumnUsage>
 <colUsage columnID="FBE1632E-ACB5-95E1-66F1-EDC0EED2DA7C"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="B3557359-B891-B337-BF5F-325BDABA62EF" name="PRODEJ_KUPEC_FK">
+<createdBy>jakub</createdBy>
+<createdTime>2025-12-11 12:10:05 UTC</createdTime>
+<generatorID>7A56F2FE-75A0-5BA3-8D87-B412620DEADA</generatorID>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="9E3A6867-2503-A54C-4441-4A2DFB6D5D99"/>
 </indexColumnUsage>
 </ind_PK_UK>
 </indexes>

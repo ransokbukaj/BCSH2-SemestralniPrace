@@ -88,7 +88,7 @@
 </Column>
 </columns>
 <indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
-<ind_PK_UK id="79F5DBEE-4891-0342-0812-4B28527861D4" name="KUPEC_PK">
+<ind_PK_UK id="79F5DBEE-4891-0342-0812-4B28527861D4" name="KUPCI_PK">
 <createdBy>jakub</createdBy>
 <createdTime>2025-11-10 08:20:41 UTC</createdTime>
 <generatorID>A4ACCB7A-24D6-12BE-A362-A1BF486D3567</generatorID>
@@ -100,7 +100,7 @@
 <colUsage columnID="CE3E1F4B-204A-6727-94CE-56419E3762DD"/>
 </indexColumnUsage>
 </ind_PK_UK>
-<ind_PK_UK id="F37ABAD4-3EB8-2DE4-0596-7F79F1DF7EE9" name="KUPEC_ADRESA_FK">
+<ind_PK_UK id="F37ABAD4-3EB8-2DE4-0596-7F79F1DF7EE9" name="KUPCI_ADRESY_FK">
 <createdBy>jakub</createdBy>
 <createdTime>2024-12-09 11:17:58 UTC</createdTime>
 <generatorID>3711AD19-835B-C27C-902B-85D73C20BD7E</generatorID>

@@ -1,10 +1,10 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
-<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="580B60D3-BDA0-D805-5E54-1884B9D5BC57" containerWithKeyObject="B483758C-09BF-F0F0-335A-E5B51A4EEAC1" localFKIndex="ADDFFCDE-91FF-23E6-42F6-2B63EFD7A35C" name="SOCHA_MATERIAL_FK">
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="580B60D3-BDA0-D805-5E54-1884B9D5BC57" containerWithKeyObject="B483758C-09BF-F0F0-335A-E5B51A4EEAC1" localFKIndex="ADDFFCDE-91FF-23E6-42F6-2B63EFD7A35C" name="SOCHY_MATERIALY_FK">
 <createdBy>jakub</createdBy>
 <createdTime>2024-12-04 14:47:32 UTC</createdTime>
 <generatorID>4561B1D8-6FDE-7B56-DC85-F37748335884</generatorID>
 <ownerDesignName>UmeleckaGalerie</ownerDesignName>
-<referredTableLongName>MATERIALY</referredTableLongName>
+<referredTableLongName>MATERIAL</referredTableLongName>
 <deleteRule>NO ACTION</deleteRule>
 <referredTableID>230F9341-80BB-391A-DF7C-BD2D820B73E4</referredTableID>
 <keyObject>B6B4BB41-E896-CFB4-B9DD-DE7FFF8ADC39</keyObject>

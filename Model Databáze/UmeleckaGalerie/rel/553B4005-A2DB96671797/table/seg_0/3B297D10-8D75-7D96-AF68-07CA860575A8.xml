@@ -57,5 +57,16 @@
 <colUsage columnID="9BF46061-ADAC-CCF1-F81A-F7D4FCE8B60F"/>
 </indexColumnUsage>
 </ind_PK_UK>
+<ind_PK_UK id="103A2097-E81E-D460-78D8-770495DAB5AE" name="ROLE_nazev_UNv1">
+<createdBy>jakub</createdBy>
+<createdTime>2025-12-11 12:10:05 UTC</createdTime>
+<generatorID>2909363B-BE18-0FAE-3050-69086E984D89</generatorID>
+<ownerDesignName>UmeleckaGalerie</ownerDesignName>
+<indexState>Unique Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="9BF46061-ADAC-CCF1-F81A-F7D4FCE8B60F"/>
+</indexColumnUsage>
+</ind_PK_UK>
 </indexes>
 </Table>

@@ -74,7 +74,7 @@
 </Column>
 </columns>
 <indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
-<ind_PK_UK id="9C9A05DF-9A31-B2B8-D1A8-F4AEB10DC4BA" name="PRILOHA_PK">
+<ind_PK_UK id="9C9A05DF-9A31-B2B8-D1A8-F4AEB10DC4BA" name="PRILOHY_PK">
 <createdBy>jakub</createdBy>
 <createdTime>2025-11-10 08:20:41 UTC</createdTime>
 <generatorID>CCE5659C-07D5-E88D-733C-87D9AEE45889</generatorID>
@@ -86,7 +86,7 @@
 <colUsage columnID="0540DF5A-3BBD-97FB-1B4E-C8B2B2E21FE2"/>
 </indexColumnUsage>
 </ind_PK_UK>
-<ind_PK_UK id="F8A5ABA4-079F-92CD-D57C-547CABA2EC4B" name="PRILOHA_UMELECKE_DILO_FK">
+<ind_PK_UK id="F8A5ABA4-079F-92CD-D57C-547CABA2EC4B" name="PRILOHY_UMELECKA_DILA_FK">
 <createdBy>jakub</createdBy>
 <createdTime>2025-11-11 07:55:02 UTC</createdTime>
 <generatorID>6B38903B-AB9D-AE4F-3EB2-BF33855006B7</generatorID>

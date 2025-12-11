@@ -1,10 +1,10 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
-<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="EBC74487-7BB6-21FA-3033-C773EA624FDF" containerWithKeyObject="EEA6FE89-A24F-0A7A-A057-D66473BF3164" localFKIndex="429CD004-430D-F51B-2660-EF781229584D" name="UMELECKE_DILO_PRODEJE_FK">
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="EBC74487-7BB6-21FA-3033-C773EA624FDF" containerWithKeyObject="EEA6FE89-A24F-0A7A-A057-D66473BF3164" localFKIndex="429CD004-430D-F51B-2660-EF781229584D" name="UMELECKA_DILA_PRODEJE_FK">
 <createdBy>jakub</createdBy>
 <createdTime>2024-12-04 14:47:32 UTC</createdTime>
 <generatorID>A967F584-0A89-CB06-9535-A011F3A2065F</generatorID>
 <ownerDesignName>UmeleckaGalerie</ownerDesignName>
-<referredTableLongName>PRODEJE</referredTableLongName>
+<referredTableLongName>PRODEJ</referredTableLongName>
 <deleteRule>NO ACTION</deleteRule>
 <referredTableID>9EF2F6DA-DF7F-A66F-A10E-78A0862C0DCA</referredTableID>
 <keyObject>BFBEB6FF-1FFE-6181-5BF8-4CD6DEDCDA1C</keyObject>
