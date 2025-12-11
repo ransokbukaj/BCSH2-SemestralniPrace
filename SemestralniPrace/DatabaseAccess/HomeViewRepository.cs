@@ -60,7 +60,7 @@ namespace DatabaseAccess
                         pocet_vzdelavacich_programu,
                         pocet_umelcu,
                         pocet_navstevniku,
-                        trzba_celkem
+                        trzba_za_prodej
                     FROM v_statistiky_galerie";
 
                 using (var reader = command.ExecuteReader())
@@ -76,7 +76,7 @@ namespace DatabaseAccess
                             EducationProgramAmount = Convert.ToInt32(reader["pocet_vzdelavacich_programu"]),
                             ArtistAmount = Convert.ToInt32(reader["pocet_umelcu"]),
                             VisitorAmount = Convert.ToInt32(reader["pocet_navstevniku"]),
-                            Sales = Convert.ToDouble(reader["trzba_celkem"])
+                            Sales = Convert.ToDouble(reader["trzba_za_prodej"])
 
                         };
                     }

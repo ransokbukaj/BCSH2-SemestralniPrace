@@ -1,3 +1,43 @@
+CREATE OR REPLACE PROCEDURE p_statistiky_umelce(
+    p_idumelec            IN  umelci.idumelec%TYPE,
+    o_pocet_del           OUT NUMBER,
+    o_pocet_prodanych_del OUT NUMBER,
+    o_trzba_celkem        OUT NUMBER,
+    o_cena_min            OUT NUMBER,
+    o_cena_max            OUT NUMBER,
+    o_cena_prumer         OUT NUMBER
+) IS
+BEGIN
+    -- 1) Počet všech děl autora
+    SELECT COUNT(*)
+    INTO   o_pocet_del
+    FROM   umelci_umelecka_dila ud
+    WHERE  ud.idumelec = p_idumelec;
+
+    -- 2) Počet prodaných děl
+    SELECT COUNT(*)
+    INTO   o_pocet_prodanych_del
+    FROM   umelci_umelecka_dila ud
+           JOIN umelecka_dila d ON d.idumeleckedilo = ud.idumeleckedilo
+    WHERE  ud.idumelec = p_idumelec
+      AND  d.idprodej IS NOT NULL;
+
+    -- 3) Souhrnné statistiky cen prodaných děl
+    SELECT NVL(SUM(p.cena), 0),
+           NVL(MIN(p.cena), 0),
+           NVL(MAX(p.cena), 0),
+           NVL(AVG(p.cena), 0)
+    INTO   o_trzba_celkem,
+           o_cena_min,
+           o_cena_max,
+           o_cena_prumer
+    FROM   umelci_umelecka_dila ud
+           JOIN umelecka_dila d ON d.idumeleckedilo = ud.idumeleckedilo
+           JOIN prodeje p       ON p.idprodej = d.idprodej
+    WHERE  ud.idumelec = p_idumelec;
+END;
+/
+
 
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------

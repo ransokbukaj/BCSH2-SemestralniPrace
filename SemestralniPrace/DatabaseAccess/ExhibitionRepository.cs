@@ -23,7 +23,8 @@ namespace DatabaseAccess
                         datum_od,
                         datum_do,
                         popis,
-                        id_vzdelavaci_program
+                        id_vzdelavaci_program,
+                        trzba
                     FROM v_vystavy";
 
                 using (var reader = command.ExecuteReader())
@@ -39,7 +40,8 @@ namespace DatabaseAccess
                             Description = reader["popis"] == DBNull.Value ? null : reader["popis"].ToString(),
                             EducationProgramId = reader["id_vzdelavaci_program"] == DBNull.Value
                                 ? 0
-                                : Convert.ToInt32(reader["id_vzdelavaci_program"])
+                                : Convert.ToInt32(reader["id_vzdelavaci_program"]),
+                            Profit = Convert.ToDouble(reader["trzba"])
                         });
                     }
                 }

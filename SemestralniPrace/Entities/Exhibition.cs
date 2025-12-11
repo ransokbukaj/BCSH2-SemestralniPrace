@@ -14,5 +14,7 @@ namespace Entities
         public DateTime To { get; set; }
         public string Description { get; set; }
         public int EducationProgramId { get; set; }
+
+        public double Profit {  get; set; }
     }
 }

@@ -24,7 +24,8 @@ SELECT
     (SELECT COUNT(*) FROM umelci)        AS pocet_umelcu,
     (SELECT COUNT(*) FROM uzivatele)     AS pocet_uzivatelu,
     (SELECT COUNT(*) FROM navstevy)     AS pocet_navstevniku,
-    (SELECT NVL(SUM(cena), 0) FROM prodeje) AS trzba_celkem
+    (SELECT NVL(SUM(cena), 0) FROM prodeje) AS trzba_za_prodej,
+	
 FROM dual;
 
 
@@ -193,7 +194,8 @@ SELECT
     datumod AS datum_od,
     datumdo AS datum_do,
     popis AS popis,
-    idvzdelavaciprogram AS id_vzdelavaci_program
+    idvzdelavaciprogram AS id_vzdelavaci_program,
+    f_trzba_z_vystavy(idvystava) AS trzba
 FROM vystavy
 ORDER BY datumod DESC;
 

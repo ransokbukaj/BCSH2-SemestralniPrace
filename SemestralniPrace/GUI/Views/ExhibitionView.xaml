@@ -83,6 +83,12 @@
                                     Width="200"/>
                     </StackPanel>
 
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                        <TextBlock Text="Tžba v Kč:" Width="140"/>
+                        <TextBox Text="{Binding SelectedExhibition.Profit, UpdateSourceTrigger=PropertyChanged}"
+             Width="250"/>
+                    </StackPanel>
+
                     <TextBlock Text="Popis:" Margin="0,5,0,5"/>
                     <TextBox Text="{Binding SelectedExhibition.Description, UpdateSourceTrigger=PropertyChanged}"
                              AcceptsReturn="True"
