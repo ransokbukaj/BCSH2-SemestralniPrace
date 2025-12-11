@@ -252,6 +252,8 @@ namespace GUI.ViewModels
         [RelayCommand]
         private void New()
         {
+            SelectedAttachment = null;
+            SelectedImage = null;
             SelectedPainting = new Painting()
             {
                 Base = new Counter(),
