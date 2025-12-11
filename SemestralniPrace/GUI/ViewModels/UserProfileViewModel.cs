@@ -32,10 +32,6 @@ namespace GUI.ViewModels
             currentUser = UserManager.CurrentUser;
         }
 
-<<<<<<< Updated upstream
-
-=======
->>>>>>> Stashed changes
         [RelayCommand]
         private void ChangePassword()
         {
