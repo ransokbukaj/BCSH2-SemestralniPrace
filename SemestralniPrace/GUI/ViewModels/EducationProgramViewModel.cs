@@ -2,6 +2,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using DatabaseAccess;
 using Entities;
+using GUI.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -22,54 +23,64 @@ namespace GUI.ViewModels
 
         [ObservableProperty]
         private ObservableCollection<Exhibition> availableExhibitions = new();
+
         [ObservableProperty]
         private ObservableCollection<Exhibition> exhibitionsInProgram = new();
-
 
         [ObservableProperty]
         private EducationProgram selectedEducationProgram;
 
         [ObservableProperty]
         private Exhibition selectedExhibitionToRemove;
+
         [ObservableProperty]
         private Exhibition selectedExhibitionToAdd;
 
         partial void OnSelectedEducationProgramChanged(EducationProgram value)
         {
-            if(SelectedEducationProgram != null)
+            if (SelectedEducationProgram != null)
             {
-                var assignedIds = new HashSet<int>(exhRepo.GetListByProgramId(SelectedEducationProgram.Id).Select(a => a.Id));
-                var coll = exhRepo.GetList().Where(a => !assignedIds.Contains(a.Id)).ToList();
-                AvailableExhibitions = new ObservableCollection<Exhibition>(coll);
-                ExhibitionsInProgram = new ObservableCollection<Exhibition>(exhRepo.GetListByProgramId(SelectedEducationProgram.Id));
+                ErrorHandler.SafeExecute(() =>
+                {
+                    var assignedIds = new HashSet<int>(exhRepo.GetListByProgramId(SelectedEducationProgram.Id).Select(a => a.Id));
+                    var coll = exhRepo.GetList().Where(a => !assignedIds.Contains(a.Id)).ToList();
+                    AvailableExhibitions = new ObservableCollection<Exhibition>(coll);
+                    ExhibitionsInProgram = new ObservableCollection<Exhibition>(exhRepo.GetListByProgramId(SelectedEducationProgram.Id));
+                }, "Načtení výstav pro program selhalo");
             }
         }
+
         [RelayCommand]
         private void AddExhibitionToProgram()
         {
-            if(SelectedEducationProgram != null && SelectedExhibitionToAdd != null)
+            if (SelectedEducationProgram != null && SelectedExhibitionToAdd != null)
             {
-                exhRepo.AddExhibitionToProgram(SelectedExhibitionToAdd.Id, SelectedEducationProgram.Id);
-                ExhibitionsInProgram.Add(SelectedExhibitionToAdd);
-                AvailableExhibitions.Remove(SelectedExhibitionToAdd);
+                ErrorHandler.SafeExecute(() =>
+                {
+                    exhRepo.AddExhibitionToProgram(SelectedExhibitionToAdd.Id, SelectedEducationProgram.Id);
+                    ExhibitionsInProgram.Add(SelectedExhibitionToAdd);
+                    AvailableExhibitions.Remove(SelectedExhibitionToAdd);
 
-                SelectedExhibitionToAdd = AvailableExhibitions.FirstOrDefault();
+                    SelectedExhibitionToAdd = AvailableExhibitions.FirstOrDefault();
+                }, "Přidání výstavy do programu selhalo");
             }
         }
 
         [RelayCommand]
         private void RemoveExhibitionFromProgram()
         {
-            if(SelectedEducationProgram != null)
+            if (SelectedEducationProgram != null && SelectedExhibitionToRemove != null)
             {
-                exhRepo.RemoveExhibitionFromProgram(SelectedExhibitionToRemove.Id);
-                AvailableExhibitions.Add(SelectedExhibitionToRemove);
-                ExhibitionsInProgram.Remove(SelectedExhibitionToRemove);
+                ErrorHandler.SafeExecute(() =>
+                {
+                    exhRepo.RemoveExhibitionFromProgram(SelectedExhibitionToRemove.Id);
+                    AvailableExhibitions.Add(SelectedExhibitionToRemove);
+                    ExhibitionsInProgram.Remove(SelectedExhibitionToRemove);
 
-                SelectedExhibitionToRemove = ExhibitionsInProgram.FirstOrDefault();
+                    SelectedExhibitionToRemove = ExhibitionsInProgram.FirstOrDefault();
+                }, "Odebrání výstavy z programu selhalo");
             }
         }
-
 
         public EducationProgramViewModel()
         {
@@ -79,7 +90,10 @@ namespace GUI.ViewModels
         [RelayCommand]
         private void Load()
         {
-            EducationPrograms = new ObservableCollection<EducationProgram>(repository.GetList());
+            ErrorHandler.SafeExecute(() =>
+            {
+                EducationPrograms = new ObservableCollection<EducationProgram>(repository.GetList());
+            }, "Načtení vzdělávacích programů selhalo");
         }
 
         [RelayCommand]
@@ -94,8 +108,29 @@ namespace GUI.ViewModels
             if (SelectedEducationProgram == null)
                 return;
 
-            repository.SaveItem(SelectedEducationProgram);
-            Load();
+            ErrorHandler.SafeExecute(() =>
+            {
+                if (string.IsNullOrWhiteSpace(SelectedEducationProgram.Name))
+                {
+                    ErrorHandler.ShowError("Validační chyba", "Název programu nesmí být prázdný");
+                    return;
+                }
+
+                if (string.IsNullOrWhiteSpace(SelectedEducationProgram.Description))
+                {
+                    ErrorHandler.ShowError("Validační chyba", "Popis programu nesmí být prázdný");
+                    return;
+                }
+
+                if (SelectedEducationProgram.From > SelectedEducationProgram.To)
+                {
+                    ErrorHandler.ShowError("Validační chyba", "Datum začátku musí být před datem konce");
+                    return;
+                }
+
+                repository.SaveItem(SelectedEducationProgram);
+                Load();
+            }, "Uložení vzdělávacího programu selhalo");
         }
 
         [RelayCommand]
@@ -104,8 +139,11 @@ namespace GUI.ViewModels
             if (SelectedEducationProgram == null || SelectedEducationProgram.Id == 0)
                 return;
 
-            repository.DeleteItem(SelectedEducationProgram.Id);
-            Load();
+            ErrorHandler.SafeExecute(() =>
+            {
+                repository.DeleteItem(SelectedEducationProgram.Id);
+                Load();
+            }, "Smazání vzdělávacího programu selhalo");
         }
     }
 }
