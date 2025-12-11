@@ -47,9 +47,9 @@ namespace GUI.ViewModels
         [RelayCommand]
         private void AddExhibitionToProgram()
         {
-            if(SelectedEducationProgram != null)
+            if(SelectedEducationProgram != null && SelectedExhibitionToAdd != null)
             {
-                exhRepo.AddExhibitionToProgram(SelectedEducationProgram.Id,SelectedExhibitionToAdd.Id);
+                exhRepo.AddExhibitionToProgram(SelectedExhibitionToAdd.Id, SelectedEducationProgram.Id);
                 ExhibitionsInProgram.Add(SelectedExhibitionToAdd);
                 AvailableExhibitions.Remove(SelectedExhibitionToAdd);
 

@@ -208,7 +208,7 @@ namespace DatabaseAccess
         }
 
 
-        public void AddExhibitionToProgram(int idEx, int idProgram)
+        public void AddExhibitionToProgram(int idExhibition, int idProgram)
         {
             using (var command = ConnectionManager.Connection.CreateCommand())
             {
@@ -220,14 +220,14 @@ namespace DatabaseAccess
                     ParameterName = "p_idvystava",
                     OracleDbType = OracleDbType.Int32,
                     Direction = System.Data.ParameterDirection.Input,
-                    Value = idEx
+                    Value = idExhibition
                 };
                 command.Parameters.Add(paramIdExh);
 
                 var paramIdProg = new OracleParameter
                 {
                     ParameterName = "p_idvzdelavaciprogram",
-                    OracleDbType = OracleDbType.Varchar2,
+                    OracleDbType = OracleDbType.Int32,
                     Direction = System.Data.ParameterDirection.Input,
                     Value = idProgram
                 };
