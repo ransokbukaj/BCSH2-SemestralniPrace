@@ -24,8 +24,7 @@ SELECT
     (SELECT COUNT(*) FROM umelci)        AS pocet_umelcu,
     (SELECT COUNT(*) FROM uzivatele)     AS pocet_uzivatelu,
     (SELECT COUNT(*) FROM navstevy)     AS pocet_navstevniku,
-    (SELECT NVL(SUM(cena), 0) FROM prodeje) AS trzba_za_prodej,
-	
+    (SELECT NVL(SUM(cena), 0) FROM prodeje) AS trzba_za_prodej	
 FROM dual;
 
 
