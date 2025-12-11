@@ -2,6 +2,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using DatabaseAccess;
 using Entities;
+using GUI.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -29,7 +30,6 @@ namespace GUI.ViewModels
         [ObservableProperty]
         private ObservableCollection<Exhibition> exhibitions = new();
 
-
         public VisitViewModel()
         {
             Load();
@@ -38,9 +38,12 @@ namespace GUI.ViewModels
         [RelayCommand]
         private void Load()
         {
-            Visits = new ObservableCollection<Visit>(_repository.GetList());
-            VisitTypes = new ObservableCollection<VisitType>(counterRep.GetVisitTypes());
-            Exhibitions = new ObservableCollection<Exhibition>(exhibitRep.GetList());
+            ErrorHandler.SafeExecute(() =>
+            {
+                Visits = new ObservableCollection<Visit>(_repository.GetList());
+                VisitTypes = new ObservableCollection<VisitType>(counterRep.GetVisitTypes());
+                Exhibitions = new ObservableCollection<Exhibition>(exhibitRep.GetList());
+            }, "Načtení návštěv selhalo");
         }
 
         [RelayCommand]
@@ -62,11 +65,26 @@ namespace GUI.ViewModels
         [RelayCommand]
         private void Save()
         {
-            if (SelectedVisit == null || SelectedVisit.ExhibitionCounter.Id == 0 || SelectedVisit.VisitType.Id == 0)
+            if (SelectedVisit == null)
                 return;
 
-            _repository.SaveItem(SelectedVisit,SelectedVisit.ExhibitionCounter.Id);
-            Load();
+            ErrorHandler.SafeExecute(() =>
+            {
+                if (SelectedVisit.ExhibitionCounter == null || SelectedVisit.ExhibitionCounter.Id == 0)
+                {
+                    ErrorHandler.ShowError("Validační chyba", "Musíte vybrat výstavu");
+                    return;
+                }
+
+                if (SelectedVisit.VisitType == null || SelectedVisit.VisitType.Id == 0)
+                {
+                    ErrorHandler.ShowError("Validační chyba", "Musíte vybrat typ návštěvy");
+                    return;
+                }
+
+                _repository.SaveItem(SelectedVisit, SelectedVisit.ExhibitionCounter.Id);
+                Load();
+            }, "Uložení návštěvy selhalo.");
         }
 
         [RelayCommand]
@@ -75,8 +93,11 @@ namespace GUI.ViewModels
             if (SelectedVisit == null || SelectedVisit.Id == 0)
                 return;
 
-            _repository.DeleteItem(SelectedVisit.Id);
-            Load();
+            ErrorHandler.SafeExecute(() =>
+            {
+                _repository.DeleteItem(SelectedVisit.Id);
+                Load();
+            }, "Smazání návštěvy selhalo");
         }
     }
 }

@@ -2,6 +2,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using DatabaseAccess;
 using Entities;
+using GUI.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -18,17 +19,19 @@ namespace GUI.ViewModels
 
         [ObservableProperty]
         private ObservableCollection<User> users = new();
+
         [ObservableProperty]
         private ObservableCollection<Counter> roles = new();
 
         [ObservableProperty]
         private User selectedUser;
 
-
         [ObservableProperty]
         private string newPassword;
+
         [ObservableProperty]
         private string newPasswordConfirm;
+
         [ObservableProperty]
         private string errorLog;
 
@@ -47,8 +50,11 @@ namespace GUI.ViewModels
         [RelayCommand]
         private void Load()
         {
-            Users = new ObservableCollection<User>(repository.GetList());
-            Roles = new ObservableCollection<Counter>(counterRep.GetRoles());
+            ErrorHandler.SafeExecute(() =>
+            {
+                Users = new ObservableCollection<User>(repository.GetList());
+                Roles = new ObservableCollection<Counter>(counterRep.GetRoles());
+            }, "Načtení uživatelů selhalo");
         }
 
         [RelayCommand]
@@ -68,29 +74,41 @@ namespace GUI.ViewModels
         {
             if (SelectedUser == null)
                 return;
-            if(Roles != null && SelectedUser != null)
+
+            ErrorHandler.SafeExecute(() =>
             {
-                SelectedUser.Role = Roles.FirstOrDefault(p => p.Id == SelectedUser.Role.Id);
-            }
-            if (SelectedUser.Id == 0)
-            {
-                ErrorLog = string.Empty;
-                if (string.IsNullOrEmpty(NewPassword) && string.IsNullOrEmpty(NewPasswordConfirm))
+                if (string.IsNullOrWhiteSpace(SelectedUser.Username))
                 {
-                    ErrorLog = "Nové heslo a potvrzení musí být vyplněné.";
+                    ErrorHandler.ShowError("Validační chyba", "Uživatelské jméno nesmí být prázdné");
                     return;
                 }
 
-                if (NewPassword != NewPasswordConfirm)
+                if (string.IsNullOrWhiteSpace(SelectedUser.FirstName))
                 {
-                    ErrorLog = "Hesla se neshodují.";
+                    ErrorHandler.ShowError("Validační chyba", "Jméno nesmí být prázdné");
                     return;
                 }
 
-                SelectedUser.Password = NewPassword;
-            }
-            repository.SaveItem(SelectedUser);
-            Load();
+                if (string.IsNullOrWhiteSpace(SelectedUser.LastName))
+                {
+                    ErrorHandler.ShowError("Validační chyba", "Příjmení nesmí být prázdné");
+                    return;
+                }
+
+                if (SelectedUser.Role == null || SelectedUser.Role.Id == 0)
+                {
+                    ErrorHandler.ShowError("Validační chyba", "Musíte vybrat roli");
+                    return;
+                }
+
+                if (Roles != null && SelectedUser != null)
+                {
+                    SelectedUser.Role = Roles.FirstOrDefault(p => p.Id == SelectedUser.Role.Id);
+                }
+
+                repository.SaveItem(SelectedUser);
+                Load();
+            }, "Uložení uživatele selhalo.");
         }
 
         [RelayCommand]
@@ -99,18 +117,27 @@ namespace GUI.ViewModels
             if (SelectedUser == null || SelectedUser.Id == 0)
                 return;
 
-            repository.DeleteItem(SelectedUser.Id);
-            Load();
+            ErrorHandler.SafeExecute(() =>
+            {
+                repository.DeleteItem(SelectedUser.Id);
+                Load();
+            }, "Smazání uživatele selhalo");
         }
-
 
         [RelayCommand]
         private void ChangePassword()
         {
-            if(SelectedUser != null)
+            if (SelectedUser == null || SelectedUser.Id == 0)
+            {
+                ErrorLog = "Vyberte uživatele";
+                return;
+            }
+
+            ErrorHandler.SafeExecute(() =>
             {
                 ErrorLog = string.Empty;
-                if (string.IsNullOrEmpty(NewPassword) && string.IsNullOrEmpty(NewPasswordConfirm))
+
+                if (string.IsNullOrWhiteSpace(NewPassword) || string.IsNullOrWhiteSpace(NewPasswordConfirm))
                 {
                     ErrorLog = "Nové heslo a potvrzení musí být vyplněné.";
                     return;
@@ -125,9 +152,9 @@ namespace GUI.ViewModels
                 repository.ChangePassword(SelectedUser.Id, NewPassword);
                 ErrorLog = "Heslo úspěšně změněno.";
 
-            }
-
-
+                NewPassword = string.Empty;
+                NewPasswordConfirm = string.Empty;
+            }, "Změna hesla selhala");
         }
     }
 }

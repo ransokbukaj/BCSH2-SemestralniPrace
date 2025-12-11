@@ -2,6 +2,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using DatabaseAccess;
 using Entities;
+using GUI.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,9 +18,9 @@ namespace GUI.ViewModels
         [ObservableProperty]
         private User currentUser;
 
-
         [ObservableProperty]
         private string newPassword;
+
         [ObservableProperty]
         private string newPasswordConfirm;
 
@@ -31,25 +32,69 @@ namespace GUI.ViewModels
             currentUser = UserManager.CurrentUser;
         }
 
-
         [RelayCommand]
         private void ChangePassword()
         {
-            ErrorLog = string.Empty;
-            if (string.IsNullOrEmpty(NewPassword) && string.IsNullOrEmpty(NewPasswordConfirm))
+            ErrorHandler.SafeExecute(() =>
             {
-                ErrorLog = "Původní heslo, nové heslo a potvrzení musí být vyplněné.";
-                return;
-            }
+                ErrorLog = string.Empty;
 
-            if (NewPassword != NewPasswordConfirm)
+                if (string.IsNullOrWhiteSpace(NewPassword) || string.IsNullOrWhiteSpace(NewPasswordConfirm))
+                {
+                    ErrorLog = "Nové heslo a potvrzení musí být vyplněné.";
+                    return;
+                }
+
+                if (NewPassword != NewPasswordConfirm)
+                {
+                    ErrorLog = "Hesla se neshodují.";
+                    return;
+                }
+
+                repo.ChangePassword(CurrentUser.Id, NewPassword);
+                ErrorLog = "Heslo úspěšně změněno.";
+
+                NewPassword = string.Empty;
+                NewPasswordConfirm = string.Empty;
+            }, "Změna hesla selhala");
+        }
+
+        [RelayCommand]
+        private void SaveProfile()
+        {
+            if (CurrentUser == null)
+                return;
+
+            ErrorHandler.SafeExecute(() =>
             {
-                ErrorLog = "Hesla se neshodují.";
-                return;
-            }
+                if (string.IsNullOrWhiteSpace(CurrentUser.Username))
+                {
+                    ErrorHandler.ShowError("Validační chyba", "Uživatelské jméno nesmí být prázdné");
+                    return;
+                }
 
-            repo.ChangePassword(CurrentUser.Id,NewPassword);
-            ErrorLog = "Heslo úspěšně změněno.";
+                if (string.IsNullOrWhiteSpace(CurrentUser.FirstName))
+                {
+                    ErrorHandler.ShowError("Validační chyba", "Jméno nesmí být prázdné");
+                    return;
+                }
+
+                if (string.IsNullOrWhiteSpace(CurrentUser.LastName))
+                {
+                    ErrorHandler.ShowError("Validační chyba", "Příjmení nesmí být prázdné");
+                    return;
+                }
+
+                // Email validace (pokud je vyplněný)
+                if (!string.IsNullOrWhiteSpace(CurrentUser.Email) && !CurrentUser.Email.Contains("@"))
+                {
+                    ErrorHandler.ShowError("Validační chyba", "Email není ve správném formátu");
+                    return;
+                }
+
+                repo.SaveItem(CurrentUser);
+                ErrorLog = "Profil úspěšně uložen.";
+            }, "Uložení profilu selhalo. Uživatelské jméno může být již obsazené.");
         }
     }
 }

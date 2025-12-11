@@ -22,8 +22,6 @@ namespace GUI.ViewModels
         private readonly AttachmentRepository attRep = new AttachmentRepository();
         private readonly ArtistRepository artistRep = new ArtistRepository();
 
-
-
         [ObservableProperty]
         private ObservableCollection<Sculpture> sculptures = new();
 
@@ -33,13 +31,11 @@ namespace GUI.ViewModels
         [ObservableProperty]
         private ObservableCollection<Attachment> attachments = new();
 
-
         [ObservableProperty]
         private ObservableCollection<Artist> authors = new();
 
         [ObservableProperty]
         private ObservableCollection<Artist> availableArtists = new();
-
 
         [ObservableProperty]
         private Sculpture selectedSculpture;
@@ -56,70 +52,98 @@ namespace GUI.ViewModels
         [ObservableProperty]
         private Artist selectedArtistToRemove;
 
-
         partial void OnSelectedSculptureChanged(Sculpture? oldValue, Sculpture newValue)
         {
             if (SelectedSculpture != null && SelectedSculpture.Id != 0)
             {
-                Attachments = new ObservableCollection<Attachment>(attRep.GetListByArtPieceId(SelectedSculpture.Id));
-                if (Attachments.Count > 0)
+                ErrorHandler.SafeExecute(() =>
                 {
-                    SelectedAttachment = Attachments[0];
-                    SelectedImage = AttachmentHelper.LoadImageSource(SelectedAttachment.File);
-                }
-                else
-                {
-                    SelectedAttachment = null;
-                    SelectedImage = null;
-                }
-                Authors = new ObservableCollection<Artist>(artistRep.GetListByArtPieceId(SelectedSculpture.Id));
+                    Attachments = new ObservableCollection<Attachment>(
+                        attRep.GetListByArtPieceId(SelectedSculpture.Id));
 
-                var assignedIds = new HashSet<int>(artistRep.GetListByArtPieceId(SelectedSculpture.Id).Select(a => a.Id));
+                    if (Attachments.Count > 0)
+                    {
+                        SelectedAttachment = Attachments[0];
+                        SelectedImage = AttachmentHelper.LoadImageSource(SelectedAttachment.File);
+                    }
+                    else
+                    {
+                        SelectedAttachment = null;
+                        SelectedImage = null;
+                    }
 
-                var coll = artistRep.GetList().Where(a => !assignedIds.Contains(a.Id)).ToList();
-                AvailableArtists = new ObservableCollection<Artist>(coll);
+                    Authors = new ObservableCollection<Artist>(
+                        artistRep.GetListByArtPieceId(SelectedSculpture.Id));
+
+                    var assignedIds = new HashSet<int>(
+                        artistRep.GetListByArtPieceId(SelectedSculpture.Id).Select(a => a.Id));
+
+                    var coll = artistRep.GetList().Where(a => !assignedIds.Contains(a.Id)).ToList();
+                    AvailableArtists = new ObservableCollection<Artist>(coll);
+                }, "Načtení detailů sochy selhalo");
             }
         }
 
         partial void OnSelectedAttachmentChanged(Attachment value)
         {
             if (SelectedAttachment != null)
-                SelectedImage = AttachmentHelper.LoadImageSource(SelectedAttachment.File);
+            {
+                ErrorHandler.SafeExecute(() =>
+                {
+                    SelectedImage = AttachmentHelper.LoadImageSource(SelectedAttachment.File);
+                }, "Načtení obrázku selhalo");
+            }
         }
-
-
-
 
         [RelayCommand]
         private void AddArtistToSculpture()
         {
-            if (SelectedSculpture != null && SelectedArtistToAdd != null)
+            if (SelectedSculpture == null || SelectedSculpture.Id == 0)
+            {
+                ErrorHandler.ShowError("Chyba", "Nejprve uložte sochu");
+                return;
+            }
+
+            if (SelectedArtistToAdd == null)
+            {
+                ErrorHandler.ShowError("Chyba", "Vyberte umělce k přidání");
+                return;
+            }
+
+            ErrorHandler.SafeExecute(() =>
             {
                 artistRep.AddArtistToArtPiece(SelectedArtistToAdd.Id, SelectedSculpture.Id);
                 Authors.Add(SelectedArtistToAdd);
                 AvailableArtists.Remove(SelectedArtistToAdd);
 
                 SelectedArtistToAdd = AvailableArtists.FirstOrDefault();
-            }
+            }, "Přidání autora selhalo");
         }
 
         [RelayCommand]
         private void RemoveArtistFromSculpture()
         {
-            if (SelectedSculpture != null && SelectedArtistToRemove != null)
+            if (SelectedSculpture == null || SelectedSculpture.Id == 0)
+            {
+                ErrorHandler.ShowError("Chyba", "Nejprve uložte sochu");
+                return;
+            }
+
+            if (SelectedArtistToRemove == null)
+            {
+                ErrorHandler.ShowError("Chyba", "Vyberte autora k odebrání");
+                return;
+            }
+
+            ErrorHandler.SafeExecute(() =>
             {
                 artistRep.RemoveArtistFromArtPiece(SelectedArtistToRemove.Id, SelectedSculpture.Id);
                 AvailableArtists.Add(SelectedArtistToRemove);
                 Authors.Remove(SelectedArtistToRemove);
 
                 SelectedArtistToRemove = Authors.FirstOrDefault();
-            }
+            }, "Odebrání autora selhalo");
         }
-
-
-
-
-
 
         [RelayCommand]
         private void PreviousImage()
@@ -160,47 +184,55 @@ namespace GUI.ViewModels
         [RelayCommand]
         private void AddImage()
         {
-            var dlg = new OpenFileDialog
+            if (SelectedSculpture == null || SelectedSculpture.Id == 0)
             {
-                Title = "Vyber obrázek",
-                Filter = "Obrázky|*.png;*.jpg;*.jpeg;*.bmp;*.gif",
-                Multiselect = false
-            };
-
-
-            if (dlg.ShowDialog() == true)
-            {
-                Attachment att = new Attachment
-                {
-                    FileName = Path.GetFileName(dlg.FileName),
-                    File = File.ReadAllBytes(dlg.FileName),
-                    FileType = Path.GetExtension(dlg.FileName)
-
-                };
-
-                Attachments.Add(att);
-                SelectedAttachment = att;
-                attRep.SaveItem(att, SelectedSculpture.Id);
-
+                ErrorHandler.ShowError("Chyba", "Nejprve uložte sochu");
+                return;
             }
 
+            ErrorHandler.SafeExecute(() =>
+            {
+                var dlg = new OpenFileDialog
+                {
+                    Title = "Vyber obrázek",
+                    Filter = "Obrázky|*.png;*.jpg;*.jpeg;*.bmp;*.gif",
+                    Multiselect = false
+                };
+
+                if (dlg.ShowDialog() == true)
+                {
+                    Attachment att = new Attachment
+                    {
+                        FileName = Path.GetFileName(dlg.FileName),
+                        File = File.ReadAllBytes(dlg.FileName),
+                        FileType = Path.GetExtension(dlg.FileName)
+                    };
+
+                    attRep.SaveItem(att, SelectedSculpture.Id);
+                    Attachments.Add(att);
+                    SelectedAttachment = att;
+                }
+            }, "Přidání obrázku selhalo");
         }
 
         [RelayCommand]
         private void RemoveCurrentImage()
         {
-            if (SelectedAttachment != null)
+            if (SelectedAttachment == null)
             {
-                SelectedImage = null;
-                Attachments.Remove(SelectedAttachment);
-                attRep.DeleteItem(SelectedAttachment.Id);
-                SelectedAttachment = Attachments.FirstOrDefault();
+                ErrorHandler.ShowError("Chyba", "Není vybrán žádný obrázek");
+                return;
             }
 
+            ErrorHandler.SafeExecute(() =>
+            {
+                attRep.DeleteItem(SelectedAttachment.Id);
+
+                SelectedImage = null;
+                Attachments.Remove(SelectedAttachment);
+                SelectedAttachment = Attachments.FirstOrDefault();
+            }, "Smazání obrázku selhalo");
         }
-
-
-
 
         public SculptureViewModel()
         {
@@ -210,8 +242,11 @@ namespace GUI.ViewModels
         [RelayCommand]
         private void Load()
         {
-            Sculptures = new ObservableCollection<Sculpture>(repository.GetList());
-            Materials = new ObservableCollection<Counter>(counterRep.GetMaterials());
+            ErrorHandler.SafeExecute(() =>
+            {
+                Sculptures = new ObservableCollection<Sculpture>(repository.GetList());
+                Materials = new ObservableCollection<Counter>(counterRep.GetMaterials());
+            }, "Načtení soch selhalo");
         }
 
         [RelayCommand]
@@ -229,14 +264,52 @@ namespace GUI.ViewModels
             if (SelectedSculpture == null)
                 return;
 
-
-            if(Materials != null && SelectedSculpture != null)
+            ErrorHandler.SafeExecute(() =>
             {
-                SelectedSculpture.Material = Materials.FirstOrDefault(p => p.Id == SelectedSculpture.Material.Id);
-            }
+                if (string.IsNullOrWhiteSpace(SelectedSculpture.Name))
+                {
+                    ErrorHandler.ShowError("Validační chyba", "Název sochy nesmí být prázdný");
+                    return;
+                }
 
-            repository.SaveItem(SelectedSculpture);
-            Load();
+                if (SelectedSculpture.Height <= 0)
+                {
+                    ErrorHandler.ShowError("Validační chyba", "Výška musí být větší než 0");
+                    return;
+                }
+
+                if (SelectedSculpture.Width <= 0)
+                {
+                    ErrorHandler.ShowError("Validační chyba", "Šířka musí být větší než 0");
+                    return;
+                }
+
+                if (SelectedSculpture.Depth <= 0)
+                {
+                    ErrorHandler.ShowError("Validační chyba", "Hloubka musí být větší než 0");
+                    return;
+                }
+
+                if (SelectedSculpture.Weight <= 0)
+                {
+                    ErrorHandler.ShowError("Validační chyba", "Váha musí být větší než 0");
+                    return;
+                }
+
+                if (SelectedSculpture.Material == null || SelectedSculpture.Material.Id == 0)
+                {
+                    ErrorHandler.ShowError("Validační chyba", "Musíte vybrat materiál");
+                    return;
+                }
+
+                if (Materials != null && SelectedSculpture != null)
+                {
+                    SelectedSculpture.Material = Materials.FirstOrDefault(p => p.Id == SelectedSculpture.Material.Id);
+                }
+
+                repository.SaveItem(SelectedSculpture);
+                Load();
+            }, "Uložení sochy selhalo.");
         }
 
         [RelayCommand]
@@ -245,8 +318,11 @@ namespace GUI.ViewModels
             if (SelectedSculpture == null || SelectedSculpture.Id == 0)
                 return;
 
-            repository.DeleteItem(SelectedSculpture.Id);
-            Load();
+            ErrorHandler.SafeExecute(() =>
+            {
+                repository.DeleteItem(SelectedSculpture.Id);
+                Load();
+            }, "Smazání sochy selhalo.");
         }
     }
 }
