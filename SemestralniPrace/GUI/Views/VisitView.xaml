@@ -30,7 +30,8 @@
                   Margin="0,0,10,0">
             <DataGrid.Columns>
                 <!--<DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="Auto"/>-->
-                <DataGridTextColumn Header="Datum návštěvy" Binding="{Binding DateOfVisit, StringFormat=\{0:g\}}" Width="*"/>
+                <DataGridTextColumn Header="Datum návštěvy" Binding="{Binding DateOfVisit, StringFormat=\{0:dd.MM.yyyy\}}" Width="*"/>
+                <DataGridTextColumn Header="Typ návštěvy" Binding="{Binding VisitType.Name}" Width="*"/>
             </DataGrid.Columns>
         </DataGrid>
 
@@ -57,11 +58,11 @@
             </StackPanel>
 
             <!-- ▼ Přidaná cena -->
-            <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+            <!--<StackPanel Orientation="Horizontal" Margin="0,0,0,5">
                 <TextBlock Text="Cena:" Width="140"/>
                 <TextBlock Text="{Binding SelectedVisit.VisitType.Price, UpdateSourceTrigger=PropertyChanged}"
                  Width="200"/>
-            </StackPanel>
+            </StackPanel>-->
 
             <!-- ▼ Nový řádek – výstava -->
             <StackPanel Orientation="Horizontal" Margin="0,15,0,5">
