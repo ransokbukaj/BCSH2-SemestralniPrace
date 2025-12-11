@@ -99,6 +99,8 @@ namespace DatabaseAccess
                     u.prijmeni, 
                     u.idrole,
                     u.deaktivovan,
+                    u.datumregistrace,
+                    u.datumposlednihoprihlaseni,
                     r.nazev as nazevrole
                 FROM
                     uzivatele u
@@ -143,7 +145,11 @@ namespace DatabaseAccess
                                 {
                                     Id = roleId,
                                     Name = reader["nazevrole"].ToString()
-                                }
+                                },
+                                RegisterDate = Convert.ToDateTime(reader["datumregistrace"]),
+                                LastLogin = reader["datumposlednihoprihlaseni"] == DBNull.Value
+                                ? (DateTime?)null
+                                : Convert.ToDateTime(reader["datumposlednihoprihlaseni"]),
                             };
 
                             SetDatabaseSessionIdentifier(ConnectionManager.Connection, userId);
@@ -155,9 +161,6 @@ namespace DatabaseAccess
             }
             return false;            
         }
-
-
-
 
         public static void LogOut()
         {
@@ -178,7 +181,6 @@ namespace DatabaseAccess
             }
             return BCrypt.Net.BCrypt.Verify(password, storedHash);
         }
-
 
         public static void StartSimulateUser(User target)
         {
