@@ -57,6 +57,9 @@ namespace GUI.ViewModels
             SelectedUser = new User()
             {
                 Role = new Counter()
+                {
+                    Id = 2
+                }
             };
         }
 
@@ -69,7 +72,23 @@ namespace GUI.ViewModels
             {
                 SelectedUser.Role = Roles.FirstOrDefault(p => p.Id == SelectedUser.Role.Id);
             }
+            if (SelectedUser.Id == 0)
+            {
+                ErrorLog = string.Empty;
+                if (string.IsNullOrEmpty(NewPassword) && string.IsNullOrEmpty(NewPasswordConfirm))
+                {
+                    ErrorLog = "Nové heslo a potvrzení musí být vyplněné.";
+                    return;
+                }
 
+                if (NewPassword != NewPasswordConfirm)
+                {
+                    ErrorLog = "Hesla se neshodují.";
+                    return;
+                }
+
+                SelectedUser.Password = NewPassword;
+            }
             repository.SaveItem(SelectedUser);
             Load();
         }
@@ -93,7 +112,7 @@ namespace GUI.ViewModels
                 ErrorLog = string.Empty;
                 if (string.IsNullOrEmpty(NewPassword) && string.IsNullOrEmpty(NewPasswordConfirm))
                 {
-                    ErrorLog = "Původní heslo, nové heslo a potvrzení musí být vyplněné.";
+                    ErrorLog = "Nové heslo a potvrzení musí být vyplněné.";
                     return;
                 }
 
