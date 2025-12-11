@@ -106,6 +106,7 @@ namespace GUI.ViewModels
                     SelectedUser.Role = Roles.FirstOrDefault(p => p.Id == SelectedUser.Role.Id);
                 }
 
+                SelectedUser.Password = NewPassword;
                 repository.SaveItem(SelectedUser);
                 Load();
             }, "Uložení uživatele selhalo.");
