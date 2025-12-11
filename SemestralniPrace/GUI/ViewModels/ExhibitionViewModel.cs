@@ -51,33 +51,47 @@ namespace GUI.ViewModels
         [RelayCommand]
         private void AddArtPiece()
         {
-            if(SelectedExhibition != null && SelectedArtPieceToAdd != null)
+            if (SelectedExhibition == null || SelectedExhibition.Id == 0)
             {
-                ErrorHandler.SafeExecute(() =>
-                {
-                    artRepo.AddArtPieceToExhibition(SelectedArtPieceToAdd.Id,SelectedExhibition.Id);
-
-                    ExhibitionArtPieces.Add(SelectedArtPieceToAdd);
-                    AvailableArtPieces.Remove(SelectedArtPieceToAdd);
-
-                    SelectedArtPieceToAdd = AvailableArtPieces.FirstOrDefault();
-                }, "Přidání díla na výstavu selhalo");
+                ErrorHandler.ShowError("Chyba", "Nejprve uložte výstavu");
+                return;
             }
+
+            if (SelectedArtPieceToAdd == null)
+            {
+                ErrorHandler.ShowError("Chyba", "Vyberte dílo k přidání");
+                return;
+            }
+
+            ErrorHandler.SafeExecute(() =>
+            {
+                artRepo.AddArtPieceToExhibition(SelectedArtPieceToAdd.Id, SelectedExhibition.Id);
+                ExhibitionArtPieces.Add(SelectedArtPieceToAdd);
+                AvailableArtPieces.Remove(SelectedArtPieceToAdd);
+                SelectedArtPieceToAdd = AvailableArtPieces.FirstOrDefault();
+            }, "Přidání díla na výstavu selhalo");
         }
 
         [RelayCommand]
         private void RemoveArtPiece()
         {
-            if (SelectedExhibition != null && SelectedArtPieceToRemove != null)
+            if (SelectedExhibition == null || SelectedExhibition.Id == 0)
             {
-                ErrorHandler.SafeExecute(() =>
-                {
-                    artRepo.RemoveArtPieceFromExhibition(SelectedArtPieceToRemove.Id, SelectedExhibition.Id);
-                    AvailableArtPieces.Add(SelectedArtPieceToRemove);
-                    ExhibitionArtPieces.Remove(SelectedArtPieceToRemove);
-                    SelectedArtPieceToRemove = ExhibitionArtPieces.FirstOrDefault();
-                }, "Odebrání díla z výstavy selhalo");
+                ErrorHandler.ShowError("Chyba", "Nejprve uložte výstavu");
+                return;
             }
+            if (SelectedArtPieceToRemove == null)
+            {
+                ErrorHandler.ShowError("Chyba", "Vyberte dílo k odebrání");
+                return;
+            }
+            ErrorHandler.SafeExecute(() =>
+            {
+                artRepo.RemoveArtPieceFromExhibition(SelectedArtPieceToRemove.Id, SelectedExhibition.Id);
+                AvailableArtPieces.Add(SelectedArtPieceToRemove);
+                ExhibitionArtPieces.Remove(SelectedArtPieceToRemove);
+                SelectedArtPieceToRemove = ExhibitionArtPieces.FirstOrDefault();
+            }, "Odebrání díla z výstavy selhalo");
         }
 
         public ExhibitionViewModel()

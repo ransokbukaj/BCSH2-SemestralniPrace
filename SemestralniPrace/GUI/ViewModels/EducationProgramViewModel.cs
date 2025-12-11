@@ -53,33 +53,49 @@ namespace GUI.ViewModels
         [RelayCommand]
         private void AddExhibitionToProgram()
         {
-            if (SelectedEducationProgram != null && SelectedExhibitionToAdd != null)
+            if (SelectedEducationProgram == null || SelectedEducationProgram.Id == 0)
             {
-                ErrorHandler.SafeExecute(() =>
-                {
-                    exhRepo.AddExhibitionToProgram(SelectedExhibitionToAdd.Id, SelectedEducationProgram.Id);
-                    ExhibitionsInProgram.Add(SelectedExhibitionToAdd);
-                    AvailableExhibitions.Remove(SelectedExhibitionToAdd);
-
-                    SelectedExhibitionToAdd = AvailableExhibitions.FirstOrDefault();
-                }, "Přidání výstavy do programu selhalo");
+                ErrorHandler.ShowError("Chyba", "Nejprve uložte vzdělávací program");
+                return;
             }
+
+            if (SelectedExhibitionToAdd == null)
+            {
+                ErrorHandler.ShowError("Chyba", "Vyberte výstavu k přidání");
+                return;
+            }
+
+            ErrorHandler.SafeExecute(() =>
+            {
+                exhRepo.AddExhibitionToProgram(SelectedExhibitionToAdd.Id, SelectedEducationProgram.Id);
+                ExhibitionsInProgram.Add(SelectedExhibitionToAdd);
+                AvailableExhibitions.Remove(SelectedExhibitionToAdd);
+                SelectedExhibitionToAdd = AvailableExhibitions.FirstOrDefault();
+            }, "Přidání výstavy do programu selhalo");
         }
 
         [RelayCommand]
         private void RemoveExhibitionFromProgram()
         {
-            if (SelectedEducationProgram != null && SelectedExhibitionToRemove != null)
+            if (SelectedEducationProgram == null || SelectedEducationProgram.Id == 0)
             {
-                ErrorHandler.SafeExecute(() =>
-                {
-                    exhRepo.RemoveExhibitionFromProgram(SelectedExhibitionToRemove.Id);
-                    AvailableExhibitions.Add(SelectedExhibitionToRemove);
-                    ExhibitionsInProgram.Remove(SelectedExhibitionToRemove);
-
-                    SelectedExhibitionToRemove = ExhibitionsInProgram.FirstOrDefault();
-                }, "Odebrání výstavy z programu selhalo");
+                ErrorHandler.ShowError("Chyba", "Nejprve uložte vzdělávací program");
+                return;
             }
+
+            if (SelectedExhibitionToRemove == null)
+            {
+                ErrorHandler.ShowError("Chyba", "Vyberte výstavu k odebrání");
+                return;
+            }
+
+            ErrorHandler.SafeExecute(() =>
+            {
+                exhRepo.RemoveExhibitionFromProgram(SelectedExhibitionToRemove.Id);
+                AvailableExhibitions.Add(SelectedExhibitionToRemove);
+                ExhibitionsInProgram.Remove(SelectedExhibitionToRemove);
+                SelectedExhibitionToRemove = ExhibitionsInProgram.FirstOrDefault();
+            }, "Odebrání výstavy z programu selhalo");
         }
 
         public EducationProgramViewModel()
