@@ -110,6 +110,9 @@ namespace GUI.ViewModels
                 case "Home":
                     CurrentViewModel = new HomeViewModel();
                     break;
+                case "ArtistPub":
+                    CurrentViewModel = new ArtistPublicViewModel();
+                    break;
                 case "Exhibition":
                     CurrentViewModel = new ExhibitionViewModel();
                     break;

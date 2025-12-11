@@ -1,8 +1,11 @@
 ﻿using DatabaseAccess.Interface;
 using Entities;
 using Entities.Home;
+using Oracle.ManagedDataAccess.Client;
+using Oracle.ManagedDataAccess.Types;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -116,6 +119,90 @@ namespace DatabaseAccess
                 }
             }
             return list;
+        }
+
+        public ArtistStatistic GetArtistStatistic(int artistId)
+        {
+            using (var command = ConnectionManager.Connection.CreateCommand())
+            {
+                command.CommandType = CommandType.StoredProcedure;
+                command.CommandText = "p_statistiky_umelce";
+
+                // IN parametr – ID umělce
+                var pId = new OracleParameter
+                {
+                    ParameterName = "p_idumelec",
+                    OracleDbType = OracleDbType.Int32,
+                    Direction = ParameterDirection.Input,
+                    Value = artistId
+                };
+                command.Parameters.Add(pId);
+
+                // OUT parametry
+                var pPocetDel = new OracleParameter
+                {
+                    ParameterName = "o_pocet_del",
+                    OracleDbType = OracleDbType.Int32,
+                    Direction = ParameterDirection.Output
+                };
+                command.Parameters.Add(pPocetDel);
+
+                var pPocetProdanych = new OracleParameter
+                {
+                    ParameterName = "o_pocet_prodanych_del",
+                    OracleDbType = OracleDbType.Int32,
+                    Direction = ParameterDirection.Output
+                };
+                command.Parameters.Add(pPocetProdanych);
+
+                var pTrzba = new OracleParameter
+                {
+                    ParameterName = "o_trzba_celkem",
+                    OracleDbType = OracleDbType.Double,
+                    Direction = ParameterDirection.Output
+                };
+                command.Parameters.Add(pTrzba);
+
+                var pMin = new OracleParameter
+                {
+                    ParameterName = "o_cena_min",
+                    OracleDbType = OracleDbType.Double,
+                    Direction = ParameterDirection.Output
+                };
+                command.Parameters.Add(pMin);
+
+                var pMax = new OracleParameter
+                {
+                    ParameterName = "o_cena_max",
+                    OracleDbType = OracleDbType.Double,
+                    Direction = ParameterDirection.Output
+                };
+                command.Parameters.Add(pMax);
+
+                var pAvg = new OracleParameter
+                {
+                    ParameterName = "o_cena_prumer",
+                    OracleDbType = OracleDbType.Double,
+                    Direction = ParameterDirection.Output
+                };
+                command.Parameters.Add(pAvg);
+
+                // Vykonání procedury
+                command.ExecuteNonQuery();
+
+                // Naplnění objektu
+                var result = new ArtistStatistic
+                {
+                    AmounArtPiece = ((OracleDecimal)pPocetDel.Value).ToInt32(),
+                    AmountSold = ((OracleDecimal)pPocetProdanych.Value).ToInt32(),
+                    FullProfit = ((OracleDecimal)pTrzba.Value).ToDouble(),
+                    MinProfit = ((OracleDecimal)pMin.Value).ToDouble(),
+                    MaxProfit = ((OracleDecimal)pMax.Value).ToDouble(),
+                    AvgProfit = ((OracleDecimal)pAvg.Value).ToDouble()
+                };
+
+                return result;
+            }
         }
     }
 }

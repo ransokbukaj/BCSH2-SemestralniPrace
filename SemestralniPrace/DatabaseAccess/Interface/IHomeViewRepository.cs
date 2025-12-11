@@ -14,5 +14,7 @@ namespace DatabaseAccess.Interface
         List<NewArtPiece> GetNewArtPieces();
 
         GaleryStatistic GetGaleryStatistic();
+
+        ArtistStatistic GetArtistStatistic(int artistId);
     }
 }
