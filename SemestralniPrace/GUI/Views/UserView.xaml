@@ -85,6 +85,18 @@
 
                 </StackPanel>
 
+                <!-- ▼ Datum registrace -->
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                    <TextBlock Text="Datum registrace:" Width="160"/>
+                    <TextBlock Text="{Binding SelectedUser.RegisterDate, StringFormat='{}{0:dd.MM.yyyy HH:mm}'}"/>
+                </StackPanel>
+
+                <!-- ▼ Datum posledního přihlášení -->
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                    <TextBlock Text="Poslední přihlášení:" Width="160"/>
+                    <TextBlock Text="{Binding SelectedUser.LastLogin, StringFormat='{}{0:dd.MM.yyyy HH:mm}'}"/>
+                </StackPanel>
+
                 <GroupBox Header="Změna hesla">
                     <StackPanel Margin="10">
 
