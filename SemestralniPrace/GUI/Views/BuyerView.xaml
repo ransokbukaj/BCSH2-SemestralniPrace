@@ -77,7 +77,6 @@
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,15,0,0">
-                <Button Content="Načíst" Command="{Binding LoadCommand}" Margin="0,0,10,0" Width="80"/>
                 <Button Content="Nový" Command="{Binding NewCommand}" Margin="0,0,10,0" Width="80"/>
                 <Button Content="Uložit" Command="{Binding SaveCommand}" Margin="0,0,10,0" Width="80"/>
                 <Button Content="Smazat" Command="{Binding DeleteCommand}" Width="80"/>
