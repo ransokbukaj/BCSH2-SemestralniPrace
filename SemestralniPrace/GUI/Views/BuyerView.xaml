@@ -4,25 +4,35 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              mc:Ignorable="d"
-              Background="White"
+             Background="White"
              d:DesignHeight="450" d:DesignWidth="800">
+
     <Grid Margin="10">
+        <!-- Stejná struktura jako ArtistView / AddressView -->
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
+            <!-- Hlavička -->
             <RowDefinition Height="*"/>
+            <!-- Obsah -->
+            <RowDefinition Height="Auto"/>
+            <!-- CRUD tlačítka -->
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="2*"/>
-            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="4*"/>
+            <!-- seznam kupců -->
+            <ColumnDefinition Width="6*"/>
+            <!-- detail kupce -->
         </Grid.ColumnDefinitions>
 
+        <!-- Hlavička -->
         <TextBlock Grid.Row="0" Grid.ColumnSpan="2"
                    Text="Kupci"
                    FontSize="24"
                    FontWeight="Bold"
                    Margin="0,0,0,10"/>
 
+        <!-- LEVÁ ČÁST – seznam kupců -->
         <DataGrid Grid.Row="1" Grid.Column="0"
                   ItemsSource="{Binding Buyers}"
                   SelectedItem="{Binding SelectedBuyer, Mode=TwoWay}"
@@ -38,49 +48,76 @@
             </DataGrid.Columns>
         </DataGrid>
 
-        <StackPanel Grid.Row="1" Grid.Column="1" Margin="10,0,0,0">
-            <TextBlock Text="Detail kupce" FontSize="18" FontWeight="Bold" Margin="0,0,0,10"/>
+        <!-- PRAVÁ ČÁST – detail kupce ve ScrollVieweru -->
+        <ScrollViewer Grid.Row="1" Grid.Column="1"
+                      Margin="10,0,0,0"
+                      VerticalScrollBarVisibility="Auto">
+            <StackPanel>
 
-            <!--<StackPanel Orientation="Horizontal" Margin="0,0,0,5">
-                <TextBlock Text="ID:" Width="120"/>
-                <TextBlock Text="{Binding SelectedBuyer.Id}"/>
-            </StackPanel>-->
+                <TextBlock Text="Detail kupce"
+                           FontSize="18"
+                           FontWeight="Bold"
+                           Margin="0,0,0,10"/>
 
-            <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
-                <TextBlock Text="Jméno:" Width="120"/>
-                <TextBox Text="{Binding SelectedBuyer.FirstName, UpdateSourceTrigger=PropertyChanged}" Width="200"/>
+                <!--<StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                    <TextBlock Text="ID:" Width="120"/>
+                    <TextBlock Text="{Binding SelectedBuyer.Id}"/>
+                </StackPanel>-->
+
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                    <TextBlock Text="Jméno:" Width="120"/>
+                    <TextBox Text="{Binding SelectedBuyer.FirstName, UpdateSourceTrigger=PropertyChanged}"
+                             Width="200"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                    <TextBlock Text="Příjmení:" Width="120"/>
+                    <TextBox Text="{Binding SelectedBuyer.LastName, UpdateSourceTrigger=PropertyChanged}"
+                             Width="200"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                    <TextBlock Text="Telefon:" Width="120"/>
+                    <TextBox Text="{Binding SelectedBuyer.PhoneNumber, UpdateSourceTrigger=PropertyChanged}"
+                             Width="200"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                    <TextBlock Text="Email:" Width="120"/>
+                    <TextBox Text="{Binding SelectedBuyer.Email, UpdateSourceTrigger=PropertyChanged}"
+                             Width="200"/>
+                </StackPanel>
+
+                <!-- Adresa (navázaná na Addresses kolekci) -->
+                <StackPanel Orientation="Horizontal" Margin="0,10,0,5">
+                    <TextBlock Text="Adresa:" Width="120"/>
+                    <ComboBox Width="200"
+                              ItemsSource="{Binding Addresses}"
+                              SelectedValue="{Binding SelectedBuyer.Adress.Id, Mode=TwoWay}"
+                              SelectedValuePath="Id"
+                              DisplayMemberPath="FullAddress"/>
+                </StackPanel>
+
             </StackPanel>
+        </ScrollViewer>
 
-            <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
-                <TextBlock Text="Příjmení:" Width="120"/>
-                <TextBox Text="{Binding SelectedBuyer.LastName, UpdateSourceTrigger=PropertyChanged}" Width="200"/>
-            </StackPanel>
-
-            <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
-                <TextBlock Text="Telefon:" Width="120"/>
-                <TextBox Text="{Binding SelectedBuyer.PhoneNumber, UpdateSourceTrigger=PropertyChanged}" Width="200"/>
-            </StackPanel>
-
-            <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
-                <TextBlock Text="Email:" Width="120"/>
-                <TextBox Text="{Binding SelectedBuyer.Email, UpdateSourceTrigger=PropertyChanged}" Width="200"/>
-            </StackPanel>
-
-            <!-- Adresa jen jako text (detail adresy řeší AddressView) -->
-            <StackPanel Orientation="Horizontal" Margin="0,10,0,5">
-                <TextBlock Text="Adresa:" Width="120"/>
-                <ComboBox Width="200"
-                        ItemsSource="{Binding Addresses}"
-                        SelectedValue="{Binding SelectedBuyer.Adress.Id, Mode=TwoWay}"
-                        SelectedValuePath="Id"
-                        DisplayMemberPath="FullAddress" />
-            </StackPanel>
-
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,15,0,0">
-                <Button Content="Nový" Command="{Binding NewCommand}" Margin="0,0,10,0" Width="80"/>
-                <Button Content="Uložit" Command="{Binding SaveCommand}" Margin="0,0,10,0" Width="80"/>
-                <Button Content="Smazat" Command="{Binding DeleteCommand}" Width="80"/>
-            </StackPanel>
+        <!-- SPODNÍ TLAČÍTKA – stejné rozložení jako u ArtistView / AddressView -->
+        <StackPanel Grid.Row="2" Grid.Column="1"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right"
+                    Margin="0,15,0,0">
+            <Button Content="Nový"
+                    Command="{Binding NewCommand}"
+                    Margin="0,0,10,0"
+                    Width="80"/>
+            <Button Content="Uložit"
+                    Command="{Binding SaveCommand}"
+                    Margin="0,0,10,0"
+                    Width="80"/>
+            <Button Content="Smazat"
+                    Command="{Binding DeleteCommand}"
+                    Width="80"/>
         </StackPanel>
+
     </Grid>
 </UserControl>

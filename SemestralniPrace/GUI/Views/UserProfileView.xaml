@@ -136,9 +136,7 @@
                     Command="{Binding SaveProfileCommand}"
                     Margin="0,0,10,0"
                     Width="110"/>
-            <Button Content="Zavřít"
-                    Command="{Binding CloseProfileCommand}"
-                    Width="80"/>
+            
         </StackPanel>
     </Grid>
 </UserControl>

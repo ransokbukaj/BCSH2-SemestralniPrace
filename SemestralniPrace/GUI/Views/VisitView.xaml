@@ -4,24 +4,35 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              mc:Ignorable="d"
-              Background="White"
+             Background="White"
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid Margin="10">
+
+        <!-- Stejná struktura jako ostatní view -->
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
+            <!-- Hlavička -->
             <RowDefinition Height="*"/>
+            <!-- Obsah -->
+            <RowDefinition Height="Auto"/>
+            <!-- CRUD tlačítka -->
         </Grid.RowDefinitions>
+
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="2*"/>
-            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="4*"/>
+            <!-- seznam návštěv -->
+            <ColumnDefinition Width="6*"/>
+            <!-- detail návštěvy -->
         </Grid.ColumnDefinitions>
 
+        <!-- Hlavička -->
         <TextBlock Grid.Row="0" Grid.ColumnSpan="2"
                    Text="Návštěvy"
                    FontSize="24"
                    FontWeight="Bold"
                    Margin="0,0,0,10"/>
 
+        <!-- LEVÁ ČÁST – seznam návštěv -->
         <DataGrid Grid.Row="1" Grid.Column="0"
                   ItemsSource="{Binding Visits}"
                   SelectedItem="{Binding SelectedVisit, Mode=TwoWay}"
@@ -30,55 +41,76 @@
                   Margin="0,0,10,0">
             <DataGrid.Columns>
                 <!--<DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="Auto"/>-->
-                <DataGridTextColumn Header="Datum návštěvy" Binding="{Binding DateOfVisit, StringFormat=\{0:dd.MM.yyyy\}}" Width="*"/>
-                <DataGridTextColumn Header="Typ návštěvy" Binding="{Binding VisitType.Name}" Width="*"/>
+                <DataGridTextColumn Header="Datum návštěvy"
+                                    Binding="{Binding DateOfVisit, StringFormat=\{0:dd.MM.yyyy\}}"
+                                    Width="*"/>
+                <DataGridTextColumn Header="Typ návštěvy"
+                                    Binding="{Binding VisitType.Name}"
+                                    Width="*"/>
             </DataGrid.Columns>
         </DataGrid>
 
-        <StackPanel Grid.Row="1" Grid.Column="1" Margin="10,0,0,0">
-            <TextBlock Text="Detail návštěvy" FontSize="18" FontWeight="Bold" Margin="0,0,0,10"/>
+        <!-- PRAVÁ ČÁST – detail návštěvy ve ScrollVieweru -->
+        <ScrollViewer Grid.Row="1" Grid.Column="1"
+                      Margin="10,0,0,0"
+                      VerticalScrollBarVisibility="Auto">
+            <StackPanel>
 
-            <!--<StackPanel Orientation="Horizontal" Margin="0,0,0,5">
-                <TextBlock Text="ID:" Width="140"/>
-                <TextBlock Text="{Binding SelectedVisit.Id}"/>
-            </StackPanel>-->
+                <TextBlock Text="Detail návštěvy"
+                           FontSize="18"
+                           FontWeight="Bold"
+                           Margin="0,0,0,10"/>
 
-            <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
-                <TextBlock Text="Datum:" Width="140"/>
-                <DatePicker SelectedDate="{Binding SelectedVisit.DateOfVisit, UpdateSourceTrigger=PropertyChanged}" Width="200"/>
+                <!--<StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                    <TextBlock Text="ID:" Width="140"/>
+                    <TextBlock Text="{Binding SelectedVisit.Id}"/>
+                </StackPanel>-->
+
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                    <TextBlock Text="Datum:" Width="140"/>
+                    <DatePicker SelectedDate="{Binding SelectedVisit.DateOfVisit, UpdateSourceTrigger=PropertyChanged}"
+                                Width="200"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                    <TextBlock Text="Typ návštěvy:" Width="140"/>
+                    <ComboBox ItemsSource="{Binding VisitTypes}"
+                              DisplayMemberPath="NamePrice"
+                              SelectedValuePath="Id"
+                              SelectedValue="{Binding SelectedVisit.VisitType.Id, Mode=TwoWay}"
+                              Width="200" />
+                </StackPanel>
+
+                <!-- Výstava -->
+                <StackPanel Orientation="Horizontal" Margin="0,15,0,5">
+                    <TextBlock Text="Výstava:" Width="140"/>
+                    <ComboBox ItemsSource="{Binding Exhibitions}"
+                              SelectedValuePath="Id"
+                              DisplayMemberPath="Name"
+                              SelectedValue="{Binding SelectedVisit.ExhibitionCounter.Id, Mode=TwoWay}"
+                              Width="200"/>
+                </StackPanel>
+
             </StackPanel>
+        </ScrollViewer>
 
-            <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
-                <TextBlock Text="Typ návštěvy:" Width="140"/>
-                <ComboBox ItemsSource="{Binding VisitTypes}"
-          DisplayMemberPath="NamePrice"
-          SelectedValuePath="Id"
-          SelectedValue="{Binding SelectedVisit.VisitType.Id, Mode=TwoWay}"
-          Width="200" />
-            </StackPanel>
-
-            <!-- ▼ Přidaná cena -->
-            <!--<StackPanel Orientation="Horizontal" Margin="0,0,0,5">
-                <TextBlock Text="Cena:" Width="140"/>
-                <TextBlock Text="{Binding SelectedVisit.VisitType.Price, UpdateSourceTrigger=PropertyChanged}"
-                 Width="200"/>
-            </StackPanel>-->
-
-            <!-- ▼ Nový řádek – výstava -->
-            <StackPanel Orientation="Horizontal" Margin="0,15,0,5">
-                <TextBlock Text="Výstava:" Width="140"/>
-                <ComboBox ItemsSource="{Binding Exhibitions}"
-                            SelectedValuePath="Id"
-                            DisplayMemberPath="Name"
-                            SelectedValue="{Binding SelectedVisit.ExhibitionCounter.Id, Mode=TwoWay}"
-                            Width="200"/>
-            </StackPanel>
-
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,15,0,0">
-                <Button Content="Nový" Command="{Binding NewCommand}" Margin="0,0,10,0" Width="80"/>
-                <Button Content="Uložit" Command="{Binding SaveCommand}" Margin="0,0,10,0" Width="80"/>
-                <Button Content="Smazat" Command="{Binding DeleteCommand}" Width="80"/>
-            </StackPanel>
+        <!-- SPODNÍ TLAČÍTKA – sjednocená poloha -->
+        <StackPanel Grid.Row="2" Grid.Column="1"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right"
+                    Margin="0,15,0,0">
+            <Button Content="Nový"
+                    Command="{Binding NewCommand}"
+                    Margin="0,0,10,0"
+                    Width="80"/>
+            <Button Content="Uložit"
+                    Command="{Binding SaveCommand}"
+                    Margin="0,0,10,0"
+                    Width="80"/>
+            <Button Content="Smazat"
+                    Command="{Binding DeleteCommand}"
+                    Width="80"/>
         </StackPanel>
+
     </Grid>
 </UserControl>
