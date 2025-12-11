@@ -17,8 +17,8 @@ namespace DatabaseAccess.Interface
 
         void DeleteItem(int id);
 
-
         void AddExhibitionToProgram(int idEx, int idProgram);
+
         void RemoveExhibitionFromProgram(int idEx);
         
     }

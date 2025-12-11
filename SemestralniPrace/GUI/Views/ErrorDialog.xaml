@@ -1,0 +1,90 @@
+﻿<Window x:Class="GUI.Views.ErrorDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="{Binding ErrorTitle}"
+        Height="Auto" Width="500"
+        WindowStartupLocation="CenterOwner"
+        ResizeMode="NoResize"
+        SizeToContent="Height">
+
+    <Grid Margin="15">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Ikona a zpráva -->
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,15">
+            <!-- Červený vykřičník -->
+            <TextBlock Text="⚠" 
+                       FontSize="32" 
+                       Foreground="Red" 
+                       Margin="0,0,10,0"
+                       VerticalAlignment="Top"/>
+
+            <TextBlock Text="{Binding ErrorMessage}"
+                       TextWrapping="Wrap"
+                       VerticalAlignment="Center"
+                       MaxWidth="400"/>
+        </StackPanel>
+
+        <!-- Tlačítko pro zobrazení detailů -->
+        <Button Grid.Row="1" 
+                Command="{Binding ToggleDetailsCommand}"
+                HorizontalAlignment="Left"
+                Margin="0,0,0,10"
+                Padding="5">
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Setter Property="Content" Value="Zobrazit detaily ▼"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ShowDetails}" Value="True">
+                            <Setter Property="Content" Value="Skrýt detaily ▲"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
+
+        <!-- Detaily chyby -->
+        <Border Grid.Row="2" 
+                BorderBrush="Gray" 
+                BorderThickness="1"
+                Background="#FFF5F5F5"
+                Padding="10"
+                Margin="0,0,0,15"
+                MaxHeight="200">
+            <Border.Style>
+                <Style TargetType="Border">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ShowDetails}" Value="True">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Border.Style>
+
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <TextBlock Text="{Binding ErrorDetails}"
+                           TextWrapping="Wrap"
+                           FontFamily="Consolas"
+                           FontSize="10"/>
+            </ScrollViewer>
+        </Border>
+
+        <!-- Tlačítko zavřít -->
+        <StackPanel Grid.Row="3" 
+                    Orientation="Horizontal" 
+                    HorizontalAlignment="Right">
+            <Button Content="OK" 
+                    Command="{Binding CloseCommand}"
+                    IsDefault="True"
+                    IsCancel="True"
+                    Width="80" 
+                    Padding="5"/>
+        </StackPanel>
+    </Grid>
+</Window>

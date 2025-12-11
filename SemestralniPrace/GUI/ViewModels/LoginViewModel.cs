@@ -2,6 +2,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using DatabaseAccess;
 using Entities;
+using GUI.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,14 +32,8 @@ namespace GUI.ViewModels
 
         // View se na tuhle událost pověsí a okno zavře
         public event Action<bool?> RequestClose;
-        
-     
 
-        public LoginViewModel()
-        {
-           
-        }
-
+        public LoginViewModel() { }
 
         [RelayCommand]
         private void Login()
@@ -51,54 +46,67 @@ namespace GUI.ViewModels
                 return;
             }
 
-            //Pro otestování zakomentovano-- stačí něco vyplněné pro přihlášení
-            if (!UserManager.LogIn(Username, Password))
+            ErrorHandler.SafeExecute(() =>
             {
-                LoginError = "Neplatné uživatelské jméno nebo heslo.";
-                return;
-            }
+                if (!UserManager.LogIn(Username, Password))
+                {
+                    LoginError = "Neplatné uživatelské jméno nebo heslo.";
+                    return;
+                }
 
-
-            RequestClose?.Invoke(true); 
+                RequestClose?.Invoke(true);
+            }, "Přihlášení selhalo. Zkontrolujte připojení k databázi.");
         }
 
-        // ---------- REGISTRACE COMMAND ----------
         [RelayCommand]
         private void Register()
         {
             RegisterError = "";
-            //MessageBox.Show($"Heslo: {regPassword}, Znovu: {RegPasswordConfirm}");
-            
 
-
-            if (string.IsNullOrWhiteSpace(RegUsername) ||
-                string.IsNullOrWhiteSpace(RegPassword))
+            // Validace uživatelského jména a hesla
+            if (string.IsNullOrWhiteSpace(RegUsername))
             {
-                RegisterError = "Vyplňte uživatelské jméno a heslo.";
+                RegisterError = "Vyplňte uživatelské jméno.";
                 return;
             }
 
+            if (string.IsNullOrWhiteSpace(RegPassword))
+            {
+                RegisterError = "Vyplňte heslo.";
+                return;
+            }
+
+            // Kontrola shody hesel
             if (RegPassword != RegPasswordConfirm)
             {
                 RegisterError = "Hesla se neshodují.";
                 return;
             }
 
-
-            if (!UserManager.Register(RegUsername, RegPassword, RegFirstName, RegLastName, RegEmail, RegPhone))
+            // Validace emailu (pokud je vyplněn)
+            if (!string.IsNullOrWhiteSpace(RegEmail) && !RegEmail.Contains("@"))
             {
-                RegisterError = "Neplatné uživatelské jméno nebo heslo.";
+                RegisterError = "Email není ve správném formátu.";
                 return;
             }
 
-            if (!UserManager.LogIn(RegUsername, RegPassword))
+            ErrorHandler.SafeExecute(() =>
             {
-                RegisterError = "Nastala chyba při přihlašování nového účtu.";
-                return;
-            }
-            RequestClose?.Invoke(true);
+                if (!UserManager.Register(RegUsername, RegPassword, RegFirstName, RegLastName, RegEmail, RegPhone))
+                {
+                    RegisterError = "Registrace se nezdařila. Uživatelské jméno může být již použito.";
+                    return;
+                }
+
+                if (!UserManager.LogIn(RegUsername, RegPassword))
+                {
+                    RegisterError = "Nastala chyba při přihlašování nového účtu.";
+                    return;
+                }
+
+                RequestClose?.Invoke(true);
+            }, "Registrace selhala.");
         }
-
 
         [RelayCommand]
         private void Cancel()

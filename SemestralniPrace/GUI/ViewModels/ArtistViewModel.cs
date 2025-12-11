@@ -2,6 +2,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using DatabaseAccess;
 using Entities;
+using GUI.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -15,7 +16,6 @@ namespace GUI.ViewModels
     {
         private readonly ArtistRepository repository = new ArtistRepository();
         private readonly ArtPieceRepository artRepo = new ArtPieceRepository();
-
 
         [ObservableProperty]
         private ObservableCollection<Artist> artists = new();
@@ -33,17 +33,23 @@ namespace GUI.ViewModels
 
         partial void OnSelectedArtistChanged(Artist value)
         {
-            if(SelectedArtist != null)
+            if (SelectedArtist != null)
             {
-                ArtPieces = new ObservableCollection<ArtPiece>(artRepo.GetListByArtistId(SelectedArtist.Id));
+                ErrorHandler.SafeExecute(() =>
+                {
+                    ArtPieces = new ObservableCollection<ArtPiece>(artRepo.GetListByArtistId(SelectedArtist.Id));
+                }, "Načtení děl umělce selhalo");
             }
         }
 
         [RelayCommand]
         private void Load()
         {
-            var list = repository.GetList();
-            Artists = new ObservableCollection<Artist>(list);
+            ErrorHandler.SafeExecute(() =>
+            {
+                var list = repository.GetList();
+                Artists = new ObservableCollection<Artist>(list);
+            }, "Načtení umělců selhalo");
         }
 
         [RelayCommand]
@@ -58,8 +64,51 @@ namespace GUI.ViewModels
             if (SelectedArtist == null)
                 return;
 
-            repository.SaveItem(SelectedArtist);
-            Load();
+            ErrorHandler.SafeExecute(() =>
+            {
+                if (string.IsNullOrWhiteSpace(SelectedArtist.FirstName))
+                {
+                    ErrorHandler.ShowError("Validační chyba", "Jméno umělce nesmí být prázdné");
+                    return;
+                }
+
+                if (string.IsNullOrWhiteSpace(SelectedArtist.LastName))
+                {
+                    ErrorHandler.ShowError("Validační chyba", "Příjmení umělce nesmí být prázdné");
+                    return;
+                }
+
+                if (SelectedArtist.DateOfBirth == DateTime.MinValue)
+                {
+                    ErrorHandler.ShowError("Validační chyba", "Datum narození musí být vyplněno");
+                    return;
+                }
+
+                if (SelectedArtist.DateOfBirth > DateTime.Now)
+                {
+                    ErrorHandler.ShowError("Validační chyba", "Datum narození nemůže být v budoucnosti");
+                    return;
+                }
+
+                // Validace data úmrtí (pokud je vyplněno)
+                if (SelectedArtist.DateOfDeath != DateTime.MinValue)
+                {
+                    if (SelectedArtist.DateOfDeath < SelectedArtist.DateOfBirth)
+                    {
+                        ErrorHandler.ShowError("Validační chyba", "Datum úmrtí nemůže být před datem narození");
+                        return;
+                    }
+
+                    if (SelectedArtist.DateOfDeath > DateTime.Now)
+                    {
+                        ErrorHandler.ShowError("Validační chyba", "Datum úmrtí nemůže být v budoucnosti");
+                        return;
+                    }
+                }
+
+                repository.SaveItem(SelectedArtist);
+                Load();
+            }, "Uložení umělce selhalo.");
         }
 
         [RelayCommand]
@@ -68,8 +117,11 @@ namespace GUI.ViewModels
             if (SelectedArtist == null || SelectedArtist.Id == 0)
                 return;
 
-            repository.DeleteItem(SelectedArtist.Id);
-            Load();
+            ErrorHandler.SafeExecute(() =>
+            {
+                repository.DeleteItem(SelectedArtist.Id);
+                Load();
+            }, "Smazání umělce selhalo. Umělec má pravděpodobně přiřazená díla.");
         }
     }
 }

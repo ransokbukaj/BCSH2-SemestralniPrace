@@ -2,6 +2,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using DatabaseAccess;
 using Entities;
+using GUI.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -33,9 +34,12 @@ namespace GUI.ViewModels
         [RelayCommand]
         private void Load()
         {
-            var list = repository.GetList();
-            Buyers = new ObservableCollection<Buyer>(list);
-            Addresses = new ObservableCollection<Address>(addressRepository.GetList());
+            ErrorHandler.SafeExecute(() =>
+            {
+                var list = repository.GetList();
+                Buyers = new ObservableCollection<Buyer>(list);
+                Addresses = new ObservableCollection<Address>(addressRepository.GetList());
+            }, "Načtení kupců selhalo");
         }
 
         [RelayCommand]
@@ -53,14 +57,54 @@ namespace GUI.ViewModels
             if (SelectedBuyer == null)
                 return;
 
-            if (SelectedBuyer?.Adress != null && Addresses != null)
+            ErrorHandler.SafeExecute(() =>
             {
-                SelectedBuyer.Adress = Addresses.FirstOrDefault(a => a.Id == SelectedBuyer.Adress.Id);
-            }
+                if (string.IsNullOrWhiteSpace(SelectedBuyer.FirstName))
+                {
+                    ErrorHandler.ShowError("Validační chyba", "Jméno kupce nesmí být prázdné");
+                    return;
+                }
 
+                if (string.IsNullOrWhiteSpace(SelectedBuyer.LastName))
+                {
+                    ErrorHandler.ShowError("Validační chyba", "Příjmení kupce nesmí být prázdné");
+                    return;
+                }
 
-            repository.SaveItem(SelectedBuyer);
-            Load();
+                if (string.IsNullOrWhiteSpace(SelectedBuyer.PhoneNumber))
+                {
+                    ErrorHandler.ShowError("Validační chyba", "Telefonní číslo nesmí být prázdné");
+                    return;
+                }
+
+                // Validace telefonního čísla (základní kontrola)
+                if (SelectedBuyer.PhoneNumber.Length < 9)
+                {
+                    ErrorHandler.ShowError("Validační chyba", "Telefonní číslo musí mít alespoň 9 číslic");
+                    return;
+                }
+
+                // Validace emailu (pokud je vyplněn)
+                if (!string.IsNullOrWhiteSpace(SelectedBuyer.Email) && !SelectedBuyer.Email.Contains("@"))
+                {
+                    ErrorHandler.ShowError("Validační chyba", "Email není ve správném formátu");
+                    return;
+                }
+
+                if (SelectedBuyer.Adress == null || SelectedBuyer.Adress.Id == 0)
+                {
+                    ErrorHandler.ShowError("Validační chyba", "Musíte vybrat adresu");
+                    return;
+                }
+
+                if (SelectedBuyer?.Adress != null && Addresses != null)
+                {
+                    SelectedBuyer.Adress = Addresses.FirstOrDefault(a => a.Id == SelectedBuyer.Adress.Id);
+                }
+
+                repository.SaveItem(SelectedBuyer);
+                Load();
+            }, "Uložení kupce selhalo.");
         }
 
         [RelayCommand]
@@ -69,8 +113,11 @@ namespace GUI.ViewModels
             if (SelectedBuyer == null || SelectedBuyer.Id == 0)
                 return;
 
-            repository.DeleteItem(SelectedBuyer.Id);
-            Load();
+            ErrorHandler.SafeExecute(() =>
+            {
+                repository.DeleteItem(SelectedBuyer.Id);
+                Load();
+            }, "Smazání kupce selhalo. Kupec má pravděpodobně přiřazené prodeje.");
         }
     }
 }

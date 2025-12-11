@@ -2,6 +2,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using DatabaseAccess;
 using Entities;
+using GUI.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -25,11 +26,7 @@ namespace GUI.ViewModels
         [ObservableProperty]
         private Post selectedPost;
 
-        public ObservableCollection<Post> Posts { get; set; }   // seznam v�ech PS�
-
-       
-
-      
+        public ObservableCollection<Post> Posts { get; set; }         
 
         public AddressViewModel()
         {
@@ -39,8 +36,11 @@ namespace GUI.ViewModels
         [RelayCommand]
         private void Load()
         {
-            Addresses = new ObservableCollection<Address>(repository.GetList());
-            Posts = new ObservableCollection<Post>(postRepository.GetList());
+            ErrorHandler.SafeExecute(() =>
+            {
+                Addresses = new ObservableCollection<Address>(repository.GetList());
+                Posts = new ObservableCollection<Post>(postRepository.GetList());
+            }, "Načtení adres selhalo");
         }
 
         [RelayCommand]
@@ -48,7 +48,7 @@ namespace GUI.ViewModels
         {
             SelectedAddress = new Address()
             {
-                Post = new Post()   // <<< Tohle je kl��ov�!
+                Post = new Post()
             }; 
         }
 
@@ -58,14 +58,34 @@ namespace GUI.ViewModels
             if (SelectedAddress == null)
                 return;
 
-            if (Posts != null)
+            ErrorHandler.SafeExecute(() =>
             {
-                // sjednotit instanci Post podle Id
-                SelectedAddress.Post = Posts.FirstOrDefault(p => p.Id == SelectedAddress.Post.Id);
-            }
+                if (string.IsNullOrWhiteSpace(SelectedAddress.Street))
+                {
+                    ErrorHandler.ShowError("Validační chyba", "Ulice nesmí být prázdná");
+                    return;
+                }
 
-            repository.SaveItem(SelectedAddress);
-            Load();
+                if (string.IsNullOrWhiteSpace(SelectedAddress.HouseNumber))
+                {
+                    ErrorHandler.ShowError("Validační chyba", "Číslo popisné nesmí být prázdné");
+                    return;
+                }
+
+                if (SelectedAddress.Post == null || SelectedAddress.Post.Id == 0)
+                {
+                    ErrorHandler.ShowError("Validační chyba", "Musíte vybrat poštu");
+                    return;
+                }
+
+                if (Posts != null)
+                {
+                    SelectedAddress.Post = Posts.FirstOrDefault(p => p.Id == SelectedAddress.Post.Id);
+                }
+
+                repository.SaveItem(SelectedAddress);
+                Load();
+            }, "Uložení adresy selhalo");
         }
 
         [RelayCommand]
@@ -74,8 +94,11 @@ namespace GUI.ViewModels
             if (SelectedAddress == null || SelectedAddress.Id == 0)
                 return;
 
-            repository.DeleteItem(SelectedAddress.Id);
-            Load();
+            ErrorHandler.SafeExecute(() =>
+            {
+                repository.DeleteItem(SelectedAddress.Id);
+                Load();
+            }, "Smazání adresy selhalo");
         }
     }
 }

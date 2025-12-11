@@ -2,6 +2,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using DatabaseAccess;
 using Entities;
+using GUI.Helpers;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -61,24 +62,30 @@ namespace GUI.ViewModels
         [RelayCommand]
         private void Load()
         {
-            Catalog = repository.GetSystemCatalog();
+            ErrorHandler.SafeExecute(() =>
+            {
+                Catalog = repository.GetSystemCatalog();
 
-            Tables = new ObservableCollection<TableInfo>(Catalog.Tables ?? Enumerable.Empty<TableInfo>());
-            Views = new ObservableCollection<ViewInfo>(Catalog.Views ?? Enumerable.Empty<ViewInfo>());
-            PrimaryKeys = new ObservableCollection<PrimaryKeyInfo>(Catalog.PrimaryKeys ?? Enumerable.Empty<PrimaryKeyInfo>());
-            ForeignKeys = new ObservableCollection<ForeignKeyInfo>(Catalog.ForeignKeys ?? Enumerable.Empty<ForeignKeyInfo>());
-            Indexes = new ObservableCollection<IndexInfo>(Catalog.Indexes ?? Enumerable.Empty<IndexInfo>());
-            Sequences = new ObservableCollection<SequenceInfo>(Catalog.Sequences ?? Enumerable.Empty<SequenceInfo>());
-            Triggers = new ObservableCollection<TriggerInfo>(Catalog.Triggers ?? Enumerable.Empty<TriggerInfo>());
-            Procedures = new ObservableCollection<ProcedureInfo>(Catalog.Procedures ?? Enumerable.Empty<ProcedureInfo>());
+                Tables = new ObservableCollection<TableInfo>(Catalog.Tables ?? Enumerable.Empty<TableInfo>());
+                Views = new ObservableCollection<ViewInfo>(Catalog.Views ?? Enumerable.Empty<ViewInfo>());
+                PrimaryKeys = new ObservableCollection<PrimaryKeyInfo>(Catalog.PrimaryKeys ?? Enumerable.Empty<PrimaryKeyInfo>());
+                ForeignKeys = new ObservableCollection<ForeignKeyInfo>(Catalog.ForeignKeys ?? Enumerable.Empty<ForeignKeyInfo>());
+                Indexes = new ObservableCollection<IndexInfo>(Catalog.Indexes ?? Enumerable.Empty<IndexInfo>());
+                Sequences = new ObservableCollection<SequenceInfo>(Catalog.Sequences ?? Enumerable.Empty<SequenceInfo>());
+                Triggers = new ObservableCollection<TriggerInfo>(Catalog.Triggers ?? Enumerable.Empty<TriggerInfo>());
+                Procedures = new ObservableCollection<ProcedureInfo>(Catalog.Procedures ?? Enumerable.Empty<ProcedureInfo>());
+            }, "Načtení systémového katalogu selhalo. Zkontrolujte připojení k databázi.");
         }
 
         partial void OnSelectedTableChanged(TableInfo value)
         {
             if (value != null)
             {
-                var columns = repository.GetColumnsForTable(value.TableName);
-                TableColumns = new ObservableCollection<ColumnInfo>(columns);
+                ErrorHandler.SafeExecute(() =>
+                {
+                    var columns = repository.GetColumnsForTable(value.TableName);
+                    TableColumns = new ObservableCollection<ColumnInfo>(columns);
+                }, $"Načtení sloupců tabulky '{value.TableName}' selhalo");
             }
             else
             {
@@ -90,7 +97,10 @@ namespace GUI.ViewModels
         {
             if (value != null)
             {
-                ViewDefinition = repository.GetViewDefinition(value.ViewName);
+                ErrorHandler.SafeExecute(() =>
+                {
+                    ViewDefinition = repository.GetViewDefinition(value.ViewName);
+                }, $"Načtení definice pohledu '{value.ViewName}' selhalo");
             }
             else
             {

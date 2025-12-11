@@ -2,6 +2,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using DatabaseAccess;
 using Entities;
+using GUI.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -29,7 +30,11 @@ namespace GUI.ViewModels
         [RelayCommand]
         private void Load()
         {
-            HistoryLogs = new ObservableCollection<HistoryLog>(repository.GetList());
+            ErrorHandler.SafeExecute(() =>
+            {
+                var list = repository.GetList();
+                HistoryLogs = new ObservableCollection<HistoryLog>(list);
+            }, "Načtení historie selhalo");
         }
     }
 }
