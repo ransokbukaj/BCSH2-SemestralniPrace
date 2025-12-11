@@ -9,5 +9,7 @@ namespace Entities
     public class VisitType : Counter
     {
         public decimal Price { get; set; }
+
+        public string NamePrice => $"{Name} - {Price} Kè";
     }
 }

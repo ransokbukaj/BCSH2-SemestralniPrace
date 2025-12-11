@@ -50,7 +50,7 @@
             <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
                 <TextBlock Text="Typ návštěvy:" Width="140"/>
                 <ComboBox ItemsSource="{Binding VisitTypes}"
-          DisplayMemberPath="Name"
+          DisplayMemberPath="NamePrice"
           SelectedValuePath="Id"
           SelectedValue="{Binding SelectedVisit.VisitType.Id, Mode=TwoWay}"
           Width="200" />
