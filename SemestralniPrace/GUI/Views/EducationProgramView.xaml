@@ -17,11 +17,23 @@
         </Grid.ColumnDefinitions>
 
         <!-- Hlavička -->
-        <TextBlock Grid.Row="0" Grid.ColumnSpan="2"
-                   Text="Vzdělávací programy"
-                   FontSize="24"
-                   FontWeight="Bold"
-                   Margin="0,0,0,10"/>
+        <StackPanel Grid.Row="0" Grid.ColumnSpan="2"
+            Orientation="Horizontal"
+            VerticalAlignment="Center"
+            Margin="0,0,0,10">
+
+            <TextBlock Text="Vzdělávací programy"
+               FontSize="24"
+               FontWeight="Bold"
+               VerticalAlignment="Center"/>
+
+            <TextBox Width="260"
+             Margin="20,0,0,0"
+             VerticalAlignment="Center"
+             Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
+             ToolTip="Hledat podle názvu / popisu"
+             />
+        </StackPanel>
 
         <!-- Seznam programů -->
         <DataGrid Grid.Row="1" Grid.Column="0"

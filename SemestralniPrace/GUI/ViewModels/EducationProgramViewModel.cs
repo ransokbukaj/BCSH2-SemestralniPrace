@@ -18,6 +18,8 @@ namespace GUI.ViewModels
         private readonly EducationProgramRepository repository = new EducationProgramRepository();
         private readonly ExhibitionRepository exhRepo = new ExhibitionRepository();
 
+
+        private List<EducationProgram> _allEducationPrograms = new();
         [ObservableProperty]
         private ObservableCollection<EducationProgram> educationPrograms = new();
 
@@ -35,6 +37,14 @@ namespace GUI.ViewModels
 
         [ObservableProperty]
         private Exhibition selectedExhibitionToAdd;
+
+        [ObservableProperty]
+        private string searchText;
+
+        partial void OnSearchTextChanged(string value)
+        {
+            ApplyFilter();
+        }
 
         partial void OnSelectedEducationProgramChanged(EducationProgram value)
         {
@@ -108,8 +118,34 @@ namespace GUI.ViewModels
         {
             ErrorHandler.SafeExecute(() =>
             {
-                EducationPrograms = new ObservableCollection<EducationProgram>(repository.GetList());
+                _allEducationPrograms = repository.GetList();
+                ApplyFilter();
             }, "Načtení vzdělávacích programů selhalo");
+        }
+
+        private void ApplyFilter()
+        {
+            var text = (SearchText ?? "").Trim();
+
+            if (string.IsNullOrWhiteSpace(text))
+            {
+                EducationPrograms = new ObservableCollection<EducationProgram>(_allEducationPrograms);
+                return;
+            }
+
+            text = text.ToLowerInvariant();
+
+            var filtered = _allEducationPrograms.Where(p =>
+                    (!string.IsNullOrEmpty(p.Name) && p.Name.ToLowerInvariant().Contains(text)) ||
+                    (!string.IsNullOrEmpty(p.Description) && p.Description.ToLowerInvariant().Contains(text))
+                )
+                .ToList();
+
+            EducationPrograms = new ObservableCollection<EducationProgram>(filtered);
+
+            // když filtr "odřízne" SelectedEducationProgram, tak ho zruš (volitelné, ale praktické)
+            if (SelectedEducationProgram != null && !filtered.Contains(SelectedEducationProgram))
+                SelectedEducationProgram = filtered.FirstOrDefault();
         }
 
         [RelayCommand]

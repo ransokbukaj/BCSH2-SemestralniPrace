@@ -47,7 +47,7 @@ namespace GUI.ViewModels
             ErrorHandler.SafeExecute(() =>
             {
                 _allBuyers = repository.GetList();
-                Buyers = new ObservableCollection<Buyer>(_allBuyers);
+                //Buyers = new ObservableCollection<Buyer>(_allBuyers);
                 Addresses = new ObservableCollection<Address>(addressRepository.GetList());
             }, "Načtení kupců selhalo");
             ApplyFilter();
