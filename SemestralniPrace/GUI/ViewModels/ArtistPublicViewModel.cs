@@ -10,32 +10,44 @@ namespace GUI.ViewModels
 {
     public partial class ArtistPublicViewModel : ObservableObject
     {
-        private readonly ArtistRepository repository = new ArtistRepository();
-        private readonly ArtPieceRepository artRepo = new ArtPieceRepository();
-        private readonly UtilityRepository homeRep = new UtilityRepository();
+        private readonly ArtistRepository artistRepository = new ArtistRepository();
+        private readonly ArtPieceRepository artPieceRepository = new ArtPieceRepository();
+        private readonly UtilityRepository utilityRepository = new UtilityRepository();
 
-
+        //List pro skutečné načítání dat
         private List<Artist> _allArtists = new();
+        //List pro zobrazování načtených dat
         [ObservableProperty]
         private ObservableCollection<Artist> artists = new();
 
+        //List pro zobrazování uměleckých děl
         [ObservableProperty]
         private ObservableCollection<ArtPiece> artPieces = new();
 
         [ObservableProperty]
         private Artist selectedArtist;
 
+        //Statistika umělce
         [ObservableProperty]
         private ArtistStatistics stat;
 
+        //Informace o linii umělce
         [ObservableProperty]
         private MentorBranchStatistics mentorBranch;
 
+        //Informace o nejúspěšnějším umělci z linii podle počtu děl.
         [ObservableProperty]
         private MostSuccesfulMentore mostSuccesfulMentore;
 
         [ObservableProperty]
         private string searchText;
+
+        partial void OnSearchTextChanged(string value)
+        {
+            ApplyFilter();
+        }
+
+
         public ArtistPublicViewModel()
         {
             Load();
@@ -47,15 +59,15 @@ namespace GUI.ViewModels
             {
                 ErrorHandler.SafeExecute(() =>
                 {
-                    ArtPieces = new ObservableCollection<ArtPiece>(artRepo.GetListByArtistId(SelectedArtist.Id));
+                    ArtPieces = new ObservableCollection<ArtPiece>(artPieceRepository.GetListByArtistId(SelectedArtist.Id));
                     
                 }, "Načtení děl umělce selhalo");
 
                 ErrorHandler.SafeExecute(() =>
                 {
-                    Stat = homeRep.GetArtistStatistic(SelectedArtist.Id);
-                    MentorBranch = homeRep.GetMentorBranchStatics(SelectedArtist.Id);
-                    MostSuccesfulMentore = homeRep.GetMostSuccesfulMentore(SelectedArtist.Id);
+                    Stat = utilityRepository.GetArtistStatistic(SelectedArtist.Id);
+                    MentorBranch = utilityRepository.GetMentorBranchStatics(SelectedArtist.Id);
+                    MostSuccesfulMentore = utilityRepository.GetMostSuccesfulMentore(SelectedArtist.Id);
                 }, "Načtení výpisu informací");
             }
         }
@@ -65,19 +77,15 @@ namespace GUI.ViewModels
         {
             ErrorHandler.SafeExecute(() =>
             {
-                _allArtists = repository.GetList();
-                //Artists = new ObservableCollection<Artist>(list);
+                _allArtists = artistRepository.GetList();
                 ApplyFilter();
                 Stat = null;
             }, "Načtení umělců selhalo");
-            ApplyFilter();
         }
 
-        partial void OnSearchTextChanged(string value)
-        {
-            ApplyFilter();
-        }
-
+       /// <summary>
+       /// Metoda pro filtrování obsahu podle jména a příjmení umelců
+       /// </summary>
         private void ApplyFilter()
         {
             if (_allArtists == null)
@@ -85,7 +93,6 @@ namespace GUI.ViewModels
 
             if (string.IsNullOrWhiteSpace(SearchText))
             {
-                // žádný filtr → zobraz vše
                 Artists = new ObservableCollection<Artist>(_allArtists);
             }
             else
@@ -100,7 +107,7 @@ namespace GUI.ViewModels
                 Artists = new ObservableCollection<Artist>(filtered);
             }
 
-            // pokud po filtrování nic není → odznač detail
+            // pokud po filtrování nic není odznačá se detail
             if (!Artists.Contains(SelectedArtist))
             {
                 SelectedArtist = null;

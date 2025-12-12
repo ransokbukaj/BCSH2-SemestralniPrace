@@ -14,11 +14,13 @@ namespace GUI.ViewModels
 {
     public partial class AddressViewModel : ObservableObject
     {
-        private readonly AddressRepository repository = new AddressRepository();
+        private readonly AddressRepository adressRepository = new AddressRepository();
         private readonly PostRepository postRepository = new PostRepository();
 
-
+        //List do kterého se data nahrávají
         private List<Address> _allAddresses = new();
+
+        //List, který data zobrazuje
         [ObservableProperty]
         private ObservableCollection<Address> addresses = new();
 
@@ -43,18 +45,21 @@ namespace GUI.ViewModels
             Load();
         }
 
+
         [RelayCommand]
         private void Load()
         {
             ErrorHandler.SafeExecute(() =>
             {
-                _allAddresses = repository.GetList();
+                _allAddresses = adressRepository.GetList();
                 Addresses = new ObservableCollection<Address>(_allAddresses);
                 Posts = new ObservableCollection<Post>(postRepository.GetList());
             }, "Načtení adres selhalo");
             ApplyFilter();
         }
-
+        /// <summary>
+        /// Metoda pro filtrování obsahu podle: názvu ulice, čísla domu, čísla ulice, města a PSČ
+        /// </summary>
         private void ApplyFilter()
         {
             if (_allAddresses == null) return;
@@ -124,10 +129,11 @@ namespace GUI.ViewModels
                     SelectedAddress.Post = Posts.FirstOrDefault(p => p.Id == SelectedAddress.Post.Id);
                 }
 
-                repository.SaveItem(SelectedAddress);
+                adressRepository.SaveItem(SelectedAddress);
                 Load();
             }, "Uložení adresy selhalo");
         }
+
 
         [RelayCommand]
         private void Delete()
@@ -137,7 +143,7 @@ namespace GUI.ViewModels
 
             ErrorHandler.SafeExecute(() =>
             {
-                repository.DeleteItem(SelectedAddress.Id);
+                adressRepository.DeleteItem(SelectedAddress.Id);
                 Load();
             }, "Smazání adresy selhalo");
         }

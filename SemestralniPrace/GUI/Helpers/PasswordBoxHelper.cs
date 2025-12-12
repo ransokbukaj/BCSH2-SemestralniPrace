@@ -3,6 +3,9 @@ using System.Windows.Controls;
 
 namespace GUI.Helpers
 {
+    /// <summary>
+    /// Pomocná statická tříde, která pomáhá s pracá se PasswordBox a převádí jejich obsah na použitelný string.
+    /// </summary>
     public static class PasswordBoxHelper
     {
         public static readonly DependencyProperty BoundPasswordProperty =
