@@ -13,8 +13,9 @@ namespace GUI.ViewModels
 {
     public partial class HomeViewModel : ObservableObject
     {
-        private readonly UtilityRepository repo = new UtilityRepository();
+        private readonly UtilityRepository utilityRepository = new UtilityRepository();
 
+        //pomocná proměná pro určení kolik nových děl se má zobrazit.
         private int amountOfNew = 10;
 
         [ObservableProperty]
@@ -23,6 +24,7 @@ namespace GUI.ViewModels
         [ObservableProperty]
         private ObservableCollection<NewArtPiece> newestArtworks = new();
 
+        //Objekt s informacemi o galerii
         [ObservableProperty]
         private GaleryStatistics stats = new();
 
@@ -35,10 +37,10 @@ namespace GUI.ViewModels
         {
             ErrorHandler.SafeExecute(() =>
             {
-                CurrentExhibitions = new ObservableCollection<AvailableExhibition>(repo.GetAvailableExhibitions());
-                var list = repo.GetNewArtPieces().Take(amountOfNew).ToList();
+                CurrentExhibitions = new ObservableCollection<AvailableExhibition>(utilityRepository.GetAvailableExhibitions());
+                var list = utilityRepository.GetNewArtPieces().Take(amountOfNew).ToList();
                 NewestArtworks = new ObservableCollection<NewArtPiece>(list);
-                Stats = repo.GetGaleryStatistic();
+                Stats = utilityRepository.GetGaleryStatistic();
             }, "Načtení domovské obrazovky selhalo");
         }
     }

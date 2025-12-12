@@ -14,16 +14,20 @@ namespace GUI.ViewModels
 {
     public partial class ArtistViewModel : ObservableObject
     {
-        private readonly ArtistRepository repository = new ArtistRepository();
-        private readonly ArtPieceRepository artRepo = new ArtPieceRepository();
+        private readonly ArtistRepository artistRepository = new ArtistRepository();
+        private readonly ArtPieceRepository artPieceRepository = new ArtPieceRepository();
 
+        //List pro skutečné načítaná
         private List<Artist> _allArtists = new();
+        //List pro zobrazování umělců
         [ObservableProperty]
         private ObservableCollection<Artist> artists = new();
 
+        //List pro zobrazení děl
         [ObservableProperty]
         private ObservableCollection<ArtPiece> artPieces = new();
 
+        //List pro zobrazení možných mentorů
         [ObservableProperty]
         private ObservableCollection<Artist> mentors = new();
 
@@ -50,12 +54,14 @@ namespace GUI.ViewModels
             {
                 ErrorHandler.SafeExecute(() =>
                 {
-                    ArtPieces = new ObservableCollection<ArtPiece>(artRepo.GetListByArtistId(SelectedArtist.Id));
+                    ArtPieces = new ObservableCollection<ArtPiece>(artPieceRepository.GetListByArtistId(SelectedArtist.Id));
                 }, "Načtení děl umělce selhalo");
-                Mentors = new ObservableCollection<Artist>(repository.GetAvailableMentors(SelectedArtist.Id));
+                Mentors = new ObservableCollection<Artist>(artistRepository.GetAvailableMentors(SelectedArtist.Id));
             }
         }
-
+        /// <summary>
+        /// Metoda pro filtrování obsahu podle jména a příjmení umělce.
+        /// </summary>
         private void ApplyFilter()
         {
             if (_allArtists == null)
@@ -85,7 +91,7 @@ namespace GUI.ViewModels
         {
             ErrorHandler.SafeExecute(() =>
             {
-                _allArtists = repository.GetList();
+                _allArtists = artistRepository.GetList();
                 Artists = new ObservableCollection<Artist>(_allArtists);
             }, "Načtení umělců selhalo");
         }
@@ -144,7 +150,7 @@ namespace GUI.ViewModels
                     }
                 }
 
-                repository.SaveItem(SelectedArtist);
+                artistRepository.SaveItem(SelectedArtist);
                 Load();
             }, "Uložení umělce selhalo.");
         }
@@ -155,7 +161,7 @@ namespace GUI.ViewModels
             if(SelectedArtist != null)
             {
                 SelectedArtist.IdOfMentor = null;
-                Mentors = new ObservableCollection<Artist>(repository.GetAvailableMentors(SelectedArtist.Id));
+                Mentors = new ObservableCollection<Artist>(artistRepository.GetAvailableMentors(SelectedArtist.Id));
             }
         }
 
@@ -167,7 +173,7 @@ namespace GUI.ViewModels
 
             ErrorHandler.SafeExecute(() =>
             {
-                repository.DeleteItem(SelectedArtist.Id);
+                artistRepository.DeleteItem(SelectedArtist.Id);
                 Load();
             }, "Smazání umělce selhalo. Umělec má pravděpodobně přiřazená díla, nebo je mentorem.");
         }

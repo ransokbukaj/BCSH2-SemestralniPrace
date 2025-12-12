@@ -17,11 +17,12 @@ namespace GUI.ViewModels
 {
     public partial class PaintingViewModel : ObservableObject
     {
-        private readonly PaintingRepository repository = new PaintingRepository();
-        private readonly CounterRepository counterRep = new CounterRepository();
-        private readonly AttachmentRepository attRep = new AttachmentRepository();
-        private readonly ArtistRepository artistRep = new ArtistRepository();
+        private readonly PaintingRepository paintingRepository = new PaintingRepository();
+        private readonly CounterRepository counterRepository = new CounterRepository();
+        private readonly AttachmentRepository attachmentRepository = new AttachmentRepository();
+        private readonly ArtistRepository artistRepository = new ArtistRepository();
 
+        //List pro načtení obrazů
         private List<Painting> _allPaintings = new();
 
         [ObservableProperty]
@@ -71,7 +72,7 @@ namespace GUI.ViewModels
             {
                 ErrorHandler.SafeExecute(() =>
                 {
-                    Attachments = new ObservableCollection<Attachment>(attRep.GetListByArtPieceId(SelectedPainting.Id));
+                    Attachments = new ObservableCollection<Attachment>(attachmentRepository.GetListByArtPieceId(SelectedPainting.Id));
                     if(Attachments.Count > 0)
                     {
                         SelectedAttachment = Attachments[0];
@@ -83,11 +84,11 @@ namespace GUI.ViewModels
                         SelectedImage = null;
                     }
 
-                    Authors = new ObservableCollection<Artist>(artistRep.GetListByArtPieceId(SelectedPainting.Id));
+                    Authors = new ObservableCollection<Artist>(artistRepository.GetListByArtPieceId(SelectedPainting.Id));
 
-                    var assignedIds = new HashSet<int>(artistRep.GetListByArtPieceId(SelectedPainting.Id).Select(a => a.Id));
+                    var assignedIds = new HashSet<int>(artistRepository.GetListByArtPieceId(SelectedPainting.Id).Select(a => a.Id));
 
-                    var coll = artistRep.GetList().Where(a => !assignedIds.Contains(a.Id)).ToList();
+                    var coll = artistRepository.GetList().Where(a => !assignedIds.Contains(a.Id)).ToList();
                     AvailableArtists = new ObservableCollection<Artist>(coll);
                 }, "Načtení detailů obrazu selhalo");
             }
@@ -104,145 +105,7 @@ namespace GUI.ViewModels
             }
         }
 
-        [RelayCommand]
-        private void AddArtistToPainting()
-        {
-            if (SelectedPainting == null || SelectedPainting.Id == 0)
-            {
-                ErrorHandler.ShowError("Chyba", "Nejprve uložte obraz");
-                return;
-            }
-
-            if (SelectedArtistToAdd == null)
-            {
-                ErrorHandler.ShowError("Chyba", "Vyberte umělce k přidání");
-                return;
-            }
-
-            ErrorHandler.SafeExecute(() =>
-            {
-                artistRep.AddArtistToArtPiece(SelectedArtistToAdd.Id, SelectedPainting.Id);
-                Authors.Add(SelectedArtistToAdd);
-                AvailableArtists.Remove(SelectedArtistToAdd);
-
-                SelectedArtistToAdd = AvailableArtists.FirstOrDefault();
-            }, "Přidání autora selhalo");
-        }
-
-        [RelayCommand]
-        private void RemoveArtistFromPainting()
-        {
-            if (SelectedPainting == null || SelectedPainting.Id == 0)
-            {
-                ErrorHandler.ShowError("Chyba", "Nejprve uložte obraz");
-                return;
-            }
-
-            if (SelectedArtistToRemove == null)
-            {
-                ErrorHandler.ShowError("Chyba", "Vyberte autora k odebrání");
-                return;
-            }
-
-            ErrorHandler.SafeExecute(() =>
-            {
-                artistRep.RemoveArtistFromArtPiece(SelectedArtistToRemove.Id, SelectedPainting.Id);
-                AvailableArtists.Add(SelectedArtistToRemove);
-                Authors.Remove(SelectedArtistToRemove);
-
-                SelectedArtistToRemove = Authors.FirstOrDefault();
-            }, "Odebrání autora selhalo");
-        }
-
-        [RelayCommand]
-        private void PreviousImage()
-        {
-            if(SelectedAttachment != null)
-            {
-                int cur = Attachments.IndexOf(SelectedAttachment);
-                if (cur == 0)
-                {
-                    SelectedAttachment = Attachments.Last();
-                }
-                else
-                {
-                    SelectedAttachment = Attachments[cur - 1];
-                }
-            }
-            
-        }
-
-        [RelayCommand]
-        private void NextImage()
-        {
-            if(SelectedAttachment != null)
-            {
-                int cur = Attachments.IndexOf(SelectedAttachment);
-                if (cur == (Attachments.Count - 1))
-                {
-                    SelectedAttachment = Attachments.First();
-                }
-                else
-                {
-                    SelectedAttachment = Attachments[cur + 1];
-                }
-            }
-            
-        }
-
-        [RelayCommand]
-        private void AddImage()
-        {
-            if (SelectedPainting == null || SelectedPainting.Id == 0)
-            {
-                ErrorHandler.ShowError("Chyba", "Nejprve uložte obraz");
-                return;
-            }
-
-            ErrorHandler.SafeExecute(() =>
-            {
-                var dlg = new OpenFileDialog
-                {
-                    Title = "Vyber obrázek",
-                    Filter = "Obrázky|*.png;*.jpg;*.jpeg;*.bmp;*.gif",
-                    Multiselect = false
-                };
-
-                if (dlg.ShowDialog() == true)
-                {
-                    Attachment att = new Attachment
-                    {
-                        FileName = Path.GetFileName(dlg.FileName),
-                        File = File.ReadAllBytes(dlg.FileName),
-                        FileType = Path.GetExtension(dlg.FileName)
-                    };
-
-                    attRep.SaveItem(att, SelectedPainting.Id);
-                    Attachments.Add(att);
-                    SelectedAttachment = att;
-                }
-            }, "Přidání obrázku selhalo");
-        }
-
-        [RelayCommand]
-        private void RemoveCurrentImage()
-        {
-            if (SelectedAttachment == null)
-            {
-                ErrorHandler.ShowError("Chyba", "Není vybrán žádný obrázek");
-                return;
-            }
-
-            ErrorHandler.SafeExecute(() =>
-            {
-                attRep.DeleteItem(SelectedAttachment.Id);
-
-                SelectedImage = null;
-                Attachments.Remove(SelectedAttachment);
-                SelectedAttachment = Attachments.FirstOrDefault();
-            }, "Smazání obrázku selhalo");
-        }
-
+        
         public PaintingViewModel()
         {
             Load();
@@ -253,14 +116,17 @@ namespace GUI.ViewModels
         {
             ErrorHandler.SafeExecute(() =>
             {
-                _allPaintings = repository.GetList();
-                Paintings = new ObservableCollection<Painting>(repository.GetList());
-                Techniques = new ObservableCollection<Counter>(counterRep.GetTechniques());
-                Bases = new ObservableCollection<Counter>(counterRep.GetFoundations());
+                _allPaintings = paintingRepository.GetList();
+                Paintings = new ObservableCollection<Painting>(paintingRepository.GetList());
+                Techniques = new ObservableCollection<Counter>(counterRepository.GetTechniques());
+                Bases = new ObservableCollection<Counter>(counterRepository.GetFoundations());
                 ApplyFilter();
             }, "Načtení obrazů selhalo");
         }
 
+        /// <summary>
+        /// Metoda pro filtrování maleb podle názvu
+        /// </summary>
         private void ApplyFilter()
         {
             if (Paintings == null)
@@ -345,7 +211,7 @@ namespace GUI.ViewModels
                     SelectedPainting.Technique = Techniques.FirstOrDefault(p => p.Id == SelectedPainting.Technique.Id);
                 }
 
-                repository.SaveItem(SelectedPainting);
+                paintingRepository.SaveItem(SelectedPainting);
                 Load();
             }, "Uložení obrazu selhalo.");
         }
@@ -358,9 +224,149 @@ namespace GUI.ViewModels
 
             ErrorHandler.SafeExecute(() =>
             {
-                repository.DeleteItem(SelectedPainting.Id);
+                paintingRepository.DeleteItem(SelectedPainting.Id);
                 Load();
             }, "Smazání obrazu selhalo.");
         }
+
+        [RelayCommand]
+        private void AddArtistToPainting()
+        {
+            if (SelectedPainting == null || SelectedPainting.Id == 0)
+            {
+                ErrorHandler.ShowError("Chyba", "Nejprve uložte obraz");
+                return;
+            }
+
+            if (SelectedArtistToAdd == null)
+            {
+                ErrorHandler.ShowError("Chyba", "Vyberte umělce k přidání");
+                return;
+            }
+
+            ErrorHandler.SafeExecute(() =>
+            {
+                artistRepository.AddArtistToArtPiece(SelectedArtistToAdd.Id, SelectedPainting.Id);
+                Authors.Add(SelectedArtistToAdd);
+                AvailableArtists.Remove(SelectedArtistToAdd);
+
+                SelectedArtistToAdd = AvailableArtists.FirstOrDefault();
+            }, "Přidání autora selhalo");
+        }
+
+        [RelayCommand]
+        private void RemoveArtistFromPainting()
+        {
+            if (SelectedPainting == null || SelectedPainting.Id == 0)
+            {
+                ErrorHandler.ShowError("Chyba", "Nejprve uložte obraz");
+                return;
+            }
+
+            if (SelectedArtistToRemove == null)
+            {
+                ErrorHandler.ShowError("Chyba", "Vyberte autora k odebrání");
+                return;
+            }
+
+            ErrorHandler.SafeExecute(() =>
+            {
+                artistRepository.RemoveArtistFromArtPiece(SelectedArtistToRemove.Id, SelectedPainting.Id);
+                AvailableArtists.Add(SelectedArtistToRemove);
+                Authors.Remove(SelectedArtistToRemove);
+
+                SelectedArtistToRemove = Authors.FirstOrDefault();
+            }, "Odebrání autora selhalo");
+        }
+
+        [RelayCommand]
+        private void PreviousImage()
+        {
+            if (SelectedAttachment != null)
+            {
+                int cur = Attachments.IndexOf(SelectedAttachment);
+                if (cur == 0)
+                {
+                    SelectedAttachment = Attachments.Last();
+                }
+                else
+                {
+                    SelectedAttachment = Attachments[cur - 1];
+                }
+            }
+
+        }
+
+        [RelayCommand]
+        private void NextImage()
+        {
+            if (SelectedAttachment != null)
+            {
+                int cur = Attachments.IndexOf(SelectedAttachment);
+                if (cur == (Attachments.Count - 1))
+                {
+                    SelectedAttachment = Attachments.First();
+                }
+                else
+                {
+                    SelectedAttachment = Attachments[cur + 1];
+                }
+            }
+
+        }
+
+        [RelayCommand]
+        private void AddImage()
+        {
+            if (SelectedPainting == null || SelectedPainting.Id == 0)
+            {
+                ErrorHandler.ShowError("Chyba", "Nejprve uložte obraz");
+                return;
+            }
+
+            ErrorHandler.SafeExecute(() =>
+            {
+                var dlg = new OpenFileDialog
+                {
+                    Title = "Vyber obrázek",
+                    Filter = "Obrázky|*.png;*.jpg;*.jpeg;*.bmp;*.gif",
+                    Multiselect = false
+                };
+
+                if (dlg.ShowDialog() == true)
+                {
+                    Attachment att = new Attachment
+                    {
+                        FileName = Path.GetFileName(dlg.FileName),
+                        File = File.ReadAllBytes(dlg.FileName),
+                        FileType = Path.GetExtension(dlg.FileName)
+                    };
+
+                    attachmentRepository.SaveItem(att, SelectedPainting.Id);
+                    Attachments.Add(att);
+                    SelectedAttachment = att;
+                }
+            }, "Přidání obrázku selhalo");
+        }
+
+        [RelayCommand]
+        private void RemoveCurrentImage()
+        {
+            if (SelectedAttachment == null)
+            {
+                ErrorHandler.ShowError("Chyba", "Není vybrán žádný obrázek");
+                return;
+            }
+
+            ErrorHandler.SafeExecute(() =>
+            {
+                attachmentRepository.DeleteItem(SelectedAttachment.Id);
+
+                SelectedImage = null;
+                Attachments.Remove(SelectedAttachment);
+                SelectedAttachment = Attachments.FirstOrDefault();
+            }, "Smazání obrázku selhalo");
+        }
+
     }
 }

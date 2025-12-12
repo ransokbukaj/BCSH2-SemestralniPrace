@@ -30,7 +30,7 @@ namespace GUI.ViewModels
         [ObservableProperty] private string regPhone;
         [ObservableProperty] private string registerError;
 
-        // View se na tuhle událost pověsí a okno zavře
+        // Údálost pro zavření dialogu
         public event Action<bool?> RequestClose;
 
         public LoginViewModel() { }

@@ -19,6 +19,7 @@ namespace GUI.ViewModels
         private readonly BuyerRepository buyerRep = new BuyerRepository();
         private readonly ArtPieceRepository artRepo = new ArtPieceRepository();
 
+
         private List<Sale> _allSales = new();
         [ObservableProperty]
         private ObservableCollection<Sale> sales = new();

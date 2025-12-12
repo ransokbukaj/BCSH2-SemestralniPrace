@@ -14,14 +14,16 @@ namespace GUI.ViewModels
 {
     public partial class BuyerViewModel : ObservableObject
     {
-        private readonly BuyerRepository repository = new BuyerRepository();
+        private readonly BuyerRepository buyerRepository = new BuyerRepository();
         private readonly AddressRepository addressRepository = new AddressRepository();
 
-
+        //List pro načtení kupců
         private List<Buyer> _allBuyers = new();
+        //List pro zobrazení kupců
         [ObservableProperty]
         private ObservableCollection<Buyer> buyers = new();
 
+        //List pro zobrazení adres
         [ObservableProperty]
         private ObservableCollection<Address> addresses = new();
 
@@ -46,13 +48,16 @@ namespace GUI.ViewModels
         {
             ErrorHandler.SafeExecute(() =>
             {
-                _allBuyers = repository.GetList();
-                //Buyers = new ObservableCollection<Buyer>(_allBuyers);
+                _allBuyers = buyerRepository.GetList();
+                ApplyFilter();
                 Addresses = new ObservableCollection<Address>(addressRepository.GetList());
             }, "Načtení kupců selhalo");
-            ApplyFilter();
+
         }
 
+        /// <summary>
+        /// Metoda pro filtrování obsahu podle jména, příjmení, emailu a telefoního čísla kupce.
+        /// </summary>
         private void ApplyFilter()
         {
             if (_allBuyers == null)
@@ -140,7 +145,7 @@ namespace GUI.ViewModels
                     SelectedBuyer.Adress = Addresses.FirstOrDefault(a => a.Id == SelectedBuyer.Adress.Id);
                 }
 
-                repository.SaveItem(SelectedBuyer);
+                buyerRepository.SaveItem(SelectedBuyer);
                 Load();
             }, "Uložení kupce selhalo.");
         }
@@ -153,7 +158,7 @@ namespace GUI.ViewModels
 
             ErrorHandler.SafeExecute(() =>
             {
-                repository.DeleteItem(SelectedBuyer.Id);
+                buyerRepository.DeleteItem(SelectedBuyer.Id);
                 Load();
             }, "Smazání kupce selhalo. Kupec má pravděpodobně přiřazené prodeje.");
         }

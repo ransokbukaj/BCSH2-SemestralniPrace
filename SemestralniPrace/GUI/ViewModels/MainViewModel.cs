@@ -19,12 +19,13 @@ namespace GUI.ViewModels
         [ObservableProperty]
         private ObservableObject currentViewModel;
 
-        private readonly UserRepository userRep = new UserRepository();
+        private readonly UserRepository userRepository = new UserRepository();
 
+        //Promìnná která obashuje pøihlášenoho uživatele.
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(IsLogged))]
         [NotifyPropertyChangedFor(nameof(IsAdmin))]
-        [NotifyPropertyChangedFor(nameof(CanSimulate))]
+        [NotifyPropertyChangedFor(nameof(CanEmulate))]
         private User currentUser = null;
 
         [ObservableProperty]
@@ -32,7 +33,7 @@ namespace GUI.ViewModels
 
         public bool IsLogged => CurrentUser != null;
         public bool IsAdmin => CurrentUser != null && CurrentUser.Role.Name == "Admin";
-        public bool CanSimulate => IsAdmin && UserManager.isEmulating == false;
+        public bool CanEmulate => IsAdmin && UserManager.isEmulating == false;
 
         [ObservableProperty]
         private string logButtonText;
@@ -50,7 +51,7 @@ namespace GUI.ViewModels
         {
             if (CurrentUser != null && IsAdmin)
             {
-                List<User> list = userRep.GetList().Where(u => u.Id != CurrentUser.Id).ToList();
+                List<User> list = userRepository.GetList().Where(u => u.Id != CurrentUser.Id).ToList();
                 Users = new ObservableCollection<User>(list);
             }
         }
@@ -90,14 +91,14 @@ namespace GUI.ViewModels
 
         }
         [RelayCommand]
-        private void SimulateOtherUser()
+        private void EmulateOtherUser()
         {
             if(SelectedUser != null)
             {
                 UserManager.StartEmulatingUser(SelectedUser);
                 CurrentUser = UserManager.CurrentUser;
                 CurrentViewModel = new HomeViewModel();
-                LogButtonText = "End Simulation";
+                LogButtonText = "Ukonèit emulaci";
             }
             
         }

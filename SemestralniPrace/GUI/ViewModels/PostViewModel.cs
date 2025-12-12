@@ -14,9 +14,11 @@ namespace GUI.ViewModels
 {
     public partial class PostViewModel : ObservableObject
     {
-        private readonly PostRepository repository = new PostRepository();
+        private readonly PostRepository postRepository = new PostRepository();
 
+        //List pro načtení dat
         private List<Post> _allPosts = new();
+        //List pro zobrazení dat
         [ObservableProperty]
         private ObservableCollection<Post> posts = new();
 
@@ -41,12 +43,14 @@ namespace GUI.ViewModels
         {
             ErrorHandler.SafeExecute(() =>
             {
-                _allPosts = repository.GetList();
-                //Posts = new ObservableCollection<Post>(list);
+                _allPosts = postRepository.GetList();
+                
                 ApplyFilter();
             }, "Načtení PSČ selhalo");
         }
-
+        /// <summary>
+        /// Metoda pro filtrování obsahu podle názvu mětsa a PSČ.
+        /// </summary>
         private void ApplyFilter()
         {
             if (_allPosts == null) return;
@@ -114,7 +118,7 @@ namespace GUI.ViewModels
                     return;
                 }
 
-                repository.SaveItem(SelectedPost);
+                postRepository.SaveItem(SelectedPost);
                 Load();
             }, "Uložení PSČ selhalo.");
         }
@@ -127,7 +131,7 @@ namespace GUI.ViewModels
 
             ErrorHandler.SafeExecute(() =>
             {
-                repository.DeleteItem(SelectedPost.Id);
+                postRepository.DeleteItem(SelectedPost.Id);
                 Load();
             }, "Smazání PSČ selhalo. PSČ je pravděpodobně používáno v adresách.");
         }

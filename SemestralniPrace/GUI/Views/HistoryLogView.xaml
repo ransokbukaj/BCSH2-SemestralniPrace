@@ -12,11 +12,22 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Row="0"
-                   Text="Záznamy historie"
-                   FontSize="24"
-                   FontWeight="Bold"
-                   Margin="0,0,0,10"/>
+        <StackPanel Grid.Row="0"
+            Orientation="Horizontal"
+            VerticalAlignment="Center"
+            Margin="0,0,0,10">
+
+            <TextBlock Text="Záznamy historie"
+               FontSize="24"
+               FontWeight="Bold"
+               VerticalAlignment="Center"/>
+
+            <TextBox Width="280"
+             Margin="20,0,0,0"
+             VerticalAlignment="Center"
+             Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
+             ToolTip="Vyhledávání: uživatel, tabulka, operace"/>
+        </StackPanel>
 
         <DataGrid Grid.Row="1"
                   ItemsSource="{Binding HistoryLogs}"
