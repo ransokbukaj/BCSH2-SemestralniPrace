@@ -1,6 +1,7 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using DatabaseAccess;
 using Entities.Home;
+using GUI.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace GUI.ViewModels
 {
-    public partial class HomeViewModel: ObservableObject
+    public partial class HomeViewModel : ObservableObject
     {
         private readonly HomeViewRepository repo = new HomeViewRepository();
 
@@ -32,10 +33,13 @@ namespace GUI.ViewModels
 
         private void Load()
         {
-           CurrentExhibitions = new ObservableCollection<AvailableExhibition>(repo.GetAvailableExhibitions());
-            var list = repo.GetNewArtPieces().Take(amountOfNew).ToList();
-           NewestArtworks = new ObservableCollection<NewArtPiece>(list);
-            Stats = repo.GetGaleryStatistic();
+            ErrorHandler.SafeExecute(() =>
+            {
+                CurrentExhibitions = new ObservableCollection<AvailableExhibition>(repo.GetAvailableExhibitions());
+                var list = repo.GetNewArtPieces().Take(amountOfNew).ToList();
+                NewestArtworks = new ObservableCollection<NewArtPiece>(list);
+                Stats = repo.GetGaleryStatistic();
+            }, "Načtení domovské obrazovky selhalo");
         }
     }
 }
