@@ -19,6 +19,8 @@ namespace GUI.ViewModels
         private readonly CounterRepository counterRep = new CounterRepository();
         private readonly HomeViewRepository homeRep = new HomeViewRepository();
 
+
+        private List<User> _allUsers = new();
         [ObservableProperty]
         private ObservableCollection<User> users = new();
 
@@ -39,6 +41,14 @@ namespace GUI.ViewModels
 
         [ObservableProperty]
         private UserStatistics userStat;
+
+        [ObservableProperty]
+        private string searchText = string.Empty;
+
+        partial void OnSearchTextChanged(string value)
+        {
+            ApplyFilter();
+        }
 
         public UserViewModel()
         {
@@ -61,9 +71,37 @@ namespace GUI.ViewModels
         {
             ErrorHandler.SafeExecute(() =>
             {
-                Users = new ObservableCollection<User>(repository.GetList());
+                _allUsers = repository.GetList();
+                //Users = new ObservableCollection<User>(repository.GetList());
                 Roles = new ObservableCollection<Counter>(counterRep.GetRoles());
+                ApplyFilter();
             }, "Načtení uživatelů selhalo");
+        }
+
+        private void ApplyFilter()
+        {
+            if (_allUsers == null)
+                return;
+
+            var text = (SearchText ?? "").Trim();
+
+            if (string.IsNullOrWhiteSpace(text))
+            {
+                Users = new ObservableCollection<User>(_allUsers);
+                return;
+            }
+
+            var lower = text.ToLowerInvariant();
+
+            var filtered = _allUsers
+                .Where(u =>
+                    (!string.IsNullOrWhiteSpace(u.Username) && u.Username.ToLowerInvariant().Contains(lower)) ||
+                    (!string.IsNullOrWhiteSpace(u.FirstName) && u.FirstName.ToLowerInvariant().Contains(lower)) ||
+                    (!string.IsNullOrWhiteSpace(u.LastName) && u.LastName.ToLowerInvariant().Contains(lower)) ||
+                    (!string.IsNullOrWhiteSpace(u.Email) && u.Email.ToLowerInvariant().Contains(lower)))
+                .ToList();
+
+            Users = new ObservableCollection<User>(filtered);
         }
 
         [RelayCommand]
