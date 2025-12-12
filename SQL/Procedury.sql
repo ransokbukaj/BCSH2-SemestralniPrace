@@ -8,13 +8,13 @@ CREATE OR REPLACE PROCEDURE p_statistiky_umelce(
     o_cena_prumer         OUT NUMBER
 ) IS
 BEGIN
-    -- 1) Počet všech děl autora
+    -- Počet všech děl autora
     SELECT COUNT(*)
     INTO   o_pocet_del
     FROM   umelci_umelecka_dila ud
     WHERE  ud.idumelec = p_idumelec;
 
-    -- 2) Počet prodaných děl
+    -- Počet prodaných děl
     SELECT COUNT(*)
     INTO   o_pocet_prodanych_del
     FROM   umelci_umelecka_dila ud
@@ -22,7 +22,7 @@ BEGIN
     WHERE  ud.idumelec = p_idumelec
       AND  d.idprodej IS NOT NULL;
 
-    -- 3) Souhrnné statistiky cen prodaných děl
+    -- Souhrnné statistiky cen prodaných děl
     SELECT NVL(SUM(p.cena), 0),
            NVL(MIN(p.cena), 0),
            NVL(MAX(p.cena), 0),
@@ -47,7 +47,7 @@ CREATE OR REPLACE PROCEDURE p_trzba_mentorske_vetve(
     o_trzba_celkem     OUT NUMBER
 ) IS
 BEGIN
-    -- 1) počet umělců ve větvi (mentor + žáci)
+    -- počet umělců ve větvi (mentor + žáci)
     WITH strom AS (
         SELECT idumelec
         FROM   umelci
@@ -58,7 +58,7 @@ BEGIN
     INTO   o_pocet_umelcu
     FROM   strom;
 
-    -- 2) unikátní prodeje a tržba (bez duplicit z M:N)
+    -- unikátní prodeje a tržba
     WITH strom AS (
         SELECT idumelec
         FROM   umelci
@@ -95,11 +95,6 @@ CREATE OR REPLACE PROCEDURE p_nejuspesnejsi_potomek(
     o_pocet_del     OUT NUMBER
 ) IS
 BEGIN
-    /*
-      1) Najdeme všechny potomky mentora (mentor NEBUDE zahrnut)
-      2) Spočítáme jejich počet děl podle tabulky UMELCI_UMELECKA_DILA
-      3) Vybereme toho, kdo má největší počet děl
-    */
     WITH strom AS (
         SELECT idumelec
         FROM   umelci
@@ -109,7 +104,7 @@ BEGIN
     potomci AS (
         SELECT idumelec
         FROM   strom
-        WHERE  idumelec <> p_idmentor    -- vynech mentora
+        WHERE  idumelec <> p_idmentor    -- vynechání mentora
     ),
     statistika AS (
         SELECT p.idumelec,
@@ -131,7 +126,6 @@ BEGIN
     FETCH FIRST 1 ROW ONLY;
 EXCEPTION
     WHEN NO_DATA_FOUND THEN
-        -- Žádný potomek nebo žádná díla
         o_idpotomek    := NULL;
         o_jmenopotomek := NULL;
         o_pocet_del    := NULL;
@@ -149,40 +143,40 @@ CREATE OR REPLACE PROCEDURE p_aktivita_uzivatele(
     o_deaktivovan           OUT NUMBER
 ) IS
 BEGIN
-    -- 1) Celkový počet změn
+    -- Celkový počet změn
     SELECT NVL(COUNT(*), 0)
     INTO   o_pocet_zmen
     FROM   zaznamy_historie
     WHERE  iduzivatel = p_iduzivatel;
 
-    -- 2) Počet INSERT
+    -- Počet INSERT
     SELECT NVL(COUNT(*), 0)
     INTO   o_pocet_insertu
     FROM   zaznamy_historie
     WHERE  iduzivatel = p_iduzivatel
       AND  druhoperace = 'INSERT';
 
-    -- 3) Počet UPDATE
+    -- Počet UPDATE
     SELECT NVL(COUNT(*), 0)
     INTO   o_pocet_updatu
     FROM   zaznamy_historie
     WHERE  iduzivatel = p_iduzivatel
       AND  druhoperace = 'UPDATE';
 
-    -- 4) Počet DELETE
+    -- Počet DELETE
     SELECT NVL(COUNT(*), 0)
     INTO   o_pocet_deletu
     FROM   zaznamy_historie
     WHERE  iduzivatel = p_iduzivatel
       AND  druhoperace = 'DELETE';
 
-    -- 5) Datum poslední změny
+    --  Datum poslední změny
     SELECT MAX(datumzmeny)
     INTO   o_posledni_zmena
     FROM   zaznamy_historie
     WHERE  iduzivatel = p_iduzivatel;
 
-    -- 6) Zda je uživatel deaktivovaný
+    -- Zda je uživatel deaktivovaný
     SELECT deaktivovan
     INTO   o_deaktivovan
     FROM   uzivatele
@@ -218,7 +212,7 @@ BEGIN
         WHERE idadresa = p_idadresa;
         
         IF v_count > 0 THEN
-            -- UPDATE - adresa existuje
+            -- adresa existuje
             UPDATE adresy
             SET ulice = p_ulice,
                 cislopopisne = p_cislopopisne,
@@ -226,11 +220,10 @@ BEGIN
                 idposta = p_idposta
             WHERE idadresa = p_idadresa;
         ELSE
-            -- ID bylo zadáno, ale záznam neexistuje
             RAISE_APPLICATION_ERROR(-20001, 'Adresa s ID ' || p_idadresa || ' neexistuje.');
         END IF;
     ELSE
-        -- INSERT - vytvoření nové adresy
+        -- Vytvoření nové adresy
         INSERT INTO adresy (
             ulice,
             cislopopisne,
@@ -282,17 +275,16 @@ BEGIN
         WHERE idposta = p_idposta;
         
         IF v_count > 0 THEN
-            -- UPDATE - pošta existuje
+            -- Pošta existuje
             UPDATE posty
             SET obec = p_obec,
                 psc = p_psc
             WHERE idposta = p_idposta;
         ELSE
-            -- ID bylo zadáno, ale záznam neexistuje
             RAISE_APPLICATION_ERROR(-20003, 'Pošta s ID ' || p_idposta || ' neexistuje.');
         END IF;
     ELSE
-        -- INSERT - vytvoření nové pošty
+        -- Vytvoření nové pošty
         INSERT INTO posty (
             obec,
             psc
@@ -341,18 +333,17 @@ BEGIN
         WHERE idnavsteva = p_idnavsteva;
         
         IF v_count > 0 THEN
-            -- UPDATE - návštěva existuje
+            -- Návštěva existuje
             UPDATE navstevy
             SET datumnavstevy = p_datumnavstevy,
                 iddruhnavstevy = p_iddruhnavstevy,
                 idvystava = p_idvystava
             WHERE idnavsteva = p_idnavsteva;
         ELSE
-            -- ID bylo zadáno, ale záznam neexistuje
             RAISE_APPLICATION_ERROR(-20005, 'Návštěva s ID ' || p_idnavsteva || ' neexistuje.');
         END IF;
     ELSE
-        -- INSERT - vytvoření nové návštěvy
+        -- Vytvoření nové návštěvy
         INSERT INTO navstevy (
             datumnavstevy,
             iddruhnavstevy,
@@ -415,7 +406,7 @@ BEGIN
         WHERE idkupec = p_idkupec;
         
         IF v_count > 0 THEN
-            -- UPDATE - kupec existuje
+            -- Kupec existuje
             UPDATE kupci
             SET jmeno = p_jmeno,
                 prijmeni = p_prijmeni,
@@ -424,11 +415,10 @@ BEGIN
                 idadresa = p_idadresa
             WHERE idkupec = p_idkupec;
         ELSE
-            -- ID bylo zadáno, ale záznam neexistuje
             RAISE_APPLICATION_ERROR(-20008, 'Kupec s ID ' || p_idkupec || ' neexistuje.');
         END IF;
     ELSE
-        -- INSERT - vytvoření nového kupce
+        -- Vytvoření nového kupce
         INSERT INTO kupci (
             jmeno,
             prijmeni,
@@ -521,7 +511,7 @@ BEGIN
         WHERE idprodej = p_idprodej;
         
         IF v_count > 0 THEN
-            -- UPDATE - prodej existuje
+            -- Prodej existuje
             UPDATE prodeje
             SET cena = p_cena,
                 datumprodeje = p_datumprodeje,
@@ -531,11 +521,10 @@ BEGIN
                 idkupec = p_idkupec
             WHERE idprodej = p_idprodej;
         ELSE
-            -- ID bylo zadáno, ale záznam neexistuje
             RAISE_APPLICATION_ERROR(-20014, 'Prodej s ID ' || p_idprodej || ' neexistuje.');
         END IF;
     ELSE
-        -- INSERT - vytvoření nového prodeje
+        -- Vytvoření nového prodeje
         INSERT INTO prodeje (
             cena,
             datumprodeje,
@@ -627,8 +616,8 @@ BEGIN
                 RAISE_APPLICATION_ERROR(-20018, 'Uživatelské jméno "' || p_uzivatelskejmeno || '" je již používáno.');
             END IF;
             
-            -- UPDATE - uživatel existuje
-            -- Pokud je poskytnuto nové heslo, aktualizuj ho
+            -- Uživatel existuje
+            -- Pokud je poskytnuto nové heslo, aktualizuje se
             IF p_heslohash IS NOT NULL AND LENGTH(p_heslohash) > 0 THEN
                 UPDATE uzivatele
                 SET uzivatelskejmeno = p_uzivatelskejmeno,
@@ -640,7 +629,7 @@ BEGIN
                     idrole = p_idrole
                 WHERE iduzivatel = p_iduzivatel;
             ELSE
-                -- Neaktualizuj heslo, pokud není poskytnuto
+                -- Neaktualizuje heslo, pokud není poskytnuto
                 UPDATE uzivatele
                 SET uzivatelskejmeno = p_uzivatelskejmeno,
                     jmeno = p_jmeno,
@@ -651,7 +640,6 @@ BEGIN
                 WHERE iduzivatel = p_iduzivatel;
             END IF;
         ELSE
-            -- ID bylo zadáno, ale záznam neexistuje
             RAISE_APPLICATION_ERROR(-20019, 'Uživatel s ID ' || p_iduzivatel || ' neexistuje.');
         END IF;
     ELSE
@@ -669,7 +657,7 @@ BEGIN
             RAISE_APPLICATION_ERROR(-20020, 'Pro nového uživatele musí být zadáno heslo.');
         END IF;
         
-        -- INSERT - vytvoření nového uživatele
+        -- Vytvoření nového uživatele
         INSERT INTO uzivatele (
             uzivatelskejmeno,
             heslohash,
@@ -854,7 +842,7 @@ BEGIN
         WHERE idumeleckedilo = p_idumeleckedilo;
         
         IF v_count > 0 THEN
-            -- UPDATE - obraz existuje
+            -- Obraz existuje
             UPDATE umelecka_dila
             SET nazev = p_nazev,
                 popis = p_popis,
@@ -865,17 +853,16 @@ BEGIN
                 idvystava = p_idvystava
             WHERE idumeleckedilo = p_idumeleckedilo;
             
-            -- Aktualizace specifických dat obrazu
+            -- Aktualizace dat obrazu
             UPDATE obrazy
             SET idpodklad = p_idpodklad,
                 idtechnika = p_idtechnika
             WHERE idumeleckedilo = p_idumeleckedilo;
         ELSE
-            -- ID bylo zadáno, ale záznam neexistuje
             RAISE_APPLICATION_ERROR(-20055, 'Obraz s ID ' || p_idumeleckedilo || ' neexistuje.');
         END IF;
     ELSE
-        -- INSERT - vytvoření nového obrazu
+        -- Vytvoření nového obrazu
         INSERT INTO umelecka_dila (
             nazev,
             popis,
@@ -1016,7 +1003,7 @@ BEGIN
         WHERE idumeleckedilo = p_idumeleckedilo;
         
         IF v_count > 0 THEN
-            -- UPDATE - socha existuje
+            -- Socha existuje
             UPDATE umelecka_dila
             SET nazev = p_nazev,
                 popis = p_popis,
@@ -1027,18 +1014,17 @@ BEGIN
                 idvystava = p_idvystava
             WHERE idumeleckedilo = p_idumeleckedilo;
             
-            -- Aktualizace specifických dat sochy
+            -- Aktualizace dat sochy
             UPDATE sochy
             SET hloubka = p_hloubka,
                 hmotnost = p_hmotnost,
                 idmaterial = p_idmaterial
             WHERE idumeleckedilo = p_idumeleckedilo;
         ELSE
-            -- ID bylo zadáno, ale záznam neexistuje
             RAISE_APPLICATION_ERROR(-20065, 'Socha s ID ' || p_idumeleckedilo || ' neexistuje.');
         END IF;
     ELSE
-        -- INSERT - vytvoření nové sochy
+        -- Vytvoření nové sochy
         INSERT INTO umelecka_dila (
             nazev,
             popis,
@@ -1143,7 +1129,7 @@ BEGIN
         WHERE idvystava = p_idvystava;
         
         IF v_count > 0 THEN
-            -- UPDATE - výstava existuje
+            -- Výstava existuje
             UPDATE vystavy
             SET nazev = p_nazev,
                 datumod = p_datumod,
@@ -1152,11 +1138,10 @@ BEGIN
                 idvzdelavaciprogram = p_idvzdelavaciprogram
             WHERE idvystava = p_idvystava;
         ELSE
-            -- ID bylo zadáno, ale záznam neexistuje
             RAISE_APPLICATION_ERROR(-20072, 'Výstava s ID ' || p_idvystava || ' neexistuje.');
         END IF;
     ELSE
-        -- INSERT - vytvoření nové výstavy
+        -- Vytvoření nové výstavy
         INSERT INTO vystavy (
             nazev,
             datumod,
@@ -1235,7 +1220,7 @@ BEGIN
         WHERE idvzdelavaciprogram = p_idvzdelavaciprogram;
         
         IF v_count > 0 THEN
-            -- UPDATE - program existuje
+            -- Program existuje
             UPDATE vzdelavaci_programy
             SET nazev = p_nazev,
                 datumod = p_datumod,
@@ -1243,11 +1228,10 @@ BEGIN
                 popis = p_popis
             WHERE idvzdelavaciprogram = p_idvzdelavaciprogram;
         ELSE
-            -- ID bylo zadáno, ale záznam neexistuje
             RAISE_APPLICATION_ERROR(-20081, 'Vzdělávací program s ID ' || p_idvzdelavaciprogram || ' neexistuje.');
         END IF;
     ELSE
-        -- INSERT - vytvoření nového programu
+        -- Vytvoření nového programu
         INSERT INTO vzdelavaci_programy (
             nazev,
             datumod,
@@ -1344,7 +1328,7 @@ BEGIN
         WHERE idumelec = p_idumelec;
 
         IF v_count > 0 THEN
-            -- UPDATE
+
             UPDATE umelci
             SET jmeno = p_jmeno,
                 prijmeni = p_prijmeni,
@@ -1357,7 +1341,7 @@ BEGIN
             RAISE_APPLICATION_ERROR(-20092, 'Umělec s ID ' || p_idumelec || ' neexistuje.');
         END IF;
     ELSE
-        -- INSERT
+       
         INSERT INTO umelci (
             jmeno,
             prijmeni,
@@ -1424,7 +1408,7 @@ CREATE OR REPLACE PROCEDURE p_save_priloha (
     p_typsouboru     IN VARCHAR2,
     p_nazevsouboru   IN VARCHAR2,
     p_idumeleckedilo IN INTEGER,
-    p_idpriloha      IN INTEGER  -- pokud NULL → insert, jinak update/insert
+    p_idpriloha      IN INTEGER 
 ) AS
     v_count INTEGER;
 BEGIN
@@ -1436,7 +1420,6 @@ BEGIN
          WHERE idpriloha = p_idpriloha;
 
         IF v_count > 0 THEN
-            -- UPDATE existující přílohy
             UPDATE prilohy
                SET soubor         = p_soubor,
                    typsouboru     = p_typsouboru,
@@ -1444,7 +1427,6 @@ BEGIN
                    idumeleckedilo = p_idumeleckedilo
              WHERE idpriloha      = p_idpriloha;
         ELSE
-            -- id je sice předané, ale záznam neexistuje → vložíme s tímhle id
             INSERT INTO prilohy (
                 idpriloha,
                 soubor,
@@ -1460,7 +1442,7 @@ BEGIN
             );
         END IF;
     ELSE
-        -- nový záznam, id se neudává → doplní trigger přes sekvenci
+        -- nový záznam
         INSERT INTO prilohy (
             soubor,
             typsouboru,
@@ -1502,9 +1484,6 @@ BEGIN
     );
 EXCEPTION
     WHEN DUP_VAL_ON_INDEX THEN
-        -- záznam už existuje (stejný umelec + stejné dílo)
-        -- můžeš buď ignorovat, nebo odchytit jako chybu:
-        -- RAISE_APPLICATION_ERROR(-20001, 'Tento umelec už je k tomuto dílu přiřazen.');
         NULL;
 END;
 /
@@ -1518,9 +1497,7 @@ BEGIN
     WHERE idumeleckedilo = p_idumeleckedilo
       AND idumelec       = p_idumelec;
 
-    -- volitelné: kontrola, jestli se opravdu něco smazalo
     IF SQL%ROWCOUNT = 0 THEN
-        -- RAISE_APPLICATION_ERROR(-20002, 'Tento umelec není k tomuto dílu přiřazen.');
         NULL;
     END IF;
 END;
@@ -1542,9 +1519,8 @@ IS
     v_datumod          vystavy.datumod%TYPE;
     v_datumdo          vystavy.datumdo%TYPE;
 BEGIN
-    ----------------------------------------------------------------------
-    -- 1) Kontrola existence uměleckého díla
-    ----------------------------------------------------------------------
+    
+    -- Kontrola existence uměleckého díla
     SELECT COUNT(*)
     INTO v_existuje_dilo
     FROM umelecka_dila
@@ -1554,9 +1530,8 @@ BEGIN
         RAISE_APPLICATION_ERROR(-20001, 'Umělecké dílo s daným ID neexistuje.');
     END IF;
 
-    ----------------------------------------------------------------------
-    -- 2) Kontrola existence výstavy
-    ----------------------------------------------------------------------
+    -- Kontrola existence výstavy
+
     SELECT COUNT(*)
     INTO v_existuje_vystava
     FROM vystavy
@@ -1566,9 +1541,9 @@ BEGIN
         RAISE_APPLICATION_ERROR(-20002, 'Výstava s daným ID neexistuje.');
     END IF;
 
-    ----------------------------------------------------------------------
-    -- 3) Načtení datumu zveřejnění díla + datumů výstavy
-    ----------------------------------------------------------------------
+
+    -- Načtení datumu zveřejnění díla + datumů výstavy
+ 
     SELECT datumzverejneni
       INTO v_datumzverejneni
       FROM umelecka_dila
@@ -1579,19 +1554,6 @@ BEGIN
       FROM vystavy
      WHERE idvystava = p_idvystava;
 
-    ----------------------------------------------------------------------
-    -- 4) Kontrola logiky dat: dílo nesmí být zveřejněno po výstavě
-    ----------------------------------------------------------------------
-    -- IF v_datumzverejneni > v_datumdo THEN
-    --     RAISE_APPLICATION_ERROR(
-    --         -20003,
-    --         'Dílo bylo zveřejněno až po skončení výstavy.'
-    --     );
-    -- END IF;
-
-    ----------------------------------------------------------------------
-    -- 5) Přiřazení díla na výstavu
-    ----------------------------------------------------------------------
     UPDATE umelecka_dila
        SET idvystava = p_idvystava
      WHERE idumeleckedilo = p_idumeleckedilo;
