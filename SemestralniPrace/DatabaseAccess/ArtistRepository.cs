@@ -63,7 +63,7 @@ namespace DatabaseAccess
         /// <summary>
         /// Metoda pro uložení nebo editaci umělce.
         /// </summary>
-        /// <param name="artist"></param>
+        /// <param name="artist">Umělec k přídání nebo úpravě.</param>
         public void SaveItem(Artist artist)
         {
             using (var transaction = ConnectionManager.Connection.BeginTransaction())
@@ -156,7 +156,7 @@ namespace DatabaseAccess
         /// <summary>
         /// Metoda pro smazání umělce.
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="id">Id umělce k odebrání.</param>
         public void DeleteItem(int id)
         {
             using (var transaction = ConnectionManager.Connection.BeginTransaction())
@@ -192,7 +192,7 @@ namespace DatabaseAccess
         /// <summary>
         /// Metoda pro získání všech umělců z databáze, kteří vytviřoli dílo s určitým id.
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="id">Id uměleckého díla.</param>
         /// <returns>List umělců, kteří vytvořili dilo s určitým id.</returns>
         public List<Artist> GetListByArtPieceId(int id)
         {
@@ -248,8 +248,8 @@ namespace DatabaseAccess
         /// <summary>
         /// Metoda pro přiřazení díla k umělci za pomoci id díla id umělce.
         /// </summary>
-        /// <param name="id"></param>
-        /// <param name="idArt"></param>
+        /// <param name="id">Id umělce.</param>
+        /// <param name="idArt">Id uměleckého díla k přidání.</param>
         public void AddArtistToArtPiece(int id, int idArt)
         {
             using (var transaction = ConnectionManager.Connection.BeginTransaction())
@@ -296,8 +296,8 @@ namespace DatabaseAccess
         /// <summary>
         /// Metoda pro odebrání díla od umělce za pomoci id díla a id umělce.
         /// </summary>
-        /// <param name="id"></param>
-        /// <param name="idArt"></param>
+        /// <param name="id">Id umělce</param>
+        /// <param name="idArt">Id uměleckého díla k odebrání.</param>
         public void RemoveArtistFromArtPiece(int id, int idArt)
         {
             using (var transaction = ConnectionManager.Connection.BeginTransaction())
@@ -344,7 +344,7 @@ namespace DatabaseAccess
         /// <summary>
         /// Metoda pro zisk všech možných mentorů k umělci s určitým id.
         /// </summary>
-        /// <param name="idOfArtist"></param>
+        /// <param name="idOfArtist">Id umělce.</param>
         /// <returns>List umělců, kteří by mohli být mentorem pro zadaného umělce.</returns>
         public List<Artist> GetAvailableMentors(int idOfArtist)
         {

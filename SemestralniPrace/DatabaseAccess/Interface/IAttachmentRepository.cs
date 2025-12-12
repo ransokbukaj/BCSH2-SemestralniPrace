@@ -9,8 +9,6 @@ namespace DatabaseAccess.Interface
 {
     internal interface IAttachmentRepository
     {
-        List<Attachment> GetList();
-
         List<Attachment> GetListByArtPieceId(int id);
 
         void SaveItem(Attachment attachment, int id);

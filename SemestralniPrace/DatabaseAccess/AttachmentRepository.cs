@@ -11,11 +11,11 @@ namespace DatabaseAccess
 {
     public class AttachmentRepository : IAttachmentRepository
     {
-        public List<Attachment> GetList()
-        {
-            throw new NotImplementedException();
-        }
-
+        /// <summary>
+        /// Metoda pro získání všech příloh k určitému uměleckému dílu.
+        /// </summary>
+        /// <param name="id">Id uměleckého díla.</param>
+        /// <returns>List příloh patřících k určítému dílu.</returns>
         public List<Attachment> GetListByArtPieceId(int id)
         {
             var list = new List<Attachment>();
@@ -58,6 +58,11 @@ namespace DatabaseAccess
             return list;
         }
 
+        /// <summary>
+        /// Metoda pro uložení přílohy k učitému uměleckému dílu.
+        /// </summary>
+        /// <param name="attachment">Příloha k danému dílu</param>
+        /// <param name="artId">Id uměleckého díla.</param>
         public void SaveItem(Attachment attachment, int artId)
         {
             using (var transaction = ConnectionManager.Connection.BeginTransaction())
@@ -116,11 +121,8 @@ namespace DatabaseAccess
                         };
                         command.Parameters.Add(paramAttId);
 
-                        // Provedení procedury
                         command.ExecuteNonQuery();
                     }
-
-                    // Commit transakce
                     transaction.Commit();
                 }
                 catch
@@ -131,6 +133,10 @@ namespace DatabaseAccess
             }
         }
 
+        /// <summary>
+        /// Metoda pro odtránění přílohy.
+        /// </summary>
+        /// <param name="id">    </param>
         public void DeleteItem(int id)
         {
             using (var transaction = ConnectionManager.Connection.BeginTransaction())

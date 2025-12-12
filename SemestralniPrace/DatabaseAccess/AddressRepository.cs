@@ -57,7 +57,7 @@ namespace DatabaseAccess
         /// <summary>
         /// Metoda pro uložení a editaci adres.
         /// </summary>
-        /// <param name="address"></param>
+        /// <param name="address">Adresa k přidání nebo úpravě.</param>
         public void SaveItem(Address address)
         {
             using (var transaction = ConnectionManager.Connection.BeginTransaction())
@@ -130,7 +130,7 @@ namespace DatabaseAccess
         /// <summary>
         /// Metoda pro smazání adresy z databáze.
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="id">Id adresy k odebrání.</param>
         public void DeleteItem(int id)
         {
             using (var transaction = ConnectionManager.Connection.BeginTransaction())
