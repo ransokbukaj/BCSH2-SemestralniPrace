@@ -15,12 +15,14 @@ namespace GUI.ViewModels
 {
     public partial class UserViewModel : ObservableObject
     {
-        private readonly UserRepository repository = new UserRepository();
-        private readonly CounterRepository counterRep = new CounterRepository();
-        private readonly UtilityRepository homeRep = new UtilityRepository();
+        private readonly UserRepository userRepositiry = new UserRepository();
+        private readonly CounterRepository counterRepository = new CounterRepository();
+        private readonly UtilityRepository utilyRepository = new UtilityRepository();
 
-
+        //List pro načtení všech uživatelů
         private List<User> _allUsers = new();
+
+        //List pro zobrazení uživatelů
         [ObservableProperty]
         private ObservableCollection<User> users = new();
 
@@ -62,7 +64,7 @@ namespace GUI.ViewModels
             NewPasswordConfirm = string.Empty;
             if(SelectedUser != null)
             {
-                UserStat = homeRep.GetUserStatistics(SelectedUser.Id);
+                UserStat = utilyRepository.GetUserStatistics(SelectedUser.Id);
             }
         }
 
@@ -71,13 +73,16 @@ namespace GUI.ViewModels
         {
             ErrorHandler.SafeExecute(() =>
             {
-                _allUsers = repository.GetList();
-                //Users = new ObservableCollection<User>(repository.GetList());
-                Roles = new ObservableCollection<Counter>(counterRep.GetRoles());
+                _allUsers = userRepositiry.GetList();
+                
+                Roles = new ObservableCollection<Counter>(counterRepository.GetRoles());
                 ApplyFilter();
             }, "Načtení uživatelů selhalo");
         }
 
+        /// <summary>
+        /// Metoda pro filtrování uživatelů podle jejich uživatelského jména, křestního jména, příjmeni a emailu
+        /// </summary>
         private void ApplyFilter()
         {
             if (_allUsers == null)
@@ -154,7 +159,7 @@ namespace GUI.ViewModels
                 }
 
                 SelectedUser.Password = NewPassword;
-                repository.SaveItem(SelectedUser);
+                userRepositiry.SaveItem(SelectedUser);
                 Load();
             }, "Uložení uživatele selhalo.");
         }
@@ -167,7 +172,7 @@ namespace GUI.ViewModels
 
             ErrorHandler.SafeExecute(() =>
             {
-                repository.DeleteItem(SelectedUser.Id);
+                userRepositiry.DeleteItem(SelectedUser.Id);
                 Load();
             }, "Smazání uživatele selhalo");
         }
@@ -197,7 +202,7 @@ namespace GUI.ViewModels
                     return;
                 }
 
-                repository.ChangePassword(SelectedUser.Id, NewPassword);
+                userRepositiry.ChangePassword(SelectedUser.Id, NewPassword);
                 ErrorLog = "Heslo úspěšně změněno.";
 
                 NewPassword = string.Empty;

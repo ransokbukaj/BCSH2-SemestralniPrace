@@ -14,13 +14,14 @@ namespace GUI.ViewModels
 {
     public partial class SaleViewModel : ObservableObject
     {
-        private readonly SaleRepository repository = new SaleRepository();
-        private readonly CounterRepository counterRep = new CounterRepository();
-        private readonly BuyerRepository buyerRep = new BuyerRepository();
-        private readonly ArtPieceRepository artRepo = new ArtPieceRepository();
+        private readonly SaleRepository saleRepository = new SaleRepository();
+        private readonly CounterRepository counterRepository = new CounterRepository();
+        private readonly BuyerRepository buyerRepository = new BuyerRepository();
+        private readonly ArtPieceRepository artPieceRepository = new ArtPieceRepository();
 
-
+        //List pro načtení dat
         private List<Sale> _allSales = new();
+        //List pro zobrazení prodejů
         [ObservableProperty]
         private ObservableCollection<Sale> sales = new();
 
@@ -30,6 +31,7 @@ namespace GUI.ViewModels
         [ObservableProperty]
         private ObservableCollection<ArtPiece> availableArtPieces = new();
 
+        //Zobrazení umeleckých děl v prodeji
         [ObservableProperty]
         private ObservableCollection<ArtPiece> saleArtPieces = new();
 
@@ -59,52 +61,12 @@ namespace GUI.ViewModels
             {
                 if (SelectedSale != null)
                 {
-                    SaleArtPieces = new ObservableCollection<ArtPiece>(artRepo.GetListBySaleId(SelectedSale.Id));
-                    AvailableArtPieces = new ObservableCollection<ArtPiece>(artRepo.GetListUnsold());
+                    SaleArtPieces = new ObservableCollection<ArtPiece>(artPieceRepository.GetListBySaleId(SelectedSale.Id));
+                    AvailableArtPieces = new ObservableCollection<ArtPiece>(artPieceRepository.GetListUnsold());
                 }
             }, "Načtení uměleckých děl pro prodej selhalo");
         }
 
-        [RelayCommand]
-        private void AddArtPiece()
-        {
-            if (SelectedSale == null || SelectedArtPieceToAdd == null)
-                return;
-
-            ErrorHandler.SafeExecute(() =>
-            {
-                // Kontrola, zda je prodej již uložen
-                if (SelectedSale.Id == 0)
-                {
-                    ErrorHandler.ShowError("Validační chyba", "Před přidáním uměleckého díla musíte nejprve uložit prodej");
-                    return;
-                }
-
-                artRepo.AddArtPieceToSale(SelectedArtPieceToAdd.Id, SelectedSale.Id);
-
-                SaleArtPieces.Add(SelectedArtPieceToAdd);
-                AvailableArtPieces.Remove(SelectedArtPieceToAdd);
-
-                SelectedArtPieceToAdd = AvailableArtPieces.FirstOrDefault();
-            }, "Přidání uměleckého díla do prodeje selhalo");
-        }
-
-        [RelayCommand]
-        private void RemoveArtPiece()
-        {
-            if (SelectedSale == null || SelectedArtPieceToRemove == null)
-                return;
-
-            ErrorHandler.SafeExecute(() =>
-            {
-                artRepo.RemoveArtPieceFromSale(SelectedArtPieceToRemove.Id);
-
-                AvailableArtPieces.Add(SelectedArtPieceToRemove);
-                SaleArtPieces.Remove(SelectedArtPieceToRemove);
-
-                SelectedArtPieceToRemove = SaleArtPieces.FirstOrDefault();
-            }, "Odebrání uměleckého díla z prodeje selhalo");
-        }
 
         public SaleViewModel()
         {
@@ -116,14 +78,17 @@ namespace GUI.ViewModels
         {
             ErrorHandler.SafeExecute(() =>
             {
-                _allSales = repository.GetList();
-                //Sales = new ObservableCollection<Sale>(repository.GetList());
-                TypesOfPayment = new ObservableCollection<Counter>(counterRep.GetPaymentMethods());
-                Buyers = new ObservableCollection<Buyer>(buyerRep.GetList());
+                _allSales = saleRepository.GetList();
+                
+                TypesOfPayment = new ObservableCollection<Counter>(counterRepository.GetPaymentMethods());
+                Buyers = new ObservableCollection<Buyer>(buyerRepository.GetList());
                 ApplyFilter();
             }, "Načtení prodejů selhalo");
         }
 
+        /// <summary>
+        /// Metoda pro filtrování prodejů podle ceny, data a karty/účtu
+        /// </summary>
         private void ApplyFilter()
         {
             if (_allSales == null)
@@ -160,6 +125,47 @@ namespace GUI.ViewModels
             }).ToList();
 
             Sales = new ObservableCollection<Sale>(filtered);
+        }
+
+
+        [RelayCommand]
+        private void AddArtPiece()
+        {
+            if (SelectedSale == null || SelectedArtPieceToAdd == null)
+                return;
+
+            ErrorHandler.SafeExecute(() =>
+            {
+                if (SelectedSale.Id == 0)
+                {
+                    ErrorHandler.ShowError("Validační chyba", "Před přidáním uměleckého díla musíte nejprve uložit prodej");
+                    return;
+                }
+
+                artPieceRepository.AddArtPieceToSale(SelectedArtPieceToAdd.Id, SelectedSale.Id);
+
+                SaleArtPieces.Add(SelectedArtPieceToAdd);
+                AvailableArtPieces.Remove(SelectedArtPieceToAdd);
+
+                SelectedArtPieceToAdd = AvailableArtPieces.FirstOrDefault();
+            }, "Přidání uměleckého díla do prodeje selhalo");
+        }
+
+        [RelayCommand]
+        private void RemoveArtPiece()
+        {
+            if (SelectedSale == null || SelectedArtPieceToRemove == null)
+                return;
+
+            ErrorHandler.SafeExecute(() =>
+            {
+                artPieceRepository.RemoveArtPieceFromSale(SelectedArtPieceToRemove.Id);
+
+                AvailableArtPieces.Add(SelectedArtPieceToRemove);
+                SaleArtPieces.Remove(SelectedArtPieceToRemove);
+
+                SelectedArtPieceToRemove = SaleArtPieces.FirstOrDefault();
+            }, "Odebrání uměleckého díla z prodeje selhalo");
         }
 
         [RelayCommand]
@@ -203,7 +209,7 @@ namespace GUI.ViewModels
                     SelectedSale.TypeOfPayment = TypesOfPayment.FirstOrDefault(p => p.Id == SelectedSale.TypeOfPayment.Id);
                 }
 
-                repository.SaveItem(SelectedSale);
+                saleRepository.SaveItem(SelectedSale);
                 Load();
             }, "Uložení prodeje selhalo.");
         }
@@ -216,7 +222,7 @@ namespace GUI.ViewModels
 
             ErrorHandler.SafeExecute(() =>
             {
-                repository.DeleteItem(SelectedSale.Id);
+                saleRepository.DeleteItem(SelectedSale.Id);
                 Load();
             }, "Smazání prodeje selhalo. Prodej má pravděpodobně přiřazená umělecká díla.");
         }

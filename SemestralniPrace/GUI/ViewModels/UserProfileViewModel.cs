@@ -13,7 +13,7 @@ namespace GUI.ViewModels
 {
     public partial class UserProfileViewModel : ObservableObject
     {
-        private readonly UserRepository repo = new UserRepository();
+        private readonly UserRepository userRepository = new UserRepository();
 
         [ObservableProperty]
         private User currentUser;
@@ -51,7 +51,7 @@ namespace GUI.ViewModels
                     return;
                 }
 
-                repo.ChangePassword(CurrentUser.Id, NewPassword);
+                userRepository.ChangePassword(CurrentUser.Id, NewPassword);
                 ErrorLog = "Heslo úspěšně změněno.";
 
                 NewPassword = string.Empty;
@@ -92,7 +92,7 @@ namespace GUI.ViewModels
                     return;
                 }
 
-                repo.SaveItem(CurrentUser);
+                userRepository.SaveItem(CurrentUser);
                 ErrorLog = "Profil úspěšně uložen.";
             }, "Uložení profilu selhalo. Uživatelské jméno může být již obsazené.");
         }

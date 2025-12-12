@@ -17,13 +17,14 @@ namespace GUI.ViewModels
 {
     public partial class SculptureViewModel : ObservableObject
     {
-        private readonly SculptureRepository repository = new SculptureRepository();
-        private readonly CounterRepository counterRep = new CounterRepository();
-        private readonly AttachmentRepository attRep = new AttachmentRepository();
-        private readonly ArtistRepository artistRep = new ArtistRepository();
+        private readonly SculptureRepository sculptureRepository = new SculptureRepository();
+        private readonly CounterRepository counterRepository = new CounterRepository();
+        private readonly AttachmentRepository attachmentRepository = new AttachmentRepository();
+        private readonly ArtistRepository rtistrepository = new ArtistRepository();
 
-
+        //List pro načtení dat
         private List<Sculpture> _allSculptures = new();
+        //List pro zobrazení dat
         [ObservableProperty]
         private ObservableCollection<Sculpture> sculptures = new();
 
@@ -69,7 +70,7 @@ namespace GUI.ViewModels
                 ErrorHandler.SafeExecute(() =>
                 {
                     Attachments = new ObservableCollection<Attachment>(
-                        attRep.GetListByArtPieceId(SelectedSculpture.Id));
+                        attachmentRepository.GetListByArtPieceId(SelectedSculpture.Id));
 
                     if (Attachments.Count > 0)
                     {
@@ -83,12 +84,12 @@ namespace GUI.ViewModels
                     }
 
                     Authors = new ObservableCollection<Artist>(
-                        artistRep.GetListByArtPieceId(SelectedSculpture.Id));
+                        rtistrepository.GetListByArtPieceId(SelectedSculpture.Id));
 
                     var assignedIds = new HashSet<int>(
-                        artistRep.GetListByArtPieceId(SelectedSculpture.Id).Select(a => a.Id));
+                        rtistrepository.GetListByArtPieceId(SelectedSculpture.Id).Select(a => a.Id));
 
-                    var coll = artistRep.GetList().Where(a => !assignedIds.Contains(a.Id)).ToList();
+                    var coll = rtistrepository.GetList().Where(a => !assignedIds.Contains(a.Id)).ToList();
                     AvailableArtists = new ObservableCollection<Artist>(coll);
                 }, "Načtení detailů sochy selhalo");
             }
@@ -103,6 +104,51 @@ namespace GUI.ViewModels
                     SelectedImage = AttachmentHelper.LoadImageSource(SelectedAttachment.File);
                 }, "Načtení obrázku selhalo");
             }
+        }
+
+        
+        public SculptureViewModel()
+        {
+            Load();
+        }
+
+        [RelayCommand]
+        private void Load()
+        {
+            ErrorHandler.SafeExecute(() =>
+            {
+                _allSculptures = sculptureRepository.GetList();
+                
+                Materials = new ObservableCollection<Counter>(counterRepository.GetMaterials());
+                ApplyFilter();
+            }, "Načtení soch selhalo");
+        }
+
+        /// <summary>
+        /// Metoda pro filtrování obsahu podle názvu sochy
+        /// </summary>
+        private void ApplyFilter()
+        {
+            if (_allSculptures == null)
+                return;
+
+            var text = (SearchText ?? string.Empty).Trim();
+
+            if (string.IsNullOrWhiteSpace(text))
+            {
+                Sculptures = new ObservableCollection<Sculpture>(_allSculptures);
+                return;
+            }
+
+            var lower = text.ToLowerInvariant();
+
+            var filtered = _allSculptures
+                .Where(s =>
+                    (!string.IsNullOrWhiteSpace(s.Name) && s.Name.ToLowerInvariant().Contains(lower))
+                )
+                .ToList();
+
+            Sculptures = new ObservableCollection<Sculpture>(filtered);
         }
 
         [RelayCommand]
@@ -122,7 +168,7 @@ namespace GUI.ViewModels
 
             ErrorHandler.SafeExecute(() =>
             {
-                artistRep.AddArtistToArtPiece(SelectedArtistToAdd.Id, SelectedSculpture.Id);
+                rtistrepository.AddArtistToArtPiece(SelectedArtistToAdd.Id, SelectedSculpture.Id);
                 Authors.Add(SelectedArtistToAdd);
                 AvailableArtists.Remove(SelectedArtistToAdd);
 
@@ -147,7 +193,7 @@ namespace GUI.ViewModels
 
             ErrorHandler.SafeExecute(() =>
             {
-                artistRep.RemoveArtistFromArtPiece(SelectedArtistToRemove.Id, SelectedSculpture.Id);
+                rtistrepository.RemoveArtistFromArtPiece(SelectedArtistToRemove.Id, SelectedSculpture.Id);
                 AvailableArtists.Add(SelectedArtistToRemove);
                 Authors.Remove(SelectedArtistToRemove);
 
@@ -218,7 +264,7 @@ namespace GUI.ViewModels
                         FileType = Path.GetExtension(dlg.FileName)
                     };
 
-                    attRep.SaveItem(att, SelectedSculpture.Id);
+                    attachmentRepository.SaveItem(att, SelectedSculpture.Id);
                     Attachments.Add(att);
                     SelectedAttachment = att;
                 }
@@ -236,7 +282,7 @@ namespace GUI.ViewModels
 
             ErrorHandler.SafeExecute(() =>
             {
-                attRep.DeleteItem(SelectedAttachment.Id);
+                attachmentRepository.DeleteItem(SelectedAttachment.Id);
 
                 SelectedImage = null;
                 Attachments.Remove(SelectedAttachment);
@@ -244,46 +290,6 @@ namespace GUI.ViewModels
             }, "Smazání obrázku selhalo");
         }
 
-        public SculptureViewModel()
-        {
-            Load();
-        }
-
-        [RelayCommand]
-        private void Load()
-        {
-            ErrorHandler.SafeExecute(() =>
-            {
-                _allSculptures = repository.GetList();
-                //Sculptures = new ObservableCollection<Sculpture>(repository.GetList());
-                Materials = new ObservableCollection<Counter>(counterRep.GetMaterials());
-                ApplyFilter();
-            }, "Načtení soch selhalo");
-        }
-
-        private void ApplyFilter()
-        {
-            if (_allSculptures == null)
-                return;
-
-            var text = (SearchText ?? string.Empty).Trim();
-
-            if (string.IsNullOrWhiteSpace(text))
-            {
-                Sculptures = new ObservableCollection<Sculpture>(_allSculptures);
-                return;
-            }
-
-            var lower = text.ToLowerInvariant();
-
-            var filtered = _allSculptures
-                .Where(s =>
-                    (!string.IsNullOrWhiteSpace(s.Name) && s.Name.ToLowerInvariant().Contains(lower))
-                )
-                .ToList();
-
-            Sculptures = new ObservableCollection<Sculpture>(filtered);
-        }
 
         [RelayCommand]
         private void New()
@@ -345,7 +351,7 @@ namespace GUI.ViewModels
                     SelectedSculpture.Material = Materials.FirstOrDefault(p => p.Id == SelectedSculpture.Material.Id);
                 }
 
-                repository.SaveItem(SelectedSculpture);
+                sculptureRepository.SaveItem(SelectedSculpture);
                 Load();
             }, "Uložení sochy selhalo.");
         }
@@ -358,7 +364,7 @@ namespace GUI.ViewModels
 
             ErrorHandler.SafeExecute(() =>
             {
-                repository.DeleteItem(SelectedSculpture.Id);
+                sculptureRepository.DeleteItem(SelectedSculpture.Id);
                 Load();
             }, "Smazání sochy selhalo.");
         }

@@ -14,12 +14,13 @@ namespace GUI.ViewModels
 {
     public partial class VisitViewModel : ObservableObject
     {
-        private readonly VisitRepository _repository = new VisitRepository();
-        private readonly CounterRepository counterRep = new CounterRepository();
-        private readonly ExhibitionRepository exhibitRep = new ExhibitionRepository();
+        private readonly VisitRepository visitRepository = new VisitRepository();
+        private readonly CounterRepository counterRepository = new CounterRepository();
+        private readonly ExhibitionRepository exhibitRepository = new ExhibitionRepository();
 
-
+        //List pro načtení všech návštěv
         private List<Visit> _allVisits = new();
+        //List pro zobrazení návštěv
         [ObservableProperty]
         private ObservableCollection<Visit> visits = new();
 
@@ -51,14 +52,17 @@ namespace GUI.ViewModels
         {
             ErrorHandler.SafeExecute(() =>
             {
-                _allVisits = _repository.GetList();
-                //Visits = new ObservableCollection<Visit>(_repository.GetList());
-                VisitTypes = new ObservableCollection<VisitType>(counterRep.GetVisitTypes());
-                Exhibitions = new ObservableCollection<Exhibition>(exhibitRep.GetList());
+                _allVisits = visitRepository.GetList();
+                
+                VisitTypes = new ObservableCollection<VisitType>(counterRepository.GetVisitTypes());
+                Exhibitions = new ObservableCollection<Exhibition>(exhibitRepository.GetList());
                 ApplyFilter();
             }, "Načtení návštěv selhalo");
         }
 
+        /// <summary>
+        /// Metoda pro filtrování obsahu podle data a druhu návštevy
+        /// </summary>
         private void ApplyFilter()
         {
             var text = (SearchText ?? "").Trim();
@@ -76,11 +80,8 @@ namespace GUI.ViewModels
                 // datum jako text (dd.MM.yyyy)
                 var dateText = v.DateOfVisit.ToString("dd.MM.yyyy").ToLowerInvariant();
 
-                // typ návštěvy
+                // drug návštěvy
                 var typeText = v.VisitType?.Name?.ToLowerInvariant() ?? "";
-
-                // když chceš i id, můžeš přidat:
-                // var idText = v.Id.ToString();
 
                 return dateText.Contains(lower)
                        || typeText.Contains(lower);
@@ -125,7 +126,7 @@ namespace GUI.ViewModels
                     return;
                 }
 
-                _repository.SaveItem(SelectedVisit, SelectedVisit.ExhibitionCounter.Id);
+                visitRepository.SaveItem(SelectedVisit, SelectedVisit.ExhibitionCounter.Id);
                 Load();
             }, "Uložení návštěvy selhalo.");
         }
@@ -138,7 +139,7 @@ namespace GUI.ViewModels
 
             ErrorHandler.SafeExecute(() =>
             {
-                _repository.DeleteItem(SelectedVisit.Id);
+                visitRepository.DeleteItem(SelectedVisit.Id);
                 Load();
             }, "Smazání návštěvy selhalo");
         }
