@@ -14,6 +14,8 @@ namespace GUI.ViewModels
         private readonly ArtPieceRepository artRepo = new ArtPieceRepository();
         private readonly HomeViewRepository homeRep = new HomeViewRepository();
 
+
+        private List<Artist> _allArtists = new();
         [ObservableProperty]
         private ObservableCollection<Artist> artists = new();
 
@@ -32,6 +34,8 @@ namespace GUI.ViewModels
         [ObservableProperty]
         private MostSuccesfulMentore mostSuccesfulMentore;
 
+        [ObservableProperty]
+        private string searchText;
         public ArtistPublicViewModel()
         {
             Load();
@@ -61,11 +65,52 @@ namespace GUI.ViewModels
         {
             ErrorHandler.SafeExecute(() =>
             {
-                var list = repository.GetList();
-                Artists = new ObservableCollection<Artist>(list);
+                _allArtists = repository.GetList();
+                //Artists = new ObservableCollection<Artist>(list);
+                ApplyFilter();
                 Stat = null;
             }, "Načtení umělců selhalo");
+            ApplyFilter();
         }
+
+        partial void OnSearchTextChanged(string value)
+        {
+            ApplyFilter();
+        }
+
+        private void ApplyFilter()
+        {
+            if (_allArtists == null)
+                return;
+
+            if (string.IsNullOrWhiteSpace(SearchText))
+            {
+                // žádný filtr → zobraz vše
+                Artists = new ObservableCollection<Artist>(_allArtists);
+            }
+            else
+            {
+                string filter = SearchText.Trim().ToLower();
+
+                var filtered = _allArtists.Where(a =>
+                    (!string.IsNullOrEmpty(a.FirstName) && a.FirstName.ToLower().Contains(filter)) ||
+                    (!string.IsNullOrEmpty(a.LastName) && a.LastName.ToLower().Contains(filter))
+                );
+
+                Artists = new ObservableCollection<Artist>(filtered);
+            }
+
+            // pokud po filtrování nic není → odznač detail
+            if (!Artists.Contains(SelectedArtist))
+            {
+                SelectedArtist = null;
+                ArtPieces.Clear();
+                Stat = null;
+                MentorBranch = null;
+                MostSuccesfulMentore = null;
+            }
+        }
+
 
         [RelayCommand]
         private void New()
