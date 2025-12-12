@@ -19,6 +19,7 @@ namespace GUI.ViewModels
         private readonly BuyerRepository buyerRep = new BuyerRepository();
         private readonly ArtPieceRepository artRepo = new ArtPieceRepository();
 
+        private List<Sale> _allSales = new();
         [ObservableProperty]
         private ObservableCollection<Sale> sales = new();
 
@@ -42,6 +43,14 @@ namespace GUI.ViewModels
 
         [ObservableProperty]
         private ArtPiece selectedArtPieceToAdd;
+
+        [ObservableProperty]
+        private string searchText = string.Empty;
+
+        partial void OnSearchTextChanged(string value)
+        {
+            ApplyFilter();
+        }
 
         partial void OnSelectedSaleChanged(Sale value)
         {
@@ -106,10 +115,50 @@ namespace GUI.ViewModels
         {
             ErrorHandler.SafeExecute(() =>
             {
-                Sales = new ObservableCollection<Sale>(repository.GetList());
+                _allSales = repository.GetList();
+                //Sales = new ObservableCollection<Sale>(repository.GetList());
                 TypesOfPayment = new ObservableCollection<Counter>(counterRep.GetPaymentMethods());
                 Buyers = new ObservableCollection<Buyer>(buyerRep.GetList());
+                ApplyFilter();
             }, "Načtení prodejů selhalo");
+        }
+
+        private void ApplyFilter()
+        {
+            if (_allSales == null)
+                return;
+
+            var text = (SearchText ?? "").Trim();
+
+            if (string.IsNullOrWhiteSpace(text))
+            {
+                Sales = new ObservableCollection<Sale>(_allSales);
+                return;
+            }
+
+            var lower = text.ToLowerInvariant();
+
+            var filtered = _allSales.Where(s =>
+            {
+                // cena
+                var price = s.Price.ToString().ToLowerInvariant();
+
+                // datum (víc formátů, ať se to dobře hledá)
+                var date = s.DateOfSale.ToString("d").ToLowerInvariant();
+                var dateIso = s.DateOfSale.ToString("yyyy-MM-dd").ToLowerInvariant();
+
+                // karta / účet (pozor na null)
+                var card = (s.CardNumber ?? "").ToLowerInvariant();
+                var account = (s.AccountNumber ?? "").ToLowerInvariant();
+
+                return price.Contains(lower)
+                    || date.Contains(lower)
+                    || dateIso.Contains(lower)
+                    || card.Contains(lower)
+                    || account.Contains(lower);
+            }).ToList();
+
+            Sales = new ObservableCollection<Sale>(filtered);
         }
 
         [RelayCommand]
