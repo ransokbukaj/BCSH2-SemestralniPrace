@@ -10,6 +10,6 @@ namespace Entities
     {
         public decimal Price { get; set; }
 
-        public string NamePrice => $"{Name} - {Price} Kè";
+        public string NamePrice => $"{Name} - {Price} KÄ";
     }
 }

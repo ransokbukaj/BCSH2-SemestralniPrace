@@ -21,7 +21,7 @@ namespace GUI.ViewModels
 
         private readonly UserRepository userRepository = new UserRepository();
 
-        //PromÏnn· kter· obashuje p¯ihl·öenoho uûivatele.
+        //PromÔøΩnnÔøΩ kterÔøΩ obashuje pÔøΩihlÔøΩenoho uÔøΩivatele.
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(IsLogged))]
         [NotifyPropertyChangedFor(nameof(IsAdmin))]
@@ -44,7 +44,7 @@ namespace GUI.ViewModels
         public MainViewModel()
         {
             currentViewModel = new HomeViewModel();
-            logButtonText = "P¯ihl·sit se";
+            logButtonText = "P≈ôihl√°sit se";
         }
 
         partial void OnCurrentUserChanged(User value)
@@ -65,14 +65,14 @@ namespace GUI.ViewModels
                 {
                     UserManager.EndEmulatingUser();
                     CurrentUser = UserManager.CurrentUser;
-                    LogButtonText = "Odhl·sit se";
+                    LogButtonText = "Odhl√°sit se";
                 }
                 else
                 {
                     UserManager.LogOut();
                     CurrentViewModel = new HomeViewModel();
                     CurrentUser = UserManager.CurrentUser;
-                    LogButtonText = "P¯ihl·sit se";
+                    LogButtonText = "P≈ôihl√°sit se";
                 }
                 
             }
@@ -83,7 +83,7 @@ namespace GUI.ViewModels
                 bool log = (bool)dialog.ShowDialog();
                 if (log)
                 {
-                    LogButtonText = "Odhl·sit se";
+                    LogButtonText = "Odhl√°sit se";
                     CurrentUser = UserManager.CurrentUser;
                 }
             }
@@ -98,7 +98,7 @@ namespace GUI.ViewModels
                 UserManager.StartEmulatingUser(SelectedUser);
                 CurrentUser = UserManager.CurrentUser;
                 CurrentViewModel = new HomeViewModel();
-                LogButtonText = "UkonËit emulaci";
+                LogButtonText = "Ukonƒçit emulaci";
             }
             
         }
