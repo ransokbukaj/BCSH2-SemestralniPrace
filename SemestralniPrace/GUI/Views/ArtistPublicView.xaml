@@ -136,6 +136,7 @@
                           Height="200">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Název" Binding="{Binding Name}" Width="*"/>
+                        <DataGridTextColumn Header="Typ" Binding="{Binding TypeToString}" Width="*"/>
                         <DataGridTextColumn Header="Datum vzniku" Binding="{Binding PublishedDate, StringFormat=\{0:d\}}" Width="*"/>
                     </DataGrid.Columns>
                 </DataGrid>

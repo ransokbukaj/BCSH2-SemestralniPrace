@@ -187,8 +187,8 @@
                           CanUserAddRows="False">
 
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Jméno" Binding="{Binding FirstName}" Width="auto" />
-                        <DataGridTextColumn Header="Příjmení" Binding="{Binding LastName}" Width="auto"/>
+                        <DataGridTextColumn Header="Jméno" Binding="{Binding FirstName}" Width="*" />
+                        <DataGridTextColumn Header="Příjmení" Binding="{Binding LastName}" Width="*"/>
                     </DataGrid.Columns>
 
                 </DataGrid>

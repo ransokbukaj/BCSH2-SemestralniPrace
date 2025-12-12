@@ -43,7 +43,8 @@ namespace DatabaseAccess
                             Height = Convert.ToDouble(reader["vyska"]),
                             Width = Convert.ToDouble(reader["sirka"]),
                             ExhibitionId = reader["id_vystava"] == DBNull.Value ? 0 : Convert.ToInt32(reader["id_vystava"]),
-                            SaleId = reader["id_prodej"] == DBNull.Value ? 0 : Convert.ToInt32(reader["id_prodej"])
+                            SaleId = reader["id_prodej"] == DBNull.Value ? 0 : Convert.ToInt32(reader["id_prodej"]),
+                            Type = reader["typ_dila"].ToString()
                         });
                     }
                 }
@@ -103,6 +104,7 @@ namespace DatabaseAccess
                             PublishedDate = Convert.ToDateTime(reader["datum_zverejneni"]),
                             Height = Convert.ToDouble(reader["vyska"]),
                             Width = Convert.ToDouble(reader["sirka"]),
+                            Type = reader["typ_dila"].ToString()
 
                         });
                     }
