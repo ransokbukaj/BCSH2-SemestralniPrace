@@ -17,6 +17,8 @@ namespace GUI.ViewModels
         private readonly AddressRepository repository = new AddressRepository();
         private readonly PostRepository postRepository = new PostRepository();
 
+
+        private List<Address> _allAddresses = new();
         [ObservableProperty]
         private ObservableCollection<Address> addresses = new();
 
@@ -26,7 +28,15 @@ namespace GUI.ViewModels
         [ObservableProperty]
         private Post selectedPost;
 
-        public ObservableCollection<Post> Posts { get; set; }         
+        public ObservableCollection<Post> Posts { get; set; }
+
+        [ObservableProperty]
+        private string searchText;
+
+        partial void OnSearchTextChanged(string value)
+        {
+            ApplyFilter();
+        }
 
         public AddressViewModel()
         {
@@ -38,10 +48,41 @@ namespace GUI.ViewModels
         {
             ErrorHandler.SafeExecute(() =>
             {
-                Addresses = new ObservableCollection<Address>(repository.GetList());
+                _allAddresses = repository.GetList();
+                Addresses = new ObservableCollection<Address>(_allAddresses);
                 Posts = new ObservableCollection<Post>(postRepository.GetList());
             }, "Načtení adres selhalo");
+            ApplyFilter();
         }
+
+        private void ApplyFilter()
+        {
+            if (_allAddresses == null) return;
+
+            var text = (SearchText ?? "").Trim();
+
+            IEnumerable<Address> filtered = _allAddresses;
+
+            if (!string.IsNullOrWhiteSpace(text))
+            {
+                var t = text.ToLowerInvariant();
+
+                filtered = _allAddresses.Where(a =>
+                    (a.Street ?? "").ToLowerInvariant().Contains(t) ||
+                    (a.HouseNumber ?? "").ToLowerInvariant().Contains(t) ||
+                    (a.StreetNumber ?? "").ToLowerInvariant().Contains(t) ||
+                    (a.Post?.City ?? "").ToLowerInvariant().Contains(t) ||
+                    (a.Post?.PSC ?? "").ToLowerInvariant().Contains(t)
+                );
+            }
+
+            Addresses = new ObservableCollection<Address>(filtered);
+
+            // když se po filtrování ztratí vybraný záznam, tak vyber první
+            if (SelectedAddress != null && !Addresses.Contains(SelectedAddress))
+                SelectedAddress = Addresses.FirstOrDefault();
+        }
+
 
         [RelayCommand]
         private void New()

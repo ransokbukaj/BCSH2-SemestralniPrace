@@ -28,11 +28,26 @@
 
 
         <!-- Hlavička -->
-        <TextBlock Grid.Row="0" Grid.ColumnSpan="2"
-                   Text="Adresy"
-                   FontSize="24"
-                   FontWeight="Bold"
-                   Margin="0,0,0,10"/>
+        <StackPanel Grid.Row="0"
+            Grid.ColumnSpan="2"
+            Orientation="Horizontal"
+            VerticalAlignment="Center"
+            Margin="0,0,0,10">
+
+            <!-- Název -->
+            <TextBlock Text="Adresy"
+               FontSize="24"
+               FontWeight="Bold"
+               VerticalAlignment="Center"/>
+
+            <!-- Search bar -->
+            <TextBox Width="250"
+             Margin="20,0,0,0"
+             VerticalAlignment="Center"
+             Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
+             ToolTip="Vyhledat adresu (ulice, město, PSČ)"
+             />
+        </StackPanel>
 
 
         <!-- LEVÁ ČÁST – seznam adres -->
