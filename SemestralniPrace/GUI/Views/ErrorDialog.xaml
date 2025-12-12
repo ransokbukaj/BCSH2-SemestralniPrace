@@ -30,7 +30,6 @@
                        MaxWidth="400"/>
         </StackPanel>
 
-        <!-- Tlačítko pro zobrazení detailů -->
         <Button Grid.Row="1" 
                 Command="{Binding ToggleDetailsCommand}"
                 HorizontalAlignment="Left"

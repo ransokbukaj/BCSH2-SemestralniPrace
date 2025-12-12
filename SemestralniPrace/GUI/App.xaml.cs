@@ -39,7 +39,7 @@ namespace GUI
             }
             catch
             {
-                // Ignorovat chyby při zavírání spojení
+
             }
         }
 
@@ -51,7 +51,6 @@ namespace GUI
                 ErrorHandler.ShowError(exception, "Došlo ke kritické chybě v aplikaci");
             }
 
-            // Uzavřít connection
             try
             {
                 ConnectionManager.CloseConnection();

@@ -9,23 +9,16 @@
 
     <Grid Margin="10">
 
-        <!-- Stejná struktura jako ArtistView -->
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <!-- Hlavička -->
             <RowDefinition Height="*"/>
-            <!-- Obsah -->
             <RowDefinition Height="Auto"/>
-            <!-- CRUD tlačítka -->
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="4*"/>
-            <!-- Seznam adres -->
             <ColumnDefinition Width="6*"/>
-            <!-- Detail adresy -->
         </Grid.ColumnDefinitions>
-
 
         <!-- Hlavička -->
         <StackPanel Grid.Row="0"
@@ -34,13 +27,11 @@
             VerticalAlignment="Center"
             Margin="0,0,0,10">
 
-            <!-- Název -->
             <TextBlock Text="Adresy"
                FontSize="24"
                FontWeight="Bold"
                VerticalAlignment="Center"/>
 
-            <!-- Search bar -->
             <TextBox Width="200"
              Margin="20,0,0,0"
              VerticalAlignment="Center"
@@ -50,7 +41,6 @@
         </StackPanel>
 
 
-        <!-- LEVÁ ČÁST – seznam adres -->
         <DataGrid Grid.Row="1" Grid.Column="0"
                   ItemsSource="{Binding Addresses}"
                   SelectedItem="{Binding SelectedAddress, Mode=TwoWay}"
@@ -69,7 +59,7 @@
         </DataGrid>
 
 
-        <!-- PRAVÁ ČÁST – detail ve SCROLLVIEWERU -->
+      
         <ScrollViewer Grid.Row="1" Grid.Column="1"
                       Margin="10,0,0,0"
                       VerticalScrollBarVisibility="Auto">
@@ -81,28 +71,28 @@
                            FontWeight="Bold"
                            Margin="0,0,0,10"/>
 
-                <!-- Ulice -->
+           
                 <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
                     <TextBlock Text="Ulice:" Width="120"/>
                     <TextBox Text="{Binding SelectedAddress.Street, UpdateSourceTrigger=PropertyChanged}"
                              Width="200"/>
                 </StackPanel>
 
-                <!-- Č.p. -->
+               
                 <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
                     <TextBlock Text="Č.p.:" Width="120"/>
                     <TextBox Text="{Binding SelectedAddress.HouseNumber, UpdateSourceTrigger=PropertyChanged}"
                              Width="80"/>
                 </StackPanel>
 
-                <!-- Č.o. -->
+                
                 <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
                     <TextBlock Text="Č.o.:" Width="120"/>
                     <TextBox Text="{Binding SelectedAddress.StreetNumber, UpdateSourceTrigger=PropertyChanged}"
                              Width="80"/>
                 </StackPanel>
 
-                <!-- Pošta -->
+                
                 <StackPanel Orientation="Horizontal" Margin="0,10,0,5">
                     <TextBlock Text="Pošta:" Width="120"/>
 
@@ -118,7 +108,7 @@
         </ScrollViewer>
 
 
-        <!-- SPODNÍ TLAČÍTKA – vždy viditelná (stejně jako ArtistView) -->
+       
         <StackPanel Grid.Row="2" Grid.Column="1"
                     Orientation="Horizontal"
                     HorizontalAlignment="Right"

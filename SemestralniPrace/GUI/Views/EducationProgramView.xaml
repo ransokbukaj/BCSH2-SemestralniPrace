@@ -35,7 +35,6 @@
              />
         </StackPanel>
 
-        <!-- Seznam programů -->
         <DataGrid Grid.Row="1" Grid.Column="0"
                   ItemsSource="{Binding EducationPrograms}"
                   SelectedItem="{Binding SelectedEducationProgram, Mode=TwoWay}"
@@ -43,23 +42,19 @@
                   IsReadOnly="True"
                   Margin="0,0,10,0">
             <DataGrid.Columns>
-                <!--<DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="Auto"/>-->
                 <DataGridTextColumn Header="Název" Binding="{Binding Name}" Width="*"/>
                 <DataGridTextColumn Header="Od" Binding="{Binding From, StringFormat=\{0:d\}}" Width="*"/>
                 <DataGridTextColumn Header="Do" Binding="{Binding To, StringFormat=\{0:d\}}" Width="*"/>
             </DataGrid.Columns>
         </DataGrid>
 
-        <!-- Pravá strana: detail + výstavy + pevná tlačítka -->
         <Grid Grid.Row="1" Grid.Column="1" Margin="10,0,0,0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
-                <!-- scrollovatelný obsah -->
                 <RowDefinition Height="Auto"/>
-                <!-- pevná tlačítka -->
             </Grid.RowDefinitions>
 
-            <!-- Scrollovatelný obsah: detail + výstavy -->
+
             <ScrollViewer Grid.Row="0"
                           VerticalScrollBarVisibility="Auto">
                 <StackPanel>
@@ -93,7 +88,6 @@
                              Height="80"
                              VerticalScrollBarVisibility="Auto"/>
 
-                    <!-- Výstavy v programu -->
                     <TextBlock Text="Výstavy v programu"
                                FontSize="16"
                                FontWeight="Bold"
@@ -105,20 +99,17 @@
                               IsReadOnly="True"
                               Height="150">
                         <DataGrid.Columns>
-                            <!--<DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="Auto"/>-->
                             <DataGridTextColumn Header="Název" Binding="{Binding Name}" Width="*"/>
                             <DataGridTextColumn Header="Od" Binding="{Binding From, StringFormat=\{0:d\}}" Width="*"/>
                             <DataGridTextColumn Header="Do" Binding="{Binding To, StringFormat=\{0:d\}}" Width="*"/>
                         </DataGrid.Columns>
                     </DataGrid>
 
-                    <!-- Přidání / odebrání výstavy -->
                     <StackPanel Orientation="Horizontal"
                                 Margin="0,10,0,0">
                         <TextBlock Text="Přidat výstavu:"
                                    Width="140"
                                    VerticalAlignment="Center"/>
-                        <!-- ComboBox s dostupnými výstavami -->
                         <ComboBox Width="200"
                                   ItemsSource="{Binding AvailableExhibitions}"
                                   SelectedItem="{Binding SelectedExhibitionToAdd, Mode=TwoWay}"
@@ -135,7 +126,6 @@
                 </StackPanel>
             </ScrollViewer>
 
-            <!-- Pevná tlačítka dole vpravo -->
             <StackPanel Grid.Row="1"
                         Orientation="Horizontal"
                         HorizontalAlignment="Right"

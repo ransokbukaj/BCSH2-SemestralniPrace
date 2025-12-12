@@ -7,21 +7,15 @@
              Background="White"
              d:DesignHeight="700" d:DesignWidth="800">
     <Grid Margin="10">
-        <!-- Rozdělení okna: hlavička, obsah, spodní tlačítka -->
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <!-- Hlavička -->
             <RowDefinition Height="*"/>
-            <!-- Obsah -->
             <RowDefinition Height="Auto"/>
-            <!-- CRUD tlačítka -->
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="5*"/>
-            <!-- seznam umělců -->
             <ColumnDefinition Width="5*"/>
-            <!-- detail + díla -->
         </Grid.ColumnDefinitions>
 
         <!-- Hlavička -->
@@ -45,7 +39,6 @@
 
         </StackPanel>
 
-        <!-- Seznam umělců -->
         <DataGrid Grid.Row="1" Grid.Column="0"
                   ItemsSource="{Binding Artists}"
                   SelectedItem="{Binding SelectedArtist, Mode=TwoWay}"
@@ -53,7 +46,6 @@
                   IsReadOnly="True"
                   Margin="0,0,10,0">
             <DataGrid.Columns>
-                <!--<DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="Auto"/>-->
                 <DataGridTextColumn Header="Jméno" Binding="{Binding FirstName}" Width="*"/>
                 <DataGridTextColumn Header="Příjmení" Binding="{Binding LastName}" Width="*"/>
                 <DataGridTextColumn Header="Narození" Binding="{Binding DateOfBirth, StringFormat=\{0:d\}}" Width="*"/>
@@ -62,21 +54,16 @@
             </DataGrid.Columns>
         </DataGrid>
 
-        <!-- Pravý panel: detail + seznam děl v ScrollVieweru -->
         <ScrollViewer Grid.Row="1" Grid.Column="1"
                       Margin="10,0,0,0"
                       VerticalScrollBarVisibility="Auto">
             <StackPanel>
-                <!-- Detail umělce -->
                 <TextBlock Text="Detail umělce"
                            FontSize="18"
                            FontWeight="Bold"
                            Margin="0,0,0,10"/>
 
-                <!--<StackPanel Orientation="Horizontal" Margin="0,0,0,5">
-                    <TextBlock Text="ID:" Width="100" VerticalAlignment="Center"/>
-                    <TextBlock Text="{Binding SelectedArtist.Id}"/>
-                </StackPanel>-->
+
 
                 <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
                     <TextBlock Text="Jméno:" Width="100" VerticalAlignment="Center"/>
@@ -137,7 +124,6 @@
                         Command="{Binding RemoveMentorCommand}"/>   
                 </StackPanel>
 
-                <!-- Umělecká díla umělce -->
                 <TextBlock Text="Umělecká díla umělce"
                            FontSize="16"
                            FontWeight="Bold"
@@ -148,20 +134,15 @@
                           IsReadOnly="True"
                           Height="200">
                     <DataGrid.Columns>
-                        <!--<DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="Auto"/>-->
                         <DataGridTextColumn Header="Název" Binding="{Binding Name}" Width="*"/>
                         <DataGridTextColumn Header="Typ" Binding="{Binding TypeToString}" Width="*"/>
                         <DataGridTextColumn Header="Datum vzniku" Binding="{Binding PublishedDate, StringFormat=\{0:d\}}" Width="*"/>
-                        <!-- pokud máš typ díla (obraz/socha), můžeš přidat sloupec -->
-                        <!-- <DataGridTextColumn Header="Typ" Binding="{Binding TypeName}" Width="*"/> -->
                     </DataGrid.Columns>
                 </DataGrid>
 
-                <!-- případně sem můžeš časem přidat tlačítka na přidání/odebrání děl autora -->
             </StackPanel>
         </ScrollViewer>
 
-        <!-- Hlavní CRUD tlačítka – mimo ScrollViewer, vždy viditelná -->
         <StackPanel Grid.Row="2" Grid.Column="1"
                     Orientation="Horizontal"
                     HorizontalAlignment="Right"

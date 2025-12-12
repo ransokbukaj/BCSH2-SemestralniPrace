@@ -23,9 +23,7 @@
 
         <TabControl Grid.Row="1">
 
-            <!-- ************************ -->
-            <!-- TAB: PŘIHLÁŠENÍ -->
-            <!-- ************************ -->
+            <!-- PŘIHLÁŠENÍ -->
             <TabItem Header="Přihlášení">
                 <Grid Margin="10">
                     <Grid.RowDefinitions>
@@ -40,7 +38,6 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
 
-                    <!-- Uživatelské jméno -->
                     <TextBlock Grid.Row="0" Grid.Column="0"
                                Text="Uživatel:"
                                VerticalAlignment="Center"
@@ -49,7 +46,6 @@
                              Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}"
                              Margin="0,0,0,5"/>
 
-                    <!-- Heslo -->
                     <TextBlock Grid.Row="1" Grid.Column="0"
                                Text="Heslo:"
                                VerticalAlignment="Center"
@@ -84,11 +80,8 @@
                 </Grid>
             </TabItem>
 
-            <!-- ************************ -->
-            <!-- TAB: REGISTRACE -->
-            <!-- ************************ -->
+            <!-- REGISTRACE -->
             <TabItem Header="Registrace">
-                <!--<ScrollViewer Margin="10" VerticalScrollBarVisibility="Auto">-->
                 <Grid Margin="10">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
@@ -107,7 +100,6 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
 
-                        <!-- Uživatelské jméno -->
                         <TextBlock Grid.Row="0" Grid.Column="0"
                                    Text="Uživatel:" Margin="0,0,5,5"
                                    VerticalAlignment="Center"/>
@@ -115,7 +107,7 @@
                                  Text="{Binding RegUsername, UpdateSourceTrigger=PropertyChanged}"
                                  Margin="0,0,0,5"/>
 
-                        <!-- Heslo -->
+
                         <TextBlock Grid.Row="1" Grid.Column="0"
                                    Text="Heslo:" Margin="0,0,5,5"
                                    VerticalAlignment="Center"/>
@@ -124,7 +116,6 @@
                                      helpers:PasswordBoxHelper.BindPassword="True"
                                      helpers:PasswordBoxHelper.BoundPassword="{Binding RegPassword, Mode=TwoWay}" />
 
-                        <!-- Heslo znovu -->
                         <TextBlock Grid.Row="2" Grid.Column="0"
                                    Text="Heslo znovu:" Margin="0,0,5,5"
                                    VerticalAlignment="Center"/>
@@ -133,7 +124,6 @@
                                      helpers:PasswordBoxHelper.BindPassword="True"
                                      helpers:PasswordBoxHelper.BoundPassword="{Binding RegPasswordConfirm, Mode=TwoWay}" />
 
-                        <!-- Jméno -->
                         <TextBlock Grid.Row="3" Grid.Column="0"
                                    Text="Jméno:" Margin="0,0,5,5"
                                    VerticalAlignment="Center"/>
@@ -141,7 +131,6 @@
                                  Text="{Binding RegFirstName, UpdateSourceTrigger=PropertyChanged}"
                                  Margin="0,0,0,5"/>
 
-                        <!-- Příjmení -->
                         <TextBlock Grid.Row="4" Grid.Column="0"
                                    Text="Příjmení:" Margin="0,0,5,5"
                                    VerticalAlignment="Center"/>
@@ -149,7 +138,6 @@
                                  Text="{Binding RegLastName, UpdateSourceTrigger=PropertyChanged}"
                                  Margin="0,0,0,5"/>
 
-                        <!-- Email -->
                         <TextBlock Grid.Row="5" Grid.Column="0"
                                    Text="Email:" Margin="0,0,5,5"
                                    VerticalAlignment="Center"/>
@@ -157,7 +145,6 @@
                                  Text="{Binding RegEmail, UpdateSourceTrigger=PropertyChanged}"
                                  Margin="0,0,0,5"/>
 
-                        <!-- Telefon -->
                         <TextBlock Grid.Row="6" Grid.Column="0"
                                    Text="Telefon:" Margin="0,0,5,5"
                                    VerticalAlignment="Center"/>
@@ -186,7 +173,6 @@
                                     Command="{Binding CancelCommand}"/>
                         </StackPanel>
                     </Grid>
-                <!--</ScrollViewer>-->
             </TabItem>
 
         </TabControl>
