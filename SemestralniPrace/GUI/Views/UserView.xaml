@@ -5,45 +5,51 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:helpers="clr-namespace:GUI.Helpers"
              mc:Ignorable="d"
-              Background="White"
-             d:DesignHeight="600" d:DesignWidth="1000">
+             Background="White"
+             d:DesignHeight="600"
+             d:DesignWidth="1000">
+
     <Grid Margin="10">
+        <!-- HLAVNÍ ROZLOŽENÍ -->
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
+
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="3*"/>
         </Grid.ColumnDefinitions>
 
+        <!-- HORNÍ LIŠTA -->
         <StackPanel Grid.Row="0"
-            Grid.ColumnSpan="2"
-            Orientation="Horizontal"
-            VerticalAlignment="Center"
-            Margin="0,0,0,10">
+                    Grid.ColumnSpan="2"
+                    Orientation="Horizontal"
+                    VerticalAlignment="Center"
+                    Margin="0,0,0,10">
 
             <TextBlock Text="Uživatelé"
-               FontSize="24"
-               FontWeight="Bold"
-               VerticalAlignment="Center"/>
+                       FontSize="24"
+                       FontWeight="Bold"
+                       VerticalAlignment="Center"/>
 
             <TextBox Width="250"
-             Margin="20,0,0,0"
-             VerticalAlignment="Center"
-             Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
-             ToolTip="Vyhledat uživatele (jméno, příjmení, username, email)"
-             />
+                     Margin="20,0,0,0"
+                     VerticalAlignment="Center"
+                     Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
+                     ToolTip="Vyhledat uživatele (jméno, příjmení, username, email)"/>
         </StackPanel>
 
-        <DataGrid Grid.Row="1" Grid.Column="0"
+        <!-- LEVÁ ČÁST – SEZNAM UŽIVATELŮ -->
+        <DataGrid Grid.Row="1"
+                  Grid.Column="0"
                   ItemsSource="{Binding Users}"
                   SelectedItem="{Binding SelectedUser, Mode=TwoWay}"
                   AutoGenerateColumns="False"
                   IsReadOnly="True"
                   Margin="0,0,10,0">
+
             <DataGrid.Columns>
-                <!--<DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="Auto"/>-->
                 <DataGridTextColumn Header="Uživatelské jméno" Binding="{Binding Username}" Width="*"/>
                 <DataGridTextColumn Header="Jméno" Binding="{Binding FirstName}" Width="*"/>
                 <DataGridTextColumn Header="Příjmení" Binding="{Binding LastName}" Width="*"/>
@@ -53,134 +59,162 @@
             </DataGrid.Columns>
         </DataGrid>
 
-        <ScrollViewer Grid.Row="1" Grid.Column="1" Margin="10,0,0,0" VerticalScrollBarVisibility="Auto">
-            <StackPanel>
-                <TextBlock Text="Detail uživatele" FontSize="18" FontWeight="Bold" Margin="0,0,0,10"/>
+        <!-- PRAVÁ ČÁST – DETAIL -->
+        <Grid Grid.Row="1"
+              Grid.Column="1"
+              Margin="10,0,0,0">
 
-                <!--<StackPanel Orientation="Horizontal" Margin="0,0,0,5">
-                    <TextBlock Text="ID:" Width="160"/>
-                    <TextBlock Text="{Binding SelectedUser.Id}"/>
-                </StackPanel>-->
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
 
-                <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
-                    <TextBlock Text="Uživatelské jméno:" Width="160"/>
-                    <TextBox Text="{Binding SelectedUser.Username, UpdateSourceTrigger=PropertyChanged}" Width="200"/>
-                </StackPanel>
+            <!-- SCROLLUJÍCÍ OBSAH -->
+            <ScrollViewer Grid.Row="0"
+                          VerticalScrollBarVisibility="Auto">
 
-                <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
-                    <TextBlock Text="Jméno:" Width="160"/>
-                    <TextBox Text="{Binding SelectedUser.FirstName, UpdateSourceTrigger=PropertyChanged}" Width="200"/>
-                </StackPanel>
+                <StackPanel>
 
-                <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
-                    <TextBlock Text="Příjmení:" Width="160"/>
-                    <TextBox Text="{Binding SelectedUser.LastName, UpdateSourceTrigger=PropertyChanged}" Width="200"/>
-                </StackPanel>
+                    <TextBlock Text="Detail uživatele"
+                               FontSize="18"
+                               FontWeight="Bold"
+                               Margin="0,0,0,10"/>
 
-                <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
-                    <TextBlock Text="Email:" Width="160"/>
-                    <TextBox Text="{Binding SelectedUser.Email, UpdateSourceTrigger=PropertyChanged}" Width="200"/>
-                </StackPanel>
-
-                <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
-                    <TextBlock Text="Telefon:" Width="160"/>
-                    <TextBox Text="{Binding SelectedUser.PhoneNumber, UpdateSourceTrigger=PropertyChanged}" Width="200"/>
-                </StackPanel>
-
-                <StackPanel Orientation="Horizontal" Margin="0,10,0,5">
-                    <TextBlock Text="Role:" Width="160"/>
-                    <!--<TextBox Text="{Binding SelectedUser.Role}" Width="200"/>-->
-                    <ComboBox Width="200"
-                        ItemsSource="{Binding Roles}"
-                         SelectedValue="{Binding SelectedUser.Role.Id, Mode=TwoWay}"
-                         SelectedValuePath="Id"
-                         DisplayMemberPath="Name" />    
-
-                </StackPanel>
-
-                <!-- ▼ Datum registrace -->
-                <StackPanel Orientation="Horizontal" Margin="0,5,0,5">
-                    <TextBlock Text="Datum registrace:" Width="160"/>
-                    <TextBlock Text="{Binding SelectedUser.RegisterDate, StringFormat='{}{0:dd.MM.yyyy HH:mm}'}"/>
-                </StackPanel>
-
-                <!-- ▼ Datum posledního přihlášení -->
-                <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
-                    <TextBlock Text="Poslední přihlášení:" Width="160"/>
-                    <TextBlock Text="{Binding SelectedUser.LastLogin, StringFormat='{}{0:dd.MM.yyyy HH:mm}'}"/>
-                </StackPanel>
-
-                <StackPanel Orientation="Horizontal" Margin="0,10,0,10">
-                    <TextBlock Text="Počet provedených změn:" Width="160"/>
-                    <TextBlock Text="{Binding UserStat.AmountOfChanges}"/>
-                </StackPanel>
-                
-                <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
-                    <TextBlock Text="Počet provedených Insert:" Width="160"/>
-                    <TextBlock Text="{Binding UserStat.AmountOfInsert}"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
-                    <TextBlock Text="Počet provedených Update:" Width="160"/>
-                    <TextBlock Text="{Binding UserStat.AmountOfUpdate}"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal" Margin="0,0,0,15">
-                    <TextBlock Text="Počet provedených Delete:" Width="160"/>
-                    <TextBlock Text="{Binding UserStat.AmountOfDelete}"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
-                    <TextBlock Text="Ćas poslední úpravy:" Width="160"/>
-                    <TextBlock Text="{Binding UserStat.LastChange, StringFormat='{}{0:dd.MM.yyyy HH:mm:ss}'}"/>
-                </StackPanel>
-
-
-
-                <GroupBox Header="Změna hesla">
-                    <StackPanel Margin="10">
-
-
-
-                        <!-- nové heslo -->
-                        <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
-                            <TextBlock Text="Nové heslo:" Width="160" VerticalAlignment="Center"/>
-                            <PasswordBox
-                            Width="200"
-                            helpers:PasswordBoxHelper.BindPassword="True"
-                            helpers:PasswordBoxHelper.BoundPassword="{Binding NewPassword, Mode=TwoWay}" />
-                        </StackPanel>
-
-                        <!-- potvrzení nového hesla -->
-                        <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
-                            <TextBlock Text="Nové heslo znovu:" Width="160" VerticalAlignment="Center"/>
-                            <PasswordBox  Width="200"
-                       helpers:PasswordBoxHelper.BindPassword="True"
-                       helpers:PasswordBoxHelper.BoundPassword="{Binding NewPasswordConfirm, Mode=TwoWay}" />
-                        </StackPanel>
-
-                        <!-- chybová / informační hláška -->
-                        <TextBlock Text="{Binding ErrorLog}"
-                   Foreground="Red"
-                   Margin="0,5,0,0"
-                   TextWrapping="Wrap"/>
-
-                        <!-- tlačítko pro změnu hesla (logika ve ViewModelu) -->
-                        <StackPanel Orientation="Horizontal"
-                    HorizontalAlignment="Right"
-                    Margin="0,10,0,0">
-                            <Button Content="Změnit heslo"
-                    Width="120"
-                    Command="{Binding ChangePasswordCommand}"/>
-                        </StackPanel>
-
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                        <TextBlock Text="Uživatelské jméno:" Width="160"/>
+                        <TextBox Width="200"
+                                 Text="{Binding SelectedUser.Username, UpdateSourceTrigger=PropertyChanged}"/>
                     </StackPanel>
-                </GroupBox>
 
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                        <TextBlock Text="Jméno:" Width="160"/>
+                        <TextBox Width="200"
+                                 Text="{Binding SelectedUser.FirstName, UpdateSourceTrigger=PropertyChanged}"/>
+                    </StackPanel>
 
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,15,0,0">
-                    <Button Content="Nový" Command="{Binding NewCommand}" Margin="0,0,10,0" Width="80"/>
-                    <Button Content="Uložit" Command="{Binding SaveCommand}" Margin="0,0,10,0" Width="80"/>
-                    <Button Content="Smazat" Command="{Binding DeleteCommand}" Width="80"/>
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                        <TextBlock Text="Příjmení:" Width="160"/>
+                        <TextBox Width="200"
+                                 Text="{Binding SelectedUser.LastName, UpdateSourceTrigger=PropertyChanged}"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                        <TextBlock Text="Email:" Width="160"/>
+                        <TextBox Width="200"
+                                 Text="{Binding SelectedUser.Email, UpdateSourceTrigger=PropertyChanged}"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                        <TextBlock Text="Telefon:" Width="160"/>
+                        <TextBox Width="200"
+                                 Text="{Binding SelectedUser.PhoneNumber, UpdateSourceTrigger=PropertyChanged}"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Margin="0,10,0,5">
+                        <TextBlock Text="Role:" Width="160"/>
+                        <ComboBox Width="200"
+                                  ItemsSource="{Binding Roles}"
+                                  SelectedValue="{Binding SelectedUser.Role.Id, Mode=TwoWay}"
+                                  SelectedValuePath="Id"
+                                  DisplayMemberPath="Name"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Margin="0,5,0,5">
+                        <TextBlock Text="Datum registrace:" Width="160"/>
+                        <TextBlock Text="{Binding SelectedUser.RegisterDate, StringFormat='{}{0:dd.MM.yyyy HH:mm}'}"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                        <TextBlock Text="Poslední přihlášení:" Width="160"/>
+                        <TextBlock Text="{Binding SelectedUser.LastLogin, StringFormat='{}{0:dd.MM.yyyy HH:mm}'}"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Margin="0,10,0,10">
+                        <TextBlock Text="Počet provedených změn:" Width="160"/>
+                        <TextBlock Text="{Binding UserStat.AmountOfChanges}"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                        <TextBlock Text="Počet provedených Insert:" Width="160"/>
+                        <TextBlock Text="{Binding UserStat.AmountOfInsert}"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                        <TextBlock Text="Počet provedených Update:" Width="160"/>
+                        <TextBlock Text="{Binding UserStat.AmountOfUpdate}"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,15">
+                        <TextBlock Text="Počet provedených Delete:" Width="160"/>
+                        <TextBlock Text="{Binding UserStat.AmountOfDelete}"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                        <TextBlock Text="Čas poslední úpravy:" Width="160"/>
+                        <TextBlock Text="{Binding UserStat.LastChange, StringFormat='{}{0:dd.MM.yyyy HH:mm:ss}'}"/>
+                    </StackPanel>
+
+                    <!-- ZMĚNA HESLA -->
+                    <GroupBox Header="Změna hesla">
+                        <StackPanel Margin="10">
+
+                            <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                                <TextBlock Text="Nové heslo:" Width="160"/>
+                                <PasswordBox Width="200"
+                                             helpers:PasswordBoxHelper.BindPassword="True"
+                                             helpers:PasswordBoxHelper.BoundPassword="{Binding NewPassword, Mode=TwoWay}"/>
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                                <TextBlock Text="Nové heslo znovu:" Width="160"/>
+                                <PasswordBox Width="200"
+                                             helpers:PasswordBoxHelper.BindPassword="True"
+                                             helpers:PasswordBoxHelper.BoundPassword="{Binding NewPasswordConfirm, Mode=TwoWay}"/>
+                            </StackPanel>
+
+                            <TextBlock Text="{Binding ErrorLog}"
+                                       Foreground="Red"
+                                       Margin="0,5,0,0"
+                                       TextWrapping="Wrap"/>
+
+                            <StackPanel Orientation="Horizontal"
+                                        HorizontalAlignment="Right"
+                                        Margin="0,10,0,0">
+                                <Button Content="Změnit heslo"
+                                        Width="120"
+                                        Command="{Binding ChangePasswordCommand}"/>
+                            </StackPanel>
+
+                        </StackPanel>
+                    </GroupBox>
+
                 </StackPanel>
-            </StackPanel>
-        </ScrollViewer>
+            </ScrollViewer>
+
+            <!-- PEVNÁ TLAČÍTKA -->
+            <Border Grid.Row="1"
+                    Padding="0,10,0,0"
+                    Background="White">
+
+                <StackPanel Orientation="Horizontal"
+                            HorizontalAlignment="Right">
+
+                    <Button Content="Nový"
+                            Width="80"
+                            Margin="0,0,10,0"
+                            Command="{Binding NewCommand}"/>
+
+                    <Button Content="Uložit"
+                            Width="80"
+                            Margin="0,0,10,0"
+                            Command="{Binding SaveCommand}"/>
+
+                    <Button Content="Smazat"
+                            Width="80"
+                            Command="{Binding DeleteCommand}"/>
+                </StackPanel>
+            </Border>
+
+        </Grid>
     </Grid>
 </UserControl>
