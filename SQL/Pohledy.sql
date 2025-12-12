@@ -222,7 +222,7 @@ SELECT
 FROM umelci
 ORDER BY prijmeni, jmeno;
 
---********************************************************************************************************
+
 
 CREATE OR REPLACE VIEW v_umelecka_dila AS
 SELECT

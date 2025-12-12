@@ -4,7 +4,6 @@ CREATE OR REPLACE FUNCTION f_trzba_z_vystavy(
 IS
     v_trzba_vstupne NUMBER(12,2);
 BEGIN
-    -- Tržba ze vstupného na danou výstavu
     SELECT NVL(SUM(dn.cena), 0)
     INTO   v_trzba_vstupne
     FROM   navstevy n
