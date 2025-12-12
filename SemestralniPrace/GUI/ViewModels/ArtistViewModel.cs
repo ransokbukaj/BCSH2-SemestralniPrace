@@ -17,6 +17,7 @@ namespace GUI.ViewModels
         private readonly ArtistRepository repository = new ArtistRepository();
         private readonly ArtPieceRepository artRepo = new ArtPieceRepository();
 
+        private List<Artist> _allArtists = new();
         [ObservableProperty]
         private ObservableCollection<Artist> artists = new();
 
@@ -28,6 +29,14 @@ namespace GUI.ViewModels
 
         [ObservableProperty]
         private Artist selectedArtist;
+
+        [ObservableProperty]
+        private string searchText;
+
+        partial void OnSearchTextChanged(string value)
+        {
+            ApplyFilter();
+        }
 
 
         public ArtistViewModel()
@@ -47,13 +56,37 @@ namespace GUI.ViewModels
             }
         }
 
+        private void ApplyFilter()
+        {
+            if (_allArtists == null)
+                return;
+
+            if (string.IsNullOrWhiteSpace(SearchText))
+            {
+                Artists = new ObservableCollection<Artist>(_allArtists);
+            }
+            else
+            {
+                var filter = SearchText.ToLower();
+
+                var filtered = _allArtists
+                    .Where(a =>
+                        (!string.IsNullOrEmpty(a.FirstName) && a.FirstName.ToLower().Contains(filter)) ||
+                        (!string.IsNullOrEmpty(a.LastName) && a.LastName.ToLower().Contains(filter))
+                    )
+                    .ToList();
+
+                Artists = new ObservableCollection<Artist>(filtered);
+            }
+        }
+
         [RelayCommand]
         private void Load()
         {
             ErrorHandler.SafeExecute(() =>
             {
-                var list = repository.GetList();
-                Artists = new ObservableCollection<Artist>(list);
+                _allArtists = repository.GetList();
+                Artists = new ObservableCollection<Artist>(_allArtists);
             }, "Načtení umělců selhalo");
         }
 

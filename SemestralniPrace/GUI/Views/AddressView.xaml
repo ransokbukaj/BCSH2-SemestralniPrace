@@ -41,7 +41,7 @@
                VerticalAlignment="Center"/>
 
             <!-- Search bar -->
-            <TextBox Width="250"
+            <TextBox Width="200"
              Margin="20,0,0,0"
              VerticalAlignment="Center"
              Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
