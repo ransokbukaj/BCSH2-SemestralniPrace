@@ -11,6 +11,10 @@ namespace DatabaseAccess
 {
     public class SaleRepository : ISaleRepository
     {
+        /// <summary>
+        /// Metod pro získání všech prodejů z databáze.
+        /// </summary>
+        /// <returns>List všech prodejů</returns>
         public List<Sale> GetList()
         {
             var list = new List<Sale>();
@@ -59,6 +63,12 @@ namespace DatabaseAccess
             return list;
         }
 
+
+
+        /// <summary>
+        /// Metoda pro přidání nebo upravení prodeje.
+        /// </summary>
+        /// <param name="sale">Prodej pro přidání nebo úpravu.</param>
         public void SaveItem(Sale sale)
         {
             using (var transaction = ConnectionManager.Connection.BeginTransaction())
@@ -134,11 +144,9 @@ namespace DatabaseAccess
                         };
                         command.Parameters.Add(paramKupec);
 
-                        // Provedení procedury
                         command.ExecuteNonQuery();
                     }
 
-                    // Commit transakce
                     transaction.Commit();
                 }
                 catch
@@ -149,6 +157,10 @@ namespace DatabaseAccess
             }
         }
 
+        /// <summary>
+        /// Metoda pro odstranění určitého prodeje.
+        /// </summary>
+        /// <param name="id">Id prodeje k odstranění.</param>
         public void DeleteItem(int id)
         {
             using (var transaction = ConnectionManager.Connection.BeginTransaction())
@@ -170,11 +182,9 @@ namespace DatabaseAccess
                         };
                         command.Parameters.Add(paramId);
 
-                        // Provedení procedury
                         command.ExecuteNonQuery();
                     }
 
-                    // Commit transakce
                     transaction.Commit();
                 }
                 catch

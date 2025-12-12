@@ -11,6 +11,10 @@ namespace DatabaseAccess
 {
     public class UserRepository : IUserRepository
     {
+        /// <summary>
+        /// Metoda pro získání všech uživatelů
+        /// </summary>
+        /// <returns>List všech uživatelů</returns>
         public List<User> GetList()
         {
             var list = new List<User>();
@@ -58,6 +62,11 @@ namespace DatabaseAccess
             return list;
         }
 
+
+        /// <summary>
+        /// Metoda pro uložení nebo úpravení uživatele
+        /// </summary>
+        /// <param name="user">Uživatel k přidání nebo uložení.</param>
         public void SaveItem(User user)
         {
             using (var transaction = ConnectionManager.Connection.BeginTransaction())
@@ -88,7 +97,7 @@ namespace DatabaseAccess
                         };
                         command.Parameters.Add(paramUsername);
 
-                        // Pro nového uživatele použijeme Password (plain text, který se zahashuje)
+                        // Pro nového uživatele použijeme Password (text, který se zahashuje)
                         // Pro existujícího uživatele, pokud není Password prázdný, zahashujeme ho
                         string passwordHash = null;
                         if (!string.IsNullOrEmpty(user.Password))
@@ -149,12 +158,9 @@ namespace DatabaseAccess
                             Value = user.Role.Id
                         };
                         command.Parameters.Add(paramRole);
-
-                        // Provedení procedury
                         command.ExecuteNonQuery();
                     }
 
-                    // Commit transakce
                     transaction.Commit();
                 }
                 catch
@@ -165,6 +171,10 @@ namespace DatabaseAccess
             }
         }
 
+        /// <summary>
+        /// Metoda pro smazání určitého uživatele.
+        /// </summary>
+        /// <param name="id">Id uživatele ke smazání.</param>
         public void DeleteItem(int id)
         {
             using (var transaction = ConnectionManager.Connection.BeginTransaction())
@@ -186,11 +196,9 @@ namespace DatabaseAccess
                         };
                         command.Parameters.Add(paramId);
 
-                        // Provedení procedury
                         command.ExecuteNonQuery();
                     }
 
-                    // Commit transakce
                     transaction.Commit();
                 }
                 catch
@@ -201,6 +209,12 @@ namespace DatabaseAccess
             }
         }
 
+        /// <summary>
+        /// Metoda sloužící ke změně hesla uživatele
+        /// </summary>
+        /// <param name="id">Id uživatele</param>
+        /// <param name="newPassword">Nové heslo v textové podobě.</param>
+        /// <exception cref="ArgumentException"></exception>
         public void ChangePassword(int id, string newPassword)
         {
             if (string.IsNullOrEmpty(newPassword))
@@ -238,11 +252,9 @@ namespace DatabaseAccess
                         };
                         command.Parameters.Add(paramPassword);
 
-                        // Provedení procedury
                         command.ExecuteNonQuery();
                     }
 
-                    // Commit transakce
                     transaction.Commit();
                 }
                 catch

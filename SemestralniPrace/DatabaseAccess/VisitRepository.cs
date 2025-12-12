@@ -11,6 +11,10 @@ namespace DatabaseAccess
 {
     public class VisitRepository : IVisitRepository
     {
+        /// <summary>
+        /// Metoda pro získání všech návštev z databáze.
+        /// </summary>
+        /// <returns>List všech návštěv.</returns>
         public List<Visit> GetList()
         {
             var list = new List<Visit>();
@@ -53,6 +57,11 @@ namespace DatabaseAccess
             return list;
         }
 
+        /// <summary>
+        /// Metoda pro přidání nebo upravení návštěvy
+        /// </summary>
+        /// <param name="visit">Návštěva k přidání nebo upravení</param>
+        /// <param name="idExhibit">Id výstavy na které návšteva proběhla.</param>
         public void SaveItem(Visit visit, int idExhibit)
         {
             using (var transaction = ConnectionManager.Connection.BeginTransaction())
@@ -100,12 +109,8 @@ namespace DatabaseAccess
                             Value = visit.ExhibitionCounter.Id
                         };
                         command.Parameters.Add(paramVystava);
-
-                        // Provedení procedury
                         command.ExecuteNonQuery();
                     }
-
-                    // Commit transakce
                     transaction.Commit();
                 }
                 catch
@@ -116,6 +121,10 @@ namespace DatabaseAccess
             }
         }
 
+        /// <summary>
+        /// Metoda k odstraněni návstěvy
+        /// </summary>
+        /// <param name="id">Id návštěvy k odstranění.</param>
         public void DeleteItem(int id)
         {
             using (var transaction = ConnectionManager.Connection.BeginTransaction())
@@ -137,11 +146,8 @@ namespace DatabaseAccess
                         };
                         command.Parameters.Add(paramId);
 
-                        // Provedení procedury
                         command.ExecuteNonQuery();
                     }
-
-                    // Commit transakce
                     transaction.Commit();
                 }
                 catch

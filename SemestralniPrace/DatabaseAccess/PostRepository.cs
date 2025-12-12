@@ -11,6 +11,10 @@ namespace DatabaseAccess
 {
     public class PostRepository : IPostRepository
     {
+        /// <summary>
+        /// Metoda pro získání všech pošt z databáze
+        /// </summary>
+        /// <returns>List všech pošt.</returns>
         public List<Post> GetList()
         {
             var list = new List<Post>();
@@ -39,6 +43,10 @@ namespace DatabaseAccess
             return list;
         }
 
+        /// <summary>
+        /// Metoda pro uložení nebo úpravu posty
+        /// </summary>
+        /// <param name="post">Pošta k přidání nebo úložení.</param>
         public void SaveItem(Post post)
         {
             using (var transaction = ConnectionManager.Connection.BeginTransaction())
@@ -78,11 +86,9 @@ namespace DatabaseAccess
                         };
                         command.Parameters.Add(paramPsc);
 
-                        // Provedení procedury
                         command.ExecuteNonQuery();
                     }
 
-                    // Commit transakce
                     transaction.Commit();
                 }
                 catch
@@ -93,6 +99,10 @@ namespace DatabaseAccess
             }
         }
 
+        /// <summary>
+        /// Metoda pro odstranění určité pošty.
+        /// </summary>
+        /// <param name="id">Id pošty k odstranění.</param>
         public void DeleteItem(int id)
         {
             using (var transaction = ConnectionManager.Connection.BeginTransaction())
@@ -114,11 +124,9 @@ namespace DatabaseAccess
                         };
                         command.Parameters.Add(paramId);
 
-                        // Provedení procedury
                         command.ExecuteNonQuery();
                     }
 
-                    // Commit transakce
                     transaction.Commit();
                 }
                 catch

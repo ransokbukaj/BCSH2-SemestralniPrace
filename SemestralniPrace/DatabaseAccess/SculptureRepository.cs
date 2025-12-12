@@ -11,6 +11,10 @@ namespace DatabaseAccess
 {
     public class SculptureRepository : ISculptureRepository
     {
+        /// <summary>
+        /// Metoda pro získání všech soch z databáze.
+        /// </summary>
+        /// <returns>List všech soch z databáze.</returns>
         public List<Sculpture> GetList()
         {
             var list = new List<Sculpture>();
@@ -60,6 +64,10 @@ namespace DatabaseAccess
             return list;
         }
 
+        /// <summary>
+        /// Metoda pro přidání nebo upravění určité sochy
+        /// </summary>
+        /// <param name="sculpture">Socha k přidání nebo upravení.</param>
         public void SaveItem(Sculpture sculpture)
         {
             using (var transaction = ConnectionManager.Connection.BeginTransaction())
@@ -171,11 +179,8 @@ namespace DatabaseAccess
                         };
                         command.Parameters.Add(paramMaterial);
 
-                        // Provedení procedury
                         command.ExecuteNonQuery();
                     }
-
-                    // Commit transakce
                     transaction.Commit();
                 }
                 catch
@@ -186,6 +191,10 @@ namespace DatabaseAccess
             }
         }
 
+        /// <summary>
+        /// Metoda k odebrání určité sochy.
+        /// </summary>
+        /// <param name="id">Kd sochy k odebrání.</param>
         public void DeleteItem(int id)
         {
             using (var transaction = ConnectionManager.Connection.BeginTransaction())
@@ -207,11 +216,9 @@ namespace DatabaseAccess
                         };
                         command.Parameters.Add(paramId);
 
-                        // Provedení procedury
                         command.ExecuteNonQuery();
                     }
 
-                    // Commit transakce
                     transaction.Commit();
                 }
                 catch

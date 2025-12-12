@@ -10,9 +10,12 @@ namespace DatabaseAccess
 {
     public static class UserManager
     {
+        //Aktualní přihlášený uživatel.
         public static User? CurrentUser;
 
-        public static bool isSimulating;
+        //Pomocná proměná pro emulaci
+        public static bool isEmulating;
+        //Pomocná proměná pro držení skutečně přihlášeného uživatele během emulace.
         private static User loggedUser;
 
         static UserManager()
@@ -20,6 +23,16 @@ namespace DatabaseAccess
             CurrentUser = null;
         }
 
+        /// <summary>
+        /// Metoda pro registraci nového uživatele.
+        /// </summary>
+        /// <param name="username">Uživatelské jméno uživatele</param>
+        /// <param name="password">Heslo v textové podobě</param>
+        /// <param name="firstName">Křestní jméno uživatele</param>
+        /// <param name="lastName">Příjmení uživatele</param>
+        /// <param name="email">Email uživatele</param>
+        /// <param name="phoneNumber">Telefon uživatele</param>
+        /// <returns>True/False podle toho jestli se uživatel přihlásil.</returns>
         public static bool Register(string username, string password, string firstName, string lastName, string email, string phoneNumber)
         {
             try
@@ -88,6 +101,12 @@ namespace DatabaseAccess
             }
         }
 
+        /// <summary>
+        /// Metoda pro přihlášení uživatele. Při úspěšném přihlášení se automaticky nastaví CurrentUser na uživatele.
+        /// </summary>
+        /// <param name="username"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
         public static bool LogIn(string username, string password)
         {
             string query = @"
@@ -148,6 +167,7 @@ namespace DatabaseAccess
                                 LastLogin = DateTime.Now,
                             };
                             UpdateLastLoginDate(ConnectionManager.Connection, userId);
+                            //Vytvoření Session s id uživatele v databázi
                             SetDatabaseSessionIdentifier(ConnectionManager.Connection, userId);
                             return true;
                         }
@@ -157,17 +177,31 @@ namespace DatabaseAccess
             return false;            
         }
 
+        /// <summary>
+        /// Metoda pro odhlášení uživatele. Metoda nastaví hodnotu CurrentUser na NULL.
+        /// </summary>
         public static void LogOut()
         {
             ClearDatabaseSessionIdentifier(ConnectionManager.Connection);
             CurrentUser = null;
         }
 
+        /// <summary>
+        /// Pomocná metoda sloužící k hashování hesla.
+        /// </summary>
+        /// <param name="password">Heslo v textové podobě</param>
+        /// <returns></returns>
         public static string HashPassword(string password)
         {
             return BCrypt.Net.BCrypt.HashPassword(password, 12);
         }
 
+        /// <summary>
+        /// Pomocná metoda pro ověření hesla
+        /// </summary>
+        /// <param name="password">Zadané heslo v textové podobě</param>
+        /// <param name="storedHash">Uložený Hash</param>
+        /// <returns>True/False podle toho jestli se heslo schoduje.</returns>
         private static bool VerifyPassword(string password, string storedHash)
         {
             if (string.IsNullOrEmpty(password) || string.IsNullOrEmpty(storedHash))
@@ -177,23 +211,30 @@ namespace DatabaseAccess
             return BCrypt.Net.BCrypt.Verify(password, storedHash);
         }
 
-        public static void StartSimulateUser(User target)
+        /// <summary>
+        /// Metoda pro start emulace jiného uživatele.
+        /// </summary>
+        /// <param name="target">Cílený uživatel k emulaci.</param>
+        /// <exception cref="Exception"></exception>
+        public static void StartEmulatingUser(User target)
         {
             if(CurrentUser == null)
             {
                 throw new Exception("Není možno simulatovat bez přihlášení.");
             }
+
+            //Emulovat může pouze administrátor.
             if(CurrentUser.Role.Name != "Admin")
             {
                 throw new Exception("Simulovat může jen uživatel s oprávněním administrátora.");
             }
 
-            if (isSimulating)
+            if (isEmulating)
             {
                 throw new Exception("Není možno simulatovat jiného uživatele, když už se simuluje.");
             }
 
-            isSimulating = true;
+            isEmulating = true;
             loggedUser = CurrentUser;
             LogOut();
 
@@ -201,18 +242,27 @@ namespace DatabaseAccess
             SetDatabaseSessionIdentifier(ConnectionManager.Connection, CurrentUser.Id);
         }
 
-        public static void EndSimulatingUser()
+        /// <summary>
+        /// Metoda pro ukončení emulace jiného uživatele
+        /// </summary>
+        /// <exception cref="Exception"></exception>
+        public static void EndEmulatingUser()
         {
-            if (!isSimulating)
+            if (!isEmulating)
             {
                 throw new Exception("Není možné ukončit neexistujicí simulaci.");
             }
             LogOut();
             CurrentUser = loggedUser;
             SetDatabaseSessionIdentifier(ConnectionManager.Connection, CurrentUser.Id);
-            isSimulating= false;
+            isEmulating= false;
         }
 
+        /// <summary>
+        /// Pomocná metoda pro vytvoření Session s id uživatele.
+        /// </summary>
+        /// <param name="connection"></param>
+        /// <param name="userId"></param>
         private static void SetDatabaseSessionIdentifier(System.Data.IDbConnection connection, int userId)
         {
             string query = @"
@@ -232,6 +282,10 @@ namespace DatabaseAccess
             }
         }
 
+        /// <summary>
+        /// Pomocná metoda pro vyčistění Session
+        /// </summary>
+        /// <param name="connection">Connection k používané databázi.</param>
         private static void ClearDatabaseSessionIdentifier(System.Data.IDbConnection connection)
         {
             string query = @"
@@ -246,6 +300,11 @@ namespace DatabaseAccess
             }
         }
 
+        /// <summary>
+        /// Pomocná metoda pro nastavění změny posledního přihlášení.
+        /// </summary>
+        /// <param name="connection"></param>
+        /// <param name="userId">Id uživatele.</param>
         private static void UpdateLastLoginDate(System.Data.IDbConnection connection, int userId)
         {
             string query = @"

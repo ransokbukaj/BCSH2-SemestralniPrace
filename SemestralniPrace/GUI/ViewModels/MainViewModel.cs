@@ -32,7 +32,7 @@ namespace GUI.ViewModels
 
         public bool IsLogged => CurrentUser != null;
         public bool IsAdmin => CurrentUser != null && CurrentUser.Role.Name == "Admin";
-        public bool CanSimulate => IsAdmin && UserManager.isSimulating == false;
+        public bool CanSimulate => IsAdmin && UserManager.isEmulating == false;
 
         [ObservableProperty]
         private string logButtonText;
@@ -60,9 +60,9 @@ namespace GUI.ViewModels
         {
             if (IsLogged)
             {
-                if (UserManager.isSimulating)
+                if (UserManager.isEmulating)
                 {
-                    UserManager.EndSimulatingUser();
+                    UserManager.EndEmulatingUser();
                     CurrentUser = UserManager.CurrentUser;
                     LogButtonText = "Log out";
                 }
@@ -94,7 +94,7 @@ namespace GUI.ViewModels
         {
             if(SelectedUser != null)
             {
-                UserManager.StartSimulateUser(SelectedUser);
+                UserManager.StartEmulatingUser(SelectedUser);
                 CurrentUser = UserManager.CurrentUser;
                 CurrentViewModel = new HomeViewModel();
                 LogButtonText = "End Simulation";

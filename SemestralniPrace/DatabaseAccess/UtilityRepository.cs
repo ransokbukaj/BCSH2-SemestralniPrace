@@ -9,6 +9,10 @@ namespace DatabaseAccess
 {
     public class UtilityRepository : IUtilityRepository
     {
+        /// <summary>
+        /// Metoda pro zisk všech stále dostupných výstav
+        /// </summary>
+        /// <returns>List všech stále dostupných výstav </returns>
         public List<AvailableExhibition> GetAvailableExhibitions()
         {
             var list = new List<AvailableExhibition>();
@@ -44,6 +48,10 @@ namespace DatabaseAccess
             return list;
         }
 
+        /// <summary>
+        /// Metoda pro získání GaleryStaticstic, objektu obsahujicí data o galerii.
+        /// </summary>
+        /// <returns>Objekt GaleryStatistics</returns>
         public GaleryStatistics GetGaleryStatistic()
         {
             var stat = new GaleryStatistics();
@@ -83,6 +91,10 @@ namespace DatabaseAccess
             return stat;
         }
 
+        /// <summary>
+        /// Metoda pro získání nejnovějších uměleckých děl.
+        /// </summary>
+        /// <returns>List nejnovějších děl</returns>
         public List<NewArtPiece> GetNewArtPieces()
         {
             var list = new List<NewArtPiece>();
@@ -116,6 +128,11 @@ namespace DatabaseAccess
             return list;
         }
 
+        /// <summary>
+        /// Metoda pro získání objektu ArtistStatistic, který obsahuje informace o umělci.
+        /// </summary>
+        /// <param name="artistId">Id umělce od kterého cheme získat ArtistStatistic</param>
+        /// <returns>Objekt ArtistStatistic</returns>
         public ArtistStatistics GetArtistStatistic(int artistId)
         {
             using (var command = ConnectionManager.Connection.CreateCommand())
@@ -123,7 +140,7 @@ namespace DatabaseAccess
                 command.CommandType = CommandType.StoredProcedure;
                 command.CommandText = "p_statistiky_umelce";
 
-                // IN parametr – ID umělce
+
                 var pId = new OracleParameter
                 {
                     ParameterName = "p_idumelec",
@@ -133,7 +150,7 @@ namespace DatabaseAccess
                 };
                 command.Parameters.Add(pId);
 
-                // OUT parametry
+  
                 var pPocetDel = new OracleParameter
                 {
                     ParameterName = "o_pocet_del",
@@ -182,10 +199,8 @@ namespace DatabaseAccess
                 };
                 command.Parameters.Add(pAvg);
 
-                // Vykonání procedury
-                command.ExecuteNonQuery();
 
-                // Naplnění objektu
+                command.ExecuteNonQuery();
                 var result = new ArtistStatistics
                 {
                     AmounArtPiece = ((OracleDecimal)pPocetDel.Value).ToInt32(),
@@ -200,6 +215,11 @@ namespace DatabaseAccess
             }
         }
 
+        /// <summary>
+        /// Metoda pro získání objektu MentorBranchStatistic, obsahujího informace o linii umělců.
+        /// </summary>
+        /// <param name="id">Id uživate, který je mentorem linie.</param>
+        /// <returns>Objekt MentorBranchStatistics</returns>
         public MentorBranchStatistics GetMentorBranchStatics(int id)
         {
             using (var command = ConnectionManager.Connection.CreateCommand())
@@ -207,7 +227,6 @@ namespace DatabaseAccess
                 command.CommandType = CommandType.StoredProcedure;
                 command.CommandText = "p_trzba_mentorske_vetve";
 
-                // IN parametr – ID umělce
                 var pId = new OracleParameter
                 {
                     ParameterName = "p_idmentor",
@@ -217,7 +236,6 @@ namespace DatabaseAccess
                 };
                 command.Parameters.Add(pId);
 
-                // OUT parametry
                 var amountOfArtist = new OracleParameter
                 {
                     ParameterName = "o_pocet_umelcu",
@@ -242,10 +260,8 @@ namespace DatabaseAccess
                 };
                 command.Parameters.Add(totalProfit);
 
-                // Vykonání procedury
                 command.ExecuteNonQuery();
 
-                // Naplnění objektu
                 var result = new MentorBranchStatistics
                 {
                     ArtistsInBranch = ((OracleDecimal)amountOfArtist.Value).ToInt32(),
@@ -258,6 +274,11 @@ namespace DatabaseAccess
             }
         }
 
+        /// <summary>
+        /// Metoda pro získání MostSuccesfulMentore, který má informace o nejúspěšnějším studentovy v linii.
+        /// </summary>
+        /// <param name="artistId">Id mentora od kterého chceme získat nejúspěšnějšího studenta linie. </param>
+        /// <returns>Objekt MostSuccesfulMentore</returns>
         public MostSuccesfulMentore GetMostSuccesfulMentore(int artistId)
         {
             using (var command = ConnectionManager.Connection.CreateCommand())
@@ -274,7 +295,6 @@ namespace DatabaseAccess
                 };
                 command.Parameters.Add(idOfMentor);
 
-                // OUT parametry
                 var idOfMentore = new OracleParameter
                 {
                     ParameterName = "o_idpotomek",
@@ -300,11 +320,8 @@ namespace DatabaseAccess
                 };
                 command.Parameters.Add(amountOfArt);
 
-                // Vykonání procedury
                 command.ExecuteNonQuery();
 
-                // Naplnění objektu
-                // o_idpotomek (NUMBER)
                 int? potomekId = null;
                 if (idOfMentore.Value != DBNull.Value)
                 {
@@ -312,7 +329,6 @@ namespace DatabaseAccess
                     potomekId = od.IsNull ? (int?)null : od.ToInt32();
                 }
 
-                // o_jmenopotomek (VARCHAR2)
                 string? potomekJmeno = null;
                 if (nameOfMentore.Value != DBNull.Value)
                 {
@@ -320,7 +336,6 @@ namespace DatabaseAccess
                     potomekJmeno = os.IsNull ? null : os.Value;
                 }
 
-                // o_pocet_del (NUMBER)
                 int? pocetDel = null;
                 if (amountOfArt.Value != DBNull.Value)
                 {
@@ -330,15 +345,20 @@ namespace DatabaseAccess
 
                 var result = new MostSuccesfulMentore
                 {
-                    ArtistId = potomekId ?? 0,          // nebo změň v entitě na int?
-                    ArtistName = potomekJmeno ,// ?? "",
-                    AmountOfArtPieces = pocetDel// ?? 0
+                    ArtistId = potomekId ?? 0,          
+                    ArtistName = potomekJmeno ,
+                    AmountOfArtPieces = pocetDel
                 };
 
-                return result; // linie umělců
+                return result;
             }
         }
 
+        /// <summary>
+        /// Metoda pro získáni informací o umělce za pomocí objektu UserStatistics.
+        /// </summary>
+        /// <param name="userId">Id uživatele od kterého cheme UserStatistics</param>
+        /// <returns></returns>
         public UserStatistics GetUserStatistics(int userId)
         {
             using (var command = ConnectionManager.Connection.CreateCommand())
@@ -355,7 +375,6 @@ namespace DatabaseAccess
                 };
                 command.Parameters.Add(pId);
 
-                // OUT parametry
                 var amountOfChanges = new OracleParameter
                 {
                     ParameterName = "o_pocet_zmen",
@@ -404,12 +423,7 @@ namespace DatabaseAccess
                 };
                 command.Parameters.Add(isDisabled);
 
-
-
-                // Vykonání procedury
                 command.ExecuteNonQuery();
-
-                // Naplnění objektu
 
                 var oLast = (OracleDate)lastChange.Value;
                 

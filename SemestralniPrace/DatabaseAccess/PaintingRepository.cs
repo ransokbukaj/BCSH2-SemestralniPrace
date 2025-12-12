@@ -11,6 +11,10 @@ namespace DatabaseAccess
 {
     public class PaintingRepository : IPaintingRepository
     {
+        /// <summary>
+        /// Metoda pro získání všech maleb z databáze
+        /// </summary>
+        /// <returns>List všech maleb</returns>
         public List<Painting> GetList()
         {
             var list = new List<Painting>();
@@ -63,6 +67,10 @@ namespace DatabaseAccess
             return list;
         }
 
+        /// <summary>
+        /// Metoda pro přidání nebo úpravu malby
+        /// </summary>
+        /// <param name="painting">Malba k přidání nebo úpravě</param>
         public void SaveItem(Painting painting)
         {
             using (var transaction = ConnectionManager.Connection.BeginTransaction())
@@ -165,11 +173,9 @@ namespace DatabaseAccess
                         };
                         command.Parameters.Add(paramTechnika);
 
-                        // Provedení procedury
                         command.ExecuteNonQuery();
                     }
 
-                    // Commit transakce
                     transaction.Commit();
                 }
                 catch
@@ -180,6 +186,10 @@ namespace DatabaseAccess
             }
         }
 
+        /// <summary>
+        /// Metoda pro odstranění určité malby
+        /// </summary>
+        /// <param name="id">Id malby k odstranení.</param>
         public void DeleteItem(int id)
         {
             using (var transaction = ConnectionManager.Connection.BeginTransaction())
@@ -201,11 +211,8 @@ namespace DatabaseAccess
                         };
                         command.Parameters.Add(paramId);
 
-                        // Provedení procedury
                         command.ExecuteNonQuery();
                     }
-
-                    // Commit transakce
                     transaction.Commit();
                 }
                 catch
