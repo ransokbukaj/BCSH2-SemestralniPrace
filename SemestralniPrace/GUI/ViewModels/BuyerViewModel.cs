@@ -17,6 +17,8 @@ namespace GUI.ViewModels
         private readonly BuyerRepository repository = new BuyerRepository();
         private readonly AddressRepository addressRepository = new AddressRepository();
 
+
+        private List<Buyer> _allBuyers = new();
         [ObservableProperty]
         private ObservableCollection<Buyer> buyers = new();
 
@@ -25,6 +27,14 @@ namespace GUI.ViewModels
 
         [ObservableProperty]
         private Buyer selectedBuyer;
+
+        [ObservableProperty]
+        private string searchText;
+
+        partial void OnSearchTextChanged(string value)
+        {
+            ApplyFilter();
+        }
 
         public BuyerViewModel()
         {
@@ -36,10 +46,38 @@ namespace GUI.ViewModels
         {
             ErrorHandler.SafeExecute(() =>
             {
-                var list = repository.GetList();
-                Buyers = new ObservableCollection<Buyer>(list);
+                _allBuyers = repository.GetList();
+                Buyers = new ObservableCollection<Buyer>(_allBuyers);
                 Addresses = new ObservableCollection<Address>(addressRepository.GetList());
             }, "Načtení kupců selhalo");
+            ApplyFilter();
+        }
+
+        private void ApplyFilter()
+        {
+            if (_allBuyers == null)
+                return;
+
+            var text = (SearchText ?? "").Trim();
+
+            if (string.IsNullOrWhiteSpace(text))
+            {
+                Buyers = new ObservableCollection<Buyer>(_allBuyers);
+                return;
+            }
+
+            text = text.ToLowerInvariant();
+
+            var filtered = _allBuyers.Where(b =>
+                (!string.IsNullOrWhiteSpace(b.FirstName) && b.FirstName.ToLowerInvariant().Contains(text)) ||
+                (!string.IsNullOrWhiteSpace(b.LastName) && b.LastName.ToLowerInvariant().Contains(text)) ||
+                (!string.IsNullOrWhiteSpace(b.PhoneNumber) && b.PhoneNumber.ToLowerInvariant().Contains(text)) ||
+                (!string.IsNullOrWhiteSpace(b.Email) && b.Email.ToLowerInvariant().Contains(text))).ToList();
+
+            Buyers = new ObservableCollection<Buyer>(filtered);
+
+            if (SelectedBuyer != null && !filtered.Any(x => x.Id == SelectedBuyer.Id))
+                SelectedBuyer = filtered.FirstOrDefault();
         }
 
         [RelayCommand]
