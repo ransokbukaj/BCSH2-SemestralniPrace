@@ -106,6 +106,7 @@ namespace GUI.ViewModels
         public ExhibitionViewModel()
         {
             Load();
+            ApplyFilter();
         }
 
         [RelayCommand]

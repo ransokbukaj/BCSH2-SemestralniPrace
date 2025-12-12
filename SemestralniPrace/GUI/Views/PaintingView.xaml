@@ -23,11 +23,23 @@
         </Grid.ColumnDefinitions>
 
         <!-- Nadpis -->
-        <TextBlock Grid.Row="0" Grid.ColumnSpan="2"
-                   Text="Obrazy"
-                   FontSize="24"
-                   FontWeight="Bold"
-                   Margin="0,0,0,10"/>
+        <StackPanel Grid.Row="0" Grid.ColumnSpan="2"
+            Orientation="Horizontal"
+            VerticalAlignment="Center"
+            Margin="0,0,0,10">
+
+            <TextBlock Text="Obrazy"
+               FontSize="24"
+               FontWeight="Bold"
+               VerticalAlignment="Center"/>
+
+            <!-- search vpravo -->
+            <TextBox Width="260"
+             Margin="20,0,0,0"
+             VerticalAlignment="Center"
+             Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
+             ToolTip="Vyhledat podle názvu"/>
+        </StackPanel>
 
         <!-- Seznam obrazů -->
         <DataGrid Grid.Row="1" Grid.Column="0"

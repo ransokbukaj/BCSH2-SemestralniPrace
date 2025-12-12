@@ -22,6 +22,8 @@ namespace GUI.ViewModels
         private readonly AttachmentRepository attRep = new AttachmentRepository();
         private readonly ArtistRepository artistRep = new ArtistRepository();
 
+        private List<Painting> _allPaintings = new();
+
         [ObservableProperty]
         private ObservableCollection<Painting> paintings = new();
 
@@ -54,6 +56,14 @@ namespace GUI.ViewModels
 
         [ObservableProperty]
         private Artist selectedArtistToRemove;
+
+        [ObservableProperty]
+        private string searchText = string.Empty;
+
+        partial void OnSearchTextChanged(string value)
+        {
+            ApplyFilter();
+        }
 
         partial void OnSelectedPaintingChanged(Painting? oldValue, Painting newValue)
         {
@@ -243,10 +253,36 @@ namespace GUI.ViewModels
         {
             ErrorHandler.SafeExecute(() =>
             {
+                _allPaintings = repository.GetList();
                 Paintings = new ObservableCollection<Painting>(repository.GetList());
                 Techniques = new ObservableCollection<Counter>(counterRep.GetTechniques());
                 Bases = new ObservableCollection<Counter>(counterRep.GetFoundations());
+                ApplyFilter();
             }, "Načtení obrazů selhalo");
+        }
+
+        private void ApplyFilter()
+        {
+            if (Paintings == null)
+                return;
+
+            var text = (SearchText ?? "").Trim();
+
+            if (string.IsNullOrWhiteSpace(text))
+            {
+                Paintings = new ObservableCollection<Painting>(_allPaintings);
+                return;
+            }
+
+            var lower = text.ToLowerInvariant();
+
+            var filtered = Paintings
+                .Where(p =>
+                    (!string.IsNullOrWhiteSpace(p.Name) && p.Name.ToLowerInvariant().Contains(lower))
+                )
+                .ToList();
+
+            Paintings = new ObservableCollection<Painting>(filtered);
         }
 
         [RelayCommand]
