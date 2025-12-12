@@ -9,9 +9,6 @@
         Width="1150"       
         Background="Transparent">
 
-    
-    
-    <!--"Background= #272537"-->
     <Border Background="Snow">
         <Grid >
             <Grid.ColumnDefinitions>
@@ -20,7 +17,6 @@
             </Grid.ColumnDefinitions>
             <Grid Grid.Column="1">
                 <Grid.RowDefinitions>
-                    <!--<RowDefinition Height="25"/>-->
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <ContentControl Grid.Row="1" Content="{Binding CurrentViewModel}"/>

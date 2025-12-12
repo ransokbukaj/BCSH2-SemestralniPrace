@@ -8,21 +8,15 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid Margin="10">
 
-        <!-- Stejná struktura jako ostatní view -->
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <!-- Hlavička -->
             <RowDefinition Height="*"/>
-            <!-- Obsah -->
             <RowDefinition Height="Auto"/>
-            <!-- CRUD tlačítka -->
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="4*"/>
-            <!-- seznam návštěv -->
             <ColumnDefinition Width="6*"/>
-            <!-- detail návštěvy -->
         </Grid.ColumnDefinitions>
 
         <!-- Hlavička -->
@@ -43,7 +37,6 @@
              ToolTip="Vyhledat (datum / typ návštěvy)"/>
         </StackPanel>
 
-        <!-- LEVÁ ČÁST – seznam návštěv -->
         <DataGrid Grid.Row="1" Grid.Column="0"
                   ItemsSource="{Binding Visits}"
                   SelectedItem="{Binding SelectedVisit, Mode=TwoWay}"
@@ -51,7 +44,6 @@
                   IsReadOnly="True"
                   Margin="0,0,10,0">
             <DataGrid.Columns>
-                <!--<DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="Auto"/>-->
                 <DataGridTextColumn Header="Datum návštěvy"
                                     Binding="{Binding DateOfVisit, StringFormat=\{0:dd.MM.yyyy\}}"
                                     Width="*"/>
@@ -61,7 +53,6 @@
             </DataGrid.Columns>
         </DataGrid>
 
-        <!-- PRAVÁ ČÁST – detail návštěvy ve ScrollVieweru -->
         <ScrollViewer Grid.Row="1" Grid.Column="1"
                       Margin="10,0,0,0"
                       VerticalScrollBarVisibility="Auto">
@@ -71,11 +62,6 @@
                            FontSize="18"
                            FontWeight="Bold"
                            Margin="0,0,0,10"/>
-
-                <!--<StackPanel Orientation="Horizontal" Margin="0,0,0,5">
-                    <TextBlock Text="ID:" Width="140"/>
-                    <TextBlock Text="{Binding SelectedVisit.Id}"/>
-                </StackPanel>-->
 
                 <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
                     <TextBlock Text="Datum:" Width="140"/>
@@ -92,7 +78,6 @@
                               Width="200" />
                 </StackPanel>
 
-                <!-- Výstava -->
                 <StackPanel Orientation="Horizontal" Margin="0,15,0,5">
                     <TextBlock Text="Výstava:" Width="140"/>
                     <ComboBox ItemsSource="{Binding Exhibitions}"
@@ -105,7 +90,6 @@
             </StackPanel>
         </ScrollViewer>
 
-        <!-- SPODNÍ TLAČÍTKA – sjednocená poloha -->
         <StackPanel Grid.Row="2" Grid.Column="1"
                     Orientation="Horizontal"
                     HorizontalAlignment="Right"

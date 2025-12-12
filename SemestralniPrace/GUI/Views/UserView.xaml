@@ -10,7 +10,6 @@
              d:DesignWidth="1000">
 
     <Grid Margin="10">
-        <!-- HLAVNÍ ROZLOŽENÍ -->
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
@@ -21,7 +20,6 @@
             <ColumnDefinition Width="3*"/>
         </Grid.ColumnDefinitions>
 
-        <!-- HORNÍ LIŠTA -->
         <StackPanel Grid.Row="0"
                     Grid.ColumnSpan="2"
                     Orientation="Horizontal"
@@ -40,7 +38,6 @@
                      ToolTip="Vyhledat uživatele (jméno, příjmení, username, email)"/>
         </StackPanel>
 
-        <!-- LEVÁ ČÁST – SEZNAM UŽIVATELŮ -->
         <DataGrid Grid.Row="1"
                   Grid.Column="0"
                   ItemsSource="{Binding Users}"
@@ -59,7 +56,6 @@
             </DataGrid.Columns>
         </DataGrid>
 
-        <!-- PRAVÁ ČÁST – DETAIL -->
         <Grid Grid.Row="1"
               Grid.Column="1"
               Margin="10,0,0,0">
@@ -69,7 +65,6 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
-            <!-- SCROLLUJÍCÍ OBSAH -->
             <ScrollViewer Grid.Row="0"
                           VerticalScrollBarVisibility="Auto">
 
@@ -154,7 +149,6 @@
                         <TextBlock Text="{Binding UserStat.LastChange, StringFormat='{}{0:dd.MM.yyyy HH:mm:ss}'}"/>
                     </StackPanel>
 
-                    <!-- ZMĚNA HESLA -->
                     <GroupBox Header="Změna hesla">
                         <StackPanel Margin="10">
 
@@ -191,7 +185,6 @@
                 </StackPanel>
             </ScrollViewer>
 
-            <!-- PEVNÁ TLAČÍTKA -->
             <Border Grid.Row="1"
                     Padding="0,10,0,0"
                     Background="White">

@@ -34,7 +34,6 @@
              ToolTip="Hledat (cena, datum, karta, účet)"/>
         </StackPanel>
 
-        <!-- Levá strana – seznam prodejů -->
         <DataGrid Grid.Row="1" Grid.Column="0"
                   ItemsSource="{Binding Sales}"
                   SelectedItem="{Binding SelectedSale, Mode=TwoWay}"
@@ -42,22 +41,17 @@
                   IsReadOnly="True"
                   Margin="0,0,10,0">
             <DataGrid.Columns>
-                <!--<DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="Auto"/>-->
                 <DataGridTextColumn Header="Cena" Binding="{Binding Price}" Width="*"/>
                 <DataGridTextColumn Header="Datum prodeje" Binding="{Binding DateOfSale, StringFormat=\{0:d\}}" Width="*"/>
             </DataGrid.Columns>
         </DataGrid>
 
-        <!-- Pravá strana – detail prodeje -->
         <Grid Grid.Row="1" Grid.Column="1" Margin="10,0,0,0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
-                <!-- detail + díla -->
                 <RowDefinition Height="Auto"/>
-                <!-- hlavní tlačítka -->
             </Grid.RowDefinitions>
 
-            <!-- Scrollovatelný obsah -->
             <ScrollViewer Grid.Row="0"
                           VerticalScrollBarVisibility="Auto">
                 <StackPanel>
@@ -67,35 +61,31 @@
                                FontWeight="Bold"
                                Margin="0,0,0,10"/>
 
-                    <!-- Cena -->
                     <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
                         <TextBlock Text="Cena:" Width="140"/>
                         <TextBox Text="{Binding SelectedSale.Price, UpdateSourceTrigger=PropertyChanged}"
                                  Width="100"/>
                     </StackPanel>
 
-                    <!-- Datum prodeje -->
                     <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
                         <TextBlock Text="Datum prodeje:" Width="140"/>
                         <DatePicker SelectedDate="{Binding SelectedSale.DateOfSale, UpdateSourceTrigger=PropertyChanged}"
                                     Width="200"/>
                     </StackPanel>
 
-                    <!-- Číslo karty -->
                     <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
                         <TextBlock Text="Číslo karty:" Width="140"/>
                         <TextBox Text="{Binding SelectedSale.CardNumber, UpdateSourceTrigger=PropertyChanged}"
                                  Width="200"/>
                     </StackPanel>
 
-                    <!-- Číslo účtu -->
                     <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
                         <TextBlock Text="Číslo účtu:" Width="140"/>
                         <TextBox Text="{Binding SelectedSale.AccountNumber, UpdateSourceTrigger=PropertyChanged}"
                                  Width="200"/>
                     </StackPanel>
 
-                    <!-- Typ platby -->
+
                     <StackPanel Orientation="Horizontal" Margin="0,10,0,5">
                         <TextBlock Text="Typ platby:" Width="140"/>
                         <ComboBox Width="200"
@@ -105,7 +95,6 @@
                                 DisplayMemberPath="Name" />
                     </StackPanel>
 
-                    <!-- Kupující -->
                     <StackPanel Orientation="Horizontal" Margin="0,10,0,5">
                         <TextBlock Text="Kupující:" Width="140"/>
                         <ComboBox Width="250"
@@ -115,10 +104,8 @@
                                 DisplayMemberPath="FullName"/>
                         
                         
-                        <!-- pokud máš FullName, změň DisplayMemberPath -->
                     </StackPanel>
 
-                    <!-- Umělecká díla v prodeji -->
                     <TextBlock Text="Prodávaná umělecká díla:"
                                Margin="0,15,0,5"/>
 
@@ -129,13 +116,11 @@
                               Height="150"
                               Margin="0,0,0,5">
                         <DataGrid.Columns>
-                            <!--<DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="Auto"/>-->
                             <DataGridTextColumn Header="Název" Binding="{Binding Name}" Width="*"/>
                             <DataGridTextColumn Header="Typ díla" Binding="{Binding TypeToString}" Width="*"/>
                         </DataGrid.Columns>
                     </DataGrid>
 
-                    <!-- Přidávání / odebírání díla -->
                     <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
                         <TextBlock Text="Přidat dílo:" Width="120" VerticalAlignment="Center"/>
 
@@ -158,7 +143,6 @@
                 </StackPanel>
             </ScrollViewer>
 
-            <!-- Hlavní CRUD tlačítka pro prodej – vždy viditelná -->
             <StackPanel Grid.Row="1"
                         Orientation="Horizontal"
                         HorizontalAlignment="Right"

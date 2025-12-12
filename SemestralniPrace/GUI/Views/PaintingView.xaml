@@ -7,14 +7,14 @@
              Background="White"
              d:DesignHeight="1000" d:DesignWidth="900">
     <Grid Margin="10">
-        <!-- Hlavní rozdělení: hlavička, obsah, spodní tlačítka -->
+
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <!-- nadpis -->
+
             <RowDefinition Height="*"/>
-            <!-- obsah: DataGrid + detail -->
+
             <RowDefinition Height="Auto"/>
-            <!-- hlavní tlačítka -->
+
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
@@ -33,7 +33,6 @@
                FontWeight="Bold"
                VerticalAlignment="Center"/>
 
-            <!-- search vpravo -->
             <TextBox Width="260"
              Margin="20,0,0,0"
              VerticalAlignment="Center"
@@ -49,7 +48,6 @@
                   IsReadOnly="True"
                   Margin="0,0,10,0">
             <DataGrid.Columns>
-                <!--<DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="Auto"/>-->
                 <DataGridTextColumn Header="Název" Binding="{Binding Name}" Width="*"/>
                 <DataGridTextColumn Header="Vydáno" Binding="{Binding PublishedDate, StringFormat=\{0:d\}}" Width="*"/>
                 <DataGridTextColumn Header="Výška" Binding="{Binding Height}" Width="*"/>
@@ -57,7 +55,7 @@
             </DataGrid.Columns>
         </DataGrid>
 
-        <!-- Detail obrazu (scrolluje se jen tohle) -->
+        <!-- Detail obrazu -->
         <ScrollViewer Grid.Row="1" Grid.Column="1"
                       Margin="10,0,0,0"
                       VerticalScrollBarVisibility="Auto">
@@ -68,10 +66,6 @@
                            FontWeight="Bold"
                            Margin="0,0,0,10"/>
 
-                <!--<StackPanel Orientation="Horizontal" Margin="0,0,0,5">
-                    <TextBlock Text="ID:" Width="140"/>
-                    <TextBlock Text="{Binding SelectedPainting.Id}"/>
-                </StackPanel>-->
 
                 <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
                     <TextBlock Text="Název:" Width="140"/>
@@ -104,7 +98,6 @@
                              Width="80"/>
                 </StackPanel>
 
-                <!-- Podklad -->
                 <StackPanel Orientation="Horizontal" Margin="0,10,0,5">
                     <TextBlock Text="Podklad:" Width="140"/>
                     <ComboBox Width="200"
@@ -114,7 +107,6 @@
                               DisplayMemberPath="Name" />
                 </StackPanel>
 
-                <!-- Technika -->
                 <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
                     <TextBlock Text="Technika:" Width="140"/>
                     <ComboBox Width="200"
@@ -124,17 +116,15 @@
                               DisplayMemberPath="Name" />
                 </StackPanel>
 
-                <!-- GALERIE OBRÁZKŮ + INFO O SOUBORU -->
+                <!-- GALERIE OBRÁZKŮ -->
                 <TextBlock Text="Obrázky:" Margin="0,10,0,5"/>
 
-                <!-- Obrázek + info vedle sebe -->
                 <Grid Margin="0,0,0,5">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
 
-                    <!-- Hlavní obrázek -->
                     <Border Grid.Column="0"
                             Width="250" Height="250"
                             Background="#FFEFEFEF"
@@ -142,7 +132,7 @@
                             BorderThickness="1"
                             HorizontalAlignment="Left"
                             Margin="0,0,10,0">
-                        <!-- předpoklad: CurrentImagePath (string) ve ViewModelu nebo SelectedPainting.ImagePath -->
+                        
                         <Image Source="{Binding SelectedImage}"
                                Stretch="Uniform"/>
                     </Border>
@@ -159,7 +149,6 @@
                     </StackPanel>
                 </Grid>
 
-                <!-- Přepínací tlačítka + info o pozici v galerii -->
                 <StackPanel Orientation="Horizontal"
                             Margin="0,5,0,0"
                             VerticalAlignment="Center">
@@ -167,15 +156,11 @@
                             Width="40"
                             Margin="0,0,5,0"
                             Command="{Binding PreviousImageCommand}"/>
-                    <!--<TextBlock Text="{Binding ImagePositionText}"
-                               VerticalAlignment="Center"
-                               Margin="0,0,5,0"/>-->
                     <Button Content="▶"
                             Width="40"
                             Command="{Binding NextImageCommand}"/>
                 </StackPanel>
 
-                <!-- Přidat / smazat aktuální obrázek -->
                 <StackPanel Orientation="Horizontal"
                             Margin="0,5,0,0">
                     <Button Content="Přidat obrázek"
@@ -187,10 +172,8 @@
                             Command="{Binding RemoveCurrentImageCommand}"/>
                 </StackPanel>
 
-                <!-- Autoři -->
                 <TextBlock Text="Autoři:" Margin="0,15,0,5"/>
 
-                <!-- Seznam autorů obrazu -->
                 <DataGrid ItemsSource="{Binding Authors}"
                           SelectedItem="{Binding SelectedArtistToRemove, Mode=TwoWay}"
                           AutoGenerateColumns="False"
@@ -205,7 +188,6 @@
 
                 </DataGrid>
 
-                <!-- Přidání / odebrání autora -->
                 <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
                     <TextBlock Text="Přidat autora:" Width="140" VerticalAlignment="Center"/>
 
@@ -228,7 +210,6 @@
             </StackPanel>
         </ScrollViewer>
 
-        <!-- Hlavní tlačítka pro obraz – mimo ScrollViewer, vždy viditelná -->
         <StackPanel Grid.Row="2" Grid.ColumnSpan="2"
                     Orientation="Horizontal"
                     HorizontalAlignment="Right"
