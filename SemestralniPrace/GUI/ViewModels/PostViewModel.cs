@@ -16,11 +16,20 @@ namespace GUI.ViewModels
     {
         private readonly PostRepository repository = new PostRepository();
 
+        private List<Post> _allPosts = new();
         [ObservableProperty]
         private ObservableCollection<Post> posts = new();
 
         [ObservableProperty]
         private Post selectedPost;
+
+        [ObservableProperty]
+        private string searchText = string.Empty;
+
+        partial void OnSearchTextChanged(string value)
+        {
+            ApplyFilter();
+        }
 
         public PostViewModel()
         {
@@ -32,9 +41,36 @@ namespace GUI.ViewModels
         {
             ErrorHandler.SafeExecute(() =>
             {
-                var list = repository.GetList();
-                Posts = new ObservableCollection<Post>(list);
+                _allPosts = repository.GetList();
+                //Posts = new ObservableCollection<Post>(list);
+                ApplyFilter();
             }, "Načtení PSČ selhalo");
+        }
+
+        private void ApplyFilter()
+        {
+            if (_allPosts == null) return;
+
+            var text = (SearchText ?? "").Trim();
+
+            if (string.IsNullOrWhiteSpace(text))
+            {
+                Posts = new ObservableCollection<Post>(_allPosts);
+                return;
+            }
+
+            var lower = text.ToLowerInvariant();
+
+            var filtered = _allPosts
+                .Where(p =>
+                    (!string.IsNullOrWhiteSpace(p.City) && p.City.ToLowerInvariant().Contains(lower)) ||
+                    (!string.IsNullOrWhiteSpace(p.PSC) && p.PSC.ToLowerInvariant().Contains(lower)) ||
+                    // hledání i bez mezery: "12345" najde i "123 45"
+                    (!string.IsNullOrWhiteSpace(p.PSC) && p.PSC.Replace(" ", "").Contains(text.Replace(" ", "")))
+                )
+                .ToList();
+
+            Posts = new ObservableCollection<Post>(filtered);
         }
 
         [RelayCommand]
