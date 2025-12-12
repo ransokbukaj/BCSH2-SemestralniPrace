@@ -10,13 +10,12 @@ namespace DatabaseAccess.Interface
     internal interface IArtistRepository
     {
         List<Artist> GetList();
-
         List<Artist> GetListByArtPieceId(int id);
-        List<Artist> GetAvailableMentors(int idOfArtist);
+        List<Artist> GetAvailableMentors(int id);
+
+
         void SaveItem(Artist artist);
-
         void DeleteItem(int id);
-
 
         void AddArtistToArtPiece(int id, int idArt);
         void RemoveArtistFromArtPiece(int id, int idArt);

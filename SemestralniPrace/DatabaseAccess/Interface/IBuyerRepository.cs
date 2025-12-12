@@ -12,7 +12,6 @@ namespace DatabaseAccess.Interface
         List<Buyer> GetList();
 
         void SaveItem(Buyer buyer);
-
         void DeleteItem(int id);
     }
 }

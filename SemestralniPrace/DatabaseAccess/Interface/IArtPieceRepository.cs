@@ -11,22 +11,18 @@ namespace DatabaseAccess.Interface
     {
         List<ArtPiece> GetList();
 
-        List<ArtPiece> GetListByArtistId(int artistId);
+        List<ArtPiece> GetListByArtistId(int id);
 
-        List<ArtPiece> GetListByExhibitionId(int exhibitionId);
+        List<ArtPiece> GetListByExhibitionId(int id);
 
         List<ArtPiece> GetListInStorage();
 
-        List<ArtPiece> GetListBySaleId(int saleId);
+        List<ArtPiece> GetListBySaleId(int id);
 
         List<ArtPiece> GetListUnsold();
 
-        void SaveItem(ArtPiece piece);
+        void AddArtPieceToExhibition(int idArt, int idExhibition);
 
-        void DeleteItem(int id);
-
-        void AddArtPieceToExhibition(int idArtpiece, int idExhibition);
-
-        void RemoveArtPieceFromExhibition(int idArtpiece, int idExhibition);
+        void RemoveArtPieceFromExhibition(int idArt, int idExhibition);
     }
 }

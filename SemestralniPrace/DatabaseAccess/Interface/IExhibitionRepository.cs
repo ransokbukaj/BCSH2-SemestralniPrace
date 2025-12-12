@@ -11,15 +11,15 @@ namespace DatabaseAccess.Interface
     {
         List<Exhibition> GetList();
 
-        List<Exhibition> GetListByProgramId(int  programId);
+        List<Exhibition> GetListByProgramId(int  id);
 
         void SaveItem(Exhibition exhibition);
 
         void DeleteItem(int id);
 
-        void AddExhibitionToProgram(int idEx, int idProgram);
+        void AddExhibitionToProgram(int idExhibit, int idProgram);
 
-        void RemoveExhibitionFromProgram(int idEx);
+        void RemoveExhibitionFromProgram(int idExhibit);
         
     }
 }

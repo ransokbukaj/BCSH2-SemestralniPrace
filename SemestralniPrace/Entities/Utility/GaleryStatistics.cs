@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Entities.Home
 {
-    public class GaleryStatistic
+    public class GaleryStatistics
     {
         public int ArtPieceAmount { get; set; } = 0;
         public int PaintingAmount { get; set; } = 0;

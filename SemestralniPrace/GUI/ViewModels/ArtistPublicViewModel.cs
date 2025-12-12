@@ -12,7 +12,7 @@ namespace GUI.ViewModels
     {
         private readonly ArtistRepository repository = new ArtistRepository();
         private readonly ArtPieceRepository artRepo = new ArtPieceRepository();
-        private readonly HomeViewRepository homeRep = new HomeViewRepository();
+        private readonly UtilityRepository homeRep = new UtilityRepository();
 
 
         private List<Artist> _allArtists = new();
@@ -26,7 +26,7 @@ namespace GUI.ViewModels
         private Artist selectedArtist;
 
         [ObservableProperty]
-        private ArtistStatistic stat;
+        private ArtistStatistics stat;
 
         [ObservableProperty]
         private MentorBranchStatistics mentorBranch;

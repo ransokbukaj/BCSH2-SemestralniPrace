@@ -12,6 +12,10 @@ namespace DatabaseAccess
 {
     public class ArtistRepository : IArtistRepository
     {
+        /// <summary>
+        /// Metoda pro získání všech umělců z databáze.
+        /// </summary>
+        /// <returns>List všech umělců</returns>
         public List<Artist> GetList()
         {
             var list = new List<Artist>();
@@ -56,6 +60,10 @@ namespace DatabaseAccess
             return list;
         }
 
+        /// <summary>
+        /// Metoda pro uložení nebo editaci umělce.
+        /// </summary>
+        /// <param name="artist"></param>
         public void SaveItem(Artist artist)
         {
             using (var transaction = ConnectionManager.Connection.BeginTransaction())
@@ -133,13 +141,8 @@ namespace DatabaseAccess
                         };
                         command.Parameters.Add(paramMentor);
 
-
-
-                        // Provedení procedury
                         command.ExecuteNonQuery();
                     }
-
-                    // Commit transakce
                     transaction.Commit();
                 }
                 catch
@@ -150,6 +153,10 @@ namespace DatabaseAccess
             }
         }
 
+        /// <summary>
+        /// Metoda pro smazání umělce.
+        /// </summary>
+        /// <param name="id"></param>
         public void DeleteItem(int id)
         {
             using (var transaction = ConnectionManager.Connection.BeginTransaction())
@@ -170,12 +177,8 @@ namespace DatabaseAccess
                             Value = id
                         };
                         command.Parameters.Add(paramId);
-
-                        // Provedení procedury
                         command.ExecuteNonQuery();
                     }
-
-                    // Commit transakce
                     transaction.Commit();
                 }
                 catch
@@ -185,6 +188,12 @@ namespace DatabaseAccess
                 }
             }
         }
+
+        /// <summary>
+        /// Metoda pro získání všech umělců z databáze, kteří vytviřoli dílo s určitým id.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>List umělců, kteří vytvořili dilo s určitým id.</returns>
         public List<Artist> GetListByArtPieceId(int id)
         {
             var list = new List<Artist>();
@@ -236,6 +245,11 @@ namespace DatabaseAccess
             return list;
         }
 
+        /// <summary>
+        /// Metoda pro přiřazení díla k umělci za pomoci id díla id umělce.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="idArt"></param>
         public void AddArtistToArtPiece(int id, int idArt)
         {
             using (var transaction = ConnectionManager.Connection.BeginTransaction())
@@ -266,11 +280,9 @@ namespace DatabaseAccess
                         };
                         command.Parameters.Add(paramId);
 
-                        // Provedení procedury
                         command.ExecuteNonQuery();
                     }
 
-                    // Commit transakce
                     transaction.Commit();
                 }
                 catch
@@ -281,6 +293,11 @@ namespace DatabaseAccess
             }
         }
 
+        /// <summary>
+        /// Metoda pro odebrání díla od umělce za pomoci id díla a id umělce.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="idArt"></param>
         public void RemoveArtistFromArtPiece(int id, int idArt)
         {
             using (var transaction = ConnectionManager.Connection.BeginTransaction())
@@ -311,11 +328,8 @@ namespace DatabaseAccess
                         };
                         command.Parameters.Add(paramId);
 
-                        // Provedení procedury
                         command.ExecuteNonQuery();
                     }
-
-                    // Commit transakce
                     transaction.Commit();
                 }
                 catch
@@ -327,7 +341,11 @@ namespace DatabaseAccess
         }
 
 
-
+        /// <summary>
+        /// Metoda pro zisk všech možných mentorů k umělci s určitým id.
+        /// </summary>
+        /// <param name="idOfArtist"></param>
+        /// <returns>List umělců, kteří by mohli být mentorem pro zadaného umělce.</returns>
         public List<Artist> GetAvailableMentors(int idOfArtist)
         {
             var list = new List<Artist>();

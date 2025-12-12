@@ -7,19 +7,20 @@ using System.Threading.Tasks;
 
 namespace DatabaseAccess.Interface
 {
-    internal interface IHomeViewRepository
+    internal interface IUtilityRepository
     {
 
         List<AvailableExhibition> GetAvailableExhibitions();
+
         List<NewArtPiece> GetNewArtPieces();
 
-        GaleryStatistic GetGaleryStatistic();
+        GaleryStatistics GetGaleryStatistic();
 
-        ArtistStatistic GetArtistStatistic(int artistId);
+        ArtistStatistics GetArtistStatistic(int id);
 
         MentorBranchStatistics GetMentorBranchStatics(int id);
 
-        MostSuccesfulMentore GetMostSuccesfulMentore(int artistId);
-        UserStatistics GetUserStatistics(int userId);
+        MostSuccesfulMentore GetMostSuccesfulMentore(int idArtist);
+        UserStatistics GetUserStatistics(int id);
     }
 }

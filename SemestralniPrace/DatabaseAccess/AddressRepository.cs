@@ -11,6 +11,10 @@ namespace DatabaseAccess
 {
     public class AddressRepository : IAddressRepository
     {
+        /// <summary>
+        /// Metoda pro zisk všech adres nacházejicích se v databázi.
+        /// </summary>
+        /// <returns>List všech adres</returns>
         public List<Address> GetList()
         {
             var list = new List<Address>();
@@ -50,6 +54,10 @@ namespace DatabaseAccess
             return list;
         }
 
+        /// <summary>
+        /// Metoda pro uložení a editaci adres.
+        /// </summary>
+        /// <param name="address"></param>
         public void SaveItem(Address address)
         {
             using (var transaction = ConnectionManager.Connection.BeginTransaction())
@@ -106,12 +114,9 @@ namespace DatabaseAccess
                             Value = address.Post.Id
                         };
                         command.Parameters.Add(paramIdPosta);
-
-                        // Provedení procedury
                         command.ExecuteNonQuery();
                     }
 
-                    // Commit transakce
                     transaction.Commit();
                 }
                 catch
@@ -122,6 +127,10 @@ namespace DatabaseAccess
             }
         }
 
+        /// <summary>
+        /// Metoda pro smazání adresy z databáze.
+        /// </summary>
+        /// <param name="id"></param>
         public void DeleteItem(int id)
         {
             using (var transaction = ConnectionManager.Connection.BeginTransaction())
@@ -142,12 +151,9 @@ namespace DatabaseAccess
                             Value = id
                         };
                         command.Parameters.Add(paramId);
-
-                        // Provedení procedury
                         command.ExecuteNonQuery();
                     }
 
-                    // Commit transakce
                     transaction.Commit();
                 }
                 catch

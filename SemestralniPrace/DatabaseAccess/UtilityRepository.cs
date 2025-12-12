@@ -7,7 +7,7 @@ using System.Data;
 
 namespace DatabaseAccess
 {
-    public class HomeViewRepository : IHomeViewRepository
+    public class UtilityRepository : IUtilityRepository
     {
         public List<AvailableExhibition> GetAvailableExhibitions()
         {
@@ -44,9 +44,9 @@ namespace DatabaseAccess
             return list;
         }
 
-        public GaleryStatistic GetGaleryStatistic()
+        public GaleryStatistics GetGaleryStatistic()
         {
-            var stat = new GaleryStatistic();
+            var stat = new GaleryStatistics();
             using (var command = ConnectionManager.Connection.CreateCommand())
             {
                 command.CommandText = @"
@@ -65,7 +65,7 @@ namespace DatabaseAccess
                 {
                     while (reader.Read())
                     {
-                        stat = new GaleryStatistic
+                        stat = new GaleryStatistics
                         {
                             ArtPieceAmount = Convert.ToInt32(reader["pocet_umelecky_del"]),
                             PaintingAmount = Convert.ToInt32(reader["pocet_obrazu"]),
@@ -116,7 +116,7 @@ namespace DatabaseAccess
             return list;
         }
 
-        public ArtistStatistic GetArtistStatistic(int artistId)
+        public ArtistStatistics GetArtistStatistic(int artistId)
         {
             using (var command = ConnectionManager.Connection.CreateCommand())
             {
@@ -186,7 +186,7 @@ namespace DatabaseAccess
                 command.ExecuteNonQuery();
 
                 // Naplnění objektu
-                var result = new ArtistStatistic
+                var result = new ArtistStatistics
                 {
                     AmounArtPiece = ((OracleDecimal)pPocetDel.Value).ToInt32(),
                     AmountSold = ((OracleDecimal)pPocetProdanych.Value).ToInt32(),

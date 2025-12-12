@@ -12,6 +12,10 @@ namespace DatabaseAccess
 {
     public class ArtPieceRepository : IArtPieceRepository
     {
+        /// <summary>
+        /// Metoda pro získání všech uměleckých děl z databáze.
+        /// </summary>
+        /// <returns>List všech uměleckých děl.</returns>
         public List<ArtPiece> GetList()
         {
             var list = new List<ArtPiece>();
@@ -52,17 +56,11 @@ namespace DatabaseAccess
             return list;
         }
 
-        public void SaveItem(ArtPiece piece)
-        {
-            throw new NotImplementedException();
-        }
-
-
-        public void DeleteItem(int id)
-        {
-            throw new NotImplementedException();
-        }
-
+        /// <summary>
+        /// Metoda pro záskání všech umelecckých děl, které byly vytvořeny umělcem s urřitým id.
+        /// </summary>
+        /// <param name="artistId">Id umělce od kterého chceme získat umělecká díla.</param>
+        /// <returns>List všech uměleckých děl patřících k určitému umělci.</returns>
         public List<ArtPiece> GetListByArtistId(int artistId)
         {
             var list = new List<ArtPiece>();
@@ -113,6 +111,11 @@ namespace DatabaseAccess
             return list;
         }
 
+        /// <summary>
+        /// Metoda pro získání všech uměleckých děl nacházejicích se na učité výstavě.
+        /// </summary>
+        /// <param name="exhibitionId">Id výstavy kde se díla nachází.</param>
+        /// <returns>List uměleckých děl nacházejicích se na dané výstavě.</returns>
         public List<ArtPiece> GetListByExhibitionId(int exhibitionId)
         {
             var list = new List<ArtPiece>();
@@ -163,6 +166,10 @@ namespace DatabaseAccess
             return list;
         }
 
+        /// <summary>
+        /// List všech děl nacházejicích se v depozitáři (nejsou vystavena na žádné výstavě).
+        /// </summary>
+        /// <returns>List všech děl, které nejsou na žádné výstavě.</returns>
         public List<ArtPiece> GetListInStorage()
         {
             var list = new List<ArtPiece>();
@@ -205,6 +212,11 @@ namespace DatabaseAccess
             return list;
         }
 
+        /// <summary>
+        /// Metoda pro zisk všech uměleckých děl, která se nacházi v určitém prodeji.
+        /// </summary>
+        /// <param name="saleId"> Id prodeje ke kterému díla patrí.</param>
+        /// <returns>List umělecjých děl patřících k určitému prodeji.</returns>
         public List<ArtPiece> GetListBySaleId(int saleId)
         {
             var list = new List<ArtPiece>();
@@ -255,6 +267,10 @@ namespace DatabaseAccess
             return list;
         }
 
+        /// <summary>
+        /// Metoda pro získání všech neprodaných děl.
+        /// </summary>
+        /// <returns>List uměleckých děl, které nebyly prodány.</returns>
         public List<ArtPiece> GetListUnsold()
         {
             var list = new List<ArtPiece>();
@@ -298,8 +314,11 @@ namespace DatabaseAccess
         }
 
 
-
-
+        /// <summary>
+        /// Metoda pro přidání určítého uměleckého díla na výstavu.
+        /// </summary>
+        /// <param name="idArtpiece"> Id uměleckého díla.</param>
+        /// <param name="idExhibition">Id výstavy.</param>
         public void AddArtPieceToExhibition(int idArtpiece, int idExhibition)
         {
             using (var transaction = ConnectionManager.Connection.BeginTransaction())
@@ -329,12 +348,8 @@ namespace DatabaseAccess
                             Value = idExhibition
                         };
                         command.Parameters.Add(paramIdExhib);
-
-                        // Provedení procedury
                         command.ExecuteNonQuery();
                     }
-
-                    // Commit transakce
                     transaction.Commit();
                 }
                 catch
@@ -345,6 +360,11 @@ namespace DatabaseAccess
             }
         }
 
+        /// <summary>
+        /// Metoda pro odebrání díla z výstavy.
+        /// </summary>
+        /// <param name="idArtpiece">Id uměleckého díla.</param>
+        /// <param name="idExhibition">Id výstavy</param>
         public void RemoveArtPieceFromExhibition(int idArtpiece, int idExhibition)
         {
             using (var transaction = ConnectionManager.Connection.BeginTransaction())
@@ -375,11 +395,9 @@ namespace DatabaseAccess
                         };
                         command.Parameters.Add(paramIdExhib);
 
-                        // Provedení procedury
                         command.ExecuteNonQuery();
                     }
 
-                    // Commit transakce
                     transaction.Commit();
                 }
                 catch
@@ -391,6 +409,12 @@ namespace DatabaseAccess
 
         }
 
+
+        /// <summary>
+        /// Metoda pro přidání uměleckého díla  určitému prodeji.
+        /// </summary>
+        /// <param name="idArtPiece">Id uměleckého díla.</param>
+        /// <param name="idSale">Id prodeje.</param>
         public void AddArtPieceToSale(int idArtPiece, int idSale)
         {
             using (var transaction = ConnectionManager.Connection.BeginTransaction())
@@ -421,11 +445,9 @@ namespace DatabaseAccess
                         };
                         command.Parameters.Add(paramIdSale);
 
-                        // Provedení procedury
                         command.ExecuteNonQuery();
                     }
 
-                    // Commit transakce
                     transaction.Commit();
                 }
                 catch
@@ -436,6 +458,10 @@ namespace DatabaseAccess
             }
         }
 
+        /// <summary>
+        /// Metoda pro odebrání díla z prodeje.
+        /// </summary>
+        /// <param name="idArtPiece">Id díla k odebrání</param>
         public void RemoveArtPieceFromSale(int idArtPiece)
         {
             using (var transaction = ConnectionManager.Connection.BeginTransaction())
@@ -456,12 +482,8 @@ namespace DatabaseAccess
                             Value = idArtPiece
                         };
                         command.Parameters.Add(paramIdArt);
-
-                        // Provedení procedury
                         command.ExecuteNonQuery();
                     }
-
-                    // Commit transakce
                     transaction.Commit();
                 }
                 catch

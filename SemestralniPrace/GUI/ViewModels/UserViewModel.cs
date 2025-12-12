@@ -17,7 +17,7 @@ namespace GUI.ViewModels
     {
         private readonly UserRepository repository = new UserRepository();
         private readonly CounterRepository counterRep = new CounterRepository();
-        private readonly HomeViewRepository homeRep = new HomeViewRepository();
+        private readonly UtilityRepository homeRep = new UtilityRepository();
 
 
         private List<User> _allUsers = new();

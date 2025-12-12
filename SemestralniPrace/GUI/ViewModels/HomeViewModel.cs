@@ -13,7 +13,7 @@ namespace GUI.ViewModels
 {
     public partial class HomeViewModel : ObservableObject
     {
-        private readonly HomeViewRepository repo = new HomeViewRepository();
+        private readonly UtilityRepository repo = new UtilityRepository();
 
         private int amountOfNew = 10;
 
@@ -24,7 +24,7 @@ namespace GUI.ViewModels
         private ObservableCollection<NewArtPiece> newestArtworks = new();
 
         [ObservableProperty]
-        private GaleryStatistic stats = new();
+        private GaleryStatistics stats = new();
 
         public HomeViewModel()
         {
