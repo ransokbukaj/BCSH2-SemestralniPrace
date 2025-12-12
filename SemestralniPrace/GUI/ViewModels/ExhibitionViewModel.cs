@@ -18,6 +18,7 @@ namespace GUI.ViewModels
         private readonly ExhibitionRepository repository = new ExhibitionRepository();
         private readonly ArtPieceRepository artRepo = new ArtPieceRepository();
 
+        private List<Exhibition> _allExhibitions = new();
         [ObservableProperty]
         private ObservableCollection<Exhibition> exhibitions = new();
 
@@ -35,6 +36,14 @@ namespace GUI.ViewModels
 
         [ObservableProperty]
         private ArtPiece selectedArtPieceToAdd;
+
+        [ObservableProperty]
+        private string searchText;
+
+        partial void OnSearchTextChanged(string value)
+        {
+            ApplyFilter();
+        }
 
         partial void OnSelectedExhibitionChanged(Exhibition value)
         {
@@ -104,8 +113,30 @@ namespace GUI.ViewModels
         {
             ErrorHandler.SafeExecute(() =>
             {
-                Exhibitions = new ObservableCollection<Exhibition>(repository.GetList());
+                _allExhibitions = repository.GetList();
+                //Exhibitions = new ObservableCollection<Exhibition>(repository.GetList());
+                ApplyFilter();
             }, "Načtení výstav selhalo");
+        }
+
+        private void ApplyFilter()
+        {
+            if (string.IsNullOrWhiteSpace(SearchText))
+            {
+                Exhibitions = new ObservableCollection<Exhibition>(_allExhibitions);
+            }
+            else
+            {
+                var text = SearchText.Trim().ToLower();
+
+                var filtered = _allExhibitions
+                    .Where(e =>
+                        e.Name != null &&
+                        e.Name.ToLower().Contains(text))
+                    .ToList();
+
+                Exhibitions = new ObservableCollection<Exhibition>(filtered);
+            }
         }
 
         [RelayCommand]

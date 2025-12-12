@@ -19,11 +19,22 @@
         </Grid.ColumnDefinitions>
 
         <!-- HLAVIČKA -->
-        <TextBlock Grid.Row="0" Grid.ColumnSpan="2"
-                   Text="Výstavy"
-                   FontSize="24"
-                   FontWeight="Bold"
-                   Margin="0,0,0,10"/>
+        <StackPanel Grid.Row="0"
+            Grid.ColumnSpan="2"
+            Orientation="Horizontal"
+            VerticalAlignment="Center"
+            Margin="0,0,0,10">
+
+        <TextBlock Text="Výstavy"
+               FontSize="24"
+               FontWeight="Bold"
+               VerticalAlignment="Center"/>
+
+        <TextBox Width="250"
+             Margin="20,0,0,0"
+             VerticalAlignment="Center"
+             Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"/>
+        </StackPanel>
 
         <!-- LEVÁ STRANA: seznam výstav -->
         <DataGrid Grid.Row="1" Grid.Column="0"
