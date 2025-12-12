@@ -12,7 +12,7 @@ namespace DatabaseAccess.Interface
         List<Artist> GetList();
 
         List<Artist> GetListByArtPieceId(int id);
-
+        List<Artist> GetAvailableMentors(int idOfArtist);
         void SaveItem(Artist artist);
 
         void DeleteItem(int id);

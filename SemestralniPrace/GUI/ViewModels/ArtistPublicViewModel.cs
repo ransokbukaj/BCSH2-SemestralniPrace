@@ -1,4 +1,4 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using DatabaseAccess;
 using Entities;
@@ -26,6 +26,12 @@ namespace GUI.ViewModels
         [ObservableProperty]
         private ArtistStatistic stat;
 
+        [ObservableProperty]
+        private MentorBranchStatistics mentorBranch;
+
+        [ObservableProperty]
+        private MostSuccesfulMentore mostSuccesfulMentore;
+
         public ArtistPublicViewModel()
         {
             Load();
@@ -38,8 +44,15 @@ namespace GUI.ViewModels
                 ErrorHandler.SafeExecute(() =>
                 {
                     ArtPieces = new ObservableCollection<ArtPiece>(artRepo.GetListByArtistId(SelectedArtist.Id));
-                    Stat = homeRep.GetArtistStatistic(SelectedArtist.Id);
+                    
                 }, "Načtení děl umělce selhalo");
+
+                ErrorHandler.SafeExecute(() =>
+                {
+                    Stat = homeRep.GetArtistStatistic(SelectedArtist.Id);
+                    MentorBranch = homeRep.GetMentorBranchStatics(SelectedArtist.Id);
+                    MostSuccesfulMentore = homeRep.GetMostSuccesfulMentore(SelectedArtist.Id);
+                }, "Načtení výpisu informací");
             }
         }
 

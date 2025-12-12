@@ -200,8 +200,6 @@ namespace DatabaseAccess
             }
         }
 
-
-
         public MentorBranchStatistics GetMentorBranchStatics(int id)
         {
             using (var command = ConnectionManager.Connection.CreateCommand())
@@ -289,14 +287,15 @@ namespace DatabaseAccess
                 {
                     ParameterName = "o_jmenopotomek",
                     OracleDbType = OracleDbType.Varchar2,
-                    Direction = ParameterDirection.Output
+                    Direction = ParameterDirection.Output,
+                    Size = 5000
                 };
                 command.Parameters.Add(nameOfMentore);
 
                 var amountOfArt = new OracleParameter
                 {
                     ParameterName = "o_pocet_del",
-                    OracleDbType = OracleDbType.Double,
+                    OracleDbType = OracleDbType.Int32,
                     Direction = ParameterDirection.Output
                 };
                 command.Parameters.Add(amountOfArt);
@@ -305,15 +304,38 @@ namespace DatabaseAccess
                 command.ExecuteNonQuery();
 
                 // Naplnění objektu
+                // o_idpotomek (NUMBER)
+                int? potomekId = null;
+                if (idOfMentore.Value != DBNull.Value)
+                {
+                    var od = (OracleDecimal)idOfMentore.Value;
+                    potomekId = od.IsNull ? (int?)null : od.ToInt32();
+                }
+
+                // o_jmenopotomek (VARCHAR2)
+                string? potomekJmeno = null;
+                if (nameOfMentore.Value != DBNull.Value)
+                {
+                    var os = (OracleString)nameOfMentore.Value;
+                    potomekJmeno = os.IsNull ? null : os.Value;
+                }
+
+                // o_pocet_del (NUMBER)
+                int? pocetDel = null;
+                if (amountOfArt.Value != DBNull.Value)
+                {
+                    var od = (OracleDecimal)amountOfArt.Value;
+                    pocetDel = od.IsNull ? (int?)null : od.ToInt32();
+                }
+
                 var result = new MostSuccesfulMentore
                 {
-                    ArtistId = ((OracleDecimal)idOfMentore.Value).ToInt32(),
-                    ArtistName = nameOfMentore.Value.ToString(),
-                    AmountOfArtPieces = ((OracleDecimal)amountOfArt.Value).ToInt32(),
-
+                    ArtistId = potomekId ?? 0,          // nebo změň v entitě na int?
+                    ArtistName = potomekJmeno ,// ?? "",
+                    AmountOfArtPieces = pocetDel// ?? 0
                 };
 
-                return result;
+                return result; // linie umělců
             }
         }
 

@@ -217,7 +217,8 @@ SELECT
     datumumrti AS datum_umrti,
     popis AS popis,
     f_prumerna_cena_dil_autora(idumelec) AS prum_cena,
-    f_pocet_prodanych_del_autora(idumelec) AS prod_dila
+    f_pocet_prodanych_del_autora(idumelec) AS prod_dila,
+    idmentor
 FROM umelci
 ORDER BY prijmeni, jmeno;
 
@@ -252,7 +253,8 @@ SELECT
     u.datumnarozeni AS datum_narozeni,
     u.datumumrti AS datum_umrti,
     u.popis AS popis,
-    ud.idumeleckedilo
+    ud.idumeleckedilo,
+    u.idmentor
 FROM umelci u
 LEFT JOIN umelci_umelecka_dila ud
        ON ud.idumelec = u.idumelec

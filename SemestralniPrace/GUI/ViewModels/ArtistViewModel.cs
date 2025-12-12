@@ -24,7 +24,11 @@ namespace GUI.ViewModels
         private ObservableCollection<ArtPiece> artPieces = new();
 
         [ObservableProperty]
+        private ObservableCollection<Artist> mentors = new();
+
+        [ObservableProperty]
         private Artist selectedArtist;
+
 
         public ArtistViewModel()
         {
@@ -39,6 +43,7 @@ namespace GUI.ViewModels
                 {
                     ArtPieces = new ObservableCollection<ArtPiece>(artRepo.GetListByArtistId(SelectedArtist.Id));
                 }, "Načtení děl umělce selhalo");
+                Mentors = new ObservableCollection<Artist>(repository.GetAvailableMentors(SelectedArtist.Id));
             }
         }
 
@@ -109,6 +114,16 @@ namespace GUI.ViewModels
                 repository.SaveItem(SelectedArtist);
                 Load();
             }, "Uložení umělce selhalo.");
+        }
+
+        [RelayCommand]
+        private void RemoveMentor()
+        {
+            if(SelectedArtist != null)
+            {
+                SelectedArtist.IdOfMentor = null;
+                Mentors = new ObservableCollection<Artist>(repository.GetAvailableMentors(SelectedArtist.Id));
+            }
         }
 
         [RelayCommand]

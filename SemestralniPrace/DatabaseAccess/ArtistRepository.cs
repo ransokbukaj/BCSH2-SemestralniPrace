@@ -26,7 +26,8 @@ namespace DatabaseAccess
                         datum_umrti,
                         popis,
                         prum_cena,
-                        prod_dila
+                        prod_dila,
+                        idmentor
                     FROM v_umelci";
 
                 using (var reader = command.ExecuteReader())
@@ -44,7 +45,10 @@ namespace DatabaseAccess
                                 : Convert.ToDateTime(reader["datum_umrti"]),
                             Description = reader["popis"] == DBNull.Value ? null : reader["popis"].ToString(),
                             AvgPrice = Convert.ToDouble(reader["prum_cena"]),
-                            SoldPieces = Convert.ToInt32(reader["prod_dila"])
+                            SoldPieces = Convert.ToInt32(reader["prod_dila"]),
+                            IdOfMentor = reader["idmentor"] == DBNull.Value
+                                        ? (int?)null
+                                        : Convert.ToInt32(reader["idmentor"])
                         });
                     }
                 }
@@ -118,6 +122,19 @@ namespace DatabaseAccess
                         };
                         command.Parameters.Add(paramPopis);
 
+                        var paramMentor = new OracleParameter
+                        {
+                            ParameterName = "p_idmentor",
+                            OracleDbType = OracleDbType.Int32,
+                            Direction = System.Data.ParameterDirection.Input,
+                            Value = artist.IdOfMentor.HasValue
+                                    ? artist.IdOfMentor.Value
+                                    : (object)DBNull.Value
+                        };
+                        command.Parameters.Add(paramMentor);
+
+
+
                         // Provedení procedury
                         command.ExecuteNonQuery();
                     }
@@ -180,7 +197,8 @@ namespace DatabaseAccess
                         prijmeni,
                         datum_narozeni,
                         datum_umrti,
-                        popis
+                        popis,
+                        idmentor
                     FROM v_umelci_dila
                     WHERE idumeleckedilo = :idumldila";
 
@@ -206,7 +224,10 @@ namespace DatabaseAccess
                             DateOfDeath = reader["datum_umrti"] == DBNull.Value
                                 ? DateTime.MinValue
                                 : Convert.ToDateTime(reader["datum_umrti"]),
-                            Description = reader["popis"] == DBNull.Value ? null : reader["popis"].ToString()
+                            Description = reader["popis"] == DBNull.Value ? null : reader["popis"].ToString(),
+                            IdOfMentor = reader["idmentor"] == DBNull.Value
+                                        ? (int?)null
+                                        : Convert.ToInt32(reader["idmentor"])
 
                         });
                     }
@@ -304,5 +325,59 @@ namespace DatabaseAccess
                 }
             }
         }
+
+
+
+        public List<Artist> GetAvailableMentors(int idOfArtist)
+        {
+            var list = new List<Artist>();
+            using (var command = ConnectionManager.Connection.CreateCommand())
+            {
+                command.CommandText = @"
+                    SELECT 
+                        id,
+                        jmeno,
+                        prijmeni,
+                        datum_narozeni,
+                        datum_umrti,
+                        popis,
+                        prum_cena,
+                        prod_dila,
+                        idmentor
+                    FROM v_umelci
+                    WHERE id != :artistId
+                    AND (idmentor IS NULL OR idmentor != :artistId) ";
+
+                var param = command.CreateParameter();
+                param.ParameterName = "artistId";
+                param.Value = idOfArtist;
+                command.Parameters.Add(param);
+
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        list.Add(new Artist
+                        {
+                            Id = Convert.ToInt32(reader["id"]),
+                            FirstName = reader["jmeno"].ToString(),
+                            LastName = reader["prijmeni"].ToString(),
+                            DateOfBirth = Convert.ToDateTime(reader["datum_narozeni"]),
+                            DateOfDeath = reader["datum_umrti"] == DBNull.Value
+                                ? DateTime.MinValue
+                                : Convert.ToDateTime(reader["datum_umrti"]),
+                            Description = reader["popis"] == DBNull.Value ? null : reader["popis"].ToString(),
+                            AvgPrice = Convert.ToDouble(reader["prum_cena"]),
+                            SoldPieces = Convert.ToInt32(reader["prod_dila"]),
+                            IdOfMentor = reader["idmentor"] == DBNull.Value
+                                        ? (int?)null
+                                        : Convert.ToInt32(reader["idmentor"])
+                        });
+                    }
+                }
+            }
+            return list;
+        }
     }
+    
 }

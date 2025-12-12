@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d"
              Background="White"
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="700" d:DesignWidth="800">
     <Grid Margin="10">
         <!-- Rozdělení okna: hlavička, obsah, spodní tlačítka -->
         <Grid.RowDefinitions>
@@ -90,13 +90,13 @@
 
                 <StackPanel Orientation="Horizontal" Margin="0,10,0,5">
                     <TextBlock Text="Průměrná cena díla:" Width="150" VerticalAlignment="Center"/>
-                    <TextBox  Text="{Binding SelectedArtist.AvgPrice, UpdateSourceTrigger=PropertyChanged}"
+                    <TextBox  IsReadOnly="True" Text="{Binding SelectedArtist.AvgPrice, UpdateSourceTrigger=PropertyChanged}"
                     Width="150"/>
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" Margin="0,10,0,5">
                     <TextBlock Text="Počet prodaných děl:" Width="150" VerticalAlignment="Center"/>
-                    <TextBox  Text="{Binding SelectedArtist.SoldPieces, UpdateSourceTrigger=PropertyChanged}"
+                    <TextBox IsReadOnly="True" Text="{Binding SelectedArtist.SoldPieces, UpdateSourceTrigger=PropertyChanged}"
                     Width="150"/>
                 </StackPanel>
 
@@ -106,6 +106,22 @@
                          TextWrapping="Wrap"
                          Height="100"
                          VerticalScrollBarVisibility="Auto"/>
+
+                <!-- Mentor -->
+                <StackPanel Orientation="Horizontal" Margin="0,10,0,5">
+                    <TextBlock Text="Mentor:" Width="50" VerticalAlignment="Center"/>
+
+                    <ComboBox Width="220"
+                      ItemsSource="{Binding Mentors}"
+                      SelectedValue="{Binding SelectedArtist.IdOfMentor, Mode=TwoWay}"
+                      SelectedValuePath="Id"
+                      DisplayMemberPath="FullName"
+                      Margin="0,0,10,0"/>   
+
+                    <Button Content="Odebrat"
+                        Width="70"
+                        Command="{Binding RemoveMentorCommand}"/>   
+                </StackPanel>
 
                 <!-- Umělecká díla umělce -->
                 <TextBlock Text="Umělecká díla umělce"

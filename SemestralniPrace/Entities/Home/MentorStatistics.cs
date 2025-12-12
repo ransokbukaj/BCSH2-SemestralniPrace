@@ -15,8 +15,8 @@ namespace Entities.Home
 
     public class MostSuccesfulMentore
     {
-        public int ArtistId { get; set; }
-        public string ArtistName { get; set; }
-        public int AmountOfArtPieces { get; set; }
+        public int? ArtistId { get; set; }
+        public string? ArtistName { get; set; }
+        public int? AmountOfArtPieces { get; set; }
     }
 }

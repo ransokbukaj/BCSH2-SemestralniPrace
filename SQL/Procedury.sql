@@ -47,35 +47,38 @@ CREATE OR REPLACE PROCEDURE p_trzba_mentorske_vetve(
     o_trzba_celkem     OUT NUMBER
 ) IS
 BEGIN
-    -- 1) Nejprve spočítáme počet umělců ve větvi (mentor + žáci)
-    WITH strom AS (
-        SELECT idumelec
-        FROM   umelci
-        START WITH idumelec = p_idmentor
-        CONNECT BY PRIOR idumelec = idmentor   -- mentor -> žáci
-    )
-    SELECT COUNT(*)    -- tady už stačí COUNT(*)
-    INTO   o_pocet_umelcu
-    FROM   strom;
-
-    -- 2) A teď zvlášť spočítáme prodeje a tržbu celé větve
+    -- 1) počet umělců ve větvi (mentor + žáci)
     WITH strom AS (
         SELECT idumelec
         FROM   umelci
         START WITH idumelec = p_idmentor
         CONNECT BY PRIOR idumelec = idmentor
     )
-    SELECT NVL(COUNT(p.idprodej), 0),
+    SELECT COUNT(*)
+    INTO   o_pocet_umelcu
+    FROM   strom;
+
+    -- 2) unikátní prodeje a tržba (bez duplicit z M:N)
+    WITH strom AS (
+        SELECT idumelec
+        FROM   umelci
+        START WITH idumelec = p_idmentor
+        CONNECT BY PRIOR idumelec = idmentor
+    ),
+    prodeje_vetve AS (
+        SELECT DISTINCT d.idprodej
+        FROM   strom s
+               JOIN umelci_umelecka_dila ud ON ud.idumelec = s.idumelec
+               JOIN umelecka_dila d         ON d.idumeleckedilo = ud.idumeleckedilo
+        WHERE  d.idprodej IS NOT NULL
+    )
+    SELECT NVL(COUNT(*), 0),
            NVL(SUM(p.cena), 0)
     INTO   o_pocet_prodeju,
            o_trzba_celkem
-    FROM   strom s
-           JOIN umelci_umelecka_dila ud
-             ON ud.idumelec = s.idumelec
-           JOIN umelecka_dila d
-             ON d.idumeleckedilo = ud.idumeleckedilo
-           LEFT JOIN prodeje p              
-             ON p.idprodej = d.idprodej;
+    FROM   prodeje_vetve pv
+           JOIN prodeje p ON p.idprodej = pv.idprodej;
+
 EXCEPTION
     WHEN NO_DATA_FOUND THEN
         o_pocet_umelcu  := 0;
@@ -83,7 +86,6 @@ EXCEPTION
         o_trzba_celkem  := 0;
 END;
 /
-
 
 
 CREATE OR REPLACE PROCEDURE p_nejuspesnejsi_potomek(
@@ -1297,58 +1299,79 @@ END p_delete_vzdelavaci_program;
 
 
 CREATE OR REPLACE PROCEDURE p_save_umelec(
-    p_idumelec IN umelci.idumelec%TYPE,
-    p_jmeno IN umelci.jmeno%TYPE,
-    p_prijmeni IN umelci.prijmeni%TYPE,
-    p_datumnarozeni IN umelci.datumnarozeni%TYPE,
-    p_datumumrti IN umelci.datumumrti%TYPE,
-    p_popis IN umelci.popis%TYPE
+    p_idumelec       IN umelci.idumelec%TYPE,
+    p_jmeno          IN umelci.jmeno%TYPE,
+    p_prijmeni       IN umelci.prijmeni%TYPE,
+    p_datumnarozeni  IN umelci.datumnarozeni%TYPE,
+    p_datumumrti     IN umelci.datumumrti%TYPE,
+    p_popis          IN umelci.popis%TYPE,
+    p_idmentor       IN umelci.idmentor%TYPE
 ) AS
-    v_count NUMBER;
+    v_count        NUMBER;
+    v_mentor_count NUMBER;
 BEGIN
     -- Kontrola, že datum úmrtí není dříve než datum narození
     IF p_datumumrti IS NOT NULL AND p_datumnarozeni > p_datumumrti THEN
         RAISE_APPLICATION_ERROR(-20090, 'Datum narození nemůže být pozdější než datum úmrtí.');
     END IF;
-    
+
     -- Kontrola, že datum narození není v budoucnosti
     IF p_datumnarozeni > SYSDATE THEN
         RAISE_APPLICATION_ERROR(-20091, 'Datum narození nemůže být v budoucnosti.');
     END IF;
-    
+
+    -- Mentor nesmí být on sám
+    IF p_idumelec IS NOT NULL AND p_idumelec > 0 AND p_idmentor = p_idumelec THEN
+        RAISE_APPLICATION_ERROR(-20093, 'Umělec nemůže být sám sobě mentorem.');
+    END IF;
+
+    -- Pokud je mentor vyplněn, musí existovat
+    IF p_idmentor IS NOT NULL THEN
+        SELECT COUNT(*)
+        INTO v_mentor_count
+        FROM umelci
+        WHERE idumelec = p_idmentor;
+
+        IF v_mentor_count = 0 THEN
+            RAISE_APPLICATION_ERROR(-20094, 'Mentor s ID ' || p_idmentor || ' neexistuje.');
+        END IF;
+    END IF;
+
     -- Kontrola, zda umělec s daným ID existuje
     IF p_idumelec IS NOT NULL AND p_idumelec > 0 THEN
         SELECT COUNT(*) INTO v_count
         FROM umelci
         WHERE idumelec = p_idumelec;
-        
+
         IF v_count > 0 THEN
-            -- UPDATE - umělec existuje
+            -- UPDATE
             UPDATE umelci
             SET jmeno = p_jmeno,
                 prijmeni = p_prijmeni,
                 datumnarozeni = p_datumnarozeni,
                 datumumrti = p_datumumrti,
-                popis = p_popis
+                popis = p_popis,
+                idmentor = p_idmentor
             WHERE idumelec = p_idumelec;
         ELSE
-            -- ID bylo zadáno, ale záznam neexistuje
             RAISE_APPLICATION_ERROR(-20092, 'Umělec s ID ' || p_idumelec || ' neexistuje.');
         END IF;
     ELSE
-        -- INSERT - vytvoření nového umělce
+        -- INSERT
         INSERT INTO umelci (
             jmeno,
             prijmeni,
             datumnarozeni,
             datumumrti,
-            popis
+            popis,
+            idmentor
         ) VALUES (
             p_jmeno,
             p_prijmeni,
             p_datumnarozeni,
             p_datumumrti,
-            p_popis
+            p_popis,
+            p_idmentor
         );
     END IF;
 END p_save_umelec;
