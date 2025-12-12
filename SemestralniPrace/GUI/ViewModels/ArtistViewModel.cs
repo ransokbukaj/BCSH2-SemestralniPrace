@@ -169,7 +169,7 @@ namespace GUI.ViewModels
             {
                 repository.DeleteItem(SelectedArtist.Id);
                 Load();
-            }, "Smazání umělce selhalo. Umělec má pravděpodobně přiřazená díla.");
+            }, "Smazání umělce selhalo. Umělec má pravděpodobně přiřazená díla, nebo je mentorem.");
         }
     }
 }

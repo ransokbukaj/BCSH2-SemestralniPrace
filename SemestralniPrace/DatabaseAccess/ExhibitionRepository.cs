@@ -11,6 +11,10 @@ namespace DatabaseAccess
 {
     public class ExhibitionRepository : IExhibitionRepository
     {
+        /// <summary>
+        /// Metoda pro získání všech výstav z databáe
+        /// </summary>
+        /// <returns>List všech výstav z databáze.</returns>
         public List<Exhibition> GetList()
         {
             var list = new List<Exhibition>();
@@ -49,6 +53,62 @@ namespace DatabaseAccess
             return list;
         }
 
+        /// <summary>
+        /// Metoda k získání všech výstav patřících určitému programu.
+        /// </summary>
+        /// <param name="programId">Id programu ke kterému výstavy patří.</param>
+        /// <returns></returns>
+        public List<Exhibition> GetListByProgramId(int programId)
+        {
+            var list = new List<Exhibition>();
+            using (var command = ConnectionManager.Connection.CreateCommand())
+            {
+                command.CommandText = @"
+                    SELECT 
+                        id,
+                        nazev,
+                        datum_od,
+                        datum_do,
+                        popis,
+                        id_vzdelavaci_program
+                    FROM v_vystavy
+                    WHERE id_vzdelavaci_program = :programId";
+
+                var paramId = new OracleParameter
+                {
+                    ParameterName = "programId",
+                    OracleDbType = OracleDbType.Int32,
+                    Value = programId
+                };
+                command.Parameters.Add(paramId);
+
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        list.Add(new Exhibition
+                        {
+                            Id = Convert.ToInt32(reader["id"]),
+                            Name = reader["nazev"].ToString(),
+                            From = Convert.ToDateTime(reader["datum_od"]),
+                            To = Convert.ToDateTime(reader["datum_do"]),
+                            Description = reader["popis"] == DBNull.Value ? null : reader["popis"].ToString(),
+                            EducationProgramId = reader["id_vzdelavaci_program"] == DBNull.Value
+                                ? 0
+                                : Convert.ToInt32(reader["id_vzdelavaci_program"])
+                        });
+                    }
+                }
+            }
+            return list;
+        }
+
+
+
+        /// <summary>
+        /// Metodat pro přidání nebo úpravu výstavy
+        /// </summary>
+        /// <param name="exhibition">Výstava k přidání nebo úpravě.</param>
         public void SaveItem(Exhibition exhibition)
         {
             using (var transaction = ConnectionManager.Connection.BeginTransaction())
@@ -115,11 +175,8 @@ namespace DatabaseAccess
                         };
                         command.Parameters.Add(paramProgram);
 
-                        // Provedení procedury
                         command.ExecuteNonQuery();
                     }
-
-                    // Commit transakce
                     transaction.Commit();
                 }
                 catch
@@ -130,6 +187,11 @@ namespace DatabaseAccess
             }
         }
 
+
+        /// <summary>
+        /// Metoda k odstranění určité výstavy.
+        /// </summary>
+        /// <param name="id">Id výstavy k odstranění.</param>
         public void DeleteItem(int id)
         {
             using (var transaction = ConnectionManager.Connection.BeginTransaction())
@@ -150,12 +212,9 @@ namespace DatabaseAccess
                             Value = id
                         };
                         command.Parameters.Add(paramId);
-
-                        // Provedení procedury
                         command.ExecuteNonQuery();
                     }
 
-                    // Commit transakce
                     transaction.Commit();
                 }
                 catch
@@ -166,52 +225,12 @@ namespace DatabaseAccess
             }
         }
 
-        public List<Exhibition> GetListByProgramId(int programId)
-        {
-            var list = new List<Exhibition>();
-            using (var command = ConnectionManager.Connection.CreateCommand())
-            {
-                command.CommandText = @"
-                    SELECT 
-                        id,
-                        nazev,
-                        datum_od,
-                        datum_do,
-                        popis,
-                        id_vzdelavaci_program
-                    FROM v_vystavy
-                    WHERE id_vzdelavaci_program = :programId";
-
-                var paramId = new OracleParameter
-                {
-                    ParameterName = "programId",
-                    OracleDbType = OracleDbType.Int32,
-                    Value = programId
-                };
-                command.Parameters.Add(paramId);
-
-                using (var reader = command.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        list.Add(new Exhibition
-                        {
-                            Id = Convert.ToInt32(reader["id"]),
-                            Name = reader["nazev"].ToString(),
-                            From = Convert.ToDateTime(reader["datum_od"]),
-                            To = Convert.ToDateTime(reader["datum_do"]),
-                            Description = reader["popis"] == DBNull.Value ? null : reader["popis"].ToString(),
-                            EducationProgramId = reader["id_vzdelavaci_program"] == DBNull.Value
-                                ? 0
-                                : Convert.ToInt32(reader["id_vzdelavaci_program"])
-                        });
-                    }
-                }
-            }
-            return list;
-        }
-
-
+       
+        /// <summary>
+        /// Metoda pro přidání výstavy do určitého vzdělávacího programu.
+        /// </summary>
+        /// <param name="idExhibition">Id výstavy k přidání</param>
+        /// <param name="idProgram">Id programu do kterého se má přidat.</param>
         public void AddExhibitionToProgram(int idExhibition, int idProgram)
         {
             using (var transaction = ConnectionManager.Connection.BeginTransaction())
@@ -242,11 +261,9 @@ namespace DatabaseAccess
                         };
                         command.Parameters.Add(paramIdProg);
 
-                        // Provedení procedury
                         command.ExecuteNonQuery();
                     }
 
-                    // Commit transakce
                     transaction.Commit();
                 }
                 catch
@@ -257,6 +274,10 @@ namespace DatabaseAccess
             }
         }
 
+        /// <summary>
+        /// Metoda k odebrání výstavy ze vzdělávacího programu.
+        /// </summary>
+        /// <param name="idEx">Id výstavy k odebrání.</param>
         public void RemoveExhibitionFromProgram(int idEx)
         {
             using (var transaction = ConnectionManager.Connection.BeginTransaction())
@@ -278,11 +299,9 @@ namespace DatabaseAccess
                         };
                         command.Parameters.Add(paramIdExh);
 
-                        // Provedení procedury
                         command.ExecuteNonQuery();
                     }
 
-                    // Commit transakce
                     transaction.Commit();
                 }
                 catch

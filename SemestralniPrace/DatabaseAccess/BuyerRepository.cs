@@ -11,6 +11,11 @@ namespace DatabaseAccess
 {
     public class BuyerRepository : IBuyerRepository
     {
+
+        /// <summary>
+        /// Metoda pro získání všech kupců z databáze.
+        /// </summary>
+        /// <returns>List všech kupců.</returns>
         public List<Buyer> GetList()
         {
             var list = new List<Buyer>();
@@ -63,6 +68,10 @@ namespace DatabaseAccess
             return list;
         }
 
+        /// <summary>
+        /// Metoda pro přidání nebo upravení určitého kupce.
+        /// </summary>
+        /// <param name="buyer">Kupec k přidání nebo upravení.</param>
         public void SaveItem(Buyer buyer)
         {
             using (var transaction = ConnectionManager.Connection.BeginTransaction())
@@ -128,12 +137,9 @@ namespace DatabaseAccess
                             Value = buyer.Adress.Id
                         };
                         command.Parameters.Add(paramIdAdresa);
-
-                        // Provedení procedury
                         command.ExecuteNonQuery();
                     }
 
-                    // Commit transakce
                     transaction.Commit();
                 }
                 catch
@@ -144,6 +150,10 @@ namespace DatabaseAccess
             }
         }
 
+        /// <summary>
+        /// Metoda pro odstranění kupce.
+        /// </summary>
+        /// <param name="id">Id kupce k odstranění.</param>
         public void DeleteItem(int id)
         {
             using (var transaction = ConnectionManager.Connection.BeginTransaction())

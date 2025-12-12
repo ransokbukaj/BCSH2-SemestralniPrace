@@ -10,6 +10,10 @@ namespace DatabaseAccess
 {
     public class HistoryLogRepository : IHistoryLogRepository
     {
+        /// <summary>
+        /// Metoda k získání celé historie.
+        /// </summary>
+        /// <returns>List se všei záznamy historie.</returns>
         public List<HistoryLog> GetList()
         {
             var list = new List<HistoryLog>();

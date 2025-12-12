@@ -136,7 +136,7 @@ namespace DatabaseAccess
         /// <summary>
         /// Metoda pro odtránění přílohy.
         /// </summary>
-        /// <param name="id">    </param>
+        /// <param name="id">Id přílohy ke smazání.</param>
         public void DeleteItem(int id)
         {
             using (var transaction = ConnectionManager.Connection.BeginTransaction())
@@ -172,7 +172,5 @@ namespace DatabaseAccess
                 }
             }
         }
-
-
     }
 }

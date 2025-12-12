@@ -11,6 +11,10 @@ namespace DatabaseAccess
 {
     public class EducationProgramRepository : IEducationProgramRepository
     {
+        /// <summary>
+        /// Metoda pro získání všech vzdělávacích programů.
+        /// </summary>
+        /// <returns>List všech vzdělávacích programů</returns>
         public List<EducationProgram> GetList()
         {
             var list = new List<EducationProgram>();
@@ -43,6 +47,10 @@ namespace DatabaseAccess
             return list;
         }
 
+        /// <summary>
+        /// Metoda pro přidání nebo uložení vzdělávacího programu
+        /// </summary>
+        /// <param name="educationProgram">Vzdělávací program k přídání nebo úpravě.</param>
         public void SaveItem(EducationProgram educationProgram)
         {
             using (var transaction = ConnectionManager.Connection.BeginTransaction())
@@ -99,12 +107,9 @@ namespace DatabaseAccess
                             Value = string.IsNullOrEmpty(educationProgram.Description) ? (object)DBNull.Value : educationProgram.Description
                         };
                         command.Parameters.Add(paramPopis);
-
-                        // Provedení procedury
                         command.ExecuteNonQuery();
                     }
 
-                    // Commit transakce
                     transaction.Commit();
                 }
                 catch
@@ -115,6 +120,10 @@ namespace DatabaseAccess
             }
         }
 
+        /// <summary>
+        /// Metoda pro odstranění určitého vzdělávacího programu.
+        /// </summary>
+        /// <param name="id"> Id vzdělávacího programu</param>
         public void DeleteItem(int id)
         {
             using (var transaction = ConnectionManager.Connection.BeginTransaction())

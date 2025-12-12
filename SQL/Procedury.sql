@@ -1380,27 +1380,37 @@ END p_save_umelec;
 CREATE OR REPLACE PROCEDURE p_delete_umelec(
     p_idumelec IN umelci.idumelec%TYPE
 ) AS
-    v_count NUMBER;
-    v_dila_count NUMBER;
+    v_count        NUMBER;
+    v_dila_count   NUMBER;
+    v_mentor_count NUMBER;
 BEGIN
     -- Kontrola, zda umělec s daným ID existuje
     SELECT COUNT(*) INTO v_count
     FROM umelci
     WHERE idumelec = p_idumelec;
-    
+
     IF v_count = 0 THEN
         RAISE_APPLICATION_ERROR(-20093, 'Umělec s ID ' || p_idumelec || ' neexistuje.');
     END IF;
-    
+
     -- Kontrola, zda umělec nemá přiřazená umělecká díla
     SELECT COUNT(*) INTO v_dila_count
     FROM umelci_umelecka_dila
     WHERE idumelec = p_idumelec;
-    
+
     IF v_dila_count > 0 THEN
         RAISE_APPLICATION_ERROR(-20094, 'Nelze smazat umělce, který má přiřazená umělecká díla.');
     END IF;
-    
+
+    -- Kontrola, zda je umělec mentor (má potomky)
+    SELECT COUNT(*) INTO v_mentor_count
+    FROM umelci
+    WHERE idmentor = p_idumelec;
+
+    IF v_mentor_count > 0 THEN
+        RAISE_APPLICATION_ERROR(-20095, 'Nelze smazat umělce, protože je mentorem (' || v_mentor_count || ' potomků).');
+    END IF;
+
     -- Odstranění umělce
     DELETE FROM umelci
     WHERE idumelec = p_idumelec;
