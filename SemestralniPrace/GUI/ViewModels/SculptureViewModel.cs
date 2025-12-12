@@ -22,6 +22,8 @@ namespace GUI.ViewModels
         private readonly AttachmentRepository attRep = new AttachmentRepository();
         private readonly ArtistRepository artistRep = new ArtistRepository();
 
+
+        private List<Sculpture> _allSculptures = new();
         [ObservableProperty]
         private ObservableCollection<Sculpture> sculptures = new();
 
@@ -51,6 +53,14 @@ namespace GUI.ViewModels
 
         [ObservableProperty]
         private Artist selectedArtistToRemove;
+
+        [ObservableProperty]
+        private string searchText = string.Empty;
+
+        partial void OnSearchTextChanged(string value)
+        {
+            ApplyFilter();
+        }
 
         partial void OnSelectedSculptureChanged(Sculpture? oldValue, Sculpture newValue)
         {
@@ -244,9 +254,35 @@ namespace GUI.ViewModels
         {
             ErrorHandler.SafeExecute(() =>
             {
-                Sculptures = new ObservableCollection<Sculpture>(repository.GetList());
+                _allSculptures = repository.GetList();
+                //Sculptures = new ObservableCollection<Sculpture>(repository.GetList());
                 Materials = new ObservableCollection<Counter>(counterRep.GetMaterials());
+                ApplyFilter();
             }, "Načtení soch selhalo");
+        }
+
+        private void ApplyFilter()
+        {
+            if (_allSculptures == null)
+                return;
+
+            var text = (SearchText ?? string.Empty).Trim();
+
+            if (string.IsNullOrWhiteSpace(text))
+            {
+                Sculptures = new ObservableCollection<Sculpture>(_allSculptures);
+                return;
+            }
+
+            var lower = text.ToLowerInvariant();
+
+            var filtered = _allSculptures
+                .Where(s =>
+                    (!string.IsNullOrWhiteSpace(s.Name) && s.Name.ToLowerInvariant().Contains(lower))
+                )
+                .ToList();
+
+            Sculptures = new ObservableCollection<Sculpture>(filtered);
         }
 
         [RelayCommand]
