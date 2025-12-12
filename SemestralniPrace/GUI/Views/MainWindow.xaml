@@ -23,7 +23,7 @@
             </Grid>
             <StackPanel Orientation="Vertical" >
                 <Button Content="{Binding LogButtonText}" Command="{Binding UpdateLogCommand}" />
-                <Button Content="Home" Command="{Binding UpdateViewCommand}" CommandParameter="Home" Margin="0 25 0 0" />
+                <Button Content="Domovská stránka" Command="{Binding UpdateViewCommand}" CommandParameter="Home" Margin="0 25 0 0" />
                 <Button Content="Přehled umělců" Command="{Binding UpdateViewCommand}" CommandParameter="ArtistPub"  />
                 
                 <Button Content="Můj profil" Command="{Binding UpdateViewCommand}" CommandParameter="Profil" Visibility="{Binding IsLogged, Converter={StaticResource BoolToVisibilityConverter}}" />

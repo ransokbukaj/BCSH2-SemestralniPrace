@@ -44,7 +44,7 @@ namespace GUI.ViewModels
         public MainViewModel()
         {
             currentViewModel = new HomeViewModel();
-            logButtonText = "Log in";
+            logButtonText = "Pøihlásit se";
         }
 
         partial void OnCurrentUserChanged(User value)
@@ -65,14 +65,14 @@ namespace GUI.ViewModels
                 {
                     UserManager.EndEmulatingUser();
                     CurrentUser = UserManager.CurrentUser;
-                    LogButtonText = "Log out";
+                    LogButtonText = "Odhlásit se";
                 }
                 else
                 {
                     UserManager.LogOut();
                     CurrentViewModel = new HomeViewModel();
                     CurrentUser = UserManager.CurrentUser;
-                    LogButtonText = "Log in";
+                    LogButtonText = "Pøihlásit se";
                 }
                 
             }
@@ -83,7 +83,7 @@ namespace GUI.ViewModels
                 bool log = (bool)dialog.ShowDialog();
                 if (log)
                 {
-                    LogButtonText = "Log out";
+                    LogButtonText = "Odhlásit se";
                     CurrentUser = UserManager.CurrentUser;
                 }
             }
