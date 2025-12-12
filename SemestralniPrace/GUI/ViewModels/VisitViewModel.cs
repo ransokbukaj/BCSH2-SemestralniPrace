@@ -18,6 +18,8 @@ namespace GUI.ViewModels
         private readonly CounterRepository counterRep = new CounterRepository();
         private readonly ExhibitionRepository exhibitRep = new ExhibitionRepository();
 
+
+        private List<Visit> _allVisits = new();
         [ObservableProperty]
         private ObservableCollection<Visit> visits = new();
 
@@ -30,6 +32,15 @@ namespace GUI.ViewModels
         [ObservableProperty]
         private ObservableCollection<Exhibition> exhibitions = new();
 
+        [ObservableProperty]
+        private string searchText = string.Empty;
+
+        partial void OnSearchTextChanged(string value)
+        {
+            ApplyFilter();
+        }
+
+
         public VisitViewModel()
         {
             Load();
@@ -40,10 +51,42 @@ namespace GUI.ViewModels
         {
             ErrorHandler.SafeExecute(() =>
             {
-                Visits = new ObservableCollection<Visit>(_repository.GetList());
+                _allVisits = _repository.GetList();
+                //Visits = new ObservableCollection<Visit>(_repository.GetList());
                 VisitTypes = new ObservableCollection<VisitType>(counterRep.GetVisitTypes());
                 Exhibitions = new ObservableCollection<Exhibition>(exhibitRep.GetList());
+                ApplyFilter();
             }, "Načtení návštěv selhalo");
+        }
+
+        private void ApplyFilter()
+        {
+            var text = (SearchText ?? "").Trim();
+
+            if (string.IsNullOrWhiteSpace(text))
+            {
+                Visits = new ObservableCollection<Visit>(_allVisits);
+                return;
+            }
+
+            var lower = text.ToLowerInvariant();
+
+            var filtered = _allVisits.Where(v =>
+            {
+                // datum jako text (dd.MM.yyyy)
+                var dateText = v.DateOfVisit.ToString("dd.MM.yyyy").ToLowerInvariant();
+
+                // typ návštěvy
+                var typeText = v.VisitType?.Name?.ToLowerInvariant() ?? "";
+
+                // když chceš i id, můžeš přidat:
+                // var idText = v.Id.ToString();
+
+                return dateText.Contains(lower)
+                       || typeText.Contains(lower);
+            }).ToList();
+
+            Visits = new ObservableCollection<Visit>(filtered);
         }
 
         [RelayCommand]
