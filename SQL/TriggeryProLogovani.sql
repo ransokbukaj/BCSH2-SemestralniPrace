@@ -22,7 +22,7 @@ BEGIN
             v_iduzivatel := NULL;
     END;
     
-    -- Pokud není nastavený identifikátor, nepokračuj (systémové operace)
+    -- Pokud není nastavený identifikátor, nepokračuje
     IF v_iduzivatel IS NULL THEN
         RETURN;
     END IF;
@@ -140,7 +140,7 @@ BEGIN
             v_iduzivatel := NULL;
     END;
     
-    -- Pokud není nastavený identifikátor, nepokračuj (registrace/systémové operace)
+    -- Pokud není nastavený identifikátor, nepokračuje
     IF v_iduzivatel IS NULL THEN
         RETURN;
     END IF;
@@ -161,7 +161,7 @@ BEGIN
         END IF;
     END IF;
     
-    -- Pokud nemáme logovat, skonči
+    -- Pokud nemáme logovat, konec
     IF NOT v_log_change THEN
         RETURN;
     END IF;
@@ -295,7 +295,7 @@ BEGIN
             v_iduzivatel := NULL;
     END;
     
-    -- Pokud není nastavený identifikátor, nepokračuj (systémové operace)
+    -- Pokud není nastavený identifikátor, nepokračuje
     IF v_iduzivatel IS NULL THEN
         RETURN;
     END IF;
@@ -380,7 +380,7 @@ BEGIN
             v_iduzivatel := NULL;
     END;
     
-    -- Pokud není nastavený identifikátor, nepokračuj (systémové operace)
+    -- Pokud není nastavený identifikátor, nepokračuje
     IF v_iduzivatel IS NULL THEN
         RETURN;
     END IF;
@@ -481,7 +481,7 @@ BEGIN
             v_iduzivatel := NULL;
     END;
     
-    -- Pokud není nastavený identifikátor, nepokračuj (systémové operace)
+    -- Pokud není nastavený identifikátor, nepokračuje
     IF v_iduzivatel IS NULL THEN
         RETURN;
     END IF;
@@ -625,7 +625,7 @@ BEGIN
             v_iduzivatel := NULL;
     END;
     
-    -- Pokud není nastavený identifikátor, nepokračuj (systémové operace)
+    -- Pokud není nastavený identifikátor, nepokračuje
     IF v_iduzivatel IS NULL THEN
         RETURN;
     END IF;
@@ -757,7 +757,7 @@ BEGIN
             v_iduzivatel := NULL;
     END;
     
-    -- Pokud není nastavený identifikátor, nepokračuj (systémové operace)
+    -- Pokud není nastavený identifikátor, nepokračuje
     IF v_iduzivatel IS NULL THEN
         RETURN;
     END IF;
@@ -852,7 +852,7 @@ BEGIN
             v_iduzivatel := NULL;
     END;
     
-    -- Pokud není nastavený identifikátor, nepokračuj (systémové operace)
+    -- Pokud není nastavený identifikátor, nepokračuje
     IF v_iduzivatel IS NULL THEN
         RETURN;
     END IF;
@@ -963,7 +963,7 @@ BEGIN
             v_iduzivatel := NULL;
     END;
     
-    -- Pokud není nastavený identifikátor, nepokračuj (systémové operace)
+    -- Pokud není nastavený identifikátor, nepokračuje
     IF v_iduzivatel IS NULL THEN
         RETURN;
     END IF;
@@ -1061,7 +1061,7 @@ BEGIN
             v_iduzivatel := NULL;
     END;
     
-    -- Pokud není nastavený identifikátor, nepokračuj (systémové operace)
+    -- Pokud není nastavený identifikátor, nepokračuje
     IF v_iduzivatel IS NULL THEN
         RETURN;
     END IF;
@@ -1171,7 +1171,7 @@ BEGIN
             v_iduzivatel := NULL;
     END;
     
-    -- Pokud není nastavený identifikátor, nepokračuj (systémové operace)
+    -- Pokud není nastavený identifikátor, nepokračuje
     IF v_iduzivatel IS NULL THEN
         RETURN;
     END IF;
@@ -1261,7 +1261,7 @@ BEGIN
             v_iduzivatel := NULL;
     END;
     
-    -- Pokud není nastavený identifikátor, nepokračuj (systémové operace)
+    -- Pokud není nastavený identifikátor, nepokračuje
     IF v_iduzivatel IS NULL THEN
         RETURN;
     END IF;
@@ -1358,7 +1358,7 @@ BEGIN
             v_iduzivatel := NULL;
     END;
     
-    -- Pokud není nastavený identifikátor, nepokračuj (systémové operace)
+    -- Pokud není nastavený identifikátor, nepokračuje
     IF v_iduzivatel IS NULL THEN
         RETURN;
     END IF;
